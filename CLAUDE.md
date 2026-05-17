@@ -166,3 +166,9 @@ grep -ri "serif" colors_and_type.css preview/_card.css ui_kits/  # only sans-ser
 grep -rE "(#446e88|#6491ac|#0db4b9|#7edba5)" --include='*.{js,jsx,css,html}'
 # expect only: tokens/palette.js, colors_and_type.css, assets/*.svg
 ```
+
+## Rules
+
+These must be followed with no exceptions:
+
+1. Do not ever include `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` in commits in this code base.

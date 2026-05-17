@@ -19,15 +19,22 @@ const COLORS_CSS = join(here, "..", "colors_and_type.css");
 
 const BEGIN = "TK-PALETTE-BEGIN";
 const END = "TK-PALETTE-END";
+// Match the delimited form so the file's own header comment (which writes
+// the markers with `*\/` to avoid breaking out) doesn't false-match.
+const BEGIN_MARKER = `/* ${BEGIN} */`;
+const END_MARKER = `/* ${END} */`;
 
 function extractJsonBlock(src) {
-  const start = src.indexOf(BEGIN);
-  const stop = src.indexOf(END);
+  const start = src.indexOf(BEGIN_MARKER);
+  const stop = src.indexOf(END_MARKER);
   if (start < 0 || stop < 0) throw new Error("Sync markers not found.");
-  /* Block is wrapped in `/* MARKER *\/{...}/* MARKER *\/`. Grab between them. */
-  const afterStart = src.indexOf("*/", start) + 2;
-  const beforeStop = src.lastIndexOf("/*", stop);
-  return src.slice(afterStart, beforeStop).trim().replace(/;?\s*$/, "");
+  const afterStart = start + BEGIN_MARKER.length;
+  // Strip inline /* ... */ comments so JSON.parse can read the block —
+  // palette.js annotates groups inline for humans.
+  return src.slice(afterStart, stop)
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .trim()
+    .replace(/;?\s*$/, "");
 }
 
 const jsSrc = readFileSync(PALETTE_JS, "utf8");
@@ -58,7 +65,7 @@ const CSS_MAP = {
 };
 
 const cssLines = Object.entries(tokens).map(
-  ([k, v]) => `  ${(CSS_MAP[k] + ":").padEnd(19)} ${v};`
+  ([k, v]) => `  ${(CSS_MAP[k] + ":").padEnd(18)} ${v};`
 );
 
 const cssBlock = `/* ${BEGIN} — generated from tokens/palette.js. Edit JS, run \`node tokens/sync.mjs\`. */\n${cssLines.join("\n")}\n  /* ${END} */`;
