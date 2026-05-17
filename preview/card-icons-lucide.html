@@ -1,0 +1,64 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .icon-cell {
+    background: var(--tk-ink-soft);
+    border: 1px solid var(--tk-ink-2);
+    border-radius: 8px;
+    padding: 14px 10px 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .icon-cell svg { stroke-width: 1.5; }
+  .icon-cell .n {
+    font-family: var(--tk-font-mono);
+    font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--tk-fg-3);
+  }
+  .scale-row { display: flex; align-items: center; gap: 20px; padding: 14px 18px; background: var(--tk-ink-soft); border: 1px solid var(--tk-ink-2); border-radius: 8px; }
+  .scale-row svg { stroke-width: 1.5; color: var(--tk-fg-2); }
+  .scale-row .px { font-family: var(--tk-font-mono); font-size: 9.5px; color: var(--tk-fg-4); letter-spacing: 0.08em; }
+</style>
+</head>
+<body>
+<div class="col" style="gap:14px">
+
+  <div>
+    <span class="label">lucide · outline · 1.5 stroke · currentColor</span>
+    <div class="hex" style="font-size:10px;margin-top:4px">canonical icon set for product / app surfaces. brand pages stay icon-free.</div>
+  </div>
+
+  <div class="grid" style="grid-template-columns:repeat(8,1fr);gap:10px">
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="n">search</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span class="n">mail</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-cyan)"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span class="n">rss</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="n">arrow-up-right</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span class="n">download</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span class="n">file-text</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-2)"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span class="n">book-open</span></div>
+    <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-cyan)"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg><span class="n">terminal</span></div>
+  </div>
+
+  <div class="scale-row">
+    <span class="label" style="color:var(--tk-fg-4)">scale</span>
+    <div style="display:flex;align-items:flex-end;gap:20px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="px">16</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="px">20</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="px">24</span>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span class="px">32</span>
+      </div>
+    </div>
+    <span class="hex" style="font-size:10px;margin-left:auto">cdn · <code style="font-family:var(--tk-font-mono);color:var(--tk-cyan);font-size:10.5px">unpkg.com/lucide@latest</code></span>
+  </div>
+
+</div>
+</body></html>

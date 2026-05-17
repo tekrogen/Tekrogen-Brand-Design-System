@@ -1,0 +1,332 @@
+/* ============================================================
+ * Tekrogen · Foundations — colors, type, spacing
+ * ============================================================
+ *
+ * Regular (400) weights of Poppins, Manrope, and JetBrains Mono
+ * are self-hosted from /fonts/ (see @font-face below). For 500/600/700
+ * weights, also load Google Fonts BEFORE this file:
+ *
+ *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ *   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Manrope:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+ *
+ * Tekrogen is a sans-only brand — no serif face, no second sans.
+ * Editorial slots (article hero, italic deks) use Poppins 600 + italic.
+ */
+
+/* ─── Self-hosted brand fonts (Regular only — see /fonts/) ── */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/poppins-v24-latin-regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/JetBrainsMono-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/manrope-v20-latin-regular.woff2') format('woff2');
+}
+
+:root {
+  /* ─── Palette block ─── Single source: tokens/palette.js ──── *
+   * The block between TK-PALETTE-BEGIN and TK-PALETTE-END is
+   * generated. Do not edit by hand. To change a value, edit
+   * tokens/palette.js and run `node tokens/sync.mjs`.
+   * See adr/0002-palette-single-source.md.                     */
+/* TK-PALETTE-BEGIN — generated from tokens/palette.js. Edit JS, run `node tokens/sync.mjs`. */
+  --tk-org:          #446e88;
+  --tk-studio:       #6491ac;
+  --tk-com:          #0db4b9;
+  --tk-net:          #7edba5;
+  --tk-body:         #385166;
+  --tk-head:         #3f617b;
+  --tk-cyan:         #1fd5da;
+  --tk-body-inv:     #cad6e0;
+  --tk-head-inv:     #9eb1c0;
+  --tk-org-print:    #3a6079;
+  --tk-studio-print: #5d89a5;
+  --tk-com-print:    #0aa3a8;
+  --tk-net-print:    #6dc491;
+  --tk-body-print:   #2e4356;
+  --tk-ink:          #0e1116;
+  --tk-ink-soft:     #171c24;
+  --tk-ink-2:        #1f2731;
+  --tk-paper:        #fbfcfd;
+  --tk-paper-warm:   #f4ede2;
+  /* TK-PALETTE-END */
+
+  /* ─── Foreground tokens · DARK theme default ──────────────── */
+  --tk-fg-1:         #e7ecf2;  /* primary text on ink */
+  --tk-fg-2:         #cbd5e1;  /* secondary text */
+  --tk-fg-3:         #8a98a8;  /* muted, captions, meta */
+  --tk-fg-4:         #6b7785;  /* very muted, dividers labels */
+  --tk-fg-5:         #5d6975;  /* faint */
+  --tk-bg-1:         var(--tk-ink);
+  --tk-bg-2:         var(--tk-ink-soft);
+  --tk-bg-3:         #0a0d12;       /* deeper than ink, e.g. code blocks */
+  --tk-border:       var(--tk-ink-2);
+
+  /* ─── Semantic / state ────────────────────────────────────── */
+  --tk-accent:       var(--tk-cyan);
+  --tk-link:         var(--tk-cyan);
+  --tk-success:      var(--tk-net);
+  --tk-info:         var(--tk-com);
+  --tk-warning:      #e0a755;
+  --tk-danger:       #d96b5c;
+
+  /* ─── Type · families ─────────────────────────────────────── */
+  --tk-font-sans:    'Poppins', 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --tk-font-mono:    'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --tk-font-editorial: var(--tk-font-sans);  /* editorial = Poppins 600 + italic dek (sans-only brand) */
+
+  /* ─── Type · scale (clamped fluid) ────────────────────────── */
+  --tk-fs-display:   clamp(40px, 5vw, 64px);   /* H1, splash */
+  --tk-fs-h1:        clamp(32px, 3.5vw, 48px);
+  --tk-fs-h2:        28px;
+  --tk-fs-h3:        20px;
+  --tk-fs-h4:        16px;
+  --tk-fs-body:      16px;
+  --tk-fs-body-sm:   14px;
+  --tk-fs-eyebrow:   11px;
+  --tk-fs-meta:      10.5px;
+  --tk-fs-code:      13px;
+
+  /* ─── Type · letter-spacing (signature) ───────────────────── */
+  --tk-ls-wordmark:  0.18em;  /* TEKROGEN, locked */
+  --tk-ls-eyebrow:   0.16em;
+  --tk-ls-caps:      0.14em;
+  --tk-ls-meta:      0.12em;
+  --tk-ls-tight:     -0.02em; /* h1 / display */
+
+  /* ─── Line height ─────────────────────────────────────────── */
+  --tk-lh-tight:     1.05;
+  --tk-lh-snug:      1.2;
+  --tk-lh-body:      1.6;
+  --tk-lh-loose:     1.7;
+
+  /* ─── Spacing scale (4-pt) ────────────────────────────────── */
+  --tk-space-1:      4px;
+  --tk-space-2:      8px;
+  --tk-space-3:      12px;
+  --tk-space-4:      16px;
+  --tk-space-5:      20px;
+  --tk-space-6:      24px;
+  --tk-space-8:      32px;
+  --tk-space-10:     40px;
+  --tk-space-12:     48px;
+  --tk-space-16:     64px;
+  --tk-space-20:     80px;
+  --tk-space-24:     96px;
+
+  /* ─── Radii ───────────────────────────────────────────────── */
+  --tk-radius-xs:    4px;       /* chips, mono badges */
+  --tk-radius-sm:    6px;       /* buttons */
+  --tk-radius-md:    8px;       /* inputs */
+  --tk-radius-lg:    10px;      /* small cards */
+  --tk-radius-xl:    12px;      /* default card */
+  --tk-radius-2xl:   16px;
+  --tk-radius-pill:  9999px;
+
+  /* ─── Borders ─────────────────────────────────────────────── */
+  --tk-border-1:     1px solid var(--tk-border);
+  --tk-border-hair:  0.5px solid color-mix(in srgb, var(--tk-border) 70%, transparent);
+  --tk-border-accent:1px solid var(--tk-cyan);
+
+  /* ─── Shadows ─────────────────────────────────────────────── */
+  /* Tekrogen surfaces lean on hairline borders, NOT drop shadows.
+   * Use these sparingly. There is no diffuse-soft elevation system. */
+  --tk-shadow-1:     0 1px 0 rgba(255,255,255,0.04) inset, 0 0 0 1px var(--tk-border);
+  --tk-shadow-2:     0 14px 40px rgba(0,0,0,0.5);            /* floating dock / toast on dark */
+  --tk-shadow-glow:  0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18);
+
+  /* ─── Tilt (signature transform) ──────────────────────────── */
+  --tk-tilt-mark:    18deg;     /* dragonfly mark — locked clockwise tilt */
+
+  /* ─── Motion ──────────────────────────────────────────────── */
+  --tk-ease:         cubic-bezier(.2,.7,.2,1);
+  --tk-ease-bounce:  cubic-bezier(.2,.9,.3,1.2);
+  --tk-dur-1:        120ms;     /* hover state */
+  --tk-dur-2:        220ms;     /* default transition */
+  --tk-dur-3:        280ms;     /* tilt / transform */
+  --tk-dur-4:        420ms;     /* page-level fade */
+
+  /* ─── Layout ──────────────────────────────────────────────── */
+  --tk-container:    1380px;
+  --tk-container-text: 760px;
+  --tk-gutter:       48px;
+  --tk-gutter-sm:    20px;
+}
+
+/* ─── Paper theme override ─────────────────────────────────── */
+.tk-paper, [data-tk-theme="paper"] {
+  --tk-fg-1: #1f2731;
+  --tk-fg-2: #475561;
+  --tk-fg-3: #6b7280;
+  --tk-fg-4: #8a96a1;
+  --tk-fg-5: #b5bdc6;
+  --tk-bg-1: var(--tk-paper);
+  --tk-bg-2: #ffffff;
+  --tk-bg-3: #f3f5f7;
+  --tk-border: #e6ebef;
+}
+
+/* ============================================================
+ * SEMANTIC ELEMENTS
+ * ============================================================ */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--tk-bg-1);
+  color: var(--tk-fg-1);
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body);
+  line-height: var(--tk-lh-body);
+  font-feature-settings: 'ss01';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Headings ─── tight sans, signature negative tracking ── */
+h1, .tk-h1 {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  font-size: var(--tk-fs-h1);
+  letter-spacing: var(--tk-ls-tight);
+  line-height: var(--tk-lh-tight);
+  margin: 0 0 var(--tk-space-4);
+}
+h2, .tk-h2 {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  font-size: var(--tk-fs-h2);
+  letter-spacing: -0.015em;
+  line-height: var(--tk-lh-snug);
+  margin: 0 0 var(--tk-space-3);
+}
+h3, .tk-h3 {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  font-size: var(--tk-fs-h3);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--tk-space-2);
+}
+h4, .tk-h4 {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  font-size: var(--tk-fs-h4);
+  margin: 0 0 var(--tk-space-2);
+}
+
+/* ─── Display / splash (e.g. hero h1) ──────────────────────── */
+.tk-display {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  font-size: var(--tk-fs-display);
+  letter-spacing: var(--tk-ls-tight);
+  line-height: var(--tk-lh-tight);
+}
+
+/* ─── Wordmark — locked treatment ──────────────────────────── */
+.tk-wordmark {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tk-ls-wordmark);
+  line-height: 1;
+}
+
+/* ─── Eyebrow — mono kicker above titles ──────────────────── */
+.tk-eyebrow {
+  font-family: var(--tk-font-mono);
+  font-weight: 500;
+  font-size: var(--tk-fs-eyebrow);
+  letter-spacing: var(--tk-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tk-cyan);
+}
+
+/* ─── Meta — mono small caps for labels, breadcrumbs ──────── */
+.tk-meta {
+  font-family: var(--tk-font-mono);
+  font-weight: 500;
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+}
+
+/* ─── Body, lead, small ───────────────────────────────────── */
+p, .tk-p {
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body);
+  line-height: var(--tk-lh-body);
+  color: var(--tk-fg-2);
+  margin: 0 0 var(--tk-space-3);
+  max-width: var(--tk-container-text);
+  text-wrap: pretty;
+}
+.tk-lead {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--tk-fg-2);
+}
+.tk-small {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+}
+
+/* ─── Mono / code ─── lowercase by default on Tekrogen ─────── */
+code, .tk-code {
+  font-family: var(--tk-font-mono);
+  font-weight: 500;
+  font-size: var(--tk-fs-code);
+  color: var(--tk-cyan);
+  text-transform: lowercase;
+}
+pre.tk-pre {
+  background: var(--tk-bg-3);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-lg);
+  padding: 18px;
+  font-family: var(--tk-font-mono);
+  font-size: 11.5px;
+  color: var(--tk-fg-2);
+  overflow: auto;
+  line-height: 1.55;
+}
+
+/* ─── Editorial (long-form headlines, italic deks) ─── Poppins ─ */
+.tk-editorial {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: -0.015em;
+}
+.tk-editorial-italic {
+  font-family: var(--tk-font-sans);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--tk-fg-3);
+}
+
+/* ─── Links ───────────────────────────────────────────────── */
+a, .tk-a {
+  color: var(--tk-cyan);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--tk-cyan) 35%, transparent);
+  transition: color var(--tk-dur-1) var(--tk-ease),
+              border-color var(--tk-dur-1) var(--tk-ease);
+}
+a:hover, .tk-a:hover {
+  border-bottom-color: var(--tk-cyan);
+}

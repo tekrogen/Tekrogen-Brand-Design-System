@@ -1,0 +1,62 @@
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .og {
+    width: 560px;
+    aspect-ratio: 1200 / 630;
+    background: #0e1116;
+    border-radius: 8px;
+    border: 1px solid var(--tk-ink-2);
+    padding: 28px 32px;
+    box-sizing: border-box;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    color: #fff;
+  }
+  .og::after {
+    content: ''; position: absolute;
+    top: -36px; right: -56px; width: 240px; height: 240px;
+    background: radial-gradient(circle at center, rgba(13,180,185,0.22), transparent 60%);
+    pointer-events: none;
+  }
+  .og .top { display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; }
+  .og .bot { position: relative; z-index: 2; }
+  .og .wm {
+    font-family: var(--tk-font-sans); font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; font-size: 18px;
+  }
+  .og .eyebrow {
+    font-family: var(--tk-font-mono); font-size: 10px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--tk-cyan); margin-bottom: 8px;
+  }
+  .og .title {
+    font-family: var(--tk-font-sans); font-weight: 700;
+    font-size: 24px; line-height: 1.18;
+    letter-spacing: -0.01em;
+    max-width: 92%;
+  }
+  .og .url {
+    margin-top: 12px;
+    font-family: var(--tk-font-mono); font-size: 9.5px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: #8a98a8;
+  }
+</style>
+</head>
+<body>
+<div class="col" style="gap:8px">
+  <span class="label">og · series · 1200 × 630 · /notes/</span>
+  <div class="og">
+    <div class="top">
+      <img src="../assets/tekrogen-mark-inverse.svg" style="width:34px;height:auto" alt=""/>
+      <span class="wm">TEKROGEN</span>
+    </div>
+    <div class="bot">
+      <div class="eyebrow">publish · /notes/</div>
+      <div class="title">Build it. Prove it. Publish what we learned.</div>
+      <div class="url">tekrogen.org/notes</div>
+    </div>
+  </div>
+  <span class="hex" style="font-size:9.5px">↳ eyebrow lifts the third verb of the canonical pursuit; title is the full triplet</span>
+</div>
+</body></html>

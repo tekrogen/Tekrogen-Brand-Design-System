@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tekrogen · Ghost Pro Asset Pack</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../../colors_and_type.css"/>
+<style>
+  /* Self-hosted Regular weights from /fonts/. Heavier weights from Google above. */
+  @font-face { font-family: 'Poppins';       font-style: normal; font-weight: 400; font-display: swap; src: url('../../fonts/poppins-v24-latin-regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Manrope';       font-style: normal; font-weight: 400; font-display: swap; src: url('../../fonts/manrope-v20-latin-regular.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../fonts/JetBrainsMono-Regular.woff2') format('woff2'); }
+  :root {
+    /* Local aliases — palette source is ../../colors_and_type.css → tokens/palette.js. */
+    --ink:var(--tk-ink); --ink-2:var(--tk-ink-soft); --line:var(--tk-ink-2);
+    --paper:var(--tk-paper); --muted:#6b7785; --muted-d:#8a98a8;
+    --cyan:var(--tk-cyan);
+    --org:var(--tk-org); --studio:var(--tk-studio); --com:var(--tk-com); --net:var(--tk-net);
+    --body:var(--tk-body); --head:var(--tk-body-inv);
+  }
+  *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--ink);color:#e7ecf2;font-family:'Poppins','Manrope',system-ui,-apple-system,'Segoe UI',sans-serif}
+  .page{max-width:1380px;margin:0 auto;padding:64px 48px 140px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+  h1{font-weight:700;font-size:48px;letter-spacing:-.02em;margin:8px 0 16px;line-height:1.05}
+  h2{font-weight:700;font-size:28px;letter-spacing:-.015em;margin:0;line-height:1.1}
+  p.lead{color:var(--muted-d);max-width:760px;line-height:1.55;font-size:15px}
+  section{margin-top:72px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--line)}
+  .section-head .right{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .grid{display:grid;gap:18px}
+  .row-2{grid-template-columns:1fr 1fr}.row-3{grid-template-columns:repeat(3,1fr)}.row-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+  .card.paper{background:var(--paper);color:#1f2731}
+  .card-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .card.paper .card-head{border-bottom-color:#e6ebef}
+  .card-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card-body{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 18px}
+  .card-foot{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;justify-content:space-between}
+  .card.paper .card-foot{border-top-color:#e6ebef}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:#cbd5e1;cursor:pointer;font-weight:600}
+  .btn:hover{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
+  .btn.primary{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
+  .card.paper .btn{border-color:#d2d6db;color:#1f2731}
+  .dim{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em}
+  table.slots{width:100%;border-collapse:collapse;font-size:13px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table.slots th,table.slots td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
+  table.slots tr:last-child td{border-bottom:none}
+  table.slots th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:#0a0d12}
+  table.slots code{font-family:'JetBrains Mono',monospace;font-size:12px;color:#1fd5da}
+  pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
+  .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
+  .og{aspect-ratio:1200/630;background:#0e1116;border-radius:8px;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:#fff}
+  .og::after{content:'';position:absolute;top:-50px;right:-80px;width:380px;height:380px;background:radial-gradient(circle at center,rgba(13,180,185,.18),transparent 60%);pointer-events:none}
+  .og .top{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+  .og .bot{position:relative;z-index:2}
+  .og .wm{font-family:'Poppins','Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:24px}
+  .og .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-top:14px}
+  .og .title{font-size:34px;font-weight:700;line-height:1.15;letter-spacing:-.01em;max-width:88%;margin-top:8px}
+  .og .meta{display:flex;gap:14px;margin-top:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
+  .og .badge{padding:4px 10px;border:1px solid #2a3340;border-radius:20px;color:var(--cyan)}
+  .og .author{display:flex;align-items:center;gap:14px;margin-top:18px}
+  .og .avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#446e88,#0db4b9);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px}
+  .og .series-badge{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid #2a3340;padding:6px 12px;border-radius:20px}
+  .og .num{font-size:22px;font-weight:700;color:#fff}
+  .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
+  .note{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+  @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:36px}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="toolbar">
+    <div class="meta">Tekrogen · Ghost Pro · ready to deploy</div>
+    <div style="display:flex;gap:10px">
+      <button class="btn primary" id="dl-zip">↓ Download all (.zip)</button>
+      <button class="btn" id="dl-spec">↓ Style guide (.md)</button>
+    </div>
+  </div>
+
+  <div class="eyebrow">tekrogen · ghost pro</div>
+  <h1>Asset Pack</h1>
+  <p class="lead">Production-ready files for <strong style="color:#fff">tekrogen.org</strong> on Ghost Pro. Hybrid plan: main hub here, dedicated sub-publications for .studio / .com / .net later. Click any asset to download its file; everything is also bundled in the zip.</p>
+
+  <section>
+    <div class="section-head"><div><div class="eyebrow">01 · publication brand</div><h2>Logo & icon</h2></div><div class="right">Settings → Design → Brand</div></div>
+    <div class="grid row-2">
+      <div class="card paper">
+        <div class="card-head"><span class="card-tag">Publication logo · light</span><span class="dim">600×160 · PNG</span></div>
+        <div class="card-body"><div data-asset="logo-light" style="display:flex;align-items:center;gap:14px"><span data-mark="18" data-inverse="false"></span><span style="font-family:Poppins;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:30px;color:#1f2731">TEKROGEN</span></div></div>
+        <div class="card-foot"><span class="dim">tekrogen-logo-light.png</span><button class="btn" data-dl="logo-light">↓ PNG</button></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="card-tag">Publication logo · dark</span><span class="dim">600×160 · PNG</span></div>
+        <div class="card-body"><div data-asset="logo-dark" style="display:flex;align-items:center;gap:14px"><span data-mark="18" data-inverse="true"></span><span style="font-family:Poppins;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:30px;color:#fff">TEKROGEN</span></div></div>
+        <div class="card-foot"><span class="dim">tekrogen-logo-dark.png</span><button class="btn" data-dl="logo-dark">↓ PNG</button></div>
+      </div>
+    </div>
+    <div class="grid row-4" style="margin-top:18px">
+      <div class="card"><div class="card-head"><span class="card-tag">Icon · square</span><span class="dim">512²</span></div><div class="card-body" style="background:#0e1116"><div data-asset="icon-512"><span data-mark="160" data-inverse="true"></span></div></div><div class="card-foot"><span class="dim">tekrogen-icon-512.png</span><button class="btn" data-dl="icon-512">↓</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Icon · small</span><span class="dim">256²</span></div><div class="card-body" style="background:#0e1116"><div data-asset="icon-256"><span data-mark="100" data-inverse="true"></span></div></div><div class="card-foot"><span class="dim">tekrogen-icon-256.png</span><button class="btn" data-dl="icon-256">↓</button></div></div>
+      <div class="card paper"><div class="card-head"><span class="card-tag">Favicon · ICO</span><span class="dim">multi</span></div><div class="card-body"><div data-asset="favicon-32"><span data-mark="32" data-inverse="false"></span></div></div><div class="card-foot"><span class="dim">favicon.ico</span><button class="btn" data-dl="favicon-ico">↓</button></div></div>
+      <div class="card paper"><div class="card-head"><span class="card-tag">Favicon · SVG</span><span class="dim">vector</span></div><div class="card-body"><div data-asset="favicon-svg"><span data-mark="48" data-inverse="false"></span></div></div><div class="card-foot"><span class="dim">favicon.svg</span><button class="btn" data-dl="favicon-svg">↓</button></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><div class="eyebrow">02 · social cards</div><h2>OG / Twitter cards</h2></div><div class="right">1200 × 630 · PNG</div></div>
+    <div class="grid row-2">
+      <div class="card"><div class="card-head"><span class="card-tag">Default · homepage</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="default"><div class="top"><span data-mark="36" data-inverse="true"></span><div class="wm">TEKROGEN</div></div><div class="bot"><div class="tag">field notes · research · instruction</div><div class="title">Real solutions. Built, proven, ready to use.</div><div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8">tekrogen.org</div></div></div></div></div><div class="card-foot"><span class="dim">og-default.png</span><button class="btn" data-dl="og-default">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Article fallback</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="article"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div class="badge" style="display:inline-block">Field note · 04</div><div class="title">Building an instructional-design system that compounds across four entities.</div><div class="author"><div class="avatar">RD</div><div><div style="font-weight:600;font-size:15px">Robert Dolce</div><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8;margin-top:2px">Founder · .studio</div></div></div></div></div></div></div><div class="card-foot"><span class="dim">og-article.png</span><button class="btn" data-dl="og-article">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Author</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="author"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div style="display:flex;align-items:center;gap:24px"><div style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#446e88,#0db4b9);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:48px;flex:none">RD</div><div><div style="font-size:32px;font-weight:700;letter-spacing:-.01em">Robert Dolce</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1fd5da;margin-top:6px">Founder · researcher · instructor</div><div style="color:#8a98a8;font-size:13.5px;line-height:1.5;margin-top:12px;max-width:420px">Backend systems and instructional design. Writes field notes from the intersection of both.</div></div></div></div></div></div></div><div class="card-foot"><span class="dim">og-author.png</span><button class="btn" data-dl="og-author">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Field note · series</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="series"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div class="series-badge"><span class="num">04</span><span>Field notes · series</span></div><div class="title" style="margin-top:14px">What happens when five engineers also grade dissertations on Thursdays.</div><div style="margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8">tekrogen.org/notes/04</div></div></div></div></div><div class="card-foot"><span class="dim">og-series.png</span><button class="btn" data-dl="og-series">↓ PNG</button></div></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><div class="eyebrow">03 · slot map</div><h2>Where each file goes in Ghost</h2></div><div class="right">Settings → Design</div></div>
+    <table class="slots"><thead><tr><th>Asset</th><th>Ghost slot</th><th>File</th><th>Dimensions</th></tr></thead><tbody>
+      <tr><td>Publication logo (light)</td><td><code>publication_logo</code> · header on light themes</td><td>tekrogen-logo-light.png</td><td>600 × 160</td></tr>
+      <tr><td>Publication logo (dark)</td><td><code>publication_logo</code> · header on dark themes</td><td>tekrogen-logo-dark.png</td><td>600 × 160</td></tr>
+      <tr><td>Publication icon</td><td><code>publication_icon</code> · member emails, fallback favicon</td><td>tekrogen-icon-512.png</td><td>512 × 512</td></tr>
+      <tr><td>Favicon</td><td><code>icon</code> · browser tab</td><td>favicon.ico + favicon.svg</td><td>32 · vector</td></tr>
+      <tr><td>OG default</td><td><code>og_image</code> · homepage / no-image posts</td><td>og-default.png</td><td>1200 × 630</td></tr>
+      <tr><td>Article OG (per post)</td><td>Per-post <code>feature_image</code> fallback</td><td>og-article.png</td><td>1200 × 630</td></tr>
+      <tr><td>Author OG (per author)</td><td>Author profile <code>cover_image</code></td><td>og-author.png</td><td>1200 × 630</td></tr>
+      <tr><td>Series card</td><td>Tag page <code>feature_image</code> for /notes/</td><td>og-series.png</td><td>1200 × 630</td></tr>
+    </tbody></table>
+    <div class="note">Hybrid plan: this pack ships tekrogen.org. When .studio / .com / .net spin up as sub-publications, re-render OG cards with the appropriate wing color lead (Section 04 of the Master Lockups doc).</div>
+  </section>
+
+  <section>
+    <div class="section-head"><div><div class="eyebrow">04 · inline svg</div><h2>For engineering — inline source</h2></div><div class="right">paste directly into theme</div></div>
+    <p class="lead" style="margin-bottom:18px">The dragonfly mark, ready to paste into a Ghost theme's <code style="font-family:'JetBrains Mono',monospace;color:#1fd5da">{{!-- Logo --}}</code> partial or anywhere else you need it inline. Tilted 18° via a wrapping <code style="font-family:'JetBrains Mono',monospace;color:#1fd5da">&lt;g transform&gt;</code> so no CSS is required.</p>
+    <pre class="svg" id="svg-source"></pre>
+    <div style="margin-top:14px;display:flex;gap:10px"><button class="btn primary" id="copy-svg">⧉ Copy SVG</button><button class="btn" data-dl="dragonfly-svg">↓ tekrogen-mark.svg</button></div>
+  </section>
+</div>
+
+<script src="https://unpkg.com/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+// ─── The mark ────────────────────────────────────────────────
+const PAL = { org:'#446e88', studio:'#6491ac', com:'#0db4b9', net:'#7edba5', body:'#385166', head:'#3f617b', bodyInv:'#cad6e0', headInv:'#9eb1c0' };
+
+function dragonflySVG({ size = 160, inverse = false, tilt = 18, includeXML = false }) {
+  const head = inverse ? PAL.headInv : PAL.head;
+  const body = inverse ? PAL.bodyInv : PAL.body;
+  const facet = inverse ? '#1b2530' : PAL.body;
+  const h = size * 1.1;
+  const inner = `
+    <polygon points="100,4 108,9 108,19 100,24 92,19 92,9" fill="${head}"/>
+    <polygon points="95,22 105,22 108,34 92,34" fill="${body}"/>
+    <polygon points="94,32 18,6 22,68 52,72 94,68" fill="${PAL.org}"/>
+    <polygon points="94,32 18,6 40,14 82,42 94,42" fill="${facet}" opacity="0.45"/>
+    <polygon points="106,32 182,6 178,68 148,72 106,68" fill="${PAL.studio}"/>
+    <polygon points="106,32 182,6 160,14 118,42 106,42" fill="${PAL.org}" opacity="0.45"/>
+    <polygon points="94,68 32,84 38,126 94,110" fill="${PAL.com}"/>
+    <polygon points="94,68 32,84 52,96 94,84" fill="#0893a4" opacity="0.55"/>
+    <polygon points="106,68 168,84 162,126 106,110" fill="${PAL.net}"/>
+    <polygon points="106,68 168,84 148,96 106,84" fill="#3dcfa3" opacity="0.55"/>
+    <polygon points="94,32 106,32 110,70 108,130 103,216 100,220 97,216 92,130 90,70" fill="${body}"/>
+    <polygon points="98,34 102,34 104,80 101,210 100,220 99,210 96,80" fill="${head}" opacity="0.4"/>`;
+  const decl = includeXML ? '<?xml version="1.0" encoding="UTF-8"?>\n' : '';
+  return `${decl}<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${h}" viewBox="0 0 200 220" aria-label="Tekrogen dragonfly"><g transform="rotate(${tilt} 100 110)">${inner}</g></svg>`;
+}
+
+// Render mark placeholders
+document.querySelectorAll('[data-mark]').forEach(el => {
+  const size = parseInt(el.dataset.mark, 10);
+  const inverse = el.dataset.inverse === 'true';
+  el.innerHTML = dragonflySVG({ size, inverse });
+});
+
+// Inline source pre
+document.getElementById('svg-source').textContent = dragonflySVG({ size: 200, inverse: false, tilt: 18, includeXML: true });
+
+document.getElementById('copy-svg').addEventListener('click', () => {
+  navigator.clipboard.writeText(document.getElementById('svg-source').textContent);
+  const b = document.getElementById('copy-svg'); const old = b.textContent;
+  b.textContent = '✓ Copied'; setTimeout(() => b.textContent = old, 1400);
+});
+
+// ─── Downloads ────────────────────────────────────────────────
+// Render a card / OG / icon to a PNG via html-to-canvas-style trick:
+// We'll instead build clean PNGs by drawing on an offscreen canvas
+// for the simple assets, and use foreignObject SVG for the OG cards.
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  // Primary: hidden anchor click (works in unsandboxed contexts)
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.rel = 'noopener'; a.target = '_blank';
+  document.body.appendChild(a); a.click(); a.remove();
+  // Fallback: surface a persistent link the user can right-click → Save As
+  showDownloadLink(url, filename);
+  setTimeout(() => URL.revokeObjectURL(url), 60_000);
+}
+
+function showDownloadLink(url, filename) {
+  let dock = document.getElementById('dl-dock');
+  if (!dock) {
+    dock = document.createElement('div');
+    dock.id = 'dl-dock';
+    dock.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:200;background:#0a0d12;border:1px solid #1fd5da;border-radius:10px;padding:14px 16px;max-width:340px;box-shadow:0 14px 40px rgba(0,0,0,0.5);font-family:Poppins,sans-serif';
+    dock.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px"><div style="font-family:JetBrains Mono,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#1fd5da">Downloads ready</div><button id="dl-dock-x" style="background:transparent;border:none;color:#8a98a8;cursor:pointer;font-size:16px;line-height:1;padding:0">×</button></div><div style="font-size:11.5px;color:#8a98a8;line-height:1.5;margin-bottom:10px">If your browser didn\'t prompt, click below (or right-click → Save As):</div><div id="dl-dock-list" style="display:flex;flex-direction:column;gap:6px"></div>';
+    document.body.appendChild(dock);
+    document.getElementById('dl-dock-x').addEventListener('click', () => dock.remove());
+  }
+  const list = document.getElementById('dl-dock-list');
+  const link = document.createElement('a');
+  link.href = url; link.download = filename; link.target = '_blank'; link.rel = 'noopener';
+  link.textContent = '↓ ' + filename;
+  link.style.cssText = 'font-family:JetBrains Mono,monospace;font-size:12px;color:#cbd5e1;text-decoration:none;padding:8px 10px;border:1px solid #1f2731;border-radius:6px;display:block';
+  link.addEventListener('mouseover', () => link.style.background = '#1fd5da');
+  link.addEventListener('mouseover', () => link.style.color = '#0e1116');
+  link.addEventListener('mouseout', () => { link.style.background = 'transparent'; link.style.color = '#cbd5e1'; });
+  list.appendChild(link);
+}
+
+async function svgToPng(svgString, width, height) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    img.onload = () => {
+      const c = document.createElement('canvas'); c.width = width; c.height = height;
+      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
+      c.toBlob(blob => { URL.revokeObjectURL(url); resolve(blob); }, 'image/png');
+    };
+    img.src = url;
+  });
+}
+
+// Build a logo SVG (mark + Poppins wordmark) — embeds web font via foreignObject
+function logoSVG(inverse) {
+  const bg = inverse ? '#0e1116' : '#fbfcfd';
+  const ink = inverse ? '#ffffff' : '#1f2731';
+  const mark = dragonflySVG({ size: 120, inverse, tilt: 18 });
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="160" viewBox="0 0 600 160">
+  <rect width="600" height="160" fill="${bg}"/>
+  <g transform="translate(40,16)"><g transform="scale(1)">${mark.replace(/^<\?xml[^>]+\?>\s*/, '').replace(/<svg[^>]*>/, '').replace('</svg>','')}</g></g>
+  <text x="200" y="98" font-family="Poppins, sans-serif" font-weight="700" font-size="44" letter-spacing="8" fill="${ink}">TEKROGEN</text>
+</svg>`;
+}
+
+function iconSVG(size, inverse) {
+  const bg = inverse ? '#0e1116' : '#fbfcfd';
+  const mark = dragonflySVG({ size: size * 0.7, inverse, tilt: 18 });
+  const offset = size * 0.15;
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
+  <rect width="${size}" height="${size}" fill="${bg}" rx="${size * 0.12}"/>
+  <g transform="translate(${offset}, ${offset * 0.7})">${mark.replace(/^<\?xml[^>]+\?>\s*/, '').replace(/<svg[^>]*>/, '').replace('</svg>','')}</g>
+</svg>`;
+}
+
+function ogPng(kind) {
+  // Render the existing OG DOM node to PNG via foreignObject
+  const node = document.querySelector(`[data-og="${kind}"]`);
+  return domToPng(node, 1200, 630);
+}
+
+async function domToPng(node, width, height) {
+  // Clone styled HTML into foreignObject SVG
+  const rect = node.getBoundingClientRect();
+  const clone = node.cloneNode(true);
+  clone.style.width = width + 'px';
+  clone.style.height = height + 'px';
+  clone.style.transform = 'none';
+  // Copy computed font + collect external font URL
+  const fontCSS = `@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');`;
+  const html = `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;font-family:Poppins,sans-serif">${clone.outerHTML}</div>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><style>${fontCSS}</style></defs><foreignObject width="100%" height="100%">${html}</foreignObject></svg>`;
+  return svgToPng(svg, width, height);
+}
+
+const ASSETS = {
+  'logo-light': () => svgToPng(logoSVG(false), 600, 160).then(b => ({ blob: b, name: 'tekrogen-logo-light.png' })),
+  'logo-dark':  () => svgToPng(logoSVG(true),  600, 160).then(b => ({ blob: b, name: 'tekrogen-logo-dark.png' })),
+  'icon-512':   () => svgToPng(iconSVG(512, true),  512, 512).then(b => ({ blob: b, name: 'tekrogen-icon-512.png' })),
+  'icon-256':   () => svgToPng(iconSVG(256, true),  256, 256).then(b => ({ blob: b, name: 'tekrogen-icon-256.png' })),
+  'favicon-ico':() => svgToPng(iconSVG(32, false),  32,  32 ).then(b => ({ blob: b, name: 'favicon.ico' })),
+  'favicon-svg':() => Promise.resolve({ blob: new Blob([iconSVG(48, false)], { type: 'image/svg+xml' }), name: 'favicon.svg' }),
+  'dragonfly-svg':() => Promise.resolve({ blob: new Blob([dragonflySVG({size:200, includeXML:true})], { type: 'image/svg+xml' }), name: 'tekrogen-mark.svg' }),
+  'og-default': () => ogPng('default').then(b => ({ blob: b, name: 'og-default.png' })),
+  'og-article': () => ogPng('article').then(b => ({ blob: b, name: 'og-article.png' })),
+  'og-author':  () => ogPng('author').then(b => ({ blob: b, name: 'og-author.png' })),
+  'og-series':  () => ogPng('series').then(b => ({ blob: b, name: 'og-series.png' })),
+};
+
+document.querySelectorAll('[data-dl]').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const key = btn.dataset.dl;
+    const orig = btn.textContent;
+    btn.textContent = '…';
+    try {
+      const { blob, name } = await ASSETS[key]();
+      downloadBlob(blob, name);
+      btn.textContent = '✓';
+    } catch(e) {
+      console.error(e); btn.textContent = '✗';
+    }
+    setTimeout(() => btn.textContent = orig, 1400);
+  });
+});
+
+document.getElementById('dl-zip').addEventListener('click', async () => {
+  const btn = document.getElementById('dl-zip');
+  const orig = btn.textContent; btn.textContent = 'Building…';
+  const zip = new JSZip();
+  for (const key of Object.keys(ASSETS)) {
+    try { const { blob, name } = await ASSETS[key](); zip.file(name, blob); } catch(e) { console.warn(key, e); }
+  }
+  zip.file('STYLE-GUIDE.md', styleGuideMd());
+  const zipBlob = await zip.generateAsync({ type: 'blob' });
+  downloadBlob(zipBlob, 'tekrogen-ghost-pro-assets.zip');
+  btn.textContent = '✓ Downloaded'; setTimeout(() => btn.textContent = orig, 1800);
+});
+
+function styleGuideMd() {
+  return `# Tekrogen · Ghost Pro Asset Pack
+
+## Slot mapping (Ghost Settings → Design → Brand)
+
+| Asset | Ghost slot | File | Dimensions |
+|---|---|---|---|
+| Publication logo (light) | publication_logo · header on light themes | tekrogen-logo-light.png | 600 × 160 |
+| Publication logo (dark)  | publication_logo · header on dark themes  | tekrogen-logo-dark.png  | 600 × 160 |
+| Publication icon         | publication_icon · member emails, fallback favicon | tekrogen-icon-512.png | 512 × 512 |
+| Favicon                  | icon · browser tab | favicon.ico + favicon.svg | 32 · vector |
+| OG default               | og_image · homepage / no-image posts | og-default.png | 1200 × 630 |
+| Article OG (per post)    | per-post feature_image fallback | og-article.png | 1200 × 630 |
+| Author OG (per author)   | author profile cover_image | og-author.png | 1200 × 630 |
+| Series card              | tag page feature_image for /notes/ | og-series.png | 1200 × 630 |
+
+## Type system
+
+- **Headings + wordmark:** Poppins · 700 · uppercase · letter-spacing 0.18em
+- **Body:** Poppins · 400 · 16/1.6
+- **Mono / technical surfaces:** JetBrains Mono · 500 · lowercase
+
+## Colors
+
+- Primary 900 / body: #385166
+- Primary 500 / .org: #446e88
+- Primary 300 / .studio: #6491ac
+- Accent 500 / .com: #0db4b9
+- Mint / .net: #7edba5
+- Cyan accent (links, highlights): #1fd5da
+- Ink: #0e1116 · Paper: #fbfcfd
+
+## Mark
+
+- Tilt: 18° clockwise (consistent across all uses)
+- Minimum favicon: 16px
+- Clear-space: 1× wordmark cap-height on all sides
+`;
+}
+
+document.getElementById('dl-spec').addEventListener('click', () => {
+  downloadBlob(new Blob([styleGuideMd()], { type: 'text/markdown' }), 'tekrogen-style-guide.md');
+});
+</script>
+</body>
+</html>

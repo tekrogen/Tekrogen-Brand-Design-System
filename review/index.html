@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="en" data-tk-theme="ink">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tekrogen — Design system review · v0.3.0</title>
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="../colors_and_type.css"/>
+<script src="../tokens/palette.js"></script>
+<style>
+  /* ── Surface override (the toggle target) ─────────────────
+   * data-tk-theme="ink" is the default (colors_and_type.css :root).
+   * data-tk-theme="paper" applies the existing .tk-paper override.
+   * Both use --tk-* tokens; the toggle just swaps fg/bg bindings. */
+  html[data-tk-theme="paper"] {
+    --tk-fg-1: #1f2731;
+    --tk-fg-2: #475561;
+    --tk-fg-3: #6b7280;
+    --tk-fg-4: #8a96a1;
+    --tk-fg-5: #b5bdc6;
+    --tk-bg-1: var(--tk-paper);
+    --tk-bg-2: #ffffff;
+    --tk-bg-3: #f3f5f7;
+    --tk-border: #e6ebef;
+  }
+  html, body {
+    background: var(--tk-bg-1);
+    color: var(--tk-fg-1);
+    transition: background var(--tk-dur-3) var(--tk-ease),
+                color var(--tk-dur-3) var(--tk-ease);
+  }
+  ::selection { background: var(--tk-cyan); color: var(--tk-ink); }
+
+  /* ── Page chrome ─────────────────────────────────────────── */
+  .page {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 0 48px 160px;
+  }
+
+  /* ── Sticky toolbar ──────────────────────────────────────── */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: 0 -48px;
+    padding: 14px 48px;
+    background: color-mix(in srgb, var(--tk-bg-1) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--tk-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 80px;
+  }
+  .toolbar .crumb {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toolbar .crumb .mark {
+    width: 18px; height: 18px;
+    display: inline-block;
+    transform: rotate(18deg);
+    margin-right: 6px;
+  }
+  .toolbar .crumb .sep { color: var(--tk-fg-5); }
+  .toolbar .right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .toolbar .ver {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .toolbar .ver b { color: var(--tk-cyan); font-weight: 500; }
+
+  /* Surface toggle — two-position segmented control */
+  .surface-toggle {
+    display: inline-flex;
+    border: 1px solid var(--tk-border);
+    border-radius: 9999px;
+    padding: 3px;
+    background: var(--tk-bg-2);
+  }
+  .surface-toggle button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 6px 12px 6px 10px;
+    border-radius: 9999px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+    cursor: pointer;
+    display: inline-flex; align-items: center; gap: 7px;
+    transition: background var(--tk-dur-1) var(--tk-ease),
+                color var(--tk-dur-1) var(--tk-ease);
+  }
+  .surface-toggle button[aria-pressed="true"] {
+    background: var(--tk-cyan);
+    color: var(--tk-ink);
+  }
+  .surface-toggle button .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor;
+    opacity: 0.5;
+  }
+  .surface-toggle button[aria-pressed="true"] .dot { opacity: 1; }
+
+  /* ── Headline ───────────────────────────────────────────── */
+  .head { margin-bottom: 72px; }
+  .head .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+    margin-bottom: 14px;
+  }
+  .head h1 {
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    max-width: 1100px;
+    margin: 0 0 24px;
+  }
+  .head .dek {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--tk-fg-3);
+    font-style: italic;
+    max-width: 780px;
+    margin: 0 0 36px;
+  }
+  .head .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px 18px;
+    align-items: center;
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .head .meta .pill {
+    border: 1px solid var(--tk-border);
+    padding: 4px 10px;
+    border-radius: 9999px;
+  }
+  .head .meta .pill.cyan { color: var(--tk-cyan); border-color: color-mix(in srgb, var(--tk-cyan) 50%, var(--tk-border)); }
+  .head .meta .dot { color: var(--tk-fg-5); }
+
+  /* ── Section heads ───────────────────────────────────────── */
+  section { margin-top: 88px; }
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .section-head h2 {
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin: 0;
+    max-width: 720px;
+  }
+  .section-head .left .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+    margin-bottom: 8px;
+  }
+  .section-head .right {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+    text-align: right;
+  }
+
+  /* ── Summary block — first thing past the toolbar ───────── */
+  .summary {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 32px;
+    align-items: stretch;
+  }
+  @media (max-width: 980px) { .summary { grid-template-columns: 1fr; } }
+
+  .summary .lede p {
+    color: var(--tk-fg-2);
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+    max-width: 64ch;
+  }
+  .summary .lede p strong { color: var(--tk-fg-1); font-weight: 600; }
+  .summary .lede p em { color: var(--tk-cyan); font-style: normal; }
+
+  .stat-card {
+    border: 1px solid var(--tk-border);
+    border-radius: 12px;
+    padding: 24px 24px 22px;
+    background: var(--tk-bg-2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .stat-card .row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+  }
+  .stat-card .k {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .stat-card .v {
+    font-family: var(--tk-font-sans);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--tk-fg-1);
+  }
+  .stat-card .v .delta { color: var(--tk-cyan); font-family: var(--tk-font-mono); font-size: 12px; margin-left: 6px; }
+  .stat-card .divider { height: 1px; background: var(--tk-border); margin: 2px 0; }
+
+  /* ── Maturity radar ─────────────────────────────────────── */
+  .radar-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 980px) { .radar-block { grid-template-columns: 1fr; } }
+
+  .radar-wrap {
+    background: var(--tk-bg-2);
+    border: 1px solid var(--tk-border);
+    border-radius: 16px;
+    padding: 28px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .radar-wrap svg { width: 100%; height: 100%; }
+  .radar-grid { stroke: var(--tk-border); fill: none; stroke-width: 1; }
+  .radar-grid.inner { opacity: 0.55; }
+  .radar-axis { stroke: var(--tk-border); stroke-width: 1; opacity: 0.7; }
+  .radar-tick { fill: var(--tk-fg-4); font-family: var(--tk-font-mono); font-size: 8.5px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .radar-label-eyebrow { fill: var(--tk-fg-3); font-family: var(--tk-font-mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .radar-label-title { fill: var(--tk-fg-1); font-family: var(--tk-font-sans); font-weight: 600; font-size: 13px; }
+
+  .radar-before { fill: var(--tk-fg-4); fill-opacity: 0.10; stroke: var(--tk-fg-3); stroke-width: 1.2; stroke-dasharray: 3 4; }
+  .radar-after  { fill: var(--tk-cyan); fill-opacity: 0.16; stroke: var(--tk-cyan); stroke-width: 1.8; }
+  .radar-point-before { fill: var(--tk-fg-3); }
+  .radar-point-after  { fill: var(--tk-cyan); }
+
+  .radar-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .radar-legend .row {
+    display: grid;
+    grid-template-columns: 1.4fr 80px 80px 80px;
+    gap: 12px;
+    align-items: baseline;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .radar-legend .row:last-of-type { border-bottom: none; }
+  .radar-legend .row .axis {
+    font-family: var(--tk-font-sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--tk-fg-1);
+  }
+  .radar-legend .row .axis .pillar {
+    display: inline-block;
+    width: 8px; height: 8px; border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: 1px;
+  }
+  .radar-legend .row .col-eyebrow {
+    grid-column: 2 / 5;
+    grid-row: 0;
+    display: contents;
+  }
+  .radar-legend .row .val {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .radar-legend .row .val.after { color: var(--tk-cyan); }
+  .radar-legend .row .val.delta { color: var(--tk-fg-2); }
+  .radar-legend .row .val .ssh { color: var(--tk-fg-5); }
+  .radar-legend-head {
+    display: grid;
+    grid-template-columns: 1.4fr 80px 80px 80px;
+    gap: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--tk-border);
+    margin-bottom: 8px;
+    font-family: var(--tk-font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+  }
+
+  /* ── Findings — issue cards ──────────────────────────────── */
+  .findings {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .finding {
+    border: 1px solid var(--tk-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--tk-bg-2);
+  }
+  .finding .head-row {
+    display: grid;
+    grid-template-columns: 32px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .finding .num {
+    font-family: var(--tk-font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--tk-cyan);
+    letter-spacing: 0.02em;
+  }
+  .finding .title {
+    font-family: var(--tk-font-sans);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--tk-fg-1);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .finding .badge {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 9999px;
+    border: 1px solid var(--tk-border);
+    color: var(--tk-fg-2);
+    white-space: nowrap;
+  }
+  .finding .badge.fixed    { border-color: var(--tk-net); color: var(--tk-net); }
+  .finding .badge.softened { border-color: color-mix(in srgb, var(--tk-net) 60%, var(--tk-border)); color: color-mix(in srgb, var(--tk-net) 80%, var(--tk-fg-1)); }
+  .finding .badge.flagged  { border-color: var(--tk-com); color: var(--tk-com); }
+  .finding .badge.external { border-color: var(--tk-warning); color: var(--tk-warning); }
+  .finding .badge.softened-claim { border-color: var(--tk-studio); color: var(--tk-studio); }
+
+  .finding .body {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+  @media (max-width: 900px) { .finding .body { grid-template-columns: 1fr; } }
+  .finding .body > div {
+    padding: 20px 22px;
+    border-right: 1px solid var(--tk-border);
+  }
+  .finding .body > div:last-child { border-right: none; }
+  @media (max-width: 900px) {
+    .finding .body > div { border-right: none; border-bottom: 1px solid var(--tk-border); }
+    .finding .body > div:last-child { border-bottom: none; }
+  }
+  .finding .body .k {
+    font-family: var(--tk-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+    margin-bottom: 8px;
+  }
+  .finding .body .v {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--tk-fg-2);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .finding .body .v code {
+    font-family: var(--tk-font-mono);
+    font-size: 11.5px;
+    color: var(--tk-cyan);
+    background: color-mix(in srgb, var(--tk-cyan) 8%, transparent);
+    padding: 1px 4px;
+    border-radius: 3px;
+    text-transform: lowercase;
+  }
+  .finding .footnote {
+    padding: 12px 22px;
+    border-top: 1px solid var(--tk-border);
+    background: var(--tk-bg-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .finding .footnote .dot { color: var(--tk-fg-5); }
+  .finding .footnote a { color: var(--tk-cyan); border-bottom-color: color-mix(in srgb, var(--tk-cyan) 35%, transparent); }
+
+  /* ── ADR cards ───────────────────────────────────────────── */
+  .adr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) { .adr-grid { grid-template-columns: 1fr; } }
+  .adr-card {
+    border: 1px solid var(--tk-border);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    background: var(--tk-bg-2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color var(--tk-dur-1) var(--tk-ease);
+    text-decoration: none;
+    color: inherit;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .adr-card:hover {
+    border-color: color-mix(in srgb, var(--tk-cyan) 40%, var(--tk-border));
+  }
+  .adr-card .id {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+  }
+  .adr-card .title {
+    font-family: var(--tk-font-sans);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--tk-fg-1);
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .adr-card .dek {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--tk-fg-3);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .adr-card .foot {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--tk-font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+    margin-top: 4px;
+    padding-top: 10px;
+    border-top: 1px solid var(--tk-border);
+  }
+  .adr-card .foot .accepted { color: var(--tk-net); }
+
+  /* ── File-changes log ───────────────────────────────────── */
+  .filelog {
+    border: 1px solid var(--tk-border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--tk-bg-2);
+  }
+  .filelog .group {
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .filelog .group:last-child { border-bottom: none; }
+  .filelog .group-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 14px 22px;
+    background: var(--tk-bg-3);
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .filelog ul {
+    list-style: none;
+    margin: 0;
+    padding: 4px 0;
+  }
+  .filelog li {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 18px;
+    padding: 10px 22px;
+    font-family: var(--tk-font-mono);
+    font-size: 12px;
+    color: var(--tk-fg-2);
+    align-items: baseline;
+  }
+  .filelog li .op {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+  }
+  .filelog li .op.new { color: var(--tk-net); }
+  .filelog li .op.upd { color: var(--tk-cyan); }
+  .filelog li .op.del { color: var(--tk-danger); }
+  .filelog li .path { color: var(--tk-fg-1); }
+  .filelog li .note {
+    grid-column: 2;
+    color: var(--tk-fg-4);
+    font-size: 11px;
+    margin-top: 2px;
+  }
+
+  /* ── External flags ─────────────────────────────────────── */
+  .flags { display: flex; flex-direction: column; gap: 14px; }
+  .flag {
+    border: 1px solid color-mix(in srgb, var(--tk-warning) 35%, var(--tk-border));
+    border-left: 3px solid var(--tk-warning);
+    border-radius: 10px;
+    padding: 18px 22px;
+    background: var(--tk-bg-2);
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (max-width: 760px) { .flag { grid-template-columns: 1fr; } }
+  .flag .k {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-warning);
+  }
+  .flag .v {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--tk-fg-2);
+    margin: 0;
+    text-wrap: pretty;
+  }
+  .flag .v code {
+    font-family: var(--tk-font-mono);
+    font-size: 11.5px;
+    color: var(--tk-fg-1);
+    background: var(--tk-bg-3);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  /* ── Open questions ─────────────────────────────────────── */
+  .openqs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) { .openqs { grid-template-columns: 1fr; } }
+  .openq {
+    border: 1px solid var(--tk-border);
+    border-radius: 10px;
+    padding: 20px 22px;
+    background: var(--tk-bg-2);
+  }
+  .openq .id {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+    margin-bottom: 8px;
+  }
+  .openq h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--tk-fg-1);
+    margin: 0 0 10px;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .openq p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--tk-fg-3);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* ── Closing line ───────────────────────────────────────── */
+  .closing {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--tk-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .closing .quote {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--tk-fg-2);
+    font-style: italic;
+    max-width: 720px;
+  }
+  .closing .quote em { color: var(--tk-cyan); font-style: normal; }
+  .closing .sig {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+
+  a { transition: color var(--tk-dur-1) var(--tk-ease), border-color var(--tk-dur-1) var(--tk-ease); }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── Sticky toolbar ──────────────────────────────────── -->
+  <div class="toolbar">
+    <div class="crumb">
+      <!-- Inline mini-mark (kept tiny — the brand affordance) -->
+      <svg class="mark" viewBox="0 0 200 220" aria-hidden="true">
+        <polygon points="100,4 108,9 108,19 100,24 92,19 92,9" fill="var(--tk-head)"/>
+        <polygon points="95,22 105,22 108,34 92,34" fill="var(--tk-body)"/>
+        <polygon points="94,32 18,6 22,68 52,72 94,68" fill="var(--tk-org)"/>
+        <polygon points="106,32 182,6 178,68 148,72 106,68" fill="var(--tk-studio)"/>
+        <polygon points="94,68 32,84 38,126 94,110" fill="var(--tk-com)"/>
+        <polygon points="106,68 168,84 162,126 106,110" fill="var(--tk-net)"/>
+        <polygon points="94,32 106,32 110,70 108,130 103,216 100,220 97,216 92,130 90,70" fill="var(--tk-body)"/>
+      </svg>
+      <span>Tekrogen DS</span>
+      <span class="sep">·</span>
+      <span>Review</span>
+      <span class="sep">·</span>
+      <span>v0.3.0 · 2026-05-16</span>
+    </div>
+    <div class="right">
+      <span class="ver">Mode · <b id="mode-label">Ink</b></span>
+      <div class="surface-toggle" role="group" aria-label="Surface mode">
+        <button id="btn-ink" aria-pressed="true">
+          <span class="dot"></span>
+          <span>Ink</span>
+        </button>
+        <button id="btn-paper" aria-pressed="false">
+          <span class="dot"></span>
+          <span>Paper</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Headline ────────────────────────────────────────── -->
+  <div class="head">
+    <div class="eyebrow">DESIGN SYSTEM · REVIEW · v0.3.0</div>
+    <h1>The Cursor analysis was mostly right. The fixes that were cheap, we made. The fixes that need a meeting, we wrote down — and then we had the meeting.</h1>
+    <p class="dek">A close reading of the four-axis evaluation, with each finding verified against the actual code, every actionable claim resolved, the three deferred questions now answered, and the things that need an external decision named in plain language.</p>
+    <div class="meta">
+      <span class="pill cyan">Pass · v0.2.0 → v0.3.0</span>
+      <span>3 critical fixes · landed</span>
+      <span class="dot">·</span>
+      <span>6 ADRs · accepted</span>
+      <span class="dot">·</span>
+      <span>1 new primitive · trust-state matrix</span>
+      <span class="dot">·</span>
+      <span>3 OQs · resolved</span>
+      <span class="dot">·</span>
+      <span>2 external flags</span>
+    </div>
+  </div>
+
+  <!-- ── Summary ─────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">00 · SUMMARY</div>
+        <h2>Strong foundations. Thin governance. Both fixable in the same pass.</h2>
+      </div>
+      <div class="right">Scope · this repo<br/>External flags · BNR, WF-001</div>
+    </div>
+
+    <div class="summary">
+      <div class="lede">
+        <p>The analysis read the system fairly. The pillar semantics are real, the tokens are doing real work, and the writing voice has the procedural honesty the brand stakes itself on. The places it called thin — single-source palette, sans/serif drift, the absence of a paid-flow mock — were thin.</p>
+        <p>Two claims were overstated. The serif drift was real in the <em>documentation</em> but the shipping pixels were already sans; no editor was ever going to read a serif page. And the BNR / WF-001 inconsistencies are real, but they live in workflow and roadmap docs outside this repo — they're flagged here, not fixed here.</p>
+        <p>This pass single-sources the palette through <code style="font-family:var(--tk-font-mono);color:var(--tk-cyan)">tokens/palette.js</code>, scrubs the stale serif language, publishes six ADRs as the canonical record of load-bearing decisions, and adds <code style="font-family:var(--tk-font-mono);color:var(--tk-cyan)">trust-state-matrix.html</code> so the paid flow has a place to live before the first real payment ever happens.</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="row"><span class="k">Pass version</span><span class="v">v0.3.0 <span class="delta">+minor</span></span></div>
+        <div class="divider"></div>
+        <div class="row"><span class="k">Files changed</span><span class="v">17 · +12 / ~14 / −2</span></div>
+        <div class="row"><span class="k">ADRs published</span><span class="v">6 <span class="delta">all accepted</span></span></div>
+        <div class="row"><span class="k">Palette duplications</span><span class="v">7 → 1 <span class="delta">single source</span></span></div>
+        <div class="row"><span class="k">Stale serif refs</span><span class="v">6 → 0</span></div>
+        <div class="row"><span class="k">Trust states modelled</span><span class="v">1 → 4</span></div>
+        <div class="row"><span class="k">Open questions</span><span class="v">3 → 0 <span class="delta">resolved + 1 on hold</span></span></div>
+        <div class="divider"></div>
+        <div class="row"><span class="k">External flags</span><span class="v">2 <span class="delta" style="color:var(--tk-warning)">awaiting</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Maturity radar ──────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">01 · MATURITY</div>
+        <h2>Four axes. Before this pass, after this pass, target.</h2>
+      </div>
+      <div class="right">Scale · early → emerging<br/>→ structured → mature</div>
+    </div>
+
+    <div class="radar-block">
+      <div class="radar-wrap">
+        <!-- 4-axis radar.
+             Axes (clockwise from north):
+               N  = Brand narrative (--tk-org)
+               E  = Visual tokens   (--tk-studio)
+               S  = Cross-repo gov  (--tk-com)
+               W  = Operational eco (--tk-net)
+             Scale 0..4 (Early=1, Emerging=2, Structured=3, Mature=4).
+             Polygon center at (200,200), max radius 150. -->
+        <svg viewBox="-80 -80 560 560" aria-label="Maturity radar — four axes, before and after this pass">
+          <!-- 4 concentric guide rings (level 1..4) -->
+          <g class="radar-grid">
+            <circle cx="200" cy="200" r="37.5"/>
+            <circle cx="200" cy="200" r="75"/>
+            <circle cx="200" cy="200" r="112.5"/>
+            <circle cx="200" cy="200" r="150"/>
+          </g>
+
+          <!-- 4 axis lines -->
+          <g class="radar-axis">
+            <line x1="200" y1="200" x2="200" y2="50"/>
+            <line x1="200" y1="200" x2="350" y2="200"/>
+            <line x1="200" y1="200" x2="200" y2="350"/>
+            <line x1="200" y1="200" x2="50" y2="200"/>
+          </g>
+
+          <!-- Level ticks along the north axis — score grows outward,
+               so Mature sits at the outer ring (y≈54) and Early at the inner (y≈166). -->
+          <g class="radar-tick">
+            <text x="206" y="54"  text-anchor="start">Mature</text>
+            <text x="206" y="91"  text-anchor="start">Struct.</text>
+            <text x="206" y="129" text-anchor="start">Emerg.</text>
+            <text x="206" y="166" text-anchor="start">Early</text>
+          </g>
+
+          <!-- Before polygon: Narrative 3.5, Tokens 2.5, Gov 1.5, Eco 2.0 -->
+          <!-- Vertices: N = (200, 200 - 3.5*37.5) = (200, 68.75)
+                         E = (200 + 2.5*37.5, 200) = (293.75, 200)
+                         S = (200, 200 + 1.5*37.5) = (200, 256.25)
+                         W = (200 - 2.0*37.5, 200) = (125, 200) -->
+          <polygon class="radar-before"
+                   points="200,68.75 293.75,200 200,256.25 125,200"/>
+          <g class="radar-point-before">
+            <circle cx="200" cy="68.75" r="3.5"/>
+            <circle cx="293.75" cy="200" r="3.5"/>
+            <circle cx="200" cy="256.25" r="3.5"/>
+            <circle cx="125" cy="200" r="3.5"/>
+          </g>
+
+          <!-- After polygon: Narrative 3.5, Tokens 3.5, Gov 2.5, Eco 2.5 -->
+          <!-- Vertices: N = (200, 68.75)
+                         E = (200 + 3.5*37.5, 200) = (331.25, 200)
+                         S = (200, 200 + 2.5*37.5) = (200, 293.75)
+                         W = (200 - 2.5*37.5, 200) = (106.25, 200) -->
+          <polygon class="radar-after"
+                   points="200,68.75 331.25,200 200,293.75 106.25,200"/>
+          <g class="radar-point-after">
+            <circle cx="200" cy="68.75" r="4.5"/>
+            <circle cx="331.25" cy="200" r="4.5"/>
+            <circle cx="200" cy="293.75" r="4.5"/>
+            <circle cx="106.25" cy="200" r="4.5"/>
+          </g>
+
+          <!-- Axis labels — pillar-colored eyebrow + title, sitting outside the radar circle. -->
+          <g>
+            <text class="radar-label-eyebrow" x="200" y="30"  text-anchor="middle" fill="var(--tk-org)">.ORG</text>
+            <text class="radar-label-title"   x="200" y="44"  text-anchor="middle">Brand narrative</text>
+          </g>
+          <g>
+            <text class="radar-label-eyebrow" x="360" y="196" text-anchor="start" fill="var(--tk-studio)">.STUDIO</text>
+            <text class="radar-label-title"   x="360" y="210" text-anchor="start">Visual tokens</text>
+          </g>
+          <g>
+            <text class="radar-label-eyebrow" x="200" y="376" text-anchor="middle" fill="var(--tk-com)">.COM</text>
+            <text class="radar-label-title"   x="200" y="390" text-anchor="middle">Governance</text>
+          </g>
+          <g>
+            <text class="radar-label-eyebrow" x="40"  y="196" text-anchor="end" fill="var(--tk-net)">.NET</text>
+            <text class="radar-label-title"   x="40"  y="210" text-anchor="end">Operations</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="radar-legend">
+        <div class="radar-legend-head">
+          <span>Axis</span>
+          <span style="text-align:right">Before</span>
+          <span style="text-align:right">After</span>
+          <span style="text-align:right">Δ</span>
+        </div>
+        <div class="row">
+          <span class="axis"><span class="pillar" style="background:var(--tk-org)"></span>Brand narrative</span>
+          <span class="val" style="text-align:right">Struct.</span>
+          <span class="val after" style="text-align:right">Struct.</span>
+          <span class="val delta" style="text-align:right">·</span>
+        </div>
+        <div class="row">
+          <span class="axis"><span class="pillar" style="background:var(--tk-studio)"></span>Visual tokens</span>
+          <span class="val" style="text-align:right">Emerg.</span>
+          <span class="val after" style="text-align:right">Struct.</span>
+          <span class="val delta" style="text-align:right">+1</span>
+        </div>
+        <div class="row">
+          <span class="axis"><span class="pillar" style="background:var(--tk-com)"></span>Governance</span>
+          <span class="val" style="text-align:right">Early</span>
+          <span class="val after" style="text-align:right">Emerg.</span>
+          <span class="val delta" style="text-align:right">+1</span>
+        </div>
+        <div class="row">
+          <span class="axis"><span class="pillar" style="background:var(--tk-net)"></span>Operations</span>
+          <span class="val" style="text-align:right">Emerg.</span>
+          <span class="val after" style="text-align:right">Emerg.</span>
+          <span class="val delta" style="text-align:right">+½</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Findings ─────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">02 · FINDINGS</div>
+        <h2>Six issues. What the analyst saw, what the code said, what we did about it.</h2>
+      </div>
+      <div class="right">Three claims softened.<br/>Two flagged external.</div>
+    </div>
+
+    <div class="findings">
+
+      <!-- ── Finding 1 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">01</span>
+          <h3 class="title">Typography source-of-truth split.</h3>
+          <span class="badge softened-claim">Real · softened</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"<code>colors_and_type.css</code> declares sans-only; <code>preview/_card.css</code> pulls IBM Plex Serif and Source Serif 4; <code>tekrogen-org/README</code> says serif body. Editors and engineers will ship conflicting reading experiences."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Half right. Shipping pixels were already 100% Poppins — no JSX file actually applied a serif font-family. But the dead serif imports were real, and the stale comments would have confused a new contributor.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">Dropped <code>IBM+Plex+Serif</code> and <code>Source+Serif+4</code> from <code>preview/_card.css</code>. Updated 4 stale "serif" references (README, two JSX header comments, the Plex Sans specimen). Codified the stance as <code>adr/0001</code>. In v0.3.0, Plex Sans was retired entirely — the woff2, the @font-face, and the specimen card are gone.</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <a href="../adr/0001-typography-sans-only.md">ADR-0001</a>
+          <span class="dot">·</span>
+          <span>preview/_card.css · ui_kits/tekrogen-org/README.md · Article.jsx · FieldNoteCard.jsx · colors_and_type.css · fonts/README.md</span>
+        </div>
+      </div>
+
+      <!-- ── Finding 2 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">02</span>
+          <h3 class="title">Duplicate color authority.</h3>
+          <span class="badge fixed">Fixed</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"Pillar hex values live in <code>marks.jsx</code> (<code>TK_PALETTE</code>) and <code>colors_and_type.css</code> — must stay manually synchronized. Visual regression risk when one file updates."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Worse than the analyst said. Pillar hexes were duplicated in <strong>seven</strong> places: the CSS, <code>marks.jsx</code>, <code>Dragonfly.jsx</code>, <code>Article.jsx</code> (a hardcoded gradient), <code>master-lockups/index.html</code>, <code>asset-pack/index.html</code>, and the SVG assets.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">New <code>tokens/palette.js</code> is the single JS source. <code>tokens/sync.mjs</code> mirrors it into the CSS file between markers; <code>--check</code> mode exits non-zero on drift (CI hook). Consumers now read from <code>window.TK_TOKENS</code> and throw if it's missing.</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <a href="../adr/0002-palette-single-source.md">ADR-0002</a>
+          <span class="dot">·</span>
+          <span>tokens/palette.js · tokens/sync.mjs · colors_and_type.css · marks.jsx · Dragonfly.jsx · Article.jsx · master-lockups · asset-pack</span>
+        </div>
+      </div>
+
+      <!-- ── Finding 3 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">03</span>
+          <h3 class="title">Workflow document integrity (WF-001).</h3>
+          <span class="badge external">External · flagged</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"Opening paragraph repeats. §5 labels 'five functional layers' then enumerates through L7. Footer reads 'End of WF-003.' Tag naming drifts between code and prose."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Out-of-scope for this pass — <code>workflows/_planning/WF-001</code> lives in the broader Tekrogen folder, not in this design-system repo. The internal inconsistencies are real and the analyst's read is accurate.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">Flagged here. Not fixed. The WF document is a governance artifact for the publishing flywheel; its editorial pass belongs to whoever owns the workflows tree, not the DS.</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <span style="color:var(--tk-warning)">EXTERNAL · workflows/_planning/WF-001</span>
+          <span class="dot">·</span>
+          <span>Recommend: editorial pass + CODEOWNERS on workflows/</span>
+        </div>
+      </div>
+
+      <!-- ── Finding 4 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">04</span>
+          <h3 class="title">BNR ↔ live stack drift.</h3>
+          <span class="badge external">External · flagged</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"BNR <code>.org</code> row references Next.js MDX as canonical; WF-001 asserts Ghost Pro live. Teams misplace canonical URL and rendering — SEO and design parity diverge silently."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Accurate. The design system commits to Ghost Pro as the rendering surface for <code>.org</code> — but the BNR roadmap still describes MDX as canonical. Two contradictions of the same fact.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">Pinned the DS assumption in <code>adr/0004</code>: Ghost Pro is canonical here. The BNR amendment is recommended but not in this repo's gift to write.</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <a href="../adr/0004-canonical-authoring-surface.md">ADR-0004</a>
+          <span class="dot">·</span>
+          <span style="color:var(--tk-warning)">EXTERNAL · admin/about/01.Tekrogen_BNR_Roadmap_v1.md</span>
+        </div>
+      </div>
+
+      <!-- ── Finding 5 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">05</span>
+          <h3 class="title">Pillar rhetoric nuance.</h3>
+          <span class="badge fixed">Fixed</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"<code>Footer.jsx</code> says <code>.studio</code> = 'Design, instructional systems, learning'; BNR emphasizes 'demos / proof.' Verb-space differs — risk of positioning fuzz between education brand and proof-of-capability showroom."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Genuine but small. The footer line, the lockup sheet, the README tagline section, and the app-shell h1 all described <code>.studio</code> with slightly different verb-space — none wrong, but accidental rather than deliberate.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">Resolved by stakeholder decision (v0.3.0): <code>.studio</code> = <strong>"Proof of concept and demos."</strong> Propagated across <code>Footer.jsx</code>, <code>lockups-app.jsx</code>, <code>App.jsx</code>, and <code>README.md</code> (table + tagline section).</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <span>Resolved · OQ-01</span>
+          <span class="dot">·</span>
+          <span>Footer.jsx · lockups-app.jsx · App.jsx · README.md</span>
+        </div>
+      </div>
+
+      <!-- ── Finding 6 ── -->
+      <div class="finding">
+        <div class="head-row">
+          <span class="num">06</span>
+          <h3 class="title">Trust-stage UX not modelled in-repo.</h3>
+          <span class="badge fixed">Fixed</span>
+        </div>
+        <div class="body">
+          <div>
+            <div class="k">Analyst's claim</div>
+            <p class="v">"Subscribe form fakes success. Member / paid / entitled flows not mirrored. First real payment will collide with placeholder optimism — credibility shock."</p>
+          </div>
+          <div>
+            <div class="k">What the code actually says</div>
+            <p class="v">Correct and the most strategically important call in the analysis. The DS modelled the happy path only; the four real reader states had no visual contract.</p>
+          </div>
+          <div>
+            <div class="k">Action taken</div>
+            <p class="v">New <code>trust-state-matrix.html</code> mocks all four states (anonymous / member / paid / entitled) for a representative paired note. Each state gets a cyan CTA variant, a state pill, and (for paid + entitled) a receipt block. Contract locked in <code>adr/0006</code>.</p>
+          </div>
+        </div>
+        <div class="footnote">
+          <a href="../adr/0006-trust-state-cta.md">ADR-0006</a>
+          <span class="dot">·</span>
+          <a href="../trust-state-matrix.html">Open the matrix ↗</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── ADR index ───────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">03 · ADRs</div>
+        <h2>Six load-bearing decisions, written down once.</h2>
+      </div>
+      <div class="right">All accepted<br/>2026-05-16</div>
+    </div>
+
+    <div class="adr-grid">
+      <a class="adr-card" href="../adr/0001-typography-sans-only.md">
+        <div class="id">ADR · 0001</div>
+        <h3 class="title">Typography — sans-only.</h3>
+        <p class="dek">Poppins is the only face. Editorial weight comes from size, tracking, and italic — not from a serif counterpoint.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+      <a class="adr-card" href="../adr/0002-palette-single-source.md">
+        <div class="id">ADR · 0002</div>
+        <h3 class="title">Palette — single source.</h3>
+        <p class="dek"><code style="font-family:var(--tk-font-mono);font-size:11px;color:var(--tk-cyan)">tokens/palette.js</code> is canonical. <code style="font-family:var(--tk-font-mono);font-size:11px;color:var(--tk-cyan)">sync.mjs</code> mirrors it into CSS. Drift detectable in CI.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+      <a class="adr-card" href="../adr/0003-token-versioning.md">
+        <div class="id">ADR · 0003</div>
+        <h3 class="title">Token versioning — semver, even pre-1.0.</h3>
+        <p class="dek">Pre-1.0 minor = any visual change. Discipline starts now so consumers don't pull surprises.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+      <a class="adr-card" href="../adr/0004-canonical-authoring-surface.md">
+        <div class="id">ADR · 0004</div>
+        <h3 class="title">Canonical authoring — Ghost Pro.</h3>
+        <p class="dek">DS assumes Ghost Pro. BNR drift flagged for external amendment.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+      <a class="adr-card" href="../adr/0005-icon-system.md">
+        <div class="id">ADR · 0005</div>
+        <h3 class="title">Icon system — Lucide on product, glyphs on brand.</h3>
+        <p class="dek">Outline 1.5 stroke, currentColor, four-step size scale. Brand surfaces stay icon-free.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+      <a class="adr-card" href="../adr/0006-trust-state-cta.md">
+        <div class="id">ADR · 0006</div>
+        <h3 class="title">Trust-state CTAs — paired-content primitive.</h3>
+        <p class="dek">Anonymous / member / paid / entitled. One cyan accent, four contracts.</p>
+        <div class="foot"><span>Accepted</span><span class="accepted">●</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Files changed ───────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">04 · FILES CHANGED</div>
+        <h2>What landed in v0.2.0.</h2>
+      </div>
+      <div class="right">Pixel diff · none<br/>Structural diff · scoped</div>
+    </div>
+
+    <div class="filelog">
+      <div class="group">
+        <div class="group-head"><span>NEW · tokens · governance</span><span>+12 files</span></div>
+        <ul>
+          <li><span class="op new">NEW</span><span class="path">tokens/palette.js</span></li>
+          <li><span class="op new">NEW</span><span class="path">tokens/sync.mjs</span></li>
+          <li><span class="op new">NEW</span><span class="path">tokens/README.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/README.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0001-typography-sans-only.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0002-palette-single-source.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0003-token-versioning.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0004-canonical-authoring-surface.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0005-icon-system.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">adr/0006-trust-state-cta.md</span></li>
+          <li><span class="op new">NEW</span><span class="path">trust-state-matrix.html</span></li>
+          <li><span class="op new">NEW</span><span class="path">review/index.html</span></li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="group-head"><span>UPDATED · single-sourced palette</span><span>~6 files</span></div>
+        <ul>
+          <li><span class="op upd">UPD</span><span class="path">colors_and_type.css</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/_shared/marks.jsx</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/Dragonfly.jsx</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/Article.jsx</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/index.html</span><span class="note">— loads tokens/palette.js before Babel</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/master-lockups/index.html</span><span class="note">— local --org/--studio aliases now var(--tk-*)</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/asset-pack/index.html</span><span class="note">— same alias pattern</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/mark-explorations/index.html</span><span class="note">— loads tokens/palette.js + drops dead Source Serif 4 import</span></li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="group-head"><span>UPDATED · serif scrub + Plex Sans retirement</span><span>~4 / −2 files</span></div>
+        <ul>
+          <li><span class="op upd">UPD</span><span class="path">preview/_card.css</span><span class="note">— dropped IBM Plex Serif + Source Serif 4 from @import (v0.2.0)</span></li>
+          <li><span class="op del">DEL</span><span class="path">preview/card-type-plex-sans.html</span><span class="note">— specimen retired (v0.3.0)</span></li>
+          <li><span class="op del">DEL</span><span class="path">fonts/ibm-plex-sans-v23-latin-regular.woff2</span><span class="note">— self-hosted face removed (v0.3.0)</span></li>
+          <li><span class="op upd">UPD</span><span class="path">colors_and_type.css</span><span class="note">— @font-face for IBM Plex Sans removed; Google Fonts URL example updated (v0.3.0)</span></li>
+          <li><span class="op upd">UPD</span><span class="path">fonts/README.md</span><span class="note">— Plex Sans row removed; flagged-for-review #1 retired (v0.3.0)</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/README.md</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/FieldNoteCard.jsx</span><span class="note">— "serif title" → "Poppins editorial title" in header comment</span></li>
+        </ul>
+      </div>
+      <div class="group">
+        <div class="group-head"><span>UPDATED · .studio verb-space (v0.3.0)</span><span>~4 files</span></div>
+        <ul>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/Footer.jsx</span><span class="note">— "Design, instructional systems, learning" → "Proof of concept and demos"</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/_shared/lockups-app.jsx</span><span class="note">— same verb-space change in the domain card</span></li>
+          <li><span class="op upd">UPD</span><span class="path">ui_kits/tekrogen-org/App.jsx</span><span class="note">— studio path h1 updated</span></li>
+          <li><span class="op upd">UPD</span><span class="path">README.md</span><span class="note">— entity table + tagline section</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── External flags ──────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">05 · EXTERNAL FLAGS</div>
+        <h2>Things outside this repo that this repo can't fix.</h2>
+      </div>
+      <div class="right">Two artifacts<br/>Awaiting external pass</div>
+    </div>
+
+    <div class="flags">
+      <div class="flag">
+        <div class="k">WF-001 · workflows/_planning/</div>
+        <p class="v">Internal inconsistencies in the planning doc: a header announcing "five functional layers" enumerating through L7, an "End of WF-003" footer, and tag-naming drift between code (<code>#feature-product-detail</code>) and prose ("details"). Recommend an editorial pass plus <code>CODEOWNERS</code> on <code>workflows/</code> so doc edits route to a reviewer.</p>
+      </div>
+      <div class="flag">
+        <div class="k">BNR · admin/about/01.Tekrogen_BNR_Roadmap_v1.md</div>
+        <p class="v">The <code>.org</code> roadmap row describes Next.js + MDX as canonical authoring. The live stack and WF-001 both say Ghost Pro. Two contradictions of the same fact. Recommend a BNR amendment: pick "Ghost Pro (canonical) · Next.js + MDX (future option, not active)" or vice versa, with a date stamp. ADR-0004 pins the DS assumption.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Open questions ──────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">06 · OPEN QUESTIONS · RESOLVED</div>
+        <h2>The three deferred items — answered.</h2>
+      </div>
+      <div class="right">All resolved 2026-05-16<br/>v0.3.0 stakeholder pass</div>
+    </div>
+
+    <div class="openqs">
+      <div class="openq">
+        <div class="id">OQ · 01 · RESOLVED</div>
+        <h4>The .studio verb-space.</h4>
+        <p><strong style="color:var(--tk-cyan)">Decided · "Proof of concept and demos."</strong> Propagated across Footer, lockup sheet, App-shell, README. The "learning" framing is retired; "demos / proof" is now the canonical positioning.</p>
+      </div>
+      <div class="openq">
+        <div class="id">OQ · 02 · RESOLVED</div>
+        <h4>IBM Plex Sans fate.</h4>
+        <p><strong style="color:var(--tk-cyan)">Decided · Retired.</strong> The self-hosted woff2, the @font-face, the Google Fonts URL fragment, and the specimen card are all gone. Tekrogen is sans-only via Poppins. A future second sans needs a new ADR.</p>
+      </div>
+      <div class="openq">
+        <div class="id">OQ · 03 · ON HOLD</div>
+        <h4>Package boundary — @tekrogen/tokens.</h4>
+        <p><strong style="color:var(--tk-warning)">Decided · On hold.</strong> When <code>.com</code> or <code>.net</code> consumes tokens this becomes load-bearing; until then the two-file / one-script contract in <code>tokens/</code> is sufficient. ADR-0003 holds the semver discipline; a future ADR will spin out the package.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Closing ─────────────────────────────────────────── -->
+  <div class="closing">
+    <p class="quote">A brand that earns attention through procedure should be evaluated <em>procedurally</em>. The Cursor analysis read fairly; this pass closed the cheap fixes, wrote down the structural ones, and answered the three deferred questions before they could drift.</p>
+    <div class="sig">v0.3.0 · 2026-05-16 · ROBERT DOLCE</div>
+  </div>
+
+</div>
+
+<script>
+  /* Surface toggle — swaps data-tk-theme on <html>.
+   * Persists the choice across reloads via localStorage. */
+  (function () {
+    const html = document.documentElement;
+    const btnInk = document.getElementById('btn-ink');
+    const btnPaper = document.getElementById('btn-paper');
+    const label = document.getElementById('mode-label');
+
+    function set(mode) {
+      html.setAttribute('data-tk-theme', mode);
+      btnInk.setAttribute('aria-pressed',   mode === 'ink'   ? 'true' : 'false');
+      btnPaper.setAttribute('aria-pressed', mode === 'paper' ? 'true' : 'false');
+      label.textContent = mode === 'ink' ? 'Ink' : 'Paper';
+      try { localStorage.setItem('tk-review-surface', mode); } catch (e) {}
+    }
+
+    btnInk.addEventListener('click', () => set('ink'));
+    btnPaper.addEventListener('click', () => set('paper'));
+
+    try {
+      const saved = localStorage.getItem('tk-review-surface');
+      if (saved === 'ink' || saved === 'paper') set(saved);
+    } catch (e) {}
+  })();
+</script>
+
+</body>
+</html>

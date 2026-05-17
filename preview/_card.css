@@ -1,0 +1,64 @@
+/* Tekrogen preview card shared stylesheet
+ * Used by every file in preview/ — keeps the cards consistent and small.
+ * Sans-only brand — no serif face. See adr/0001-typography-sans-only.md. */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import url('../colors_and_type.css');
+
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--tk-ink);
+  color: var(--tk-fg-1);
+  font-family: var(--tk-font-sans);
+  padding: 22px 26px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+body.paper {
+  background: var(--tk-paper);
+  color: #1f2731;
+}
+.row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.col { display: flex; flex-direction: column; gap: 14px; }
+.grid { display: grid; gap: 14px; }
+.label {
+  font-family: var(--tk-font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+  font-weight: 500;
+}
+body.paper .label { color: #8a96a1; }
+.swatch {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-end;
+  padding: 8px;
+  box-sizing: border-box;
+  font-family: var(--tk-font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.hex {
+  font-family: var(--tk-font-mono);
+  font-size: 10.5px;
+  color: var(--tk-fg-3);
+  letter-spacing: 0.04em;
+}
+body.paper .hex { color: #6b7280; }
+.token {
+  font-family: var(--tk-font-mono);
+  font-size: 10px;
+  color: var(--tk-cyan);
+  letter-spacing: 0.04em;
+}
+.name {
+  font-family: var(--tk-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tk-fg-1);
+}
+body.paper .name { color: #1f2731; }

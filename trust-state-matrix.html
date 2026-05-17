@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Tekrogen — Trust-state matrix</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  /* ── Page chrome ─────────────────────────────────────────── */
+  body { background: var(--tk-ink); }
+  ::selection { background: var(--tk-cyan); color: var(--tk-ink); }
+
+  .page {
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 80px 48px 140px;
+  }
+
+  /* Sticky toolbar — brand primitive */
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    margin: -80px -48px 56px;
+    padding: 14px 48px;
+    background: rgba(14,17,22,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--tk-ink-2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .toolbar .crumb {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .toolbar .crumb a {
+    color: var(--tk-fg-3);
+    border-bottom: none;
+  }
+  .toolbar .crumb a:hover { color: var(--tk-cyan); }
+  .toolbar .crumb .sep { color: var(--tk-fg-5); padding: 0 8px; }
+  .toolbar .right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+
+  /* ── Headline block ──────────────────────────────────────── */
+  .head { margin-bottom: 56px; }
+  .head .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+    margin-bottom: 14px;
+  }
+  .head h1 {
+    font-size: clamp(36px, 4.2vw, 56px);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    max-width: 880px;
+  }
+  .head .dek {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--tk-fg-3);
+    max-width: 720px;
+    margin-top: 18px;
+    font-style: italic;
+  }
+  .head .meta {
+    margin-top: 32px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  .head .meta .dot { color: var(--tk-fg-5); }
+  .head .meta .pill {
+    border: 1px solid var(--tk-ink-2);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    color: var(--tk-cyan);
+  }
+
+  /* ── Section heads ───────────────────────────────────────── */
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    padding-bottom: 18px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--tk-ink-2);
+  }
+  .section-head h2 {
+    font-size: 28px;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .section-head .left .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+    margin-bottom: 6px;
+  }
+  .section-head .right {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+  }
+  section { margin-top: 80px; }
+
+  /* ── Matrix grid ─────────────────────────────────────────── */
+  .matrix {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 1080px) { .matrix { grid-template-columns: 1fr; } }
+
+  /* ── Note card (the paired-content surface itself) ───────── */
+  .note {
+    background: var(--tk-ink-soft);
+    border: 1px solid var(--tk-ink-2);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .note .kicker {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-cyan);
+  }
+  .note .title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.18;
+    color: var(--tk-fg-1);
+    text-wrap: pretty;
+  }
+  .note .dek {
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--tk-fg-3);
+    margin: 0;
+  }
+  .note .body {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--tk-fg-2);
+    margin: 0;
+    max-width: 56ch;
+  }
+  .note .body.blurred {
+    -webkit-mask-image: linear-gradient(180deg, black 40%, transparent 100%);
+            mask-image: linear-gradient(180deg, black 40%, transparent 100%);
+  }
+  .note .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+  }
+  .note .meta-row .dot { color: var(--tk-fg-5); }
+
+  /* ── State pill (one per surface, above the CTA block) ──── */
+  .state-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    padding: 5px 10px 5px 9px;
+    border-radius: 9999px;
+    border: 1px solid var(--tk-ink-2);
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-2);
+  }
+  .state-pill .swatch {
+    width: 6px; height: 6px; border-radius: 50%;
+  }
+  .state-pill.state-anonymous { border-color: color-mix(in srgb, var(--tk-com) 60%, var(--tk-ink-2)); }
+  .state-pill.state-anonymous .swatch { background: var(--tk-com); }
+  .state-pill.state-member    { border-color: color-mix(in srgb, var(--tk-studio) 60%, var(--tk-ink-2)); }
+  .state-pill.state-member .swatch    { background: var(--tk-studio); }
+  .state-pill.state-paid      { border-color: var(--tk-cyan); color: var(--tk-fg-1); }
+  .state-pill.state-paid .swatch      { background: var(--tk-cyan); }
+  .state-pill.state-entitled  { border-color: color-mix(in srgb, var(--tk-net) 60%, var(--tk-ink-2)); }
+  .state-pill.state-entitled .swatch  { background: var(--tk-net); }
+
+  /* ── CTA block (the paired-content primitive) ───────────── */
+  .cta-block {
+    margin-top: 4px;
+    padding-top: 18px;
+    border-top: 1px solid var(--tk-ink-2);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .cta-label {
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+    margin-bottom: -2px;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  /* CTA variants — one per trust state, per ADR-0006 */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-family: var(--tk-font-sans);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background var(--tk-dur-1) var(--tk-ease),
+                color var(--tk-dur-1) var(--tk-ease),
+                border-color var(--tk-dur-1) var(--tk-ease),
+                box-shadow var(--tk-dur-2) var(--tk-ease);
+  }
+  .btn .glyph {
+    font-family: var(--tk-font-mono);
+    font-weight: 500;
+    color: inherit;
+  }
+  .btn .size {
+    margin-left: 4px;
+    font-family: var(--tk-font-mono);
+    font-weight: 500;
+    font-size: 12px;
+    color: inherit;
+    opacity: 0.7;
+  }
+  .btn-cyan-outline {
+    border-color: var(--tk-cyan);
+    color: var(--tk-cyan);
+    background: transparent;
+  }
+  .btn-cyan-outline:hover {
+    background: var(--tk-cyan);
+    color: var(--tk-ink);
+  }
+  .btn-cyan-solid {
+    background: var(--tk-cyan);
+    color: var(--tk-ink);
+    border-color: var(--tk-cyan);
+    box-shadow: var(--tk-shadow-glow);
+  }
+  .btn-cyan-solid:hover { filter: brightness(1.05); }
+  .btn-cyan-quiet {
+    border-color: color-mix(in srgb, var(--tk-cyan) 50%, var(--tk-ink-2));
+    color: color-mix(in srgb, var(--tk-cyan) 90%, var(--tk-fg-2));
+    background: transparent;
+    font-size: 13px;
+    padding: 9px 14px;
+  }
+  .btn-cyan-quiet:hover {
+    border-color: var(--tk-cyan);
+    color: var(--tk-cyan);
+  }
+
+  .cta-text-link {
+    font-family: var(--tk-font-sans);
+    font-size: 13px;
+    color: var(--tk-fg-3);
+  }
+  .cta-text-link a {
+    color: var(--tk-cyan);
+    border-bottom-color: color-mix(in srgb, var(--tk-cyan) 35%, transparent);
+  }
+
+  /* ── Receipt block (paid + entitled only) ───────────────── */
+  .receipt {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border: 1px solid var(--tk-ink-2);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 16px;
+    row-gap: 6px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+  }
+  .receipt .k {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--tk-fg-4);
+  }
+  .receipt .v { color: var(--tk-fg-2); }
+  .receipt .v.muted { color: var(--tk-fg-4); }
+
+  /* ── Specimen footer caption ─────────────────────────────── */
+  .caption {
+    margin-top: 14px;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tk-fg-4);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .caption .dot { color: var(--tk-fg-5); }
+
+  /* ── Spec / decision table beneath the matrix ───────────── */
+  .spec {
+    margin-top: 40px;
+    border: 1px solid var(--tk-ink-2);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .spec table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .spec th, .spec td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--tk-ink-2);
+    vertical-align: top;
+  }
+  .spec tr:last-child td { border-bottom: none; }
+  .spec th {
+    font-family: var(--tk-font-mono);
+    font-weight: 500;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tk-fg-3);
+    background: var(--tk-bg-3);
+  }
+  .spec td.k {
+    font-family: var(--tk-font-mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--tk-fg-2);
+    white-space: nowrap;
+  }
+  .spec td .swatch {
+    display: inline-block;
+    width: 10px; height: 10px; border-radius: 2px;
+    margin-right: 8px;
+    vertical-align: -1px;
+  }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="toolbar">
+    <div class="crumb">
+      <a href="review/index.html">Review</a>
+      <span class="sep">·</span>
+      <a href="adr/0006-trust-state-cta.md">ADR-0006</a>
+      <span class="sep">·</span>
+      <span>Trust-state matrix</span>
+    </div>
+    <div class="right">
+      <span>State · A / M / P / E</span>
+    </div>
+  </div>
+
+  <div class="head">
+    <div class="eyebrow">PRIMITIVE · PAIRED CONTENT · 04</div>
+    <h1>Four trust states, one cyan accent. The accent has to mean something different in each — or it doesn't mean anything at all.</h1>
+    <p class="dek">Mocks for the four states a reader can be in when they reach a paired field note. Anonymous, member, paid, download-entitled. Each gets its own CTA treatment, its own state pill, and (when there's a receipt to show) its own receipt block.</p>
+    <div class="meta">
+      <span class="pill">ADR · 0006</span>
+      <span>Surface · .com → .org</span>
+      <span class="dot">·</span>
+      <span>Four states</span>
+      <span class="dot">·</span>
+      <span>One CTA token</span>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">01 · MATRIX</div>
+        <h2>The same field note, four times.</h2>
+      </div>
+      <div class="right">Note · 04 · Four wings, one pursuit</div>
+    </div>
+
+    <div class="matrix">
+
+      <!-- ── State 1 · Anonymous ────────────────────────── -->
+      <article class="note" data-state="anonymous">
+        <span class="state-pill state-anonymous">
+          <span class="swatch"></span>
+          <span>State · Anonymous</span>
+        </span>
+        <div class="kicker">FIELD NOTE · 04 · DOMAIN SPLIT</div>
+        <h3 class="title">Four wings, one pursuit: how one mark carries .org, .studio, .com, and .net.</h3>
+        <p class="dek">Field notes on running a four-entity practice from a single mark — we build it, prove it, and publish what we learned.</p>
+        <p class="body blurred">The dragonfly's four wings map to four entities. The body is the pursuit they share: build it, prove it, publish what we learned. Each wing gets to lead with its own color when the surface is entity-specific — research blue for .org, learning blue for .studio, commercial teal for .com, platform green for .net. But the body color stays the same. The body is what the wings have in common, and what visitors should infer about the practice without ever being told.</p>
+        <div class="meta-row">
+          <span>MAY 2026</span><span class="dot">·</span>
+          <span>8 MIN READ</span><span class="dot">·</span>
+          <span style="color: var(--tk-org)">.org</span>
+        </div>
+        <div class="cta-block">
+          <span class="cta-label">CTA · subscribe-to-read</span>
+          <div class="cta-row">
+            <a class="btn btn-cyan-outline" href="#">
+              Subscribe to read
+              <span class="glyph">↗</span>
+            </a>
+            <span class="cta-text-link">Already a member? <a href="#">Sign in.</a></span>
+          </div>
+        </div>
+        <div class="caption">
+          <span>SPEC · stae-pill · com border · cta cyan outline</span>
+        </div>
+      </article>
+
+      <!-- ── State 2 · Member (free) ───────────────────── -->
+      <article class="note" data-state="member">
+        <span class="state-pill state-member">
+          <span class="swatch"></span>
+          <span>State · Member · Free</span>
+        </span>
+        <div class="kicker">FIELD NOTE · 04 · DOMAIN SPLIT</div>
+        <h3 class="title">Four wings, one pursuit: how one mark carries .org, .studio, .com, and .net.</h3>
+        <p class="dek">Field notes on running a four-entity practice from a single mark — we build it, prove it, and publish what we learned.</p>
+        <p class="body">The dragonfly's four wings map to four entities. The body is the pursuit they share: build it, prove it, publish what we learned. Each wing gets to lead with its own color when the surface is entity-specific — research blue for .org, learning blue for .studio, commercial teal for .com, platform green for .net. But the body color stays the same.</p>
+        <div class="meta-row">
+          <span>MAY 2026</span><span class="dot">·</span>
+          <span>8 MIN READ</span><span class="dot">·</span>
+          <span style="color: var(--tk-org)">.org</span>
+        </div>
+        <div class="cta-block">
+          <span class="cta-label">CTA · unlock-artifact · paired</span>
+          <div class="cta-row">
+            <a class="btn btn-cyan-outline" href="#">
+              Unlock the template
+              <span class="glyph">↓</span>
+              <span class="size">$24</span>
+            </a>
+            <span class="cta-text-link">Includes the Figma + Ghost theme bundle.</span>
+          </div>
+        </div>
+        <div class="caption">
+          <span>SPEC · state-pill · studio border · reading unlocked · download paywalled</span>
+        </div>
+      </article>
+
+      <!-- ── State 3 · Paid ────────────────────────────── -->
+      <article class="note" data-state="paid">
+        <span class="state-pill state-paid">
+          <span class="swatch"></span>
+          <span>State · Paid</span>
+        </span>
+        <div class="kicker">FIELD NOTE · 04 · DOMAIN SPLIT</div>
+        <h3 class="title">Four wings, one pursuit: how one mark carries .org, .studio, .com, and .net.</h3>
+        <p class="dek">Field notes on running a four-entity practice from a single mark — we build it, prove it, and publish what we learned.</p>
+        <p class="body">The dragonfly's four wings map to four entities. The body is the pursuit they share: build it, prove it, publish what we learned. Each wing gets to lead with its own color when the surface is entity-specific — research blue for .org, learning blue for .studio, commercial teal for .com, platform green for .net.</p>
+        <div class="meta-row">
+          <span>MAY 2026</span><span class="dot">·</span>
+          <span>8 MIN READ</span><span class="dot">·</span>
+          <span style="color: var(--tk-org)">.org</span>
+        </div>
+        <div class="cta-block">
+          <span class="cta-label">CTA · primary · download-artifact</span>
+          <div class="cta-row">
+            <a class="btn btn-cyan-solid" href="#">
+              Download
+              <span class="glyph">↓</span>
+              <span class="size">·  12.4 MB</span>
+            </a>
+            <span class="cta-text-link">Bundle: Figma + Ghost theme + LICENSE.</span>
+          </div>
+          <div class="receipt">
+            <div class="k">Order</div>     <div class="v">tk-ord-4192-fwop</div>
+            <div class="k">Tier</div>      <div class="v">Member · paid</div>
+            <div class="k">Paid</div>      <div class="v">2026-05-08</div>
+            <div class="k">License</div>   <div class="v muted">Single-team — see LICENSE.md in bundle</div>
+          </div>
+        </div>
+        <div class="caption">
+          <span>SPEC · cyan-solid · shadow-glow · receipt block visible</span>
+        </div>
+      </article>
+
+      <!-- ── State 4 · Download-entitled ───────────────── -->
+      <article class="note" data-state="entitled">
+        <span class="state-pill state-entitled">
+          <span class="swatch"></span>
+          <span>State · Entitled</span>
+        </span>
+        <div class="kicker">FIELD NOTE · 04 · DOMAIN SPLIT</div>
+        <h3 class="title">Four wings, one pursuit: how one mark carries .org, .studio, .com, and .net.</h3>
+        <p class="dek">Field notes on running a four-entity practice from a single mark — we build it, prove it, and publish what we learned.</p>
+        <p class="body">The dragonfly's four wings map to four entities. The body is the pursuit they share: build it, prove it, publish what we learned. Each wing gets to lead with its own color when the surface is entity-specific — research blue for .org, learning blue for .studio, commercial teal for .com, platform green for .net.</p>
+        <div class="meta-row">
+          <span>MAY 2026</span><span class="dot">·</span>
+          <span>8 MIN READ</span><span class="dot">·</span>
+          <span style="color: var(--tk-org)">.org</span>
+        </div>
+        <div class="cta-block">
+          <span class="cta-label">CTA · secondary · re-download</span>
+          <div class="cta-row">
+            <a class="btn btn-cyan-quiet" href="#">
+              Re-download
+              <span class="glyph">↓</span>
+            </a>
+            <span class="cta-text-link">Last redeemed 2026-05-09 · <a href="#">licence file</a></span>
+          </div>
+          <div class="receipt">
+            <div class="k">Order</div>     <div class="v">tk-ord-4192-fwop</div>
+            <div class="k">Tier</div>      <div class="v">Member · paid · entitled</div>
+            <div class="k">Redeemed</div>  <div class="v">2026-05-09 14:22 UTC</div>
+            <div class="k">Downloads</div> <div class="v muted">3 of unlimited</div>
+          </div>
+        </div>
+        <div class="caption">
+          <span>SPEC · cyan-quiet · de-emphasized · receipt persists</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ── Spec table — the contract behind the visuals ──────── -->
+  <section>
+    <div class="section-head">
+      <div class="left">
+        <div class="eyebrow">02 · CONTRACT</div>
+        <h2>One token per state, written down once.</h2>
+      </div>
+      <div class="right">CTA · cyan · 4 variants</div>
+    </div>
+
+    <div class="spec">
+      <table>
+        <thead>
+          <tr>
+            <th>State</th>
+            <th>State pill</th>
+            <th>CTA treatment</th>
+            <th>Receipt</th>
+            <th>Reader can…</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k"><span class="swatch" style="background:var(--tk-com)"></span>Anonymous</td>
+            <td>Border · <code>--tk-com</code> 60%</td>
+            <td><code>btn-cyan-outline</code> · "Subscribe to read"</td>
+            <td>—</td>
+            <td>Read preview, see paywall</td>
+          </tr>
+          <tr>
+            <td class="k"><span class="swatch" style="background:var(--tk-studio)"></span>Member · free</td>
+            <td>Border · <code>--tk-studio</code> 60%</td>
+            <td><code>btn-cyan-outline</code> · "Unlock — $X"</td>
+            <td>—</td>
+            <td>Read in full, can't download</td>
+          </tr>
+          <tr>
+            <td class="k"><span class="swatch" style="background:var(--tk-cyan)"></span>Paid</td>
+            <td>Border · <code>--tk-cyan</code> · solid</td>
+            <td><code>btn-cyan-solid</code> · "Download — N MB" + <code>--tk-shadow-glow</code></td>
+            <td>Order · tier · paid date · license</td>
+            <td>Read in full, primary download CTA</td>
+          </tr>
+          <tr>
+            <td class="k"><span class="swatch" style="background:var(--tk-net)"></span>Entitled</td>
+            <td>Border · <code>--tk-net</code> 60%</td>
+            <td><code>btn-cyan-quiet</code> · "Re-download"</td>
+            <td>Order · tier · redeemed · count</td>
+            <td>Re-redeem (secondary affordance)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

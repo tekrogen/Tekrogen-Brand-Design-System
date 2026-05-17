@@ -1,0 +1,15 @@
+{
+  "name": "@tekrogen/design-system",
+  "version": "0.3.1",
+  "private": true,
+  "description": "Tekrogen Brand Design System — tokens, marks, type, and UI kits for the four-entity practice (.org/.studio/.com/.net).",
+  "type": "module",
+  "scripts": {
+    "sync": "node tokens/sync.mjs",
+    "check": "node tokens/sync.mjs --check"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "packageManager": "pnpm@10.33.2"
+}

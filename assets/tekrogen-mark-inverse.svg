@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="220" viewBox="0 0 200 220" aria-label="Tekrogen dragonfly">
+  <g transform="rotate(18 100 110)">
+    <polygon points="100,4 108,9 108,19 100,24 92,19 92,9" fill="#9eb1c0"></polygon>
+    <polygon points="95,22 105,22 108,34 92,34" fill="#cad6e0"></polygon>
+    <polygon points="94,32 18,6 22,68 52,72 94,68" fill="#446e88"></polygon>
+    <polygon points="94,32 18,6 40,14 82,42 94,42" fill="#1b2530" opacity="0.45"></polygon>
+    <polygon points="106,32 182,6 178,68 148,72 106,68" fill="#6491ac"></polygon>
+    <polygon points="106,32 182,6 160,14 118,42 106,42" fill="#446e88" opacity="0.45"></polygon>
+    <polygon points="94,68 32,84 38,126 94,110" fill="#0db4b9"></polygon>
+    <polygon points="94,68 32,84 52,96 94,84" fill="#0893a4" opacity="0.55"></polygon>
+    <polygon points="106,68 168,84 162,126 106,110" fill="#7edba5"></polygon>
+    <polygon points="106,68 168,84 148,96 106,84" fill="#3dcfa3" opacity="0.55"></polygon>
+    <polygon points="94,32 106,32 110,70 108,130 103,216 100,220 97,216 92,130 90,70" fill="#cad6e0"></polygon>
+    <polygon points="98,34 102,34 104,80 101,210 100,220 99,210 96,80" fill="#9eb1c0" opacity="0.4"></polygon></g>
+</svg>
