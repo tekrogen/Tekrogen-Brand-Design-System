@@ -257,8 +257,8 @@ There is no in-between gradient backdrop. Pick a side.
 - **Hairlines** carry everything. `1px solid var(--tk-border)` is the workhorse. No 2px borders.
 - **Drop shadows are rare.** There is no diffuse "elevation" system. The Tekrogen surface is flat; depth comes from contrast (ink vs. paper) and hairline color, not blur.
 - **Two shadow recipes exist** and only those:
-    - `--tk-shadow-2: 0 14px 40px rgba(0,0,0,0.5)` — for the floating download dock and toasts on the dark surface.
-    - `--tk-shadow-glow` — `0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18)` — for the active state on the *one* primary CTA per surface.
+  - `--tk-shadow-2: 0 14px 40px rgba(0,0,0,0.5)` — for the floating download dock and toasts on the dark surface.
+  - `--tk-shadow-glow` — `0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18)` — for the active state on the *one* primary CTA per surface.
 
 ### Corner radii — opinion
 
@@ -343,8 +343,8 @@ Brand surfaces (marketing site, asset pack, master lockups) stay icon-free. **Pr
 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
      stroke="currentColor" stroke-width="1.5"
      stroke-linecap="round" stroke-linejoin="round">
-    <circle cx="11" cy="11" r="8"/>
-    <path d="m21 21-4.3-4.3"/>
+  <circle cx="11" cy="11" r="8"/>
+  <path d="m21 21-4.3-4.3"/>
 </svg>
 ```
 

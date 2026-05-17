@@ -67,7 +67,7 @@ function Footer() {
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--tk-fg-4)',
         }}>
-          <span>© 2026 Tekrogen · Robert Dolce</span>
+          <span>© 2026 Tekrogen · Martinique Dolce</span>
           <div style={{ display: 'flex', gap: 18 }}>
             <a href="/colophon" style={{ color: 'var(--tk-fg-4)', textDecoration: 'none', border: 'none' }}>Colophon</a>
             <a href="/rss" style={{ color: 'var(--tk-fg-4)', textDecoration: 'none', border: 'none' }}>RSS</a>

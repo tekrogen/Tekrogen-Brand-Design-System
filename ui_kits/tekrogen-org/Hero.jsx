@@ -1,7 +1,6 @@
 /* global React, Dragonfly */
 // Editorial hero used on the home page. Composed of:
-//   eyebrow (mono cyan) · title (Poppins 600, sans large) · dek (Poppins italic muted) · meta row
-// Sans-only per adr/0001-typography-sans-only.md.
+//   eyebrow (mono cyan) · title (serif large) · dek (serif italic muted) · meta row
 
 function Hero({ eyebrow, title, dek, meta }) {
   return (

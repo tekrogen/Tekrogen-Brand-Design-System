@@ -4,47 +4,6 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
-## [0.3.1] — 2026-05-17
-
-> **Versioning intent — patch.** No rendered pixels change. Three sync-script bugfixes, one stale-comment cleanup, two new tooling/onboarding files. All items match the ADR-0003 PATCH bucket (sync-script bugfixes, comments, file additions).
-
-### Pixel diff
-
-None. No token values, type sizes, spacing, or component styles changed.
-
-### Migration
-
-- Consumers running `node tokens/sync.mjs --check` in CI: the script now actually works (see below). If you previously suppressed its failure or skipped the hook, you can re-enable it. Add `"check": "node tokens/sync.mjs --check"` to your own package.json or call the script directly.
-- pnpm users: `pnpm@10.33.2` is now pinned via `packageManager`. Other package managers still work (the scripts shell out to `node`), but `corepack` will pull pnpm for this repo.
-
-### Assets to regenerate
-
-None.
-
-### Added
-
-- `package.json` — minimal manifest pinning `pnpm@10.33.2` via `packageManager`, exposing `pnpm run sync` and `pnpm run check`. No dependencies; `tokens/sync.mjs` is stdlib-only.
-- `CLAUDE.md` — Claude Code orientation doc covering purpose, key components, ADR summaries, implementation patterns, common operations, and the gotchas/non-obvious behaviors list.
-
-### Fixed
-
-- `tokens/sync.mjs` was non-functional and would fail every run with `SyntaxError: Unexpected end of JSON input`. Three bugs, fixed together:
-  1. **Marker detection.** `indexOf("TK-PALETTE-BEGIN")` matched the file's own header comment first (which references the markers via `*\/` to avoid breaking out of the outer block). Now searches for the full delimited form `/* TK-PALETTE-BEGIN */`, which the header comment doesn't contain.
-  2. **Comment stripping.** The extracted block contains human-readable inline `/* pillars */` annotations that `JSON.parse` can't handle. The script now strips `/* … */` before parsing.
-  3. **Padding alignment.** `padEnd(19)` produced one space more than the original CSS file's alignment; restored to `padEnd(18)` so `pnpm run sync` is a no-op against the existing `colors_and_type.css`.
-- `ui_kits/tekrogen-org/Hero.jsx` — header comment said "title (serif large) · dek (serif italic muted)", the same stale-serif copy ADR-0001 retired in v0.2.0 / v0.3.0. The shipping pixels were already Poppins; only the comment was wrong. Now reads "title (Poppins 600, sans large) · dek (Poppins italic muted)" with a pointer to ADR-0001.
-
-### Verification
-
-- `pnpm run check` returns `✓ tokens in sync.` and exits 0 against the unmodified `colors_and_type.css`.
-- `grep -ri "serif" colors_and_type.css preview/_card.css ui_kits/` returns only the two ADR-0001 declarations and `sans-serif` / `monospace` fallback-stack matches. No stale "serif title" / "serif body" comments.
-
-### Notes
-
-The sync-script bugs were surfaced while wiring up a `package.json` to make ADR-0002's "drift is detectable" claim actually usable in CI. The script had never been runnable as-shipped — every invocation would have thrown immediately. v0.2.0 / v0.3.0 CHANGELOG entries describe the script as if it had been exercised; in practice the parity it enforces was held by hand. From v0.3.1 forward, `pnpm run check` is the enforcement mechanism the earlier ADR text assumed.
-
----
-
 ## [0.3.0] — 2026-05-16
 
 > **Versioning intent — minor.** Resolves the three open questions left by v0.2.0. One visible copy change (the `.studio` verb-space) lands on every surface that mentioned it; one font is removed from the system; one decision is documented as on-hold.

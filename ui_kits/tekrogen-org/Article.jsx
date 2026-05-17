@@ -45,9 +45,9 @@ function Article({ note, onBack }) {
           background: 'linear-gradient(135deg, var(--tk-org), var(--tk-com))',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           color: '#fff', fontWeight: 600, fontSize: 16,
-        }}>RD</div>
+        }}>MD</div>
         <div>
-          <div style={{ fontFamily: 'var(--tk-font-sans)', fontWeight: 600, fontSize: 14, color: 'var(--tk-fg-1)' }}>Robert Dolce</div>
+          <div style={{ fontFamily: 'var(--tk-font-sans)', fontWeight: 600, fontSize: 14, color: 'var(--tk-fg-1)' }}>Martinique Dolce</div>
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontSize: 10.5, letterSpacing: '0.14em',
             textTransform: 'uppercase', color: 'var(--tk-fg-3)', marginTop: 2,
