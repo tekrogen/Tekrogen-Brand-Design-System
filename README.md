@@ -8,6 +8,10 @@
 
 ---
 
+**Author:** @MJ163
+**Inputs:**
+- Github: `https://github.com/R-Dolce-Group/Tekrogen-Brand-Design-System`
+
 ## What is Tekrogen?
 
 Tekrogen is a small, founder-led practice (Martinique Dolce) operating across **four
