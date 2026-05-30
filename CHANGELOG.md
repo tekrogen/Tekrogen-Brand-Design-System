@@ -4,6 +4,46 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [0.4.0] — 2026-05-30
+
+> **Versioning intent — minor.** Adds a host-driven "Tweaks" UI for the UI Kit Dashboard and ships a higher-contrast muted-label ramp as the Dashboard default. The canonical `--tk-fg-3` / `--tk-fg-4` tokens in `colors_and_type.css` are unchanged; the lift is a per-surface runtime override.
+
+### Pixel diff
+
+- **Visible (Dashboard only).** `--tk-fg-4` lifts from `#6b7785` → `#94a1b1` on Ink and `#8a96a1` → `#646f7a` on Paper. The "clearer" ramp ships as the default; the original token value is still selectable as "default" inside the panel. `--tk-fg-3` (captions) defaults to "default" — no shift unless the user opts in.
+- **Visible (Dashboard only).** Topbar version pill bumps from "v 1.0" → "V 1.2".
+- **Not visible elsewhere.** `index.html`, every `ui_kits/*` surface, every `preview/` specimen, `review/index.html`, and `trust-state-matrix.html` are untouched.
+
+### Migration
+
+- New surfaces that want to host the Tweaks panel must load React 18.3.1 + ReactDOM + Babel-standalone 7.29.0 before `tweaks-panel.jsx`, then their own `tweaks-*.jsx`, then provide a `<div id="tweaks-root">` mount node. See the Dashboard's script block for the canonical wiring.
+- The panel listens for `__activate_edit_mode` / `__deactivate_edit_mode` postMessages from the parent frame; opening the HTML standalone shows no panel until a host activates it. This is intentional — Tweaks is host-driven editor chrome, not always-on UI.
+- The `EDITMODE-BEGIN` / `EDITMODE-END` markers inside each app's `TWEAK_DEFAULTS` literal are the persistence contract for `__edit_mode_set_keys` (the host rewrites that block on disk). Don't reformat the literal.
+- `package.json` bumps to `0.4.0` in lockstep with this entry.
+
+### Assets to regenerate
+
+None.
+
+### Added
+
+- `tweaks-panel.jsx` — reusable Tweaks shell plus form-control library. Publishes `useTweaks`, `TweaksPanel`, `TweakSection`, `TweakRow`, `TweakSlider`, `TweakToggle`, `TweakRadio`, `TweakSelect`, `TweakText`, `TweakNumber`, `TweakColor`, `TweakButton` to `window`. Owns the host postMessage protocol so individual prototypes don't re-roll it.
+- `tweaks-app.jsx` — Dashboard-specific tweaks. Two controls: `Muted labels` (default / clearer / high) and `Captions` (default / clearer). Writes per-theme `--tk-fg-3` / `--tk-fg-4` overrides into a `<style id="tweak-overrides">` so contrast is correct in both Ink and Paper.
+
+### Changed
+
+- `UI Kit Dashboard.html` — loads React 18.3.1, ReactDOM, Babel-standalone 7.29.0, `tweaks-panel.jsx`, and `tweaks-app.jsx`; adds a `<div id="tweaks-root">` mount node; bumps the topbar version pill from "v 1.0" → "V 1.2".
+- `package.json` — version `0.3.1` → `0.4.0`.
+
+### Notes
+
+- The Tweaks panel doesn't yet conform to the Ink/Paper brand chrome — it uses a warm-glass aesthetic (`rgba(250,249,247,.78)` with backdrop-blur, `#29261b` ink) that pre-dates this design system. Intentional for now: the panel is a transient editing affordance, not a brand surface. If Tweaks is ever promoted to always-on, restyle it against `--tk-bg`, `--tk-fg-1`, and `--tk-border`.
+- The version pill's "V" capitalisation is inconsistent with `index.html`'s "v 1.0" and the Dashboard's own footer brand-line (still reads "v 1.0"). Worth a follow-up patch to settle on one casing.
+- Lifting `--tk-fg-4` to the "clearer" ramp surfaces a real legibility win and is a candidate for promotion to the canonical token in a future MINOR. The promotion is intentionally deferred here — it would touch every surface that consumes `--tk-fg-4` and warrants its own pixel-diff pass against `colors_and_type.css`.
+- The Tweaks files live at the repo root, not under `ui_kits/_shared/`. They're shared infrastructure but they ride along with surface-specific apps (`tweaks-app.jsx` is paired 1:1 with `UI Kit Dashboard.html`). Re-evaluate the location if a second surface adopts the panel.
+
+---
+
 ## [0.3.1] — 2026-05-17
 
 > **Versioning intent — patch.** No rendered pixels change. Three sync-script bugfixes, one stale-comment cleanup, two new tooling/onboarding files. All items match the ADR-0003 PATCH bucket (sync-script bugfixes, comments, file additions).
