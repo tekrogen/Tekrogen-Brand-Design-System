@@ -4,6 +4,43 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [0.5.0] — 2026-06-03
+
+> **Versioning intent — minor.** Adds a system-wide keyboard focus indicator — a new `--tk-focus` token plus one `:focus-visible` rule in the foundation stylesheet. Closes the WCAG 2.4.7 / 2.4.11 gap from the v0.4.0 audit (focus was documented in the Dashboard button state-table but never implemented in CSS). Visible on keyboard focus only; pointer use is unchanged.
+
+### Pixel diff
+
+- **Visible (keyboard / AT only).** `a`, `button`, `input`, `select`, `textarea`, `summary`, `[tabindex]` render a 2px `--tk-focus` outline at 2px offset on `:focus-visible`. Pointer focus is unaffected.
+- **Token added.** `--tk-focus` = `var(--tk-cyan)` on Ink (10.44:1 vs `--tk-ink`); `#0a7e83` on Paper (≈4.4–4.9:1 across paper backgrounds — clears the 3:1 non-text bar that `--tk-cyan` fails at 1.76:1 on paper).
+- **Not visible elsewhere.** No token values, type sizes, spacing, radii, or component fills change. Every existing surface renders identically under mouse use.
+
+### Migration
+
+- Surfaces that load `colors_and_type.css` inherit the styling automatically — no per-surface change required (Dashboard, asset pack, master-lockups, mark-explorations, review dashboard, trust-state matrix).
+- Any consumer that previously suppressed focus (`*:focus { outline: none }` or similar) must remove that suppression or it defeats the indicator.
+- Components may override per-element via their own `:focus-visible` (the rule uses `:where()`, specificity 0).
+
+### Assets to regenerate
+
+None.
+
+### Added
+
+- `--tk-focus` semantic token (Ink default + Paper override) in `colors_and_type.css`.
+- Global `:focus-visible` rule in the SEMANTIC ELEMENTS block of `colors_and_type.css`.
+
+### Changed
+
+- `package.json` — version `0.4.0` → `0.5.0`.
+
+### Notes
+
+- The ring is an accessibility affordance and is exempt from the "one cyan per surface" rule — it is not decorative cyan.
+- `#0a7e83` is introduced here for the Paper ring and is a strong basis for the forthcoming `--tk-cyan-text` (audit Quick Win 3) if cyan-on-light is unified into one token in a later MINOR.
+- Closes audit blocker #1 (focus). Blockers #2 (paper cyan/semantic text contrast) and #3 (1.4.11 hairline borders) remain open — tracked in `admin/internal/reviews/2026-06-03-design-system-audit-v0.4.0.md`.
+
+---
+
 ## [0.4.0] — 2026-05-30
 
 > **Versioning intent — minor.** Adds a host-driven "Tweaks" UI for the UI Kit Dashboard and ships a higher-contrast muted-label ramp as the Dashboard default. The canonical `--tk-fg-3` / `--tk-fg-4` tokens in `colors_and_type.css` are unchanged; the lift is a per-surface runtime override.

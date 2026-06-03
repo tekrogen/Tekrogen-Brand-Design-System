@@ -78,6 +78,7 @@
   /* ─── Semantic / state ────────────────────────────────────── */
   --tk-accent:       var(--tk-cyan);
   --tk-link:         var(--tk-cyan);
+  --tk-focus:        var(--tk-cyan);   /* keyboard focus ring · Ink (10.44:1 vs ink) */
   --tk-success:      var(--tk-net);
   --tk-info:         var(--tk-com);
   --tk-warning:      #e0a755;
@@ -177,6 +178,7 @@
   --tk-bg-2: #ffffff;
   --tk-bg-3: #f3f5f7;
   --tk-border: #e6ebef;
+  --tk-focus:  #0a7e83;   /* darker teal · cyan is 1.76:1 on paper; this ≥4.4:1 */
 }
 
 /* ============================================================
@@ -194,6 +196,18 @@ html, body {
   font-feature-settings: 'ss01';
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Focus · keyboard-visible only ───────────────────────────
+ * Accessibility affordance, NOT decorative cyan — exempt from the
+ * "one cyan per surface" rule. Renders only for keyboard / AT users
+ * via :focus-visible, so pointer clicks stay quiet. WCAG 2.4.7 / 2.4.11.
+ * :where() keeps specificity 0 so components can override freely.
+ * Note: an element flush against an overflow:hidden container (e.g. .card)
+ * can have its ring clipped — give those `outline-offset: -2px`. */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
 }
 
 /* ─── Headings ─── tight sans, signature negative tracking ── */
