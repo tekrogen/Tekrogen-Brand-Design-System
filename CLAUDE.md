@@ -198,3 +198,4 @@ grep -rE "(#446e88|#6491ac|#0db4b9|#7edba5)" --include='*.{js,jsx,css,html}'
 These must be followed with no exceptions:
 
 1. Do not ever include `Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>` in commits in this code base.
+2. **Check files first, assume nothing.** When there is any confusion, contradiction, or ambiguity — especially about what this project *is*, what it references, or how it relates to other projects — verify against the documents, the data, and the codebase (README, CLAUDE.md, `git remote -v`, `git log`, `grep`) *before* answering or acting. Treat the repository's own files as authoritative over anything stated in chat, including loosely-worded inputs and your own prior statements. Report what the files say, then reason. Never carry an unverified claim from conversation forward as fact.
