@@ -6,10 +6,12 @@
   "type": "module",
   "scripts": {
     "sync": "node tokens/sync.mjs",
-    "check": "node tokens/sync.mjs --check"
+    "check": "node tokens/sync.mjs --check",
+    "stamp": "node scripts/version-stamp.mjs",
+    "stamp:check": "node scripts/version-stamp.mjs --check"
   },
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@11.5.1"
 }

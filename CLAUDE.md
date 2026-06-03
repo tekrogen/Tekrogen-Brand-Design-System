@@ -136,7 +136,7 @@ Depth comes from **1px borders** at `--tk-border` (`#1f2731` on ink, `#e6ebef` o
 
 ### Tooling
 
-- **Node** — only for `tokens/sync.mjs` (and the `--check` CI hook). Nothing else needs Node.
+- **Node** — only for `tokens/sync.mjs` and `scripts/version-stamp.mjs` (and their `--check` CI hooks). Nothing else needs Node.
 - **No package.json, no lockfile, no bundler.** This is intentional and noted across ADR-0002/0003.
 
 ## Common Operations
@@ -188,6 +188,7 @@ Open `ui_kits/tekrogen-org/index.html` directly in a browser (or serve the repo 
 
 ```bash
 node tokens/sync.mjs --check                                  # palette parity
+node scripts/version-stamp.mjs --check                        # version label parity (source: package.json)
 grep -ri "serif" colors_and_type.css preview/_card.css ui_kits/  # only sans-serif fallbacks
 grep -rE "(#446e88|#6491ac|#0db4b9|#7edba5)" --include='*.{js,jsx,css,html}'
 # expect only: tokens/palette.js, colors_and_type.css, assets/*.svg

@@ -6,19 +6,21 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [0.5.0] — 2026-06-03
 
-> **Versioning intent — minor.** Adds a system-wide keyboard focus indicator — a new `--tk-focus` token plus one `:focus-visible` rule in the foundation stylesheet. Closes the WCAG 2.4.7 / 2.4.11 gap from the v0.4.0 audit (focus was documented in the Dashboard button state-table but never implemented in CSS). Visible on keyboard focus only; pointer use is unchanged.
+> **Versioning intent — minor.** Adds a system-wide keyboard focus indicator — a new `--tk-focus` token plus one `:focus-visible` rule in the foundation stylesheet. Implements the focus state the Dashboard button state-table described but the CSS never drew (WCAG 2.4.7 / 2.4.11), and syncs the canonical Dashboard (`index.html`) to `v0.5.0`, guarded by a new version-stamp script. Visible on keyboard focus only; pointer use is unchanged.
 
 ### Pixel diff
 
 - **Visible (keyboard / AT only).** `a`, `button`, `input`, `select`, `textarea`, `summary`, `[tabindex]` render a 2px `--tk-focus` outline at 2px offset on `:focus-visible`. Pointer focus is unaffected.
 - **Token added.** `--tk-focus` = `var(--tk-cyan)` on Ink (10.44:1 vs `--tk-ink`); `#0a7e83` on Paper (≈4.4–4.9:1 across paper backgrounds — clears the 3:1 non-text bar that `--tk-cyan` fails at 1.76:1 on paper).
-- **Not visible elsewhere.** No token values, type sizes, spacing, radii, or component fills change. Every existing surface renders identically under mouse use.
+- **Visible (version label).** The Dashboard surfaces' version pill and footer now read `v0.5.0` (were `V 1.2` / `v 4.0` / `v 1.0`), matching `package.json` and the git tag.
+- **Not visible elsewhere.** No token values, type sizes, spacing, radii, or component fills change. Other surfaces render identically under mouse use.
 
 ### Migration
 
 - Surfaces that load `colors_and_type.css` inherit the styling automatically — no per-surface change required (Dashboard, asset pack, master-lockups, mark-explorations, review dashboard, trust-state matrix).
 - Any consumer that previously suppressed focus (`*:focus { outline: none }` or similar) must remove that suppression or it defeats the indicator.
 - Components may override per-element via their own `:focus-visible` (the rule uses `:where()`, specificity 0).
+- CI should run `node scripts/version-stamp.mjs --check` (or `pnpm run stamp:check`) alongside the palette check, so the rendered version label can't drift from `package.json`.
 
 ### Assets to regenerate
 
@@ -28,16 +30,26 @@ None.
 
 - `--tk-focus` semantic token (Ink default + Paper override) in `colors_and_type.css`.
 - Global `:focus-visible` rule in the SEMANTIC ELEMENTS block of `colors_and_type.css`.
+- `scripts/version-stamp.mjs` — stamps the `package.json` version into the Dashboard surfaces (topbar pill + footer); `--check` for CI, mirroring `tokens/sync.mjs`.
+- `package.json` `stamp` / `stamp:check` scripts.
 
 ### Changed
 
 - `package.json` — version `0.4.0` → `0.5.0`.
+- `index.html` — version label synced to `v0.5.0` (the canonical Dashboard).
+- `index.html` — ported the host-driven Tweaks-panel wiring (`tweaks-root` + React/ReactDOM/Babel + `tweaks-panel.jsx` / `tweaks-app.jsx`) so the canonical public entry point reflects all v0.4.0–v0.5.0 work.
+
+### Removed
+
+- `UI Kit Dashboard.html` — removed as a duplicate of the canonical `index.html`, which now carries the full Dashboard (Tweaks panel included) with its version kept in sync by the stamp guard.
 
 ### Notes
 
 - The ring is an accessibility affordance and is exempt from the "one cyan per surface" rule — it is not decorative cyan.
-- `#0a7e83` is introduced here for the Paper ring and is a strong basis for the forthcoming `--tk-cyan-text` (audit Quick Win 3) if cyan-on-light is unified into one token in a later MINOR.
-- Closes audit blocker #1 (focus). Blockers #2 (paper cyan/semantic text contrast) and #3 (1.4.11 hairline borders) remain open — tracked in `admin/internal/reviews/2026-06-03-design-system-audit-v0.4.0.md`.
+- `#0a7e83` is introduced here for the Paper ring and is a strong basis for a future `--tk-cyan-text` token if cyan-on-light is unified in a later MINOR.
+- Addresses focus visibility (WCAG 2.4.7 / 2.4.11). Further text-contrast and non-text-contrast (1.4.11) improvements are planned for a later release.
+- `index.html` is the single canonical Dashboard; `package.json` is the single version source, enforced by the stamp guard (`pnpm run stamp:check`).
+- The standalone Dashboard is a generated Claude Design export and is intentionally not stamped — re-export it from the canonical to carry a new version.
 
 ---
 
