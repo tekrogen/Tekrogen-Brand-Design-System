@@ -8,7 +8,7 @@
 
 ---
 
-**Author:** @Mtekrogen
+**Author:** @tekrogen
 **Inputs:**
 - Github: `https://github.com/tekrogen/Tekrogen-Brand-Design-System`
 - Claude Design Files: `https://claude.ai/design/p/019e1ce2-d0e9-7542-b649-e21f0ca4512e`
