@@ -195,8 +195,9 @@ next-env.d.ts
 # Nuxt.js
 .nuxt/
 
-# Gatsby
-public/
+# Gatsby (anchored to repo root so it does NOT swallow admin/public/ brand docs)
+/public/
+!admin/public/
 
 # Vuepress
 .vuepress/dist
@@ -406,11 +407,7 @@ certificates/
 
 # Root-level Directories
 node_modules
-/_archived_originals/
 
-# admin/ is a NESTED git repo (separate history, not tracked by outer repo).
-# Outer project never sees admin/ content. See CLAUDE.md "admin/ as nested git repo".
-/.admin/
+# Internal documents
 
-
-
+/admin/internal/

@@ -8,21 +8,24 @@
 
 ---
 
-**Author:** @MJ163
+**Author:** @Mtekrogen
 **Inputs:**
-- Github: `https://github.com/R-Dolce-Group/Tekrogen-Brand-Design-System`
+- Github: `https://github.com/tekrogen/Tekrogen-Brand-Design-System`
+- Claude Design Files: `https://claude.ai/design/p/019e1ce2-d0e9-7542-b649-e21f0ca4512e`
+- Tekrogen BNR: `admin/internal/business/01.Tekrogen_BNR_Roadmap_v1.md`
+- Tekrogen Domain Architecture: `admin/internal/business/02.Tekrogen_Domain_Architecture_v1.md`
 
 ## What is Tekrogen?
 
 Tekrogen is a small, founder-led practice (Martinique Dolce) operating across **four
 sibling entities**, each owning a different surface of the same work:
 
-| Entity            | Wing color | Role                                                  |
-| ----------------- | ---------- | ----------------------------------------------------- |
-| **tekrogen.org**   | `#446e88`  | Research, academic groups, open work                  |
-| **tekrogen.studio**| `#6491ac`  | Proof of concept and demos                            |
-| **tekrogen.com**   | `#0db4b9`  | Commercial product, paid offerings                    |
-| **tekrogen.net**   | `#7edba5`  | Infrastructure, platform, developer tools             |
+| Entity              | Wing color | Role                                      |
+|---------------------|------------|-------------------------------------------|
+| **tekrogen.org**    | `#446e88`  | Research, academic groups, open work      |
+| **tekrogen.studio** | `#6491ac`  | Proof of concept and demos                |
+| **tekrogen.com**    | `#0db4b9`  | Commercial product, paid offerings        |
+| **tekrogen.net**    | `#7edba5`  | Infrastructure, platform, developer tools |
 
 The four entities share **one mark** (the dragonfly), **one wordmark system**
 (Poppins + JetBrains Mono), and **one palette** — but each gets to lead with its

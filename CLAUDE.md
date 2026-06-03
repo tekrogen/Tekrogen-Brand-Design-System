@@ -1,3 +1,6 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 # Tekrogen Brand Design System — Architecture Overview
 
@@ -18,6 +21,7 @@ Everything is hand-authored HTML/JSX/CSS — **no bundler, no npm install**. JSX
 
 | Path | Role |
 |------|------|
+| `admin/` | **Business/governance layer, NOT part of the design system.** Two trust zones: `admin/internal/` (Confidential) and `admin/public/` (publication-safe). See "Internal vs Public Documents" below — read it before touching anything under `admin/`. |
 | `README.md` | Top-line brand spec — voice, palette, mark, type, layout rules. Read first. |
 | `SKILL.md` | Claude Code skill metadata + invariants. User-invocable. |
 | `CHANGELOG.md` | Keep-a-Changelog format; pre-1.0 semver per ADR-0003. Current `0.3.0`. |
@@ -47,6 +51,27 @@ The repo is governed by six ADRs in `adr/` — each is short and load-bearing:
 - **ADR-0004 · Ghost Pro is the canonical authoring surface for `.org`.** MDX/Next.js stays a future option but is not built. BNR drift is flagged as an external issue.
 - **ADR-0005 · Icon system.** Brand surfaces stay icon-free (Unicode mono glyphs only: `↓ ↗ ✓ ✗ ⧉ × · …`). Product surfaces use **Lucide outline, stroke 1.5, currentColor**, sizes 16/20/24/32. No mixing icon sets.
 - **ADR-0006 · Trust-state CTAs.** Paired content (note + artifact) has four trust-state variants — anonymous / member / paid / entitled — with defined CTA treatments. The matrix at `trust-state-matrix.html` is the source of truth.
+
+## Internal vs Public Documents (`admin/`)
+
+The `admin/` tree is the **business/governance layer** and is governed by a hard confidentiality boundary that is independent of the design-system rules above. Everything under `admin/` falls into one of two trust zones, and **the zone a file lives in determines whether it may ever be committed, published, or fed to tooling.** Get this wrong and you leak strategy or financials.
+
+| Zone | Path | Classification | May be published / ingested? |
+|------|------|----------------|------------------------------|
+| **Internal** | `admin/internal/**` | **Confidential — Internal Strategy** | **No.** Never publish, never paste into external surfaces or LLM context. `.gitignore` excludes the whole tree (`/admin/internal/`). |
+| **Public** | `admin/public/**` | **Public-safe derivative** | **Yes.** Explicitly sanitized for ingestion into tooling, publishing pipelines, and LLM context. |
+
+### The source-of-truth relationship
+
+- `admin/internal/business/01.Tekrogen_BNR_Roadmap_v1.md` — the **BNR (Business Needs & Requirements Roadmap)** — is the *Confidential* source of truth for all business strategy, domain architecture, content strategy, revenue model, and roadmap.
+- `admin/public/Tekrogen_Public_Brief_v1.md` is a **derivative** of the BNR — the publication-safe subset with all competitive/financial/temporal strategy stripped (see its "What This Brief Omits" table). It must **re-sync** whenever the BNR is amended.
+- **Direction of flow is one-way:** facts move BNR → Public Brief, sanitized at the boundary. Never copy operational, financial, pricing, phase-timing, or vendor-evaluation detail from `internal/` into `public/` or into any committed artifact. When in doubt, treat it as Confidential.
+- `admin/internal/` also holds licensing templates (`licensing/` — MIT for free repos, EULA for paid, All-Rights-Reserved for the proprietary site codebase), MS Word originals (`msword/`), environment/publishing workflows (`workflows/`), domain-repo scaffolding (`templates/`), and Next.js metadata snippets (`tools/`). These describe *other* Tekrogen repos (website, paid-templates, brand-marketing) — they are reference material here, not buildable code in this repo.
+
+### Two gitignore gotchas — both currently misclassified
+
+1. **`admin/public/` is accidentally ignored.** The Gatsby build rule `public/` (in `.gitignore`) matches *any* directory named `public` at any depth, so it silently swallows `admin/public/` — the publication-safe docs that are *supposed* to be tracked. `git check-ignore -v admin/public/<file>` shows the offending rule. If you intend these briefs to be committed, add a negation (`!admin/public/`) **after** the `public/` line, or rename the directory.
+2. **Some `admin/internal/` files are already tracked despite the ignore rule.** `admin/internal/licensing/**` and `admin/internal/tools/**` were `git add`-ed *before* `/admin/internal/` was appended to `.gitignore`, so they live in committed history (and are currently staged). The ignore rule only stops *future* untracked files; it does not retroactively remove tracked ones. Before pushing, decide deliberately whether those Confidential-zone files belong in the public repo — if not, `git rm --cached` them. Do not assume the ignore rule alone protects the internal zone.
 
 ## Implementation Patterns
 
@@ -157,6 +182,7 @@ Open `ui_kits/tekrogen-org/index.html` directly in a browser (or serve the repo 
 - **`archives/Logos.zip` lives in the upstream source brand project, not this repo.** README references it as part of the source materials this system was built from; the zip itself was never unpacked into `assets/`. If older logos are needed, ask before guessing — don't go looking under `assets/`.
 - **Workflow drift (WF-001) and BNR mismatches are external.** ADR-0004 flags them; fixing them is out of scope for this repo.
 - **The Cursor analysis at `uploads/cursor-design-system-analysis.md` is historical context** — it motivated v0.2.0 / v0.3.0 hardening. Don't re-litigate findings already addressed; check `review/index.html` for current status.
+- **`admin/internal/` is Confidential; `admin/public/` is publication-safe.** The `.gitignore` rules do NOT reliably enforce this — `admin/public/` is accidentally ignored by the Gatsby `public/` rule, and some `admin/internal/` files are already tracked from before the ignore was added. Verify a file's zone before committing, publishing, or quoting it. See "Internal vs Public Documents" above. The BNR (`admin/internal/business/01.Tekrogen_BNR_Roadmap_v1.md`) is Confidential — only its sanitized derivative (`admin/public/Tekrogen_Public_Brief_v1.md`) is safe to ingest.
 
 ## Quick verification
 
