@@ -22,7 +22,7 @@
 
 ### 2.2 Niche
 
-Tekrogen serves anyone who needs a real technical solution and wants to understand the thinking behind it — whether they're using a purchased vendor solution or vendor-integrated systems, building it themselves, hiring someone to build it, or evaluating a build-vs-buy or vendor-purchase decision.
+Tekrogen serves anyone who needs a real technical solution and wants to understand the thinking behind it — whether they're building it themselves, hiring someone to build it, or evaluating a build-vs-buy decision.
 
 This includes developers who want production-ready starting points, technical founders evaluating architecture decisions, and business owners seeking honest guidance on solving a technology problem.
 
@@ -66,9 +66,9 @@ The Tekrogen business model is a compounding loop in which every phase produces 
 
 > *The flywheel accelerates because each published study is also an SEO asset, each free demo is a conversion tool, and each paid template is proof that the research produces real deliverables.*
 
-**Modular product strategy.** Products are not sold exclusively as monolithic applications. Each application is composed of modular components — utilities, API wrappers, UI themes, domain-specific libraries — that are individually documented, demoed, and sold. Each component follows the full flywheel cycle independently. This creates multiple revenue touchpoints per application, lower purchase barriers, and a "drip" path from individual components to the full product.
+**Modular product strategy.** Products are not sold exclusively as monolithic applications. Each application (e.g., EBIA) is composed of modular components — utilities, API wrappers, UI themes, domain-specific libraries — that are individually documented, demoed, and sold. Each component follows the full flywheel cycle independently. This creates multiple revenue touchpoints per application, lower purchase barriers, and a "drip" path from individual components to the full product.
 
-*[Kept verbatim from BNR §3. Internal reference to an unreleased archive path stripped.]*
+*[Kept verbatim from BNR §3.]*
 
 ---
 
@@ -197,11 +197,12 @@ Tekrogen's visual identity reinforces the Four Pillars architecture as a verbal-
 
 ### Canonical Asset References
 
-- **Brand sheet (SVG masters, PNG exports, lockups, color system, brand narrative):** `admin/01.planning/uiux/brand-marketing/logos/dragonfly-v1/README.md`
-- **Type system and design tokens:** `admin/01.planning/uiux/brand-marketing/styles/`
-- **Logo exploration:** `admin/01.planning/uiux/brand-marketing/logo-ideas/`
+- **Brand assets (SVG masters, lockups, icons, favicon, OG cards):** `assets/`
+- **Type system, palette, and design tokens:** `colors_and_type.css` and `tokens/` — `tokens/palette.js` is the single source of truth for pillar/surface hexes.
+- **Brand narrative, voice, and full visual spec:** `README.md` (see "VISUAL FOUNDATIONS").
+- **Mark exploration (7 concept directions):** `ui_kits/mark-explorations/` and `ui_kits/_shared/marks.jsx`.
 
-*[Brand narrative and color system kept verbatim from the dragonfly-v1 README. Full asset inventory (SVG masters, PNG variants, Ghost lockups, favicon sizes) lives in the referenced README.]*
+*[Brand narrative and color system summarized from this repo's `README.md` and `colors_and_type.css`. Full asset inventory lives under `assets/`.]*
 
 ---
 
@@ -223,8 +224,8 @@ For the record, so anyone ingesting this brief knows what is intentionally exclu
 
 ## Authority & Re-sync
 
-- **Source of truth:** `admin/00.business-needs/about/Tekrogen_BNR_Roadmap_v1.md` (Confidential).
+- **Source of truth:** `admin/internal/business/01.Tekrogen_BNR_Roadmap_v1.md` (Confidential).
 - **Re-sync trigger:** any amendment to BNR §1, §2, §3, §4 (non-financial parts), §5, §6.1 channel list, or §8.
-- **Last sync:** 2026-04-20 — against BNR Amended April 2026 (Amendments 1–3 applied).
+- **Last sync:** 2026-06-02 — re-verified against BNR Amended April 2026 (Amendments 1–3 applied); no new BNR amendment since.
 - **Safe to ingest into:** Agentic OS `brand_context/`, publishing pipelines, LLM context for tekrogen.org article writing, external-facing about/press pages, investor-safe summaries.
 - **Not safe for:** pricing pages, phase-timing statements, platform commitments until BNR §7/§9/§10 are resolved.

@@ -418,3 +418,28 @@ above or write the word.
   ever enters the system, that's a follow-up question.
 - **The `archives/Logos.zip`** in the source was not unpacked — it appears to
   contain older logo iterations. Tell me if you want them surfaced.
+
+---
+
+## License
+
+The code in this design system — CSS, JSX, HTML, design tokens, and the
+`tokens/sync.mjs` tooling — is released under the **MIT License**. See
+[`LICENSE`](LICENSE) for the full text.
+
+- **Canonical repository:**
+  [`github.com/tekrogen/Tekrogen-Brand-Design-System`](https://github.com/tekrogen/Tekrogen-Brand-Design-System)
+  — moved from `R-Dolce-Group/Tekrogen-Brand-Design-System` in 2026. Update any
+  forks or clones still pointing at the old `R-Dolce-Group` remote.
+- **What MIT covers:** the source code in this repo. MIT is Tekrogen's standard
+  license for public, brand-facing repositories.
+- **What MIT does *not* cover:** the Tekrogen name, the dragonfly mark, the
+  wordmarks, and the brand assets in `assets/` (SVG marks, lockups, OG cards).
+  These are brand identity — use them to *consume* this design system, not to
+  ship under your own identity.
+- **Paid templates and the product codebase** live in separate repositories under
+  their own commercial terms. See `admin/internal/licensing/` for the full model:
+  MIT for free/public repos, a commercial EULA for paid templates, and
+  All-Rights-Reserved for the proprietary site code.
+
+© 2025 Tekrogen — MIT (see [`LICENSE`](LICENSE)).
