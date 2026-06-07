@@ -6,7 +6,7 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [Unreleased]
 
-> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3).
+> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed.
 
 ### Pixel diff
 
@@ -33,6 +33,7 @@ None.
 ### Changed
 
 - `colors_and_type.css` — Paper `--tk-link` / `--tk-accent` = `#0a7e83`; Paper `--tk-border` `#e6ebef` → `#d4dce3`; `.tk-eyebrow`, `code` / `.tk-code`, and `a` / `.tk-a` wired to `--tk-accent` / `--tk-link`; `--tk-fg-4` / `--tk-fg-5` documented decorative-only.
+- `ui_kits/asset-pack/index.html` — adopts the shared theme toggle; chrome wired to `--tk-*` (body, sticky toolbar, cards, buttons, slot table, eyebrow / links / inline-code); OG cards, `.card.paper` demos, icon-on-dark previews and the SVG source block frozen as specimens; chrome mono labels raised to the 12px floor.
 
 ---
 

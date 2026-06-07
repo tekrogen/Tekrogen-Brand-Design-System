@@ -1,6 +1,6 @@
 <!doctype html>
 <!-- @dsCard group="UI Kit — Asset Pack" name="UI Kit · Ghost Pro asset pack" subtitle="Production downloads + slot map" viewport="1380x980" -->
-<html lang="en">
+<html lang="en" data-tk-theme="ink">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="../../colors_and_type.css"/>
+<link rel="stylesheet" href="../_shared/tk-theme.css"/>
 <style>
   /* Self-hosted Regular weights from /fonts/. Heavier weights from Google above. */
   @font-face { font-family: 'Poppins';       font-style: normal; font-weight: 400; font-display: swap; src: url('../../fonts/poppins-v24-latin-regular.woff2') format('woff2'); }
@@ -16,44 +17,44 @@
   @font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400; font-display: swap; src: url('../../fonts/JetBrainsMono-Regular.woff2') format('woff2'); }
   :root {
     /* Local aliases — palette source is ../../colors_and_type.css → tokens/palette.js. */
-    --ink:var(--tk-ink); --ink-2:var(--tk-ink-soft); --line:var(--tk-ink-2);
-    --paper:var(--tk-paper); --muted:#6b7785; --muted-d:#8a98a8;
+    --ink:var(--tk-ink); --ink-2:var(--tk-bg-2); --line:var(--tk-border);
+    --paper:var(--tk-paper); --muted:var(--tk-fg-3); --muted-d:var(--tk-fg-2);
     --cyan:var(--tk-cyan);
     --org:var(--tk-org); --studio:var(--tk-studio); --com:var(--tk-com); --net:var(--tk-net);
     --body:var(--tk-body); --head:var(--tk-body-inv);
   }
-  *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--ink);color:#e7ecf2;font-family:'Poppins','Manrope',system-ui,-apple-system,'Segoe UI',sans-serif}
+  *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--tk-bg-1);color:var(--tk-fg-1);font-family:'Poppins','Manrope',system-ui,-apple-system,'Segoe UI',sans-serif}
   .page{max-width:1380px;margin:0 auto;padding:64px 48px 140px}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan)}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--tk-accent)}
   h1{font-weight:700;font-size:48px;letter-spacing:-.02em;margin:8px 0 16px;line-height:1.05}
   h2{font-weight:700;font-size:28px;letter-spacing:-.015em;margin:0;line-height:1.1}
   p.lead{color:var(--muted-d);max-width:760px;line-height:1.55;font-size:15px}
   section{margin-top:72px}
   .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--line)}
-  .section-head .right{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .section-head .right{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
   .grid{display:grid;gap:18px}
   .row-2{grid-template-columns:1fr 1fr}.row-3{grid-template-columns:repeat(3,1fr)}.row-4{grid-template-columns:repeat(4,1fr)}
   .card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
   .card.paper{background:var(--paper);color:#1f2731}
   .card-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
   .card.paper .card-head{border-bottom-color:#e6ebef}
-  .card-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card-tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   .card-body{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 18px}
   .card-foot{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;justify-content:space-between}
   .card.paper .card-foot{border-top-color:#e6ebef}
-  .btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;padding:7px 11px;border-radius:6px;border:1px solid var(--line);background:transparent;color:#cbd5e1;cursor:pointer;font-weight:600}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--tk-fg-2);cursor:pointer;font-weight:600}
   .btn:hover{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
   .btn.primary{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
   .card.paper .btn{border-color:#d2d6db;color:#1f2731}
-  .dim{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em}
+  .dim{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
   table.slots{width:100%;border-collapse:collapse;font-size:13px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   table.slots th,table.slots td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
   table.slots tr:last-child td{border-bottom:none}
-  table.slots th{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:#0a0d12}
-  table.slots code{font-family:'JetBrains Mono',monospace;font-size:12px;color:#1fd5da}
-  pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
-  .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:rgba(14,17,22,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
+  table.slots th{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--tk-bg-3)}
+  table.slots code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tk-accent)}
+  pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
+  .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:color-mix(in srgb, var(--tk-bg-1) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
   .og{aspect-ratio:1200/630;background:#0e1116;border-radius:8px;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:#fff}
   .og::after{content:'';position:absolute;top:-50px;right:-80px;width:380px;height:380px;background:radial-gradient(circle at center,rgba(13,180,185,.18),transparent 60%);pointer-events:none}
   .og .top{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
@@ -61,22 +62,27 @@
   .og .wm{font-family:'Poppins','Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:24px}
   .og .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-top:14px}
   .og .title{font-size:34px;font-weight:700;line-height:1.15;letter-spacing:-.01em;max-width:88%;margin-top:8px}
-  .og .meta{display:flex;gap:14px;margin-top:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
+  .og .meta{display:flex;gap:14px;margin-top:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8}
   .og .badge{padding:4px 10px;border:1px solid #2a3340;border-radius:20px;color:var(--cyan)}
   .og .author{display:flex;align-items:center;gap:14px;margin-top:18px}
   .og .avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#446e88,#0db4b9);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px}
   .og .series-badge{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid #2a3340;padding:6px 12px;border-radius:20px}
   .og .num{font-size:22px;font-weight:700;color:#fff}
   .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
-  .note{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+  .note{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
   @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:36px}}
 </style>
 </head>
 <body>
+<script src="../_shared/tk-theme.js" defer></script>
 <div class="page">
   <div class="toolbar">
     <div class="meta">Tekrogen · Ghost Pro · ready to deploy</div>
-    <div style="display:flex;gap:10px">
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="tk-theme-toggle" role="group" aria-label="Theme">
+        <button type="button" data-tk-theme-set="ink" aria-pressed="true">Ink</button>
+        <button type="button" data-tk-theme-set="paper" aria-pressed="false">Paper</button>
+      </div>
       <button class="btn primary" id="dl-zip">↓ Download all (.zip)</button>
       <button class="btn" id="dl-spec">↓ Style guide (.md)</button>
     </div>
@@ -84,7 +90,7 @@
 
   <div class="eyebrow">tekrogen · ghost pro</div>
   <h1>Asset Pack</h1>
-  <p class="lead">Production-ready files for <strong style="color:#fff">tekrogen.org</strong> on Ghost Pro. Hybrid plan: main hub here, dedicated sub-publications for .studio / .com / .net later. Click any asset to download its file; everything is also bundled in the zip.</p>
+  <p class="lead">Production-ready files for <strong style="color:var(--tk-fg-1)">tekrogen.org</strong> on Ghost Pro. Hybrid plan: main hub here, dedicated sub-publications for .studio / .com / .net later. Click any asset to download its file; everything is also bundled in the zip.</p>
 
   <section>
     <div class="section-head"><div><div class="eyebrow">01 · publication brand</div><h2>Logo & icon</h2></div><div class="right">Settings → Design → Brand</div></div>
@@ -135,7 +141,7 @@
 
   <section>
     <div class="section-head"><div><div class="eyebrow">04 · inline svg</div><h2>For engineering — inline source</h2></div><div class="right">paste directly into theme</div></div>
-    <p class="lead" style="margin-bottom:18px">The dragonfly mark, ready to paste into a Ghost theme's <code style="font-family:'JetBrains Mono',monospace;color:#1fd5da">{{!-- Logo --}}</code> partial or anywhere else you need it inline. Tilted 18° via a wrapping <code style="font-family:'JetBrains Mono',monospace;color:#1fd5da">&lt;g transform&gt;</code> so no CSS is required.</p>
+    <p class="lead" style="margin-bottom:18px">The dragonfly mark, ready to paste into a Ghost theme's <code style="font-family:'JetBrains Mono',monospace;color:var(--tk-accent)">{{!-- Logo --}}</code> partial or anywhere else you need it inline. Tilted 18° via a wrapping <code style="font-family:'JetBrains Mono',monospace;color:var(--tk-accent)">&lt;g transform&gt;</code> so no CSS is required.</p>
     <pre class="svg" id="svg-source"></pre>
     <div style="margin-top:14px;display:flex;gap:10px"><button class="btn primary" id="copy-svg">⧉ Copy SVG</button><button class="btn" data-dl="dragonfly-svg">↓ tekrogen-mark.svg</button></div>
   </section>
