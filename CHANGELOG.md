@@ -4,6 +4,32 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [Unreleased]
+
+> **Versioning intent — minor (on release).** Paper-theme color-contrast accessibility remediation (audit P0). No Ink change. Batched per phase; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch.
+
+### Pixel diff
+
+- **Visible — Paper theme only (`colors_and_type.css`).** Links (`a` / `.tk-a`), eyebrows (`.tk-eyebrow`), and inline `code` / `.tk-code` now resolve to `--tk-link` / `--tk-accent` = `#0a7e83` (4.73:1, WCAG AA) instead of `--tk-cyan` `#1fd5da` (1.76:1, fail). `--tk-border` raised `#e6ebef` → `#d4dce3` (1.17:1 → 1.35:1; decorative hairline, more visible).
+- **Not visible — Ink theme.** `--tk-link` / `--tk-accent` resolve to `--tk-cyan` on Ink (10.44:1), unchanged. Decorative cyan (`--tk-border-accent`, `--tk-shadow-glow`) unchanged on both themes.
+- **Not visible — token contract.** `--tk-fg-4` / `--tk-fg-5` annotated decorative/disabled-only (no value change); readable muted text uses `--tk-fg-3`.
+
+### Migration
+
+- Ink consumers: none.
+- Consumers hardcoding `var(--tk-cyan)` for *text* (links, eyebrows, inline code) should migrate to `var(--tk-link)` / `var(--tk-accent)` so Paper renders accessibly. All such uses in `colors_and_type.css` are corrected here; per-surface kit pages convert in audit P2.
+- Do not use `--tk-fg-4` / `--tk-fg-5` for text; use `--tk-fg-3` (AA on both themes).
+
+### Assets to regenerate
+
+None.
+
+### Changed
+
+- `colors_and_type.css` — Paper `--tk-link` / `--tk-accent` = `#0a7e83`; Paper `--tk-border` `#e6ebef` → `#d4dce3`; `.tk-eyebrow`, `code` / `.tk-code`, and `a` / `.tk-a` wired to `--tk-accent` / `--tk-link`; `--tk-fg-4` / `--tk-fg-5` documented decorative-only.
+
+---
+
 ## [0.7.0] — 2026-06-06
 
 > **Versioning intent — minor.** System-wide type-size accessibility remediation. `--tk-fs-eyebrow` raised 11px → 12px; `--tk-fs-meta` raised 10.5px → 12px. All JSX components that previously hardcoded these sizes now reference the token vars. Email input raised to 16px (iOS auto-zoom prevention). Preview specimen card labels corrected (9.5–10.5px → 11–12px). `pre.tk-pre` code block raised 11.5px → 13px. 25 type-size fixes across 9 files.

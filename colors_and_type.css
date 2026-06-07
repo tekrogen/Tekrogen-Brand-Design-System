@@ -67,9 +67,9 @@
   /* ─── Foreground tokens · DARK theme default ──────────────── */
   --tk-fg-1:         #e7ecf2;  /* primary text on ink */
   --tk-fg-2:         #cbd5e1;  /* secondary text */
-  --tk-fg-3:         #8a98a8;  /* muted, captions, meta */
-  --tk-fg-4:         #6b7785;  /* very muted, dividers labels */
-  --tk-fg-5:         #5d6975;  /* faint */
+  --tk-fg-3:         #8a98a8;  /* muted, captions, meta — lowest token for readable TEXT (AA: ink 6.43:1 / paper 4.71:1) */
+  --tk-fg-4:         #6b7785;  /* DECORATIVE / DISABLED ONLY — dividers, disabled UI; NOT text (fails AA: ink 4.14 / paper 2.94) */
+  --tk-fg-5:         #5d6975;  /* DECORATIVE ONLY — faint dividers; NOT text (fails AA: ink 3.37 / paper 1.85) */
   --tk-bg-1:         var(--tk-ink);
   --tk-bg-2:         var(--tk-ink-soft);
   --tk-bg-3:         #0a0d12;       /* deeper than ink, e.g. code blocks */
@@ -177,8 +177,10 @@
   --tk-bg-1: var(--tk-paper);
   --tk-bg-2: #ffffff;
   --tk-bg-3: #f3f5f7;
-  --tk-border: #e6ebef;
-  --tk-focus:  #0a7e83;   /* darker teal · cyan is 1.76:1 on paper; this ≥4.4:1 */
+  --tk-border: #d4dce3;   /* raised from #e6ebef (1.17→1.35:1) — more visible hairline (decorative) */
+  --tk-focus:  #0a7e83;   /* darker teal · cyan is 1.76:1 on paper; this 4.73:1 (AA) */
+  --tk-link:   #0a7e83;   /* paper link — cyan fails at 1.76:1; this 4.73:1 (AA · WCAG 1.4.3) */
+  --tk-accent: #0a7e83;   /* paper accent text — matches link/focus teal */
 }
 
 /* ============================================================
@@ -266,7 +268,7 @@ h4, .tk-h4 {
   font-size: var(--tk-fs-eyebrow);
   letter-spacing: var(--tk-ls-eyebrow);
   text-transform: uppercase;
-  color: var(--tk-cyan);
+  color: var(--tk-accent);
 }
 
 /* ─── Meta — mono small caps for labels, breadcrumbs ──────── */
@@ -304,7 +306,7 @@ code, .tk-code {
   font-family: var(--tk-font-mono);
   font-weight: 500;
   font-size: var(--tk-fs-code);
-  color: var(--tk-cyan);
+  color: var(--tk-accent);
   text-transform: lowercase;
 }
 pre.tk-pre {
@@ -335,12 +337,12 @@ pre.tk-pre {
 
 /* ─── Links ───────────────────────────────────────────────── */
 a, .tk-a {
-  color: var(--tk-cyan);
+  color: var(--tk-link);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--tk-cyan) 35%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--tk-link) 35%, transparent);
   transition: color var(--tk-dur-1) var(--tk-ease),
               border-color var(--tk-dur-1) var(--tk-ease);
 }
 a:hover, .tk-a:hover {
-  border-bottom-color: var(--tk-cyan);
+  border-bottom-color: var(--tk-link);
 }
