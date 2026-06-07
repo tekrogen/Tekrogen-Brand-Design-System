@@ -6,13 +6,14 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [Unreleased]
 
-> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed.
+> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed. **Type scale** — the `--tk-fs-*` scale is now fluid (`clamp()` + `rem`) so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors held. Kit pages reference the tokens (no literal sizes); decision recorded in ADR-0007.
 
 ### Pixel diff
 
 - **Visible — Paper theme only (`colors_and_type.css`).** Links (`a` / `.tk-a`), eyebrows (`.tk-eyebrow`), and inline `code` / `.tk-code` now resolve to `--tk-link` / `--tk-accent` = `#0a7e83` (4.73:1, WCAG AA) instead of `--tk-cyan` `#1fd5da` (1.76:1, fail). `--tk-border` raised `#e6ebef` → `#d4dce3` (1.17:1 → 1.35:1; decorative hairline, more visible).
 - **Not visible — Ink theme.** `--tk-link` / `--tk-accent` resolve to `--tk-cyan` on Ink (10.44:1), unchanged. Decorative cyan (`--tk-border-accent`, `--tk-shadow-glow`) unchanged on both themes.
 - **Not visible — token contract.** `--tk-fg-4` / `--tk-fg-5` annotated decorative/disabled-only (no value change); readable muted text uses `--tk-fg-3`.
+- **Visible — all themes, all token consumers (`colors_and_type.css`).** The `--tk-fs-*` type scale moved from fixed `px` to fluid `clamp()` / `rem`: display, h1, h2, h3 scale with viewport between floor and ceiling; body, labels, and code are `rem` (zoom-responsive). Headings that sat off the old fixed values shift slightly (e.g. master-lockups `h1` 56→≤48, `h2` 32→≤28; in-tile wordmark and mock label sizes snap to the nearest step). Floors unchanged (eyebrow / meta = 12px).
 
 ### Migration
 
@@ -29,11 +30,16 @@ None.
 - `ui_kits/_shared/tk-theme.js` — framework-agnostic Ink/Paper theme toggle. Sets `data-tk-theme` on `<html>`, persists to `localStorage('tk-theme')`, syncs `aria-pressed`, exposes `window.TkTheme` (`get`/`set`/`toggle`) and a `tk-theme-change` event. Default Ink; `prefers-color-scheme` not auto-followed.
 - `ui_kits/_shared/tk-theme.css` — `.tk-theme-toggle` segmented control, themed via `--tk-*`; active segment uses an inverted fill so the selection is visible on both Ink and Paper.
 - `ui_kits/_shared/tk-theme-demo.html` — self-contained test / usage harness.
+- `colors_and_type.css` — `--tk-fs-og-title` (fluid `clamp` 28→34px) for OG / social card titles (shared artifact spec, reused across kit pages).
+- `ui_kits/_shared/tk-theme.css` — `.tk-seg` shared segmented-control class (plus `.tk-seg__sub` descriptor line and `.tk-seg--compact` modifier) generalizing the toggle for any picker.
 
 ### Changed
 
 - `colors_and_type.css` — Paper `--tk-link` / `--tk-accent` = `#0a7e83`; Paper `--tk-border` `#e6ebef` → `#d4dce3`; `.tk-eyebrow`, `code` / `.tk-code`, and `a` / `.tk-a` wired to `--tk-accent` / `--tk-link`; `--tk-fg-4` / `--tk-fg-5` documented decorative-only.
 - `ui_kits/asset-pack/index.html` — adopts the shared theme toggle; chrome wired to `--tk-*` (body, sticky toolbar, cards, buttons, slot table, eyebrow / links / inline-code); OG cards, `.card.paper` demos, icon-on-dark previews and the SVG source block frozen as specimens; chrome mono labels raised to the 12px floor.
+- `colors_and_type.css` — `--tk-fs-*` type scale converted to fluid `clamp()` + `rem` (display / h1 / h2 / h3 fluid; body / labels / code `rem`; 12px floors held).
+- `ui_kits/_shared/tk-theme.css` — generalized into the shared `.tk-seg` control; `.tk-theme-toggle` retained as a working alias.
+- `ui_kits/master-lockups/index.html` + `ui_kits/_shared/lockups-app.jsx` — adopt the shared toggle and wire chrome to `--tk-*` (specimens — marks, deep/paper boards, ghost/social mocks, the type-stack callout — frozen); A/C wordmark picker rebuilt on `.tk-seg` ("Sans" / "Mono", `aria-pressed`, descriptors via `.tk-seg__sub`); every literal font-size replaced with a `--tk-fs-*` token.
 
 ---
 

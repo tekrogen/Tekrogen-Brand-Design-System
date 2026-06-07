@@ -90,16 +90,17 @@
   --tk-font-editorial: var(--tk-font-sans);  /* editorial = Poppins 600 + italic dek (sans-only brand) */
 
   /* ─── Type · scale (clamped fluid) ────────────────────────── */
-  --tk-fs-display:   clamp(40px, 5vw, 64px);   /* @kind font */
-  --tk-fs-h1:        clamp(32px, 3.5vw, 48px);  /* @kind font */
-  --tk-fs-h2:        28px;
-  --tk-fs-h3:        20px;
-  --tk-fs-h4:        16px;
-  --tk-fs-body:      16px;
-  --tk-fs-body-sm:   14px;
-  --tk-fs-eyebrow:   12px;  /* raised from 11px — min readable uppercase mono label */
-  --tk-fs-meta:      12px;  /* raised from 10.5px — min readable uppercase mono label */
-  --tk-fs-code:      13px;
+  --tk-fs-display:   clamp(2.5rem, 1.8rem + 3.5vw, 4rem);   /* @kind font */
+  --tk-fs-h1:        clamp(2rem, 1.5rem + 2.2vw, 3rem);  /* @kind font */
+  --tk-fs-h2:        clamp(1.5rem, 1.25rem + 1.1vw, 1.75rem);     /* fluid · 24→28px */
+  --tk-fs-h3:        clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);  /* fluid · 18→20px */
+  --tk-fs-h4:        1rem;      /* 16px — rem, scales with user zoom */
+  --tk-fs-body:      1rem;      /* 16px — rem, scales with user zoom */
+  --tk-fs-body-sm:   0.875rem;  /* 14px — rem */
+  --tk-fs-eyebrow:   0.75rem;   /* 12px floor — min readable uppercase mono label */
+  --tk-fs-meta:      0.75rem;   /* 12px floor — min readable uppercase mono label */
+  --tk-fs-code:      0.8125rem; /* 13px — rem */
+  --tk-fs-og-title:  clamp(1.75rem, 1.4rem + 1.6vw, 2.125rem);  /* fluid · 28→34px · OG/social card title (shared artifact spec) */
 
   /* ─── Type · letter-spacing (signature) ───────────────────── */
   --tk-ls-wordmark:  0.18em;  /* TEKROGEN, locked */

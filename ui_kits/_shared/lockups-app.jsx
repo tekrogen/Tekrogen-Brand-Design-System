@@ -137,7 +137,7 @@ function SectionMaster({ variant = 'sans' }) {
         </div>
       </div>
 
-      <h3 style={{ marginTop: 48, marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#8a98a8', fontWeight: 500 }}>Favicon scale — Ghost Pro icon slot</h3>
+      <h3 style={{ marginTop: 48, marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--tk-fg-3)', fontWeight: 500 }}>Favicon scale — Ghost Pro icon slot</h3>
       <div className="board deep" style={{ padding: '36px 20px' }}>
         <div className="size-row" style={{ justifyContent: 'center' }}>
           {[16, 24, 32, 48, 64, 128].map(s => (
@@ -167,7 +167,7 @@ function SectionRules({ variant = 'sans' }) {
         <div className="right">x = mark cap-height</div>
       </div>
       <p className="section-lead">
-        One rule for both axes: keep <strong style={{ color: '#fff' }}>1× clear-space</strong> around the lockup, where <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>x</code> equals the wordmark cap-height. Don't crowd it. Don't place it on imagery without a flat backing.
+        One rule for both axes: keep <strong style={{ color: 'var(--tk-fg-1)' }}>1× clear-space</strong> around the lockup, where <code style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--tk-accent)' }}>x</code> equals the wordmark cap-height. Don't crowd it. Don't place it on imagery without a flat backing.
       </p>
 
       <div className="grid row-2">
@@ -220,7 +220,7 @@ function SectionWordmark({ active = 'sans', onPick = () => {} }) {
         <div className="right">A · public  ·  C · technical</div>
       </div>
       <p className="section-lead">
-        Both A (sans) and C (mono) are <strong style={{ color: '#fff' }}>committed</strong> as official wordmarks. They aren't alternates — they're a pair, each owning a context. Sans is the public face: marketing, member emails, conference badges, the homepage. Mono is the technical face: CLI splash, repo headers, API docs, anything where the dragonfly sits next to code. Same mark above both. The toggle at the top of this page previews either across the whole document.
+        Both A (sans) and C (mono) are <strong style={{ color: 'var(--tk-fg-1)' }}>committed</strong> as official wordmarks. They aren't alternates — they're a pair, each owning a context. Sans is the public face: marketing, member emails, conference badges, the homepage. Mono is the technical face: CLI splash, repo headers, API docs, anything where the dragonfly sits next to code. Same mark above both. The toggle at the top of this page previews either across the whole document.
       </p>
 
       <div className="grid row-2">
@@ -229,7 +229,7 @@ function SectionWordmark({ active = 'sans', onPick = () => {} }) {
           { id: 'mono', title: 'C · Mono', role: 'technical face', font: 'JetBrains Mono · lowercase · 500', stack: "'JetBrains Mono' → ui-monospace → Menlo", uses: ['CLI splash banner', 'Repo / GitHub headers', 'API documentation', 'Terminal-adjacent surfaces', 'Engineering blog'], desc: 'Reads as a working prompt. Honest about who builds the stack. Where the sans wordmark would feel out of place, this fits.' },
         ].map(o => (
           <div className="board deep" key={o.id} onClick={() => onPick(o.id)} style={{ cursor: 'pointer', outline: active === o.id ? '2px solid #1fd5da' : 'none', outlineOffset: -1, position: 'relative' }}>
-            {active === o.id && <div style={{ position: 'absolute', top: 12, right: 12, background: '#1fd5da', color: '#0e1116', padding: '4px 10px', borderRadius: 14, fontFamily: 'JetBrains Mono, monospace', fontSize: 10, letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', zIndex: 2 }}>✓ previewing</div>}
+            {active === o.id && <div style={{ position: 'absolute', top: 12, right: 12, background: '#1fd5da', color: '#0e1116', padding: '4px 10px', borderRadius: 14, fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.14em', fontWeight: 700, textTransform: 'uppercase', zIndex: 2 }}>✓ previewing</div>}
             <div className="board-head">
               <span className="board-tag">{o.title} — {o.role}</span>
               <span className="board-tag">{o.font}</span>
@@ -237,11 +237,11 @@ function SectionWordmark({ active = 'sans', onPick = () => {} }) {
             <div className="board-body" style={{ flexDirection: 'column', padding: '52px 20px 36px' }}>
               <Stacked scheme="light" variant={o.id} markSize={140} wmSize={30} tagSize={11} gap={20} tagline={true}/>
             </div>
-            <div style={{ padding: '0 26px 26px', color: '#8a98a8', fontSize: 13, lineHeight: 1.55 }}>
+            <div style={{ padding: '0 26px 26px', color: '#8a98a8', fontSize: 'var(--tk-fs-code)', lineHeight: 1.55 }}>
               <div style={{ marginBottom: 14 }}>{o.desc}</div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6b7785', marginBottom: 6 }}>Font stack</div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11.5, color: '#cbd5e1', marginBottom: 18, letterSpacing: '0.02em' }}>{o.stack}</div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6b7785', marginBottom: 8 }}>Used for</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6b7785', marginBottom: 6 }}>Font stack</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', color: '#cbd5e1', marginBottom: 18, letterSpacing: '0.02em' }}>{o.stack}</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.14em', textTransform: 'uppercase', color: '#6b7785', marginBottom: 8 }}>Used for</div>
               <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
                 {o.uses.map(u => (
                   <li key={u} style={{ paddingLeft: 14, position: 'relative' }}>
@@ -255,13 +255,13 @@ function SectionWordmark({ active = 'sans', onPick = () => {} }) {
         ))}
       </div>
       <div style={{ marginTop: 28, padding: '20px 24px', background: '#0a0d12', border: '1px solid #1f2731', borderRadius: 12 }}>
-        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#1fd5da', marginBottom: 10 }}>Type stack · committed defaults</div>
-        <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '10px 24px', fontSize: 13, color: '#cbd5e1', lineHeight: 1.55 }}>
-          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Sans</div>
+        <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#1fd5da', marginBottom: 10 }}>Type stack · committed defaults</div>
+        <div style={{ display: 'grid', gridTemplateColumns: '120px 1fr', gap: '10px 24px', fontSize: 'var(--tk-fs-code)', color: '#cbd5e1', lineHeight: 1.55 }}>
+          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Sans</div>
           <div><strong style={{ color: '#fff' }}>Poppins</strong> (primary) → <strong style={{ color: '#fff' }}>Manrope</strong> (fallback, closest x-height + aperture match) → <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>system-ui</code> → <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>-apple-system</code> → sans-serif</div>
-          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Mono</div>
+          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Mono</div>
           <div><strong style={{ color: '#fff' }}>JetBrains Mono</strong> (primary) → <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>ui-monospace</code> → <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>SFMono-Regular</code> → <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>Menlo</code> → monospace</div>
-          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Hosting</div>
+          <div style={{ color: '#8a98a8', fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>Hosting</div>
           <div>Regular (400) weights self-hosted from <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>/fonts/</code>. 500–800 served by Google Fonts as a progressive enhancement.</div>
         </div>
       </div>
@@ -291,7 +291,7 @@ function SectionDomainSplit({ variant = 'sans' }) {
         <div className="right">subtle · balanced · bold</div>
       </div>
       <p className="section-lead">
-        Each entity gets its own face by leading with its wing color. <strong style={{ color: '#fff' }}>Subtle</strong> keeps the full family colors; the entity's wing is the wordmark accent. <strong style={{ color: '#fff' }}>Balanced</strong> desaturates the three non-lead wings so the lead reads as primary. <strong style={{ color: '#fff' }}>Bold</strong> flattens the others to grey — strongest distinction, weakest family read.
+        Each entity gets its own face by leading with its wing color. <strong style={{ color: 'var(--tk-fg-1)' }}>Subtle</strong> keeps the full family colors; the entity's wing is the wordmark accent. <strong style={{ color: 'var(--tk-fg-1)' }}>Balanced</strong> desaturates the three non-lead wings so the lead reads as primary. <strong style={{ color: 'var(--tk-fg-1)' }}>Bold</strong> flattens the others to grey — strongest distinction, weakest family read.
       </p>
 
       <div className="domain-grid">
@@ -314,9 +314,9 @@ function SectionDomainSplit({ variant = 'sans' }) {
                   <div style={{ transform: 'rotate(18deg)' }}>
                     <Dragonfly size={70} lead={{ which: d.id, level: l }}/>
                   </div>
-                  <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 13, letterSpacing: '0.14em', color: '#e7ecf2', display: 'flex', alignItems: 'baseline', gap: 1 }}>
+                  <div style={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: 'var(--tk-fs-code)', letterSpacing: '0.14em', color: '#e7ecf2', display: 'flex', alignItems: 'baseline', gap: 1 }}>
                     <span>TEKROGEN</span>
-                    <span style={{ color: d.color, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.04em', marginLeft: 4 }}>{d.name}</span>
+                    <span style={{ color: d.color, fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.04em', marginLeft: 4 }}>{d.name}</span>
                   </div>
                 </div>
               </div>
@@ -324,7 +324,7 @@ function SectionDomainSplit({ variant = 'sans' }) {
           </React.Fragment>
         ))}
       </div>
-      <div className="note">Recommendation: ship <span style={{ color: '#e7ecf2' }}>Balanced</span> as the default for entity-specific surfaces. It preserves the family read while letting each property feel distinct. Bold is for one-off contexts (a single entity's social avatar, a one-off swag run).</div>
+      <div className="note">Recommendation: ship <span style={{ color: 'var(--tk-fg-1)' }}>Balanced</span> as the default for entity-specific surfaces. It preserves the family read while letting each property feel distinct. Bold is for one-off contexts (a single entity's social avatar, a one-off swag run).</div>
     </section>
   );
 }
@@ -350,7 +350,7 @@ function SectionPalette({ variant = 'sans' }) {
         <div className="right">family preserved · rebalanced</div>
       </div>
       <p className="section-lead">
-        Same five hues you specified. Print column nudges saturation and lightness for CMYK-stable reproduction and small-scale legibility — <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>.com</code> drops a touch of cyan to survive coated stock, <code style={{ fontFamily: 'JetBrains Mono, monospace', color: '#1fd5da' }}>.net</code> deepens slightly to read on white. Screen values are unchanged from your spec.
+        Same five hues you specified. Print column nudges saturation and lightness for CMYK-stable reproduction and small-scale legibility — <code style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--tk-accent)' }}>.com</code> drops a touch of cyan to survive coated stock, <code style={{ fontFamily: 'JetBrains Mono, monospace', color: 'var(--tk-accent)' }}>.net</code> deepens slightly to read on white. Screen values are unchanged from your spec.
       </p>
 
       <table className="tokens">
@@ -372,7 +372,7 @@ function SectionPalette({ variant = 'sans' }) {
         </tbody>
       </table>
 
-      <h3 style={{ marginTop: 40, marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#8a98a8', fontWeight: 500 }}>Side-by-side: stock vs tuned, on white</h3>
+      <h3 style={{ marginTop: 40, marginBottom: 16, fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--tk-fg-3)', fontWeight: 500 }}>Side-by-side: stock vs tuned, on white</h3>
       <div className="grid row-2">
         <div className="board paper">
           <div className="board-head"><span className="board-tag">stock screen values</span><span className="board-tag">on white</span></div>
@@ -405,7 +405,7 @@ function SectionGhost({ variant = 'sans' }) {
         <div className="right">publication · favicon · social</div>
       </div>
       <p className="section-lead">
-        Ghost Pro takes three brand assets: <strong style={{ color: '#fff' }}>Publication icon</strong> (square, dark background tolerant), <strong style={{ color: '#fff' }}>Publication logo</strong> (header lockup, light + dark variants), and a <strong style={{ color: '#fff' }}>default OG/Twitter card</strong> (1200×630, fallback when posts don't supply their own). Plus the favicon. Here's how each looks with the master lockup dropped in.
+        Ghost Pro takes three brand assets: <strong style={{ color: 'var(--tk-fg-1)' }}>Publication icon</strong> (square, dark background tolerant), <strong style={{ color: 'var(--tk-fg-1)' }}>Publication logo</strong> (header lockup, light + dark variants), and a <strong style={{ color: 'var(--tk-fg-1)' }}>default OG/Twitter card</strong> (1200×630, fallback when posts don't supply their own). Plus the favicon. Here's how each looks with the master lockup dropped in.
       </p>
 
       {/* Publication header — full-bleed */}
@@ -413,11 +413,11 @@ function SectionGhost({ variant = 'sans' }) {
         <div className="siteheader">
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <div style={{ transform: 'rotate(18deg)' }}><Dragonfly size={44}/></div>
-            <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 22, letterSpacing: '0.01em' }}>Tekrogen</div>
+            <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 'var(--tk-fs-h3)', letterSpacing: '0.01em' }}>Tekrogen</div>
           </div>
           <nav>
             <span>Research</span><span>Field notes</span><span>Studio</span><span>About</span>
-            <span style={{ background: '#1fd5da', color: '#0e1116', padding: '6px 14px', borderRadius: 6, fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Subscribe</span>
+            <span style={{ background: '#1fd5da', color: '#0e1116', padding: '6px 14px', borderRadius: 6, fontSize: 'var(--tk-fs-meta)', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Subscribe</span>
           </nav>
         </div>
         <div className="hero-meta">
@@ -444,10 +444,10 @@ function SectionGhost({ variant = 'sans' }) {
           <div className="body-row">
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
               <div style={{ transform: 'rotate(18deg)' }}><Dragonfly size={36}/></div>
-              <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 18, color: '#1f2731' }}>Tekrogen</div>
+              <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 'var(--tk-fs-h3)', color: '#1f2731' }}>Tekrogen</div>
             </div>
-            <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.015em', color: '#1f2731', lineHeight: 1.2, marginBottom: 6 }}>Four wings, one pursuit.</div>
-            <div style={{ color: '#6b7280', fontSize: 13.5, lineHeight: 1.55, fontFamily: 'Poppins, Manrope, sans-serif', fontStyle: 'italic', fontWeight: 400 }}>Field notes on running a four-entity practice from a single mark — same pursuit across all four wings.</div>
+            <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontSize: 'var(--tk-fs-h2)', fontWeight: 700, letterSpacing: '-0.015em', color: '#1f2731', lineHeight: 1.2, marginBottom: 6 }}>Four wings, one pursuit.</div>
+            <div style={{ color: '#6b7280', fontSize: 'var(--tk-fs-body-sm)', lineHeight: 1.55, fontFamily: 'Poppins, Manrope, sans-serif', fontStyle: 'italic', fontWeight: 400 }}>Field notes on running a four-entity practice from a single mark — same pursuit across all four wings.</div>
           </div>
         </div>
 
@@ -456,8 +456,8 @@ function SectionGhost({ variant = 'sans' }) {
           <div className="top">
             <div style={{ transform: 'rotate(18deg)' }}><Dragonfly size={42}/></div>
             <div>
-              <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 18 }}>Tekrogen</div>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 10.5, letterSpacing: '0.16em', color: '#8a98a8', textTransform: 'uppercase' }}>Field notes</div>
+              <div style={{ fontFamily: 'Poppins, Manrope, sans-serif', fontWeight: 600, fontSize: 'var(--tk-fs-h3)' }}>Tekrogen</div>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', color: '#8a98a8', textTransform: 'uppercase' }}>Field notes</div>
             </div>
           </div>
           <div className="bot">
@@ -468,7 +468,7 @@ function SectionGhost({ variant = 'sans' }) {
           </div>
         </div>
       </div>
-      <div className="note">Ghost asks for <span style={{ color: '#e7ecf2' }}>logo</span> (used in header, transparent PNG), <span style={{ color: '#e7ecf2' }}>icon</span> (square, used on member emails + favicon fallback), <span style={{ color: '#e7ecf2' }}>cover image</span> (homepage hero), and <span style={{ color: '#e7ecf2' }}>OG/Twitter</span> default. The master lockup feeds the first three; the OG card uses the tagline.</div>
+      <div className="note">Ghost asks for <span style={{ color: 'var(--tk-fg-1)' }}>logo</span> (used in header, transparent PNG), <span style={{ color: 'var(--tk-fg-1)' }}>icon</span> (square, used on member emails + favicon fallback), <span style={{ color: 'var(--tk-fg-1)' }}>cover image</span> (homepage hero), and <span style={{ color: 'var(--tk-fg-1)' }}>OG/Twitter</span> default. The master lockup feeds the first three; the OG card uses the tagline.</div>
     </section>
   );
 }
@@ -476,33 +476,47 @@ function SectionGhost({ variant = 'sans' }) {
 // ──────────────────────────────────────────────
 // Page assembly
 // ──────────────────────────────────────────────
+function ThemeToggle() {
+  const read = () => (window.TkTheme && window.TkTheme.get ? window.TkTheme.get() : 'ink');
+  const [theme, setTheme] = React.useState(read);
+  React.useEffect(() => {
+    const el = document.documentElement;
+    const onChange = () => setTheme(read());
+    el.addEventListener('tk-theme-change', onChange);
+    setTheme(read());
+    return () => el.removeEventListener('tk-theme-change', onChange);
+  }, []);
+  return (
+    <div className="tk-theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-tk-theme-set="ink" aria-pressed={theme === 'ink'}>Ink</button>
+      <button type="button" data-tk-theme-set="paper" aria-pressed={theme === 'paper'}>Paper</button>
+    </div>
+  );
+}
+
 function Page() {
   const [variant, setVariant] = React.useState('sans');
   return (
     <React.Fragment>
       {/* Sticky wordmark picker */}
-      <div style={{ position: 'sticky', top: 0, zIndex: 50, marginLeft: -56, marginRight: -56, marginTop: -80, marginBottom: 24, background: 'rgba(14,17,22,0.92)', backdropFilter: 'blur(8px)', borderBottom: '1px solid #1f2731' }}>
+      <div style={{ position: 'sticky', top: 0, zIndex: 50, marginLeft: -56, marginRight: -56, marginTop: -80, marginBottom: 24, background: 'color-mix(in srgb, var(--tk-bg-1) 92%, transparent)', backdropFilter: 'blur(8px)', borderBottom: '1px solid var(--tk-border)' }}>
         <div style={{ maxWidth: 1480, margin: '0 auto', padding: '14px 56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#8a98a8' }}>
+          <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--tk-fg-3)' }}>
             Dual wordmark system — preview either treatment across the doc
           </div>
-          <div style={{ display: 'flex', gap: 6, background: '#0a0d12', border: '1px solid #1f2731', borderRadius: 8, padding: 4 }}>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <ThemeToggle/>
+            <div className="tk-seg tk-seg--compact" role="group" aria-label="Wordmark variant">
             {[
-              { id: 'sans', label: 'A · Sans', sub: 'public' },
-              { id: 'mono', label: 'C · Mono', sub: 'technical' },
+              { id: 'sans', label: 'Sans', sub: 'public' },
+              { id: 'mono', label: 'Mono', sub: 'technical' },
             ].map(o => (
-              <button key={o.id} onClick={() => setVariant(o.id)} style={{
-                background: variant === o.id ? '#1fd5da' : 'transparent',
-                color: variant === o.id ? '#0e1116' : '#cbd5e1',
-                border: 'none', padding: '8px 14px', borderRadius: 6,
-                fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.12em',
-                textTransform: 'uppercase', cursor: 'pointer', fontWeight: 600,
-                display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.1, gap: 2,
-              }}>
+              <button key={o.id} type="button" onClick={() => setVariant(o.id)} aria-pressed={variant === o.id}>
                 <span>{o.label}</span>
-                <span style={{ fontSize: 9, fontWeight: 500, opacity: 0.75, letterSpacing: '0.1em' }}>{o.sub}</span>
+                <span className="tk-seg__sub">{o.sub}</span>
               </button>
             ))}
+            </div>
           </div>
         </div>
       </div>
@@ -511,7 +525,7 @@ function Page() {
         <span className="eyebrow">tekrogen · brand foundations</span>
       </div>
       <h1>Master Lockup Sheet</h1>
-      <p className="lead">v2 Baseline, developed. <strong style={{ color: '#fff' }}>Both A (Sans) and C (Mono) are committed wordmarks</strong> — a dual system, each owning a context. Use the toggle above to preview either treatment across the document; section 03 explains the role assignment.</p>
+      <p className="lead">v2 Baseline, developed. <strong style={{ color: 'var(--tk-fg-1)' }}>Both A (Sans) and C (Mono) are committed wordmarks</strong> — a dual system, each owning a context. Use the toggle above to preview either treatment across the document; section 03 explains the role assignment.</p>
 
       <SectionMaster variant={variant}/>
       <SectionRules variant={variant}/>

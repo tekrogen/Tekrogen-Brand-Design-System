@@ -1,8 +1,12 @@
 /* ============================================================================
- * tk-theme.css — styling for the shared .tk-theme-toggle segmented control.
+ * tk-theme.css — shared segmented-control styling.
+ *   .tk-seg            canonical segmented control (theme toggle, A/C picker…)
+ *   .tk-theme-toggle   retained alias (asset-pack static Ink/Paper toggle)
  * Themed entirely via --tk-* tokens, so it renders correctly on Ink and Paper.
+ * Type sizing comes from --tk-fs-meta (single source — no literals here).
  * Pair with _shared/tk-theme.js (see that file for markup + usage).
  * ==========================================================================*/
+.tk-seg,
 .tk-theme-toggle {
   display: inline-flex;
   gap: 2px;
@@ -11,6 +15,7 @@
   border: 1px solid var(--tk-border);
   border-radius: var(--tk-radius-md, 8px);
 }
+.tk-seg button,
 .tk-theme-toggle button {
   appearance: none;
   -webkit-appearance: none;
@@ -20,22 +25,39 @@
   color: var(--tk-fg-3);
   font-family: var(--tk-font-mono);
   font-weight: 500;
-  font-size: var(--tk-fs-meta);                 /* 12px floor */
+  font-size: var(--tk-fs-meta);                 /* 12px floor — single source */
   letter-spacing: var(--tk-ls-meta, 0.04em);
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.1;
   padding: 9px 14px;                            /* ~30px tall — clears WCAG 2.5.8 (24px) */
   border-radius: calc(var(--tk-radius-md, 8px) - 2px);
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
   transition: color var(--tk-dur-1, .15s) var(--tk-ease, ease),
               background var(--tk-dur-1, .15s) var(--tk-ease, ease);
 }
+.tk-seg button:hover,
 .tk-theme-toggle button:hover { color: var(--tk-fg-1); }
+.tk-seg button[aria-pressed="true"],
 .tk-theme-toggle button[aria-pressed="true"] {
-  background: var(--tk-fg-1);                    /* inverted fill — clearly visible on BOTH themes */
-  color: var(--tk-bg-1);                         /* (old --tk-bg-1 fill was invisible on Paper: #fbfcfd≈#fff) */
+  background: var(--tk-fg-1);                    /* inverted fill — visible on BOTH themes */
+  color: var(--tk-bg-1);
 }
+.tk-seg button:focus-visible,
 .tk-theme-toggle button:focus-visible {
   outline: 2px solid var(--tk-focus);
   outline-offset: 2px;
 }
+/* optional secondary descriptor line (e.g. A/C picker "public" / "technical") */
+.tk-seg__sub {
+  font-size: var(--tk-fs-meta);                 /* same floor — differentiated by weight/opacity */
+  font-weight: 400;
+  opacity: 0.6;
+  letter-spacing: var(--tk-ls-meta, 0.04em);
+}
+.tk-seg button[aria-pressed="true"] .tk-seg__sub { opacity: 0.85; }
+/* compact vertical padding for two-line pickers, to offset the extra line */
+.tk-seg--compact button { padding: 5px 14px; }
