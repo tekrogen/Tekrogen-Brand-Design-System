@@ -126,7 +126,7 @@
       display: grid;
       grid-template-columns: 240px minmax(0, 1fr);
       gap: 0;
-      max-width: 1480px;
+      max-width: var(--tk-shell-max);
       margin: 0 auto;
     }
     .sidebar {
@@ -308,7 +308,7 @@
     .card-foot .path { color: var(--tk-fg-4); text-transform: none; letter-spacing: 0; }
 
     /* ─── Bits & micro-components ─────────────────────────── */
-    .swatch-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
+    .swatch-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; width: 100%; }
     .swatch {
       aspect-ratio: 1.4;
       border-radius: 8px;
@@ -349,7 +349,7 @@
       font-family: var(--tk-font-mono); font-size: 12px; letter-spacing: 0.08em; color: var(--tk-fg-4);
     }
 
-    .radius-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; width: 100%; }
+    .radius-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; width: 100%; }
     .radius-cell {
       aspect-ratio: 1;
       border: 1px solid var(--tk-border);
@@ -405,7 +405,7 @@
       flex-shrink: 0;
     }
 
-    .glyph-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
+    .glyph-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; width: 100%; }
     .glyph-cell {
       background: var(--tk-bg-3);
       border: 1px solid var(--tk-border);
@@ -421,7 +421,7 @@
       text-transform: uppercase; color: var(--tk-fg-4);
     }
 
-    .icon-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; width: 100%; }
     .icon-cell {
       background: var(--tk-bg-3);
       border: 1px solid var(--tk-border);
@@ -530,7 +530,7 @@
     }
     .motion-label b { color: var(--tk-fg-1); font-weight: 500; }
 
-    .shadow-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; }
+    .shadow-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; width: 100%; }
     .shadow-tile {
       aspect-ratio: 1.4;
       background: var(--tk-bg-3);
@@ -714,7 +714,7 @@
   <div class="topbar-right">
     <label class="search" for="filter">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="filter" type="search" placeholder="Filter components, tokens, glyphs…" autocomplete="off" />
+      <input id="filter" type="search" placeholder="Search" autocomplete="off" />
       <span class="kbd">/</span>
     </label>
     <div class="theme-toggle" role="tablist" aria-label="Theme">
@@ -907,7 +907,7 @@
         <article class="card span-12" data-name="foreground text fg color scale">
           <div class="card-head"><div class="l"><b>02.03</b> Foreground tokens · dark default</div><div class="r">primary → faint</div></div>
           <div class="card-body stretch">
-            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px">
               <div style="display:flex;flex-direction:column;gap:6px">
                 <div style="height:36px;background:#e7ecf2;border-radius:4px"></div>
                 <div class="meta" style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-4)">--tk-fg-1</div>
@@ -1111,7 +1111,7 @@
         <article class="card span-12" data-name="radius scale corners 4 6 8 10 12 16 pill">
           <div class="card-head"><div class="l"><b>05.01</b> Radii</div><div class="r">7 stops</div></div>
           <div class="card-body stretch">
-            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:14px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px">
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:4px">xs</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">4 · chip</div></div>
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:6px">sm</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">6 · button</div></div>
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:8px">md</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">8 · input</div></div>
@@ -1510,7 +1510,7 @@
         <article class="card span-12" data-name="glyphs vocabulary unicode mono download external check error copy close separator loading">
           <div class="card-head"><div class="l"><b>16.01</b> Eight canonical glyphs</div><div class="r">brand surfaces only · no icon font</div></div>
           <div class="card-body stretch">
-            <div class="glyph-grid" style="grid-template-columns:repeat(8,1fr)">
+            <div class="glyph-grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
               <div class="glyph-cell"><div class="g">↓</div><div class="n">download</div></div>
               <div class="glyph-cell"><div class="g">↗</div><div class="n">external</div></div>
               <div class="glyph-cell"><div class="g">✓</div><div class="n">copied</div></div>
@@ -1539,7 +1539,7 @@
         <article class="card span-8" data-name="lucide icon set search mail rss arrow download file terminal book">
           <div class="card-head"><div class="l"><b>17.01</b> Sample set</div><div class="r">canonical product affordances</div></div>
           <div class="card-body stretch">
-            <div class="icon-grid" style="grid-template-columns:repeat(8,1fr)">
+            <div class="icon-grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="n">search</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span class="n">mail</span></div>
               <div class="icon-cell" style="color:var(--tk-cyan)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span class="n">rss</span></div>

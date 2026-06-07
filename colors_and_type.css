@@ -164,6 +164,7 @@
   /* ─── Layout ──────────────────────────────────────────────── */
   --tk-container:    1380px;
   --tk-container-text: 760px;
+  --tk-shell-max:    min(1760px, 94vw);   /* app-shell max — fluid: 1760 cap on large screens, 94vw gutter below */
   --tk-gutter:       48px;
   --tk-gutter-sm:    20px;
 }

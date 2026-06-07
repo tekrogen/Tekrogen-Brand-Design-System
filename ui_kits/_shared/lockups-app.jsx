@@ -500,7 +500,7 @@ function Page() {
     <React.Fragment>
       {/* Sticky wordmark picker */}
       <div style={{ position: 'sticky', top: 0, zIndex: 50, marginLeft: -56, marginRight: -56, marginTop: -80, marginBottom: 24, background: 'color-mix(in srgb, var(--tk-bg-1) 92%, transparent)', backdropFilter: 'blur(8px)', borderBottom: '1px solid var(--tk-border)' }}>
-        <div style={{ maxWidth: 1480, margin: '0 auto', padding: '14px 56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+        <div style={{ maxWidth: 'var(--tk-shell-max)', margin: '0 auto', padding: '14px 56px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
           <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--tk-fg-3)' }}>
             Dual wordmark system — preview either treatment across the doc
           </div>

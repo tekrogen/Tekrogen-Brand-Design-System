@@ -6,7 +6,7 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [Unreleased]
 
-> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed. **Type scale** — the `--tk-fs-*` scale is now fluid (`clamp()` + `rem`) so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors held. Kit pages reference the tokens (no literal sizes); decision recorded in ADR-0007.
+> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed. **Type scale** — the `--tk-fs-*` scale is now fluid (`clamp()` + `rem`) so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors held. Kit pages reference the tokens (no literal sizes); decision recorded in ADR-0007. **P3 (layout)** — a fluid `--tk-shell-max` (`min(1760px, 94vw)`) replaces the hardcoded shell / page maxes, and the dashboard's fixed inner card grids become `auto-fit` so they wrap instead of clipping on narrow screens.
 
 ### Pixel diff
 
@@ -14,6 +14,8 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 - **Not visible — Ink theme.** `--tk-link` / `--tk-accent` resolve to `--tk-cyan` on Ink (10.44:1), unchanged. Decorative cyan (`--tk-border-accent`, `--tk-shadow-glow`) unchanged on both themes.
 - **Not visible — token contract.** `--tk-fg-4` / `--tk-fg-5` annotated decorative/disabled-only (no value change); readable muted text uses `--tk-fg-3`.
 - **Visible — all themes, all token consumers (`colors_and_type.css`).** The `--tk-fs-*` type scale moved from fixed `px` to fluid `clamp()` / `rem`: display, h1, h2, h3 scale with viewport between floor and ceiling; body, labels, and code are `rem` (zoom-responsive). Headings that sat off the old fixed values shift slightly (e.g. master-lockups `h1` 56→≤48, `h2` 32→≤28; in-tile wordmark and mock label sizes snap to the nearest step). Floors unchanged (eyebrow / meta = 12px).
+- **Visible — app-shell width.** `.shell` (dashboard) and `.page` (asset-pack, master-lockups) now cap at `--tk-shell-max` = `min(1760px, 94vw)` (was: dashboard 1480, asset-pack 1380, master-lockups 1480) — wider on large screens, a symmetric 94vw gutter on mid screens.
+- **Visible — dashboard, narrow screens.** Inner card grids (palette swatches, neutrals / foreground scale, radii, Lucide glyph + icon grids, favicon scale, shadows) moved from fixed `repeat(N,1fr)` to `repeat(auto-fit, minmax(…,1fr))`, so they wrap to fewer columns instead of being clipped by the card's `overflow:hidden`. Desktop column counts now flex with width. The outer 12-col `.grid` is unchanged (already handled by media queries).
 
 ### Migration
 
@@ -32,6 +34,7 @@ None.
 - `ui_kits/_shared/tk-theme-demo.html` — self-contained test / usage harness.
 - `colors_and_type.css` — `--tk-fs-og-title` (fluid `clamp` 28→34px) for OG / social card titles (shared artifact spec, reused across kit pages).
 - `ui_kits/_shared/tk-theme.css` — `.tk-seg` shared segmented-control class (plus `.tk-seg__sub` descriptor line and `.tk-seg--compact` modifier) generalizing the toggle for any picker.
+- `colors_and_type.css` — `--tk-shell-max: min(1760px, 94vw)` — fluid app-shell width token (single source for the dashboard shell + kit page widths).
 
 ### Changed
 
@@ -40,6 +43,8 @@ None.
 - `colors_and_type.css` — `--tk-fs-*` type scale converted to fluid `clamp()` + `rem` (display / h1 / h2 / h3 fluid; body / labels / code `rem`; 12px floors held).
 - `ui_kits/_shared/tk-theme.css` — generalized into the shared `.tk-seg` control; `.tk-theme-toggle` retained as a working alias.
 - `ui_kits/master-lockups/index.html` + `ui_kits/_shared/lockups-app.jsx` — adopt the shared toggle and wire chrome to `--tk-*` (specimens — marks, deep/paper boards, ghost/social mocks, the type-stack callout — frozen); A/C wordmark picker rebuilt on `.tk-seg` ("Sans" / "Mono", `aria-pressed`, descriptors via `.tk-seg__sub`); every literal font-size replaced with a `--tk-fs-*` token.
+- `index.html` (dashboard) — `.shell` max-width → `--tk-shell-max`; fixed inner card grids (`.swatch-row`, `.radius-row`, `.glyph-grid`, `.icon-grid`, `.shadow-row`, and the inline foreground-scale / radii / Lucide grids) → `repeat(auto-fit, minmax(…,1fr))` so they wrap responsively; search-field placeholder copy → "Search".
+- `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html`, `ui_kits/_shared/lockups-app.jsx` — `.page` (and the master-lockups sticky-toolbar inner) max-width → `--tk-shell-max`.
 
 ### Fixed
 
