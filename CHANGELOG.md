@@ -45,6 +45,7 @@ None.
 - `ui_kits/master-lockups/index.html` + `ui_kits/_shared/lockups-app.jsx` — adopt the shared toggle and wire chrome to `--tk-*` (specimens — marks, deep/paper boards, ghost/social mocks, the type-stack callout — frozen); A/C wordmark picker rebuilt on `.tk-seg` ("Sans" / "Mono", `aria-pressed`, descriptors via `.tk-seg__sub`); every literal font-size replaced with a `--tk-fs-*` token.
 - `index.html` (dashboard) — `.shell` max-width → `--tk-shell-max`; fixed inner card grids (`.swatch-row`, `.radius-row`, `.glyph-grid`, `.icon-grid`, `.shadow-row`, and the inline foreground-scale / radii / Lucide grids) → `repeat(auto-fit, minmax(…,1fr))` so they wrap responsively; search-field placeholder copy → "Search".
 - `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html`, `ui_kits/_shared/lockups-app.jsx` — `.page` (and the master-lockups sticky-toolbar inner) max-width → `--tk-shell-max`.
+- `ui_kits/asset-pack/index.html` — chrome font-sizes (eyebrow, h1, h2, lead, section labels, `.btn`, `.dim`, slot table, `pre.svg` code block, toolbar, note) and the JS download-dock / link helpers converted to `--tk-fs-*` tokens, completing ADR-0007 for asset-pack. The `.og` card specimens, inline OG markup, and logo wordmarks stay literal (rasterized artifacts).
 
 ### Fixed
 

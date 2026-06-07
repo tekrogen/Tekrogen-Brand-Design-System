@@ -35,14 +35,14 @@ The brand owner's standing rule is explicit: every surface must resize and auto-
 ## Consequences
 
 - Specimens are exempt in *content*, not in *mechanism*. A specimen reproducing a fixed artifact size (e.g. an OG card rasterized at exact px for export) may pin its own value, but chrome — headings, prose, labels, tables, toolbars — always consumes the tokens.
-- Converted so far: `colors_and_type.css` (the scale) and `ui_kits/master-lockups/` (`index.html` + `lockups-app.jsx`) — every literal size → token. `ui_kits/asset-pack/` was *color*-themed in P2 but its chrome font-sizes are still literal `px`; its type-token conversion is pending with the surfaces below.
-- Still to convert (tracked in audit remediation): `ui_kits/asset-pack/` chrome, `ui_kits/mark-explorations/`, `ui_kits/tekrogen-org/`, and `preview/`.
+- Converted so far: `colors_and_type.css` (the scale), `ui_kits/master-lockups/` (`index.html` + `lockups-app.jsx`), and `ui_kits/asset-pack/` (chrome rules + the JS download-dock / link helpers) — every literal size → token. Only the `.og` card specimens, inline OG markup, and logo wordmarks stay fixed (rasterized at exact px for export).
+- Still to convert (tracked in audit remediation): `ui_kits/mark-explorations/` and `ui_kits/tekrogen-org/` (P2); `preview/` (P4).
 - A CI guard (audit phase P4) will fail on any raw `font-size:` / `fontSize:` in `ui_kits/**` that is not `var(--tk-fs-*)`, making this ADR enforceable rather than aspirational.
 - Headings that previously sat on off-scale fixed values shifted to the nearest scale step (e.g. master-lockups `h1` 56→≤48px, `h2` 32→≤28px). This is intended — the scale is the contract.
 
 ## Verification
 
-- Converted surfaces are literal-free: `grep -nE "font-size: ?[0-9]" ui_kits/master-lockups/index.html` and `grep -nE "fontSize: ?[0-9]" ui_kits/_shared/lockups-app.jsx` both return nothing. (The same grep on `asset-pack` still hits chrome rules plus its exempt specimen / artifact builders, until asset-pack converts.) The P4 CI guard extends this assertion to each surface as it lands.
+- Chrome on converted surfaces is literal-free: `grep -nE "font-size: ?[0-9]" ui_kits/master-lockups/index.html` and `grep -nE "fontSize: ?[0-9]" ui_kits/_shared/lockups-app.jsx` return nothing; on `asset-pack` the only remaining `font-size:Npx` hits are the exempt `.og` specimens, inline OG markup, and logo wordmarks (rasterized artifacts). The P4 CI guard extends this assertion to each surface as it lands.
 - Every `--tk-fs-*` value in `colors_and_type.css` is a `rem`, or a `clamp()` expressed in `rem` + `vw` — no bare `px` in the scale.
 - No `--tk-fs-*` token resolves below `0.75rem` (12px).
 - At 200% browser zoom, body / labels / code double (rem); headings stay within their clamp ceilings; no text falls below 12px at default zoom.

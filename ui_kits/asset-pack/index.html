@@ -25,36 +25,36 @@
   }
   *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--tk-bg-1);color:var(--tk-fg-1);font-family:'Poppins','Manrope',system-ui,-apple-system,'Segoe UI',sans-serif}
   .page{max-width:var(--tk-shell-max);margin:0 auto;padding:64px 48px 140px}
-  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--tk-accent)}
-  h1{font-weight:700;font-size:48px;letter-spacing:-.02em;margin:8px 0 16px;line-height:1.05}
-  h2{font-weight:700;font-size:28px;letter-spacing:-.015em;margin:0;line-height:1.1}
-  p.lead{color:var(--muted-d);max-width:760px;line-height:1.55;font-size:15px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-eyebrow);letter-spacing:.18em;text-transform:uppercase;color:var(--tk-accent)}
+  h1{font-weight:700;font-size:var(--tk-fs-h1);letter-spacing:-.02em;margin:8px 0 16px;line-height:1.05}
+  h2{font-weight:700;font-size:var(--tk-fs-h2);letter-spacing:-.015em;margin:0;line-height:1.1}
+  p.lead{color:var(--muted-d);max-width:760px;line-height:1.55;font-size:var(--tk-fs-body)}
   section{margin-top:72px}
   .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:18px;margin-bottom:24px;border-bottom:1px solid var(--line)}
-  .section-head .right{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+  .section-head .right{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase}
   .grid{display:grid;gap:18px}
   .row-2{grid-template-columns:1fr 1fr}.row-3{grid-template-columns:repeat(3,1fr)}.row-4{grid-template-columns:repeat(4,1fr)}
   .card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
   .card.paper{background:var(--paper);color:#1f2731}
   .card-head{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
   .card.paper .card-head{border-bottom-color:#e6ebef}
-  .card-tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card-tag{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
   .card-body{flex:1;display:flex;align-items:center;justify-content:center;padding:32px 18px}
   .card-foot{padding:14px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;justify-content:space-between}
   .card.paper .card-foot{border-top-color:#e6ebef}
-  .btn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--tk-fg-2);cursor:pointer;font-weight:600}
+  .btn{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;border-radius:6px;border:1px solid var(--line);background:transparent;color:var(--tk-fg-2);cursor:pointer;font-weight:600}
   .btn:hover{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
   .btn.primary{background:var(--cyan);color:#0e1116;border-color:var(--cyan)}
   .card.paper .btn{border-color:#d2d6db;color:#1f2731}
-  .dim{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.06em}
-  table.slots{width:100%;border-collapse:collapse;font-size:13px;background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .dim{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);color:var(--muted);letter-spacing:.06em}
+  table.slots{width:100%;border-collapse:collapse;font-size:var(--tk-fs-body-sm);background:var(--ink-2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
   table.slots th,table.slots td{text-align:left;padding:14px 18px;border-bottom:1px solid var(--line)}
   table.slots tr:last-child td{border-bottom:none}
-  table.slots th{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--tk-bg-3)}
-  table.slots code{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--tk-accent)}
-  pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:13px;color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
+  table.slots th{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--tk-bg-3)}
+  table.slots code{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-code);color:var(--tk-accent)}
+  pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-code);color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
   .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:color-mix(in srgb, var(--tk-bg-1) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-  .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
+  .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
   .og{aspect-ratio:1200/630;background:#0e1116;border-radius:8px;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:#fff}
   .og::after{content:'';position:absolute;top:-50px;right:-80px;width:380px;height:380px;background:radial-gradient(circle at center,rgba(13,180,185,.18),transparent 60%);pointer-events:none}
   .og .top{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
@@ -69,8 +69,8 @@
   .og .series-badge{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid #2a3340;padding:6px 12px;border-radius:20px}
   .og .num{font-size:22px;font-weight:700;color:#fff}
   .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
-  .note{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
-  @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:36px}}
+  .note{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
+  @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:var(--tk-fs-h1)}}
 </style>
 </head>
 <body>
@@ -212,7 +212,7 @@ function showDownloadLink(url, filename) {
     dock = document.createElement('div');
     dock.id = 'dl-dock';
     dock.style.cssText = 'position:fixed;bottom:24px;right:24px;z-index:200;background:#0a0d12;border:1px solid #1fd5da;border-radius:10px;padding:14px 16px;max-width:340px;box-shadow:0 14px 40px rgba(0,0,0,0.5);font-family:Poppins,sans-serif';
-    dock.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px"><div style="font-family:JetBrains Mono,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#1fd5da">Downloads ready</div><button id="dl-dock-x" style="background:transparent;border:none;color:#8a98a8;cursor:pointer;font-size:16px;line-height:1;padding:0">×</button></div><div style="font-size:11.5px;color:#8a98a8;line-height:1.5;margin-bottom:10px">If your browser didn\'t prompt, click below (or right-click → Save As):</div><div id="dl-dock-list" style="display:flex;flex-direction:column;gap:6px"></div>';
+    dock.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px"><div style="font-family:JetBrains Mono,monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:#1fd5da">Downloads ready</div><button id="dl-dock-x" style="background:transparent;border:none;color:#8a98a8;cursor:pointer;font-size:var(--tk-fs-body);line-height:1;padding:0">×</button></div><div style="font-size:var(--tk-fs-body-sm);color:#8a98a8;line-height:1.5;margin-bottom:10px">If your browser didn\'t prompt, click below (or right-click → Save As):</div><div id="dl-dock-list" style="display:flex;flex-direction:column;gap:6px"></div>';
     document.body.appendChild(dock);
     document.getElementById('dl-dock-x').addEventListener('click', () => dock.remove());
   }
@@ -220,7 +220,7 @@ function showDownloadLink(url, filename) {
   const link = document.createElement('a');
   link.href = url; link.download = filename; link.target = '_blank'; link.rel = 'noopener';
   link.textContent = '↓ ' + filename;
-  link.style.cssText = 'font-family:JetBrains Mono,monospace;font-size:12px;color:#cbd5e1;text-decoration:none;padding:8px 10px;border:1px solid #1f2731;border-radius:6px;display:block';
+  link.style.cssText = 'font-family:JetBrains Mono,monospace;font-size:var(--tk-fs-meta);color:#cbd5e1;text-decoration:none;padding:8px 10px;border:1px solid #1f2731;border-radius:6px;display:block';
   link.addEventListener('mouseover', () => link.style.background = '#1fd5da');
   link.addEventListener('mouseover', () => link.style.color = '#0e1116');
   link.addEventListener('mouseout', () => { link.style.background = 'transparent'; link.style.color = '#cbd5e1'; });
