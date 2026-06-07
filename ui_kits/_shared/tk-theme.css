@@ -1,0 +1,41 @@
+/* ============================================================================
+ * tk-theme.css — styling for the shared .tk-theme-toggle segmented control.
+ * Themed entirely via --tk-* tokens, so it renders correctly on Ink and Paper.
+ * Pair with _shared/tk-theme.js (see that file for markup + usage).
+ * ==========================================================================*/
+.tk-theme-toggle {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  background: var(--tk-bg-2);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md, 8px);
+}
+.tk-theme-toggle button {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--tk-fg-3);
+  font-family: var(--tk-font-mono);
+  font-weight: 500;
+  font-size: var(--tk-fs-meta);                 /* 12px floor */
+  letter-spacing: var(--tk-ls-meta, 0.04em);
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 9px 14px;                            /* ~30px tall — clears WCAG 2.5.8 (24px) */
+  border-radius: calc(var(--tk-radius-md, 8px) - 2px);
+  cursor: pointer;
+  transition: color var(--tk-dur-1, .15s) var(--tk-ease, ease),
+              background var(--tk-dur-1, .15s) var(--tk-ease, ease);
+}
+.tk-theme-toggle button:hover { color: var(--tk-fg-1); }
+.tk-theme-toggle button[aria-pressed="true"] {
+  background: var(--tk-fg-1);                    /* inverted fill — clearly visible on BOTH themes */
+  color: var(--tk-bg-1);                         /* (old --tk-bg-1 fill was invisible on Paper: #fbfcfd≈#fff) */
+}
+.tk-theme-toggle button:focus-visible {
+  outline: 2px solid var(--tk-focus);
+  outline-offset: 2px;
+}

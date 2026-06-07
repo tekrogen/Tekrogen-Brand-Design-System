@@ -6,7 +6,7 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [Unreleased]
 
-> **Versioning intent — minor (on release).** Paper-theme color-contrast accessibility remediation (audit P0). No Ink change. Batched per phase; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch.
+> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3).
 
 ### Pixel diff
 
@@ -23,6 +23,12 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 ### Assets to regenerate
 
 None.
+
+### Added
+
+- `ui_kits/_shared/tk-theme.js` — framework-agnostic Ink/Paper theme toggle. Sets `data-tk-theme` on `<html>`, persists to `localStorage('tk-theme')`, syncs `aria-pressed`, exposes `window.TkTheme` (`get`/`set`/`toggle`) and a `tk-theme-change` event. Default Ink; `prefers-color-scheme` not auto-followed.
+- `ui_kits/_shared/tk-theme.css` — `.tk-theme-toggle` segmented control, themed via `--tk-*`; active segment uses an inverted fill so the selection is visible on both Ink and Paper.
+- `ui_kits/_shared/tk-theme-demo.html` — self-contained test / usage harness.
 
 ### Changed
 
