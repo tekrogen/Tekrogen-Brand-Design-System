@@ -328,6 +328,7 @@ document.getElementById('dl-zip').addEventListener('click', async () => {
   try {
     if (typeof JSZip === 'undefined') throw new Error('JSZip failed to load (offline?)');
     const zip = new JSZip();
+    const total = Object.keys(ASSETS).length;
     let skipped = 0;
     for (const key of Object.keys(ASSETS)) {
       try {
@@ -338,7 +339,7 @@ document.getElementById('dl-zip').addEventListener('click', async () => {
     zip.file('STYLE-GUIDE.md', styleGuideMd());
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadBlob(zipBlob, 'tekrogen-ghost-pro-assets.zip');
-    btn.textContent = skipped ? `✓ (${skipped} skipped)` : '✓ Downloaded';
+    btn.textContent = skipped ? `Saved ${total - skipped}/${total} — ${skipped} OG cards skipped` : '✓ Downloaded';
   } catch(e) {
     console.error('zip build failed', e); btn.textContent = '✗ Failed — see console';
   } finally {
