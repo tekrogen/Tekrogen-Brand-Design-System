@@ -2,18 +2,17 @@
  * Tekrogen · Foundations — colors, type, spacing
  * ============================================================
  *
- * Regular (400) weights of Poppins, Manrope, and JetBrains Mono
- * are self-hosted from /fonts/ (see @font-face below). For 500/600/700
- * weights, also load Google Fonts BEFORE this file:
- *
- *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
- *   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Manrope:wght@500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+ * All brand weights (400–800) of Poppins, Manrope, and JetBrains Mono
+ * are self-hosted from /fonts/ as latin-subset woff2 (see @font-face
+ * below). No external font CDN is required — the Google Fonts <link>
+ * that older surfaces still carry is now redundant and is being removed
+ * surface-by-surface. See fonts/README.md.
  *
  * Tekrogen is a sans-only brand — no serif face, no second sans.
  * Editorial slots (article hero, italic deks) use Poppins 600 + italic.
  */
 
-/* ─── Self-hosted brand fonts (Regular only — see /fonts/) ── */
+/* ─── Self-hosted brand fonts · Regular (400) ── */
 @font-face {
   font-family: 'Poppins';
   font-style: normal;
@@ -34,6 +33,78 @@
   font-weight: 400;
   font-display: swap;
   src: url('fonts/manrope-v20-latin-regular.woff2') format('woff2');
+}
+
+/* ─── Self-hosted brand fonts · weights 500–800 (latin woff2) ── */
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/poppins-v24-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/poppins-v24-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/poppins-v24-latin-700.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('fonts/poppins-v24-latin-800.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/JetBrainsMono-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/JetBrainsMono-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/JetBrainsMono-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/manrope-v20-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('fonts/manrope-v20-latin-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('fonts/manrope-v20-latin-700.woff2') format('woff2');
 }
 
 :root {
