@@ -55,19 +55,10 @@
   pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-code);color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
   .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:color-mix(in srgb, var(--tk-bg-1) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
-  .og{aspect-ratio:1200/630;background:#0e1116;border-radius:8px;padding:48px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;color:#fff}
-  .og::after{content:'';position:absolute;top:-50px;right:-80px;width:380px;height:380px;background:radial-gradient(circle at center,rgba(13,180,185,.18),transparent 60%);pointer-events:none}
-  .og .top{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
-  .og .bot{position:relative;z-index:2}
-  .og .wm{font-family:'Poppins','Manrope',system-ui,sans-serif;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:24px}
-  .og .tag{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);margin-top:14px}
-  .og .title{font-size:34px;font-weight:700;line-height:1.15;letter-spacing:-.01em;max-width:88%;margin-top:8px}
-  .og .meta{display:flex;gap:14px;margin-top:18px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8}
-  .og .badge{padding:4px 10px;border:1px solid #2a3340;border-radius:20px;color:var(--cyan)}
-  .og .author{display:flex;align-items:center;gap:14px;margin-top:18px}
-  .og .avatar{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#446e88,#0db4b9);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:20px}
-  .og .series-badge{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);border:1px solid #2a3340;padding:6px 12px;border-radius:20px}
-  .og .num{font-size:22px;font-weight:700;color:#fff}
+  /* OG previews are now fluid pure-SVG (see ogSVG in script) — a viewBox
+     scales all content proportionally, so cards never clip on narrow widths. */
+  .og-mount{display:block;width:100%}
+  .og-mount svg{display:block;width:100%;height:auto;border-radius:8px}
   .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
   .note{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
   @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:var(--tk-fs-h1)}}
@@ -117,10 +108,10 @@
   <section>
     <div class="section-head"><div><div class="eyebrow">02 · social cards</div><h2>OG / Twitter cards</h2></div><div class="right">1200 × 630 · PNG</div></div>
     <div class="grid row-2">
-      <div class="card"><div class="card-head"><span class="card-tag">Default · homepage</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="default"><div class="top"><span data-mark="36" data-inverse="true"></span><div class="wm">TEKROGEN</div></div><div class="bot"><div class="tag">field notes · research · instruction</div><div class="title">Real solutions. Built, proven, ready to use.</div><div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8">tekrogen.org</div></div></div></div></div><div class="card-foot"><span class="dim">og-default.png</span><button class="btn" data-dl="og-default">↓ PNG</button></div></div>
-      <div class="card"><div class="card-head"><span class="card-tag">Article fallback</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="article"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div class="badge" style="display:inline-block">Field note · 04</div><div class="title">Building an instructional-design system that compounds across four entities.</div><div class="author"><div class="avatar">MD</div><div><div style="font-weight:600;font-size:15px">Martinique Dolce</div><div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8;margin-top:2px">Founder · .studio</div></div></div></div></div></div></div><div class="card-foot"><span class="dim">og-article.png</span><button class="btn" data-dl="og-article">↓ PNG</button></div></div>
-      <div class="card"><div class="card-head"><span class="card-tag">Author</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="author"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div style="display:flex;align-items:center;gap:24px"><div style="width:140px;height:140px;border-radius:50%;background:linear-gradient(135deg,#446e88,#0db4b9);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:48px;flex:none">MD</div><div><div style="font-size:32px;font-weight:700;letter-spacing:-.01em">Martinique Dolce</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#1fd5da;margin-top:6px">Founder · researcher · instructor</div><div style="color:#8a98a8;font-size:13.5px;line-height:1.5;margin-top:12px;max-width:420px">Backend systems and instructional design. Writes field notes from the intersection of both.</div></div></div></div></div></div></div><div class="card-foot"><span class="dim">og-author.png</span><button class="btn" data-dl="og-author">↓ PNG</button></div></div>
-      <div class="card"><div class="card-head"><span class="card-tag">Field note · series</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og" data-og="series"><div class="top"><span data-mark="32" data-inverse="true"></span><div style="font-family:Poppins;font-weight:600;font-size:16px;letter-spacing:.14em;text-transform:uppercase">TEKROGEN</div></div><div class="bot"><div class="series-badge"><span class="num">04</span><span>Field notes · series</span></div><div class="title" style="margin-top:14px">What happens when five engineers also grade dissertations on Thursdays.</div><div style="margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a98a8">tekrogen.org/notes/04</div></div></div></div></div><div class="card-foot"><span class="dim">og-series.png</span><button class="btn" data-dl="og-series">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Default · homepage</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og-mount" data-og="default"></div></div></div><div class="card-foot"><span class="dim">og-default.png</span><button class="btn" data-dl="og-default">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Article fallback</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og-mount" data-og="article"></div></div></div><div class="card-foot"><span class="dim">og-article.png</span><button class="btn" data-dl="og-article">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Author</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og-mount" data-og="author"></div></div></div><div class="card-foot"><span class="dim">og-author.png</span><button class="btn" data-dl="og-author">↓ PNG</button></div></div>
+      <div class="card"><div class="card-head"><span class="card-tag">Field note · series</span><span class="dim">1200×630</span></div><div class="card-body"><div class="preview-wrap" style="width:100%"><div class="og-mount" data-og="series"></div></div></div><div class="card-foot"><span class="dim">og-series.png</span><button class="btn" data-dl="og-series">↓ PNG</button></div></div>
     </div>
   </section>
 
@@ -191,9 +182,9 @@ document.getElementById('copy-svg').addEventListener('click', () => {
 });
 
 // ─── Downloads ────────────────────────────────────────────────
-// Render a card / OG / icon to a PNG via html-to-canvas-style trick:
-// We'll instead build clean PNGs by drawing on an offscreen canvas
-// for the simple assets, and use foreignObject SVG for the OG cards.
+// All downloadable assets (logos, icons, favicons, mark, OG cards) are
+// built as pure SVG strings, then rasterized to PNG on an offscreen
+// canvas via svgToPng(). No foreignObject, no remote fonts.
 
 function downloadBlob(blob, filename) {
   const url = URL.createObjectURL(blob);
@@ -271,24 +262,152 @@ function iconSVG(size, inverse) {
 </svg>`;
 }
 
-function ogPng(kind) {
-  // Render the existing OG DOM node to PNG via foreignObject
-  const node = document.querySelector(`[data-og="${kind}"]`);
-  return domToPng(node, 1200, 630);
+// ─── OG / social cards — pure SVG (fluid viewBox + reliable raster) ──
+// One builder feeds BOTH the on-page preview (document fonts) and the zip
+// export (fonts embedded as base64 so canvas rasterization renders real
+// Poppins). Replaces the old foreignObject + remote @import path, which
+// browsers blocked during rasterization (the "skipped" OG cards).
+const OG_W = 1200, OG_H = 630, OG_P = 48;
+const OG_C = { ink:'#0e1116', white:'#ffffff', cyan:'#1fd5da', muted:'#8a98a8', pill:'#2a3340' };
+const SANS = "Poppins, 'Manrope', sans-serif", MONO = "'JetBrains Mono', monospace";
+
+const OG_FONT_FILES = {
+  p400:'../../fonts/poppins-v24-latin-regular.woff2',
+  p600:'../../fonts/poppins-v24-latin-600.woff2',
+  p700:'../../fonts/poppins-v24-latin-700.woff2',
+  m400:'../../fonts/JetBrainsMono-Regular.woff2',
+};
+let _ogFontB64 = null;
+async function ogFontsB64() {
+  if (_ogFontB64) return _ogFontB64;
+  const out = {};
+  await Promise.all(Object.entries(OG_FONT_FILES).map(async ([k, url]) => {
+    try {
+      const buf = await (await fetch(url)).arrayBuffer();
+      const bytes = new Uint8Array(buf); let bin = '';
+      for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      out[k] = btoa(bin);
+    } catch (e) { console.warn('OG font load failed:', url, e); out[k] = null; }
+  }));
+  _ogFontB64 = out; return out;
+}
+function ogFontFace(b) {
+  const f = (fam, w, k) => b[k] ? `@font-face{font-family:'${fam}';font-style:normal;font-weight:${w};src:url(data:font/woff2;base64,${b[k]}) format('woff2')}` : '';
+  return f('Poppins',400,'p400') + f('Poppins',600,'p600') + f('Poppins',700,'p700') + f('JetBrains Mono',400,'m400');
 }
 
-async function domToPng(node, width, height) {
-  // Clone styled HTML into foreignObject SVG
-  const rect = node.getBoundingClientRect();
-  const clone = node.cloneNode(true);
-  clone.style.width = width + 'px';
-  clone.style.height = height + 'px';
-  clone.style.transform = 'none';
-  // Copy computed font + collect external font URL
-  const fontCSS = `@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');`;
-  const html = `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;font-family:Poppins,sans-serif">${clone.outerHTML}</div>`;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><style>${fontCSS}</style></defs><foreignObject width="100%" height="100%">${html}</foreignObject></svg>`;
-  return svgToPng(svg, width, height);
+const _ogCtx = document.createElement('canvas').getContext('2d');
+function ogWrap(text, font, maxW) {
+  _ogCtx.font = font;
+  const words = String(text).split(' ');
+  const lines = []; let cur = '';
+  for (const w of words) {
+    const t = cur ? cur + ' ' + w : w;
+    if (cur && _ogCtx.measureText(t).width > maxW) { lines.push(cur); cur = w; } else cur = t;
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+function ogEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function ogT(x, y, str, o) {
+  const ls = o.ls != null ? ` letter-spacing="${o.ls}"` : '';
+  const a = o.anchor ? ` text-anchor="${o.anchor}"` : '';
+  return `<text x="${x}" y="${y}" font-family="${o.family}" font-weight="${o.weight||400}" font-size="${o.size}"${ls} fill="${o.fill}"${a}>${ogEsc(str)}</text>`;
+}
+// inverse dragonfly mark scaled + placed into OG coordinate space
+function ogMark(px, tx, ty) {
+  const full = dragonflySVG({ size: 200, inverse: true, tilt: 18 });
+  const inner = full.replace(/^<\?xml[^>]+\?>\s*/, '').replace(/<svg[^>]*>/, '').replace('</svg>', '');
+  return `<g transform="translate(${tx},${ty}) scale(${(px/200).toFixed(4)})">${inner}</g>`;
+}
+// rounded pill sized to a single left-aligned text run
+function ogPill(x, cy, text, o) {
+  _ogCtx.font = `${o.weight||400} ${o.size}px ${o.family.split(',')[0].replace(/'/g,'')}`;
+  const tw = _ogCtx.measureText(text).width;
+  const w = tw + o.padX*2, h = o.size + o.padY*2;
+  const rect = `<rect x="${x}" y="${(cy-h/2).toFixed(1)}" width="${w.toFixed(1)}" height="${h}" rx="${h/2}" fill="none" stroke="${OG_C.pill}"/>`;
+  const txt = ogT(x+o.padX, cy + o.size*0.34, text, { family:o.family, weight:o.weight, size:o.size, ls:o.ls, fill:o.fill });
+  return rect + txt;
+}
+
+// top row: mark + wordmark (default is larger/700; the rest 600/16)
+function ogTop(kind) {
+  if (kind === 'default')
+    return ogMark(36,48,44) + ogT(100,76,'TEKROGEN',{ family:SANS, weight:700, size:24, ls:4.3, fill:OG_C.white });
+  return ogMark(32,48,46) + ogT(94,70,'TEKROGEN',{ family:SANS, weight:600, size:16, ls:2.2, fill:OG_C.white });
+}
+
+// per-card lower content
+function ogBody(kind) {
+  const xL = OG_P;
+  if (kind === 'default') {
+    const lines = ogWrap('Real solutions. Built, proven, ready to use.', '700 34px Poppins', 960);
+    const tagY = 430, titleY0 = 474, urlY = titleY0 + 40*(lines.length-1) + 50;
+    let s = ogT(xL, tagY, 'FIELD NOTES · RESEARCH · INSTRUCTION', { family:MONO, size:11, ls:1.8, fill:OG_C.cyan });
+    lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
+    s += ogT(xL, urlY, 'TEKROGEN.ORG', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+    return s;
+  }
+  if (kind === 'article') {
+    const lines = ogWrap('Building an instructional-design system that compounds across four entities.', '700 34px Poppins', 960);
+    let s = ogPill(xL, 372, 'Field note · 04', { family:SANS, weight:500, size:14, ls:0, fill:OG_C.cyan, padX:14, padY:7 });
+    const titleY0 = 424;
+    lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
+    const lastY = titleY0 + 40*(lines.length-1);
+    const avR = 28, avCx = xL+avR, avCy = lastY + 58;
+    s += `<circle cx="${avCx}" cy="${avCy}" r="${avR}" fill="url(#ogAvatar)"/>`;
+    s += ogT(avCx, avCy+6, 'MD', { family:SANS, weight:600, size:18, fill:OG_C.white, anchor:'middle' });
+    const tx = xL + avR*2 + 22;
+    s += ogT(tx, avCy-2, 'Martinique Dolce', { family:SANS, weight:600, size:16, fill:OG_C.white });
+    s += ogT(tx, avCy+20, 'FOUNDER · .STUDIO', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+    return s;
+  }
+  if (kind === 'author') {
+    const avR = 70, avCx = xL+avR, avCy = 300;
+    let s = `<circle cx="${avCx}" cy="${avCy}" r="${avR}" fill="url(#ogAvatar)"/>`;
+    s += ogT(avCx, avCy+16, 'MD', { family:SANS, weight:600, size:48, fill:OG_C.white, anchor:'middle' });
+    const tx = xL + avR*2 + 30;
+    s += ogT(tx, avCy-26, 'Martinique Dolce', { family:SANS, weight:700, size:38, ls:-0.4, fill:OG_C.white });
+    s += ogT(tx, avCy+8, 'FOUNDER · RESEARCHER · INSTRUCTOR', { family:MONO, size:13, ls:1.8, fill:OG_C.cyan });
+    const bio = ogWrap('Backend systems and instructional design. Writes field notes from the intersection of both.', '400 22px Poppins', Math.min(560, OG_W-OG_P-tx));
+    bio.forEach((ln,i) => s += ogT(tx, avCy+46+i*30, ln, { family:SANS, weight:400, size:20, fill:OG_C.muted }));
+    return s;
+  }
+  // series — pill holds [num 04][label], then title + url
+  const lines = ogWrap('What happens when five engineers also grade dissertations on Thursdays.', '700 34px Poppins', 960);
+  const numTxt = '04', label = 'FIELD NOTES · SERIES';
+  _ogCtx.font = '700 22px Poppins'; const nw = _ogCtx.measureText(numTxt).width;
+  _ogCtx.font = "400 12px 'JetBrains Mono'"; const lw = _ogCtx.measureText(label).width;
+  const padX = 16, gap = 12, pillCy = 384, pillH = 40, pillW = padX*2 + nw + gap + lw;
+  let s = `<rect x="${xL}" y="${pillCy-pillH/2}" width="${pillW.toFixed(1)}" height="${pillH}" rx="${pillH/2}" fill="none" stroke="${OG_C.pill}"/>`;
+  s += ogT(xL+padX, pillCy+7, numTxt, { family:SANS, weight:700, size:22, fill:OG_C.white });
+  s += ogT(xL+padX+nw+gap, pillCy+4, label, { family:MONO, size:12, ls:1.7, fill:OG_C.cyan });
+  const titleY0 = 452;
+  lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
+  const urlY = titleY0 + 40*(lines.length-1) + 48;
+  s += ogT(xL, urlY, 'TEKROGEN.ORG/NOTES/04', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+  return s;
+}
+
+async function ogSVG(kind, { embed = false } = {}) {
+  await document.fonts.ready;                 // accurate measureText + on-page render
+  const fonts = embed ? ogFontFace(await ogFontsB64()) : '';
+  const defs =
+    `<radialGradient id="ogGlow" cx="0.5" cy="0.5" r="0.5">` +
+      `<stop offset="0%" stop-color="rgba(13,180,185,0.18)"/>` +
+      `<stop offset="60%" stop-color="rgba(13,180,185,0)"/>` +
+    `</radialGradient>` +
+    `<linearGradient id="ogAvatar" x1="0" y1="0" x2="1" y2="1">` +
+      `<stop offset="0%" stop-color="#446e88"/><stop offset="100%" stop-color="#0db4b9"/>` +
+    `</linearGradient>` +
+    `<clipPath id="ogClip"><rect width="${OG_W}" height="${OG_H}" rx="8"/></clipPath>`;
+  const inner =
+    `<rect width="${OG_W}" height="${OG_H}" fill="${OG_C.ink}"/>` +
+    `<rect x="900" y="-50" width="380" height="380" fill="url(#ogGlow)"/>` +
+    ogTop(kind) + ogBody(kind);
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W}" height="${OG_H}" viewBox="0 0 ${OG_W} ${OG_H}" role="img" aria-label="Tekrogen ${kind} card">` +
+    `<defs>${fonts ? `<style>${fonts}</style>` : ''}${defs}</defs>` +
+    `<g clip-path="url(#ogClip)">${inner}</g></svg>`;
 }
 
 const ASSETS = {
@@ -299,11 +418,20 @@ const ASSETS = {
   'favicon-ico':() => svgToPng(iconSVG(32, false),  32,  32 ).then(b => ({ blob: b, name: 'favicon.ico' })),
   'favicon-svg':() => Promise.resolve({ blob: new Blob([iconSVG(48, false)], { type: 'image/svg+xml' }), name: 'favicon.svg' }),
   'dragonfly-svg':() => Promise.resolve({ blob: new Blob([dragonflySVG({size:200, includeXML:true})], { type: 'image/svg+xml' }), name: 'tekrogen-mark.svg' }),
-  'og-default': () => ogPng('default').then(b => ({ blob: b, name: 'og-default.png' })),
-  'og-article': () => ogPng('article').then(b => ({ blob: b, name: 'og-article.png' })),
-  'og-author':  () => ogPng('author').then(b => ({ blob: b, name: 'og-author.png' })),
-  'og-series':  () => ogPng('series').then(b => ({ blob: b, name: 'og-series.png' })),
+  'og-default': async () => ({ blob: await svgToPng(await ogSVG('default', { embed:true }), 1200, 630), name: 'og-default.png' }),
+  'og-article': async () => ({ blob: await svgToPng(await ogSVG('article', { embed:true }), 1200, 630), name: 'og-article.png' }),
+  'og-author':  async () => ({ blob: await svgToPng(await ogSVG('author',  { embed:true }), 1200, 630), name: 'og-author.png' }),
+  'og-series':  async () => ({ blob: await svgToPng(await ogSVG('series',  { embed:true }), 1200, 630), name: 'og-series.png' }),
 };
+
+// Render OG previews as fluid SVG (uses already-loaded document fonts)
+(async () => {
+  await document.fonts.ready;
+  for (const m of document.querySelectorAll('.og-mount[data-og]')) {
+    try { m.innerHTML = await ogSVG(m.dataset.og, { embed:false }); }
+    catch (e) { console.warn('OG preview failed:', m.dataset.og, e); }
+  }
+})();
 
 document.querySelectorAll('[data-dl]').forEach(btn => {
   btn.addEventListener('click', async () => {
@@ -339,7 +467,7 @@ document.getElementById('dl-zip').addEventListener('click', async () => {
     zip.file('STYLE-GUIDE.md', styleGuideMd());
     const zipBlob = await zip.generateAsync({ type: 'blob' });
     downloadBlob(zipBlob, 'tekrogen-ghost-pro-assets.zip');
-    btn.textContent = skipped ? `Saved ${total - skipped}/${total} — ${skipped} OG cards skipped` : '✓ Downloaded';
+    btn.textContent = skipped ? `Saved ${total - skipped}/${total} — ${skipped} skipped` : '✓ Downloaded';
   } catch(e) {
     console.error('zip build failed', e); btn.textContent = '✗ Failed — see console';
   } finally {
