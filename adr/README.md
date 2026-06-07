@@ -16,6 +16,7 @@ The system is small enough that the README and code carry most decisions. ADRs e
 | 0004 | [Canonical authoring surface — Ghost Pro](0004-canonical-authoring-surface.md) | Accepted | `ui_kits/tekrogen-org/`, BNR (flagged externally)          |
 | 0005 | [Icon system — Lucide on product, glyphs on brand](0005-icon-system.md) | Accepted | All product surfaces; brand surfaces remain icon-free      |
 | 0006 | [Trust-state CTAs — paired-content primitive](0006-trust-state-cta.md) | Accepted | `trust-state-matrix.html`, future commerce surfaces        |
+| 0007 | [Fluid, rem-based type scale](0007-fluid-rem-type-scale.md) | Accepted | `colors_and_type.css` (scale); all kit pages + JSX (consumers) |
 
 ## Out of scope here
 
