@@ -4,6 +4,102 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [0.7.0] — 2026-06-06
+
+> **Versioning intent — minor.** System-wide type-size accessibility remediation. `--tk-fs-eyebrow` raised 11px → 12px; `--tk-fs-meta` raised 10.5px → 12px. All JSX components that previously hardcoded these sizes now reference the token vars. Email input raised to 16px (iOS auto-zoom prevention). Preview specimen card labels corrected (9.5–10.5px → 11–12px). `pre.tk-pre` code block raised 11.5px → 13px. 25 type-size fixes across 9 files.
+
+### Pixel diff
+
+- **Visible — `colors_and_type.css`.** `--tk-fs-eyebrow`: 11px → 12px. `--tk-fs-meta`: 10.5px → 12px. `pre.tk-pre` inline font-size: 11.5px → 13px. All surfaces consuming these tokens are affected automatically.
+- **Visible — `ui_kits/tekrogen-org/Hero.jsx`.** Eyebrow `fontSize` → `var(--tk-fs-eyebrow)` (12px). Meta row `fontSize` → `var(--tk-fs-meta)` (12px).
+- **Visible — `ui_kits/tekrogen-org/SectionHead.jsx`.** Eyebrow `fontSize` → `var(--tk-fs-eyebrow)`. Meta `fontSize` → `var(--tk-fs-meta)`.
+- **Visible — `ui_kits/tekrogen-org/FieldNoteCard.jsx`.** Kicker → `var(--tk-fs-eyebrow)`. Meta row → `var(--tk-fs-meta)`.
+- **Visible — `ui_kits/tekrogen-org/Article.jsx`.** Back button, author byline, series colophon → `var(--tk-fs-meta)`. Article eyebrow → `var(--tk-fs-eyebrow)`.
+- **Visible — `ui_kits/tekrogen-org/SubscribeBlock.jsx`.** Eyebrow and button label → `var(--tk-fs-eyebrow)`. Email input: 14px → 16px (iOS zoom prevention). Success message: 12px → 13px.
+- **Visible — `ui_kits/tekrogen-org/SiteHeader.jsx`.** Subscribe button label: 12px → 13px.
+- **Visible — `ui_kits/tekrogen-org/Footer.jsx`.** Pillar domain names and copyright bar: 13px → 14px (`var(--tk-fs-body-sm)`).
+- **Visible — `preview/_card.css`.** `.label` / `.swatch`: 9.5px → 11px. `.hex` / `.token`: 10–10.5px → 12px. `.name`: 13px → 14px.
+- **Not visible.** No palette values, spacing tokens, radii, shadows, or layout rules change.
+
+### Migration
+
+- Surfaces consuming `--tk-fs-eyebrow` or `--tk-fs-meta` via CSS class inherit the new values automatically.
+- JSX components using inline `fontSize: N` for eyebrow/meta roles must be updated to `fontSize: 'var(--tk-fs-eyebrow)'` or `fontSize: 'var(--tk-fs-meta)'`. All components in this repo are corrected in this release.
+- The email `<input>` change (14px → 16px) may shift subscribe-form height slightly on mobile. Test narrow viewports if the form has been customised downstream.
+
+### Assets to regenerate
+
+None.
+
+### Added
+
+- `review/type-size-audit.html` — governance artifact tabulating all 25 before/after changes, the standards applied (pimpmytype.com, WCAG 2.1 SC 1.4.4, iOS 16px threshold), and the rationale for the 12px eyebrow/meta floor.
+
+### Changed
+
+- `colors_and_type.css` — `--tk-fs-eyebrow` 11px → 12px; `--tk-fs-meta` 10.5px → 12px; `pre.tk-pre` 11.5px → 13px.
+- `preview/_card.css` — all label / swatch / hex / token / name sizes raised (see pixel diff).
+- `ui_kits/tekrogen-org/Hero.jsx` — `fontSize` hardcodes replaced with `var(--tk-fs-eyebrow)` / `var(--tk-fs-meta)`.
+- `ui_kits/tekrogen-org/SectionHead.jsx` — same.
+- `ui_kits/tekrogen-org/FieldNoteCard.jsx` — same.
+- `ui_kits/tekrogen-org/Article.jsx` — four instances replaced with token vars.
+- `ui_kits/tekrogen-org/SubscribeBlock.jsx` — eyebrow and button → token vars; email input → 16px; success message → 13px.
+- `ui_kits/tekrogen-org/SiteHeader.jsx` — Subscribe button label 12px → 13px.
+- `ui_kits/tekrogen-org/Footer.jsx` — pillar domain names and copyright bar 13px → 14px.
+- `package.json` — version `0.6.0` → `0.7.0`.
+
+### Notes
+
+- The 12px floor for `--tk-fs-eyebrow` / `--tk-fs-meta` is practical, not arbitrary. WCAG 2.1 sets no hard pixel floor; the 14px minimum from pimpmytype.com and learnui.design applies to mixed-case body prose. All-caps mono with 0.12–0.16em letter-spacing at 12px delivers equivalent legibility to ~14px mixed-case. Previous 10–11px values fell below any defensible threshold.
+- The iOS auto-zoom threshold (inputs below 16px trigger page-scale zoom on focus in Safari) is a hard UX constraint. The 16px email input fix eliminates a known mobile breakage.
+- `--tk-fs-code` (13px) is unchanged — code blocks are a distinct reading context; 13px is standard practice for monospaced code.
+
+---
+
+## [0.6.0] — 2026-06-06
+
+> **Versioning intent — minor.** Accessibility correction to `Footer.jsx` font sizes (colophon 10.5 px → 13 px; pillar domain names 12 px → 13 px; pillar labels 13 px → 14 px) constitutes a visual change per ADR-0003. Bundled with: design-system compiler metadata fixes (token `@kind` annotations), Node tooling compatibility pass (no `import.meta` / static `node:` in the browser bundle), and a layout fix ensuring the footer always anchors to the page bottom on short-content views. Ships `Component Gap Analysis.html` as a governance artifact and refreshes the Dashboard to `v0.6.0` / June 2026.
+
+### Pixel diff
+
+- **Visible — `ui_kits/tekrogen-org/Footer.jsx`.** Copyright / colophon strip: `font-size: 10.5` → `13`px. Pillar entity domain names (mono): `12` → `13`px. Pillar card description labels (sans): `13` → `14`px. Wordmark (16 px) and tagline (14 px italic) unchanged. Affects the tekrogen-org publication footer only.
+- **Visible — `ui_kits/tekrogen-org/Footer.jsx` (layout).** Footer now anchors to the page bottom on short-content views (Studio, About). `App.jsx` root container gains `display:flex; flex-direction:column; min-height:100vh`; all `<main>` branches gain `flex:1`. No change on full-length pages.
+- **Visible — `index.html` (Dashboard).** Version pill and footer colophon read `v0.6.0 / jun 2026` (was `v0.5.0 / may 2026`). Sidebar nav counts filled in (were `·` on 10 entries). Hero meta corrected: tokens 54 → 103, components 22 → 14, brand assets 13 → 14. Component roadmap section added to section 02 (links to `Component Gap Analysis.html`). All four UI Kit cards gain `target="_blank"`.
+- **Not visible.** No token values, type sizes, spacing scales, radii, shadows, or palette entries change. All other surfaces (`preview/`, `review/`, `trust-state-matrix.html`, `asset-pack`, `master-lockups`, `mark-explorations`) are unaffected.
+
+### Migration
+
+- No consumer-facing token changes. Surfaces that load `colors_and_type.css` are unaffected.
+- If you mirror the `Footer.jsx` font sizes in a downstream project, update those overrides to the new base values (13 / 13 / 14 px).
+- `tokens/sync.mjs` and `scripts/version-stamp.mjs` now require invocation from the **repo root** (paths resolve via `process.cwd()`). The `package.json` `sync` / `check` / `stamp` / `stamp:check` scripts already invoke from root — no CI change needed. Direct invocation from inside `tokens/` or `scripts/` subdirectories will break; use `node tokens/sync.mjs` from root instead.
+
+### Assets to regenerate
+
+None.
+
+### Added
+
+- `Component Gap Analysis.html` — shadcn default component parity matrix. 57 shadcn defaults audited against the current kit; 50 gaps identified across 5 families (Overlays & menus, Forms & controls, Data & feedback, Navigation & disclosure, Layout & utility), each with status (missing / partial), priority (P1 / P2 / P3), and a Tekrogen-specific build note. Includes 6 kit-native extension components beyond the shadcn set. Linked from Dashboard section 02.
+
+### Changed
+
+- `ui_kits/tekrogen-org/Footer.jsx` — font-size corrections (see pixel diff). Colophon letter-spacing tightened from `0.14em` → `0.12em` to match the base mono-meta scale at 13 px.
+- `ui_kits/tekrogen-org/App.jsx` — flex-column layout wrapper (`min-height:100vh`) + `flex:1` on all `<main>` branches for push-to-bottom footer behaviour.
+- `colors_and_type.css` — added `/* @kind … */` annotations to 13 previously unclassified tokens: `--tk-fs-display` and `--tk-fs-h1` → `font`; `--tk-lh-tight/snug/body/loose` → `font`; `--tk-ease`, `--tk-ease-bounce`, `--tk-dur-1..4`, `--tk-tilt-mark` → `other`. No value changes.
+- `tokens/sync.mjs` — removed shebang line (`#!/usr/bin/env node`); converted to an async IIFE with `await import('node:fs')` for file I/O; replaced `import.meta.url`-based path resolution with `process.cwd()`-relative paths. Behaviour is identical when invoked from repo root. Eliminates `import.meta` parse errors and static `node:` import drops in the in-browser DS bundle.
+- `scripts/version-stamp.mjs` — same async IIFE conversion as `tokens/sync.mjs`. Behaviour is identical when invoked from repo root.
+- `index.html` — version `v0.5.0` → `v0.6.0`, date `may` → `jun 2026`. Sidebar nav counts filled for all `·` entries. Hero meta corrected (tokens, components, brand assets). Component roadmap section added. UI Kit card links gain `target="_blank"`.
+- `package.json` — version `0.5.0` → `0.6.0`.
+
+### Notes
+
+- Font-size corrections address legibility at typical reading distances; 10.5 px mono-caps is below the 16 px floor for body content and below the 13–14 px floor for secondary/footer content referenced in WCAG guidance.
+- The `@kind` annotations are compiler metadata only — they classify tokens for the Design System tab in Claude Design and have no effect on rendered output or consuming projects.
+- The Node tooling changes are safe to commit and push without local testing: the only behaviour change is path-root dependency (already satisfied by `package.json` scripts). The shebang removal has no effect since both scripts are invoked via `node …`, not as executables.
+- `Component Gap Analysis.html` is a governance artifact (planning / roadmap), not a UI kit surface — it is not counted in the `ui kits: 04` hero-meta figure and does not ship as a brand surface.
+
+---
+
 ## [0.5.0] — 2026-06-03
 
 > **Versioning intent — minor.** Adds a system-wide keyboard focus indicator — a new `--tk-focus` token plus one `:focus-visible` rule in the foundation stylesheet. Implements the focus state the Dashboard button state-table described but the CSS never drew (WCAG 2.4.7 / 2.4.11), and syncs the canonical Dashboard (`index.html`) to `v0.5.0`, guarded by a new version-stamp script. Visible on keyboard focus only; pointer use is unchanged.

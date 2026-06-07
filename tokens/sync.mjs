@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /* tokens/sync.mjs — keep colors_and_type.css in sync with tokens/palette.js.
  *
  * Reads the JSON block between TK-PALETTE-BEGIN/END in tokens/palette.js
@@ -7,15 +6,17 @@
  *   node tokens/sync.mjs           # write CSS from JS
  *   node tokens/sync.mjs --check   # exit 1 if drift detected (CI hook)
  *
+ * Run from the repository root (the package.json `sync` / `check` scripts do).
+ * Paths below resolve relative to process.cwd(); the Node `fs` built-in loads
+ * via dynamic import inside an async IIFE so this Node-only CLI carries no
+ * top-level `import` / `import.meta` — the in-browser design-system bundler can
+ * parse the file cleanly even though it never runs there.
+ *
  * See ../adr/0002-palette-single-source.md.
  */
-import { readFileSync, writeFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { dirname, join } from "node:path";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const PALETTE_JS = join(here, "palette.js");
-const COLORS_CSS = join(here, "..", "colors_and_type.css");
+const PALETTE_JS = "tokens/palette.js";
+const COLORS_CSS = "colors_and_type.css";
 
 const BEGIN = "TK-PALETTE-BEGIN";
 const END = "TK-PALETTE-END";
@@ -36,10 +37,6 @@ function extractJsonBlock(src) {
     .trim()
     .replace(/;?\s*$/, "");
 }
-
-const jsSrc = readFileSync(PALETTE_JS, "utf8");
-const json = extractJsonBlock(jsSrc);
-const tokens = JSON.parse(json);
 
 /* Map JS keys → CSS var names. */
 const CSS_MAP = {
@@ -64,34 +61,42 @@ const CSS_MAP = {
   paperWarm: "--tk-paper-warm"
 };
 
-const cssLines = Object.entries(tokens).map(
-  ([k, v]) => `  ${(CSS_MAP[k] + ":").padEnd(18)} ${v};`
-);
+(async () => {
+  const { readFileSync, writeFileSync } = await import("node:fs");
 
-const cssBlock = `/* ${BEGIN} — generated from tokens/palette.js. Edit JS, run \`node tokens/sync.mjs\`. */\n${cssLines.join("\n")}\n  /* ${END} */`;
+  const jsSrc = readFileSync(PALETTE_JS, "utf8");
+  const json = extractJsonBlock(jsSrc);
+  const tokens = JSON.parse(json);
 
-const cssSrc = readFileSync(COLORS_CSS, "utf8");
-const reBlock = new RegExp(
-  `\\/\\* ${BEGIN}[\\s\\S]*?${END} \\*\\/`,
-  "m"
-);
+  const cssLines = Object.entries(tokens).map(
+    ([k, v]) => `  ${(CSS_MAP[k] + ":").padEnd(18)} ${v};`
+  );
 
-if (!reBlock.test(cssSrc)) {
-  console.error(`! ${BEGIN}/${END} markers missing in colors_and_type.css.`);
-  console.error("  Add them around the pillar/surface palette section, then re-run.");
-  process.exit(2);
-}
+  const cssBlock = `/* ${BEGIN} — generated from tokens/palette.js. Edit JS, run \`node tokens/sync.mjs\`. */\n${cssLines.join("\n")}\n  /* ${END} */`;
 
-const next = cssSrc.replace(reBlock, cssBlock);
+  const cssSrc = readFileSync(COLORS_CSS, "utf8");
+  const reBlock = new RegExp(
+    `\\/\\* ${BEGIN}[\\s\\S]*?${END} \\*\\/`,
+    "m"
+  );
 
-if (process.argv.includes("--check")) {
-  if (next !== cssSrc) {
-    console.error("! Drift detected. Run `node tokens/sync.mjs` to fix.");
-    process.exit(1);
+  if (!reBlock.test(cssSrc)) {
+    console.error(`! ${BEGIN}/${END} markers missing in colors_and_type.css.`);
+    console.error("  Add them around the pillar/surface palette section, then re-run.");
+    process.exit(2);
   }
-  console.log("✓ tokens in sync.");
-  process.exit(0);
-}
 
-writeFileSync(COLORS_CSS, next);
-console.log("✓ wrote palette block to colors_and_type.css.");
+  const next = cssSrc.replace(reBlock, cssBlock);
+
+  if (process.argv.includes("--check")) {
+    if (next !== cssSrc) {
+      console.error("! Drift detected. Run `node tokens/sync.mjs` to fix.");
+      process.exit(1);
+    }
+    console.log("✓ tokens in sync.");
+    process.exit(0);
+  }
+
+  writeFileSync(COLORS_CSS, next);
+  console.log("✓ wrote palette block to colors_and_type.css.");
+})();

@@ -44,11 +44,11 @@ function Footer() {
                 borderRadius: 8, textDecoration: 'none',
               }}>
               <div style={{
-                fontFamily: 'var(--tk-font-mono)', fontSize: 12,
+                fontFamily: 'var(--tk-font-mono)', fontSize: 14,
                 color: p.color, letterSpacing: '0.04em', marginBottom: 4,
               }}>{p.name}</div>
               <div style={{
-                fontFamily: 'var(--tk-font-sans)', fontSize: 13,
+                fontFamily: 'var(--tk-font-sans)', fontSize: 14,
                 color: 'var(--tk-fg-3)', lineHeight: 1.5,
               }}>{p.label}</div>
             </a>
@@ -63,8 +63,8 @@ function Footer() {
         <div style={{
           maxWidth: 1180, margin: '0 auto',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          fontFamily: 'var(--tk-font-mono)', fontSize: 10.5,
-          letterSpacing: '0.14em', textTransform: 'uppercase',
+          fontFamily: 'var(--tk-font-mono)', fontSize: 14,
+          letterSpacing: '0.12em', textTransform: 'uppercase',
           color: 'var(--tk-fg-4)',
         }}>
           <span>© 2026 Tekrogen · Martinique Dolce</span>

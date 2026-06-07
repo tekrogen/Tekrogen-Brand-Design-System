@@ -90,15 +90,15 @@
   --tk-font-editorial: var(--tk-font-sans);  /* editorial = Poppins 600 + italic dek (sans-only brand) */
 
   /* ─── Type · scale (clamped fluid) ────────────────────────── */
-  --tk-fs-display:   clamp(40px, 5vw, 64px);   /* H1, splash */
-  --tk-fs-h1:        clamp(32px, 3.5vw, 48px);
+  --tk-fs-display:   clamp(40px, 5vw, 64px);   /* @kind font */
+  --tk-fs-h1:        clamp(32px, 3.5vw, 48px);  /* @kind font */
   --tk-fs-h2:        28px;
   --tk-fs-h3:        20px;
   --tk-fs-h4:        16px;
   --tk-fs-body:      16px;
   --tk-fs-body-sm:   14px;
-  --tk-fs-eyebrow:   11px;
-  --tk-fs-meta:      10.5px;
+  --tk-fs-eyebrow:   12px;  /* raised from 11px — min readable uppercase mono label */
+  --tk-fs-meta:      12px;  /* raised from 10.5px — min readable uppercase mono label */
   --tk-fs-code:      13px;
 
   /* ─── Type · letter-spacing (signature) ───────────────────── */
@@ -109,10 +109,10 @@
   --tk-ls-tight:     -0.02em; /* h1 / display */
 
   /* ─── Line height ─────────────────────────────────────────── */
-  --tk-lh-tight:     1.05;
-  --tk-lh-snug:      1.2;
-  --tk-lh-body:      1.6;
-  --tk-lh-loose:     1.7;
+  --tk-lh-tight:     1.05;   /* @kind font */
+  --tk-lh-snug:      1.2;    /* @kind font */
+  --tk-lh-body:      1.6;    /* @kind font */
+  --tk-lh-loose:     1.7;    /* @kind font */
 
   /* ─── Spacing scale (4-pt) ────────────────────────────────── */
   --tk-space-1:      4px;
@@ -150,15 +150,15 @@
   --tk-shadow-glow:  0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18);
 
   /* ─── Tilt (signature transform) ──────────────────────────── */
-  --tk-tilt-mark:    18deg;     /* dragonfly mark — locked clockwise tilt */
+  --tk-tilt-mark:    18deg;     /* @kind other */
 
   /* ─── Motion ──────────────────────────────────────────────── */
-  --tk-ease:         cubic-bezier(.2,.7,.2,1);
-  --tk-ease-bounce:  cubic-bezier(.2,.9,.3,1.2);
-  --tk-dur-1:        120ms;     /* hover state */
-  --tk-dur-2:        220ms;     /* default transition */
-  --tk-dur-3:        280ms;     /* tilt / transform */
-  --tk-dur-4:        420ms;     /* page-level fade */
+  --tk-ease:         cubic-bezier(.2,.7,.2,1);     /* @kind other */
+  --tk-ease-bounce:  cubic-bezier(.2,.9,.3,1.2);   /* @kind other */
+  --tk-dur-1:        120ms;     /* @kind other */
+  --tk-dur-2:        220ms;     /* @kind other */
+  --tk-dur-3:        280ms;     /* @kind other */
+  --tk-dur-4:        420ms;     /* @kind other */
 
   /* ─── Layout ──────────────────────────────────────────────── */
   --tk-container:    1380px;
@@ -313,7 +313,7 @@ pre.tk-pre {
   border-radius: var(--tk-radius-lg);
   padding: 18px;
   font-family: var(--tk-font-mono);
-  font-size: 11.5px;
+  font-size: 13px;  /* raised from 11.5px */
   color: var(--tk-fg-2);
   overflow: auto;
   line-height: 1.55;

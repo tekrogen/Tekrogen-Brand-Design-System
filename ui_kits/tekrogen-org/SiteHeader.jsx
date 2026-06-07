@@ -49,7 +49,7 @@ function SiteHeader({ path, onNav }) {
           <a href="/subscribe" onClick={e => { e.preventDefault(); onNav('subscribe'); }} style={{
             background: 'var(--tk-cyan)', color: '#0e1116',
             padding: '8px 16px', borderRadius: 6, border: 'none',
-            fontFamily: 'var(--tk-font-sans)', fontSize: 12, fontWeight: 600,
+            fontFamily: 'var(--tk-font-sans)', fontSize: 13, fontWeight: 600,
             letterSpacing: '0.08em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}>Subscribe</a>

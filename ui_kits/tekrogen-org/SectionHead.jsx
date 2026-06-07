@@ -13,7 +13,7 @@ function SectionHead({ eyebrow, title, meta, style }) {
         {eyebrow && (
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontWeight: 500,
-            fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
+            fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.16em', textTransform: 'uppercase',
             color: 'var(--tk-cyan)', marginBottom: 8,
           }}>{eyebrow}</div>
         )}
@@ -25,7 +25,7 @@ function SectionHead({ eyebrow, title, meta, style }) {
       </div>
       {meta && (
         <div style={{
-          fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+          fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
           letterSpacing: '0.12em', textTransform: 'uppercase',
           color: 'var(--tk-fg-3)',
         }}>{meta}</div>

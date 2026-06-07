@@ -62,11 +62,11 @@ function App() {
   };
 
   return (
-    <React.Fragment>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <SiteHeader path={view.path === 'note' ? 'notes' : view.path} onNav={onNav}/>
 
       {view.path === 'home' && (
-        <main>
+        <main style={{ flex: 1 }}>
           <Hero
             eyebrow="Field notes · 04 · just published"
             title="Four wings, one pursuit: how one mark carries .org, .studio, .com, and .net."
@@ -92,7 +92,7 @@ function App() {
       )}
 
       {view.path === 'notes' && (
-        <main style={{ maxWidth: 1180, margin: '0 auto', padding: '72px 32px 0' }}>
+        <main style={{ maxWidth: 1180, margin: '0 auto', padding: '72px 32px 0', flex: 1 }}>
           <SectionHead
             eyebrow="all · /notes/"
             title="Field notes"
@@ -106,13 +106,13 @@ function App() {
       )}
 
       {view.path === 'note' && (
-        <main>
+        <main style={{ flex: 1 }}>
           <Article note={view.note} onBack={() => setView({ path: 'notes' })}/>
         </main>
       )}
 
       {(view.path === 'studio' || view.path === 'about') && (
-        <main style={{ maxWidth: 760, margin: '0 auto', padding: '96px 32px' }}>
+        <main style={{ maxWidth: 760, margin: '0 auto', padding: '96px 32px', flex: 1 }}>
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontSize: 11,
             letterSpacing: '0.16em', textTransform: 'uppercase',
@@ -134,7 +134,7 @@ function App() {
       )}
 
       <Footer/>
-    </React.Fragment>
+    </div>
   );
 }
 

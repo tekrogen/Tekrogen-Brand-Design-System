@@ -29,7 +29,7 @@ function FieldNoteCard({ note, onOpen }) {
           color: 'var(--tk-cyan)', letterSpacing: '0.02em', lineHeight: 1,
         }}>{String(note.id).padStart(2, '0')}</span>
         <span style={{
-          fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+          fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
           letterSpacing: '0.14em', textTransform: 'uppercase',
           color: 'var(--tk-fg-3)',
         }}>{note.kicker}</span>
@@ -49,7 +49,7 @@ function FieldNoteCard({ note, onOpen }) {
 
       <div style={{
         display: 'flex', alignItems: 'center', gap: 12,
-        fontFamily: 'var(--tk-font-mono)', fontSize: 10.5,
+        fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
         letterSpacing: '0.14em', textTransform: 'uppercase',
         color: 'var(--tk-fg-4)',
       }}>

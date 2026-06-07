@@ -14,7 +14,7 @@ function Hero({ eyebrow, title, dek, meta }) {
         <div style={{ flex: 1, maxWidth: 820 }}>
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontWeight: 500,
-            fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
+            fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.16em', textTransform: 'uppercase',
             color: 'var(--tk-cyan)', marginBottom: 18,
           }}>{eyebrow}</div>
 
@@ -35,7 +35,7 @@ function Hero({ eyebrow, title, dek, meta }) {
           <div style={{
             marginTop: 28,
             display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
-            fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+            fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: 'var(--tk-fg-3)',
           }}>

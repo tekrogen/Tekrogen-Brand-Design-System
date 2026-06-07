@@ -12,14 +12,14 @@ function Article({ note, onBack }) {
       <button onClick={onBack} style={{
         background: 'transparent', border: '1px solid var(--tk-ink-2)',
         color: 'var(--tk-fg-3)',
-        fontFamily: 'var(--tk-font-mono)', fontSize: 10.5,
+        fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
         letterSpacing: '0.14em', textTransform: 'uppercase',
         padding: '7px 12px', borderRadius: 6, cursor: 'pointer',
         marginBottom: 36,
       }}>← Back to notes</button>
 
       <div style={{
-        fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+        fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
         letterSpacing: '0.16em', textTransform: 'uppercase',
         color: 'var(--tk-cyan)', marginBottom: 14,
       }}>{note.kicker} · {String(note.id).padStart(2, '0')}</div>
@@ -49,7 +49,7 @@ function Article({ note, onBack }) {
         <div>
           <div style={{ fontFamily: 'var(--tk-font-sans)', fontWeight: 600, fontSize: 14, color: 'var(--tk-fg-1)' }}>Martinique Dolce</div>
           <div style={{
-            fontFamily: 'var(--tk-font-mono)', fontSize: 10.5, letterSpacing: '0.14em',
+            fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.14em',
             textTransform: 'uppercase', color: 'var(--tk-fg-3)', marginTop: 2,
           }}>Founder · {note.date} · {note.read} min read</div>
         </div>
@@ -71,7 +71,7 @@ function Article({ note, onBack }) {
         <Dragonfly size={48}/>
         <div>
           <div style={{
-            fontFamily: 'var(--tk-font-mono)', fontSize: 10.5,
+            fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
             letterSpacing: '0.14em', textTransform: 'uppercase',
             color: 'var(--tk-fg-3)',
           }}>Field notes · series</div>

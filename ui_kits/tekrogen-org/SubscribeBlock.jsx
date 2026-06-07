@@ -21,7 +21,7 @@ function SubscribeBlock() {
       position: 'relative',
     }}>
       <div style={{
-        fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+        fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
         letterSpacing: '0.16em', textTransform: 'uppercase',
         color: 'var(--tk-cyan)', marginBottom: 14,
       }}>Subscribe</div>
@@ -46,14 +46,14 @@ function SubscribeBlock() {
               border: '1px solid var(--tk-ink-2)',
               color: 'var(--tk-fg-1)', padding: '12px 16px',
               borderRadius: 8, fontFamily: 'var(--tk-font-sans)',
-              fontSize: 14, outline: 'none',
+              fontSize: 16, outline: 'none',
             }}
           />
           <button type="submit" disabled={state === 'sending'} style={{
             background: 'var(--tk-cyan)', color: '#0e1116',
             border: 'none', padding: '12px 20px', borderRadius: 6,
             fontFamily: 'var(--tk-font-mono)', fontWeight: 600,
-            fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase',
+            fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.12em', textTransform: 'uppercase',
             cursor: state === 'sending' ? 'wait' : 'pointer',
           }}>{state === 'sending' ? 'Subscribing…' : 'Subscribe →'}</button>
         </form>
@@ -62,7 +62,7 @@ function SubscribeBlock() {
           display: 'flex', alignItems: 'center', gap: 12,
           padding: '14px 18px', background: '#0a0d12',
           border: '1px solid rgba(126,219,165,0.4)', borderRadius: 8,
-          fontFamily: 'var(--tk-font-mono)', fontSize: 12,
+          fontFamily: 'var(--tk-font-mono)', fontSize: 13,
           letterSpacing: '0.06em', color: 'var(--tk-net)',
         }}>
           <span style={{ fontSize: 16 }}>✓</span>

@@ -411,3 +411,10 @@ node_modules
 # Internal documents
 
 /admin/internal/
+
+# audit/working screenshots — keep local, not for the public repo
+uploads/pasted-*.png
+
+# Claude Design export artifacts — generated, regenerated on export; not committed
+_ds_bundle.js
+_ds_manifest.json
