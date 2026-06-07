@@ -41,6 +41,10 @@ None.
 - `ui_kits/_shared/tk-theme.css` — generalized into the shared `.tk-seg` control; `.tk-theme-toggle` retained as a working alias.
 - `ui_kits/master-lockups/index.html` + `ui_kits/_shared/lockups-app.jsx` — adopt the shared toggle and wire chrome to `--tk-*` (specimens — marks, deep/paper boards, ghost/social mocks, the type-stack callout — frozen); A/C wordmark picker rebuilt on `.tk-seg` ("Sans" / "Mono", `aria-pressed`, descriptors via `.tk-seg__sub`); every literal font-size replaced with a `--tk-fs-*` token.
 
+### Fixed
+
+- `ui_kits/asset-pack/index.html` — asset export hardened: `svgToPng` now fails safe (`onerror` + 6s timeout) so the zip can no longer hang on an OG card that won't rasterize in-browser; "Download all" skips null assets (with a skipped count) and the button always resets via `finally`; per-asset download guards against a null blob. `styleGuideMd()` now generates the Colors block and font families live from `--tk-*` tokens (fixes the stale "cyan = link" line — now the semantic `--tk-link` / `--tk-accent`, Ink cyan / Paper `#0a7e83` AA — and notes the fluid scale).
+
 ---
 
 ## [0.7.0] — 2026-06-06

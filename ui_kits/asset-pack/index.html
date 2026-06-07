@@ -232,11 +232,17 @@ async function svgToPng(svgString, width, height) {
     const img = new Image();
     const svgBlob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(svgBlob);
+    let settled = false;
+    const finish = (blob) => { if (settled) return; settled = true; clearTimeout(timer); URL.revokeObjectURL(url); resolve(blob); };
+    const timer = setTimeout(() => { console.warn('svgToPng timed out'); finish(null); }, 6000);
     img.onload = () => {
-      const c = document.createElement('canvas'); c.width = width; c.height = height;
-      const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
-      c.toBlob(blob => { URL.revokeObjectURL(url); resolve(blob); }, 'image/png');
+      try {
+        const c = document.createElement('canvas'); c.width = width; c.height = height;
+        const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, width, height);
+        c.toBlob(blob => finish(blob), 'image/png');
+      } catch (e) { console.warn('svgToPng rasterize failed', e); finish(null); }
     };
+    img.onerror = () => { console.warn('svgToPng image load failed'); finish(null); };
     img.src = url;
   });
 }
@@ -306,6 +312,7 @@ document.querySelectorAll('[data-dl]').forEach(btn => {
     btn.textContent = '…';
     try {
       const { blob, name } = await ASSETS[key]();
+      if (!blob) throw new Error('asset unavailable');
       downloadBlob(blob, name);
       btn.textContent = '✓';
     } catch(e) {
@@ -318,17 +325,32 @@ document.querySelectorAll('[data-dl]').forEach(btn => {
 document.getElementById('dl-zip').addEventListener('click', async () => {
   const btn = document.getElementById('dl-zip');
   const orig = btn.textContent; btn.textContent = 'Building…';
-  const zip = new JSZip();
-  for (const key of Object.keys(ASSETS)) {
-    try { const { blob, name } = await ASSETS[key](); zip.file(name, blob); } catch(e) { console.warn(key, e); }
+  try {
+    if (typeof JSZip === 'undefined') throw new Error('JSZip failed to load (offline?)');
+    const zip = new JSZip();
+    let skipped = 0;
+    for (const key of Object.keys(ASSETS)) {
+      try {
+        const { blob, name } = await ASSETS[key]();
+        if (blob) zip.file(name, blob); else { skipped++; console.warn('skipped (no blob):', key); }
+      } catch(e) { skipped++; console.warn(key, e); }
+    }
+    zip.file('STYLE-GUIDE.md', styleGuideMd());
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    downloadBlob(zipBlob, 'tekrogen-ghost-pro-assets.zip');
+    btn.textContent = skipped ? `✓ (${skipped} skipped)` : '✓ Downloaded';
+  } catch(e) {
+    console.error('zip build failed', e); btn.textContent = '✗ Failed — see console';
+  } finally {
+    setTimeout(() => btn.textContent = orig, 2200);
   }
-  zip.file('STYLE-GUIDE.md', styleGuideMd());
-  const zipBlob = await zip.generateAsync({ type: 'blob' });
-  downloadBlob(zipBlob, 'tekrogen-ghost-pro-assets.zip');
-  btn.textContent = '✓ Downloaded'; setTimeout(() => btn.textContent = orig, 1800);
 });
 
 function styleGuideMd() {
+  const v = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim() || '—';
+  const fam = n => (v(n).split(',')[0] || '').replace(/['"]/g, '').trim();
+  const sans = fam('--tk-font-sans') || 'Poppins';
+  const mono = fam('--tk-font-mono') || 'JetBrains Mono';
   return `# Tekrogen · Ghost Pro Asset Pack
 
 ## Slot mapping (Ghost Settings → Design → Brand)
@@ -346,19 +368,21 @@ function styleGuideMd() {
 
 ## Type system
 
-- **Headings + wordmark:** Poppins · 700 · uppercase · letter-spacing 0.18em
-- **Body:** Poppins · 400 · 16/1.6
-- **Mono / technical surfaces:** JetBrains Mono · 500 · lowercase
+- Headings + wordmark: ${sans} · 700 · uppercase · letter-spacing 0.18em
+- Body: ${sans} · 400 · 16/1.6
+- Mono / technical surfaces: ${mono} · 500 · lowercase
+- Scale: fluid clamp() + rem — type resizes with viewport and honors user zoom; 12px floor on labels / eyebrows
 
-## Colors
+## Colors — resolved live from --tk-* tokens
 
-- Primary 900 / body: #385166
-- Primary 500 / .org: #446e88
-- Primary 300 / .studio: #6491ac
-- Accent 500 / .com: #0db4b9
-- Mint / .net: #7edba5
-- Cyan accent (links, highlights): #1fd5da
-- Ink: #0e1116 · Paper: #fbfcfd
+- .org: ${v('--tk-org')}
+- .studio: ${v('--tk-studio')}
+- .com: ${v('--tk-com')}
+- .net: ${v('--tk-net')}
+- Primary 900 / body & spine: ${v('--tk-body')}
+- Cyan — one accent per surface, never behind text: ${v('--tk-cyan')}
+- Link / accent text (--tk-link, --tk-accent): Ink = cyan ${v('--tk-cyan')} · Paper = #0a7e83 (WCAG AA 4.73:1)
+- Surfaces: Ink ${v('--tk-ink')} · Paper ${v('--tk-paper')}
 
 ## Mark
 
