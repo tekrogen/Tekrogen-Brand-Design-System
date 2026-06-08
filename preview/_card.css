@@ -1,7 +1,6 @@
 /* Tekrogen preview card shared stylesheet
  * Used by every file in preview/ — keeps the cards consistent and small.
  * Sans-only brand — no serif face. See adr/0001-typography-sans-only.md. */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import url('../colors_and_type.css');
 
 html, body { margin: 0; padding: 0; }

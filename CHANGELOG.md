@@ -6,7 +6,7 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ## [Unreleased]
 
-> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed. **Type scale** — the `--tk-fs-*` scale is now fluid (`clamp()` + `rem`) so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors held. Kit pages reference the tokens (no literal sizes); decision recorded in ADR-0007. **P3 (layout)** — a fluid `--tk-shell-max` (`min(1760px, 94vw)`) replaces the hardcoded shell / page maxes, and the dashboard's fixed inner card grids become `auto-fit` so they wrap instead of clipping on narrow screens.
+> **Versioning intent — minor (on release).** Accessibility remediation batched across audit phases; the version bump + `pnpm stamp` happen at the release cut, not on each phase branch. **P0** — Paper-theme color-contrast fixes (no Ink change). **P1** — shared framework-agnostic Ink/Paper theme toggle (`_shared/tk-theme.*`) with correct `role="group"` / `aria-pressed` semantics (the dashboard's `role="tablist"` bug is fixed when it adopts the component in P3). **P2** — kit pages adopt the shared toggle and wire chrome to `--tk-*` tokens so they theme; specimens (OG cards, paper demos, mark-on-dark, code blocks) stay fixed. **Type scale** — the `--tk-fs-*` scale is now fluid (`clamp()` + `rem`) so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors held. Kit pages reference the tokens (no literal sizes); decision recorded in ADR-0007. **P3 (layout)** — a fluid `--tk-shell-max` (`min(1760px, 94vw)`) replaces the hardcoded shell / page maxes, and the dashboard's fixed inner card grids become `auto-fit` so they wrap instead of clipping on narrow screens. **Fonts (P4)** — all brand weights (Poppins 400–800, Manrope 400–700, JetBrains Mono 400–700, plus Poppins italic 400/500/600) are now self-hosted as latin-subset woff2; the Google Fonts CDN `<link>` / `@import` is removed from every converted surface; and the asset-pack OG cards are rebuilt as fluid pure-SVG that embed the local fonts (fixing both narrow-width clipping and the broken zip export). Recorded in ADR-0008.
 
 ### Pixel diff
 
@@ -16,12 +16,14 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 - **Visible — all themes, all token consumers (`colors_and_type.css`).** The `--tk-fs-*` type scale moved from fixed `px` to fluid `clamp()` / `rem`: display, h1, h2, h3 scale with viewport between floor and ceiling; body, labels, and code are `rem` (zoom-responsive). Headings that sat off the old fixed values shift slightly (e.g. master-lockups `h1` 56→≤48, `h2` 32→≤28; in-tile wordmark and mock label sizes snap to the nearest step). Floors unchanged (eyebrow / meta = 12px).
 - **Visible — app-shell width.** `.shell` (dashboard) and `.page` (asset-pack, master-lockups) now cap at `--tk-shell-max` = `min(1760px, 94vw)` (was: dashboard 1480, asset-pack 1380, master-lockups 1480) — wider on large screens, a symmetric 94vw gutter on mid screens.
 - **Visible — dashboard, narrow screens.** Inner card grids (palette swatches, neutrals / foreground scale, radii, Lucide glyph + icon grids, favicon scale, shadows) moved from fixed `repeat(N,1fr)` to `repeat(auto-fit, minmax(…,1fr))`, so they wrap to fewer columns instead of being clipped by the card's `overflow:hidden`. Desktop column counts now flex with width. The outer 12-col `.grid` is unchanged (already handled by media queries).
+- **Mostly not visible — fonts now local.** The self-hosted woff2 are the same Poppins / Manrope / JetBrains Mono faces previously fetched from Google, so rendered type is unchanged on screen. Two intended differences: the asset-pack OG card previews and PNG exports now render in real Poppins (were a fallback face during canvas rasterization), and surfaces with italic deks (master-lockups, trust-state-matrix, review) keep true Poppins italic now that italic 400/500/600 ship locally.
 
 ### Migration
 
 - Ink consumers: none.
 - Consumers hardcoding `var(--tk-cyan)` for *text* (links, eyebrows, inline code) should migrate to `var(--tk-link)` / `var(--tk-accent)` so Paper renders accessibly. All such uses in `colors_and_type.css` are corrected here; per-surface kit pages convert in audit P2.
 - Do not use `--tk-fg-4` / `--tk-fg-5` for text; use `--tk-fg-3` (AA on both themes).
+- Fonts: surfaces must not add a Google Fonts (or any remote) `<link>` / `@import`; link `colors_and_type.css`, which now carries every weight plus Poppins italic. A new weight means adding the woff2 + `@font-face` to the foundation, never a CDN link.
 
 ### Assets to regenerate
 
@@ -35,6 +37,9 @@ None.
 - `colors_and_type.css` — `--tk-fs-og-title` (fluid `clamp` 28→34px) for OG / social card titles (shared artifact spec, reused across kit pages).
 - `ui_kits/_shared/tk-theme.css` — `.tk-seg` shared segmented-control class (plus `.tk-seg__sub` descriptor line and `.tk-seg--compact` modifier) generalizing the toggle for any picker.
 - `colors_and_type.css` — `--tk-shell-max: min(1760px, 94vw)` — fluid app-shell width token (single source for the dashboard shell + kit page widths).
+- `fonts/` — heavier brand weights self-hosted as latin-subset woff2: Poppins 500/600/700/800, Manrope 500/600/700, JetBrains Mono 500/600/700, plus Poppins italic 400/500/600 (~8–21KB each). `fonts/OFL.txt` (SIL OFL 1.1, all three families) added for license compliance.
+- `colors_and_type.css` — `@font-face` for all 13 added faces (upright 500–800 + Poppins italic 400/500/600), so the foundation now covers every brand weight locally.
+- `adr/0008-self-hosted-fonts.md` — "Fully self-hosted fonts (no remote CDN)" decision (Accepted); index row added.
 
 ### Changed
 
@@ -46,10 +51,15 @@ None.
 - `index.html` (dashboard) — `.shell` max-width → `--tk-shell-max`; fixed inner card grids (`.swatch-row`, `.radius-row`, `.glyph-grid`, `.icon-grid`, `.shadow-row`, and the inline foreground-scale / radii / Lucide grids) → `repeat(auto-fit, minmax(…,1fr))` so they wrap responsively; search-field placeholder copy → "Search".
 - `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html`, `ui_kits/_shared/lockups-app.jsx` — `.page` (and the master-lockups sticky-toolbar inner) max-width → `--tk-shell-max`.
 - `ui_kits/asset-pack/index.html` — chrome font-sizes (eyebrow, h1, h2, lead, section labels, `.btn`, `.dim`, slot table, `pre.svg` code block, toolbar, note) and the JS download-dock / link helpers converted to `--tk-fs-*` tokens, completing ADR-0007 for asset-pack. The `.og` card specimens, inline OG markup, and logo wordmarks stay literal (rasterized artifacts).
+- `colors_and_type.css` — header comment rewritten: all weights self-hosted, the Google Fonts `<link>` no longer required.
+- Google Fonts CDN removed from six converted surfaces — the `<link>` tags in `index.html`, `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html`, `trust-state-matrix.html`, `review/index.html`, and the `@import` in `preview/_card.css`; each already links `colors_and_type.css`, now the sole font source. (`ui_kits/tekrogen-org/` and `ui_kits/mark-explorations/` clear during their P2 conversions — mark-explorations also drops non-brand Inter there.)
+- `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html` — redundant inline 400 `@font-face` blocks and the stale "weights from Google" comment removed; fonts now sourced solely from `colors_and_type.css`.
+- `fonts/README.md` — rewritten to the self-hosted reality (table, OFL note, the `fontTools` subset command, flag #1 resolved, flag #4 added re: italic).
 
 ### Fixed
 
 - `ui_kits/asset-pack/index.html` — asset export hardened: `svgToPng` now fails safe (`onerror` + 6s timeout) so the zip can no longer hang on an OG card that won't rasterize in-browser; "Download all" skips null assets (with a skipped count) and the button always resets via `finally`; per-asset download guards against a null blob. `styleGuideMd()` now generates the Colors block and font families live from `--tk-*` tokens (fixes the stale "cyan = link" line — now the semantic `--tk-link` / `--tk-accent`, Ink cyan / Paper `#0a7e83` AA — and notes the fluid scale).
+- `ui_kits/asset-pack/index.html` — OG / Twitter cards rebuilt as fluid pure-SVG (`viewBox 0 0 1200 630`), replacing the foreignObject + remote `@import` path: previews scale proportionally with no content clipping on narrow widths, and the zip export embeds the local woff2 as base64 so all four cards rasterize in real Poppins — closing the "4 skipped" gap (zip now reports 0 skipped). Dead `domToPng` removed.
 
 ---
 

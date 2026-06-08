@@ -1,14 +1,17 @@
 # Fonts
 
 Tekrogen uses three local-first font families. All brand weights —
-Regular (400) through 800 — are self-hosted from this directory as
-latin-subset woff2. No external font CDN is required.
+Regular (400) through 800, plus Poppins italic 400/500/600 — are
+self-hosted from this directory as latin-subset woff2. No external font
+CDN is required.
 
 | Family            | Use                                                   | Regular (local)                   | Heavier weights (local)                                    |
 | ----------------- | ----------------------------------------------------- | --------------------------------- | ---------------------------------------------------------- |
 | **Poppins**       | Wordmark, headings, body sans (primary)               | `poppins-v24-latin-regular.woff2` | `poppins-v24-latin-{500,600,700,800}.woff2`                |
 | **Manrope**       | **Sans fallback** for Poppins — committed, ships in every stack (closest x-height + aperture match) | `manrope-v20-latin-regular.woff2` | `manrope-v20-latin-{500,600,700}.woff2`                    |
 | **JetBrains Mono**| Mono labels, code, CLI splash, eyebrows               | `JetBrainsMono-Regular.woff2`     | `JetBrainsMono-{Medium,SemiBold,Bold}.woff2` (500/600/700) |
+
+Poppins also ships **italic** 400/500/600 — `poppins-v24-latin-{italic,500italic,600italic}.woff2` — for editorial deks.
 
 > **Sans-only brand.** Tekrogen does not use a serif face. The editorial role (Ghost article hero, long-form headlines, italic deks) is handled by Poppins 600 + Poppins italic. Earlier drafts of this system used IBM Plex Serif for editorial — that was retired; do not reintroduce it.
 

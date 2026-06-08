@@ -17,6 +17,7 @@ The system is small enough that the README and code carry most decisions. ADRs e
 | 0005 | [Icon system — Lucide on product, glyphs on brand](0005-icon-system.md) | Accepted | All product surfaces; brand surfaces remain icon-free      |
 | 0006 | [Trust-state CTAs — paired-content primitive](0006-trust-state-cta.md) | Accepted | `trust-state-matrix.html`, future commerce surfaces        |
 | 0007 | [Fluid, rem-based type scale](0007-fluid-rem-type-scale.md) | Accepted | `colors_and_type.css` (scale); all kit pages + JSX (consumers) |
+| 0008 | [Fully self-hosted fonts (no remote CDN)](0008-self-hosted-fonts.md) | Accepted | `colors_and_type.css`, `fonts/`; 6 surfaces (remote links removed) |
 
 ## Out of scope here
 
