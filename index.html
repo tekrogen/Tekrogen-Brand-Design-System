@@ -6,6 +6,8 @@
   <title>Tekrogen UI Kit · Dashboard</title>
   <link rel="icon" href="assets/favicon.svg" />
   <link rel="stylesheet" href="colors_and_type.css" />
+  <link rel="stylesheet" href="ui_kits/_shared/tk-theme.css" />
+  <script src="ui_kits/_shared/tk-theme.js" defer></script>
   <style>
     /* ─── Page shell ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; }
@@ -98,25 +100,6 @@
       color: var(--tk-fg-4);
       border: 1px solid var(--tk-border);
       padding: 2px 6px; border-radius: 4px;
-    }
-
-    .theme-toggle {
-      display: inline-flex; align-items: center; gap: 0;
-      border: 1px solid var(--tk-border);
-      border-radius: var(--tk-radius-md);
-      overflow: hidden;
-      background: var(--tk-bg-3);
-    }
-    .theme-toggle button {
-      font-family: var(--tk-font-mono);
-      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-      background: transparent; color: var(--tk-fg-3);
-      border: 0; padding: 8px 12px; cursor: pointer;
-      transition: color var(--tk-dur-1) var(--tk-ease), background var(--tk-dur-1) var(--tk-ease);
-      font-weight: 500;
-    }
-    .theme-toggle button[aria-pressed="true"] {
-      background: var(--tk-cyan); color: var(--tk-ink);
     }
 
     /* ─── Layout shell ─────────────────────────────────────── */
@@ -621,7 +604,6 @@
     [data-tk-theme="paper"] .radius-cell { background: #f3f5f7; }
     [data-tk-theme="paper"] .input { background: #fff; }
     [data-tk-theme="paper"] .search { background: #fff; }
-    [data-tk-theme="paper"] .theme-toggle { background: #fff; }
     [data-tk-theme="paper"] .anatomy-card { background: #f3f5f7; }
 
     /* ─── Responsiveness ──────────────────────────────────── */
@@ -715,9 +697,9 @@
       <input id="filter" type="search" placeholder="Search" autocomplete="off" />
       <span class="kbd">/</span>
     </label>
-    <div class="theme-toggle" role="tablist" aria-label="Theme">
-      <button data-theme="ink" aria-pressed="true">Ink</button>
-      <button data-theme="paper" aria-pressed="false">Paper</button>
+    <div class="tk-theme-toggle" role="group" aria-label="Theme">
+      <button type="button" data-tk-theme-set="ink" aria-pressed="true">Ink</button>
+      <button type="button" data-tk-theme-set="paper" aria-pressed="false">Paper</button>
     </div>
   </div>
 </header>
@@ -1832,17 +1814,6 @@
 <script type="text/babel" src="tweaks-app.jsx"></script>
 
 <script>
-  // ─── Theme toggle ────────────────────────────────────────────
-  const root = document.documentElement;
-  const themeButtons = document.querySelectorAll('.theme-toggle button');
-  themeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const theme = btn.dataset.theme;
-      root.setAttribute('data-tk-theme', theme);
-      themeButtons.forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
-    });
-  });
-
   // ─── Filter ──────────────────────────────────────────────────
   const filterInput = document.getElementById('filter');
   const cards = document.querySelectorAll('.card[data-name], .kit-card[data-name]');
