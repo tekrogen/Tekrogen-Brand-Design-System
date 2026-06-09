@@ -136,7 +136,7 @@ function ConceptCard({ concept, theme: themeName, heroVariant, wordmarkStyle, sh
       width: '100%', height: '100%',
       background: theme.card,
       padding: 28, display: 'flex', flexDirection: 'column', gap: 16,
-      fontFamily: "'Inter', system-ui, sans-serif",
+      fontFamily: 'var(--tk-font-sans)',
       borderRadius: 0,
     }}>
       {/* header */}
@@ -158,7 +158,7 @@ function ConceptCard({ concept, theme: themeName, heroVariant, wordmarkStyle, sh
       </div>
 
       <p style={{
-        fontFamily: "'Inter', system-ui, sans-serif", fontSize: 13.5,
+        fontFamily: 'var(--tk-font-sans)', fontSize: 13.5,
         lineHeight: 1.55, color: theme.inkMuted, margin: 0, maxWidth: 720,
       }}>{blurb}</p>
 
