@@ -6,7 +6,7 @@
 function Article({ note, onBack }) {
   return (
     <article style={{
-      maxWidth: 760, margin: '0 auto',
+      maxWidth: 600, margin: '0 auto',
       padding: '56px 32px 96px',
     }}>
       <button onClick={onBack} style={{
@@ -26,13 +26,13 @@ function Article({ note, onBack }) {
 
       <h1 style={{
         fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
-        fontSize: 48, letterSpacing: '-0.01em', lineHeight: 1.12,
+        fontSize: 'var(--tk-fs-h1)', letterSpacing: '-0.01em', lineHeight: 1.12,
         color: 'var(--tk-fg-1)', margin: '0 0 20px', textWrap: 'pretty',
       }}>{note.title}</h1>
 
       <p style={{
         fontFamily: 'var(--tk-font-sans)', fontStyle: 'italic',
-        fontSize: 21, lineHeight: 1.5, color: 'var(--tk-fg-3)',
+        fontSize: 'var(--tk-fs-h3)', lineHeight: 1.5, color: 'var(--tk-fg-3)',
         margin: '0 0 32px',
       }}>{note.dek}</p>
 
@@ -44,10 +44,10 @@ function Article({ note, onBack }) {
           width: 44, height: 44, borderRadius: '50%',
           background: 'linear-gradient(135deg, var(--tk-org), var(--tk-com))',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          color: '#fff', fontWeight: 600, fontSize: 16,
+          color: '#fff', fontWeight: 600, fontSize: 'var(--tk-fs-body)',
         }}>MD</div>
         <div>
-          <div style={{ fontFamily: 'var(--tk-font-sans)', fontWeight: 600, fontSize: 14, color: 'var(--tk-fg-1)' }}>Martinique Dolce</div>
+          <div style={{ fontFamily: 'var(--tk-font-sans)', fontWeight: 600, fontSize: 'var(--tk-fs-body-sm)', color: 'var(--tk-fg-1)' }}>Martinique Dolce</div>
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)', letterSpacing: '0.14em',
             textTransform: 'uppercase', color: 'var(--tk-fg-3)', marginTop: 2,
@@ -56,7 +56,7 @@ function Article({ note, onBack }) {
       </div>
 
       <div style={{
-        fontFamily: 'var(--tk-font-sans)', fontSize: 18,
+        fontFamily: 'var(--tk-font-sans)', fontSize: 'var(--tk-fs-body)',
         lineHeight: 1.7, color: 'var(--tk-fg-2)',
       }}>
         {note.body.map((p, i) => (
@@ -77,7 +77,7 @@ function Article({ note, onBack }) {
           }}>Field notes · series</div>
           <div style={{
             fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
-            fontSize: 18, color: 'var(--tk-fg-1)', marginTop: 4,
+            fontSize: 'var(--tk-fs-h3)', color: 'var(--tk-fg-1)', marginTop: 4,
           }}>One mark, four entities, four years.</div>
         </div>
       </div>

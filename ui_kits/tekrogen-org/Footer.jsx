@@ -23,12 +23,12 @@ function Footer() {
           <Dragonfly size={56}/>
           <div style={{
             fontFamily: 'var(--tk-font-sans)', fontWeight: 700,
-            fontSize: 16, letterSpacing: '0.18em', textTransform: 'uppercase',
+            fontSize: 'var(--tk-fs-body)', letterSpacing: '0.18em', textTransform: 'uppercase',
             color: 'var(--tk-fg-1)', marginTop: 18,
           }}>TEKROGEN</div>
           <p style={{
             fontFamily: 'var(--tk-font-sans)', fontStyle: 'italic',
-            fontSize: 14, color: 'var(--tk-fg-3)', margin: '12px 0 0',
+            fontSize: 'var(--tk-fs-body-sm)', color: 'var(--tk-fg-3)', margin: '12px 0 0',
             maxWidth: 280, lineHeight: 1.55,
           }}>Real solutions. Built, proven, ready to use.</p>
         </div>
@@ -44,11 +44,11 @@ function Footer() {
                 borderRadius: 8, textDecoration: 'none',
               }}>
               <div style={{
-                fontFamily: 'var(--tk-font-mono)', fontSize: 14,
+                fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-body-sm)',
                 color: p.color, letterSpacing: '0.04em', marginBottom: 4,
               }}>{p.name}</div>
               <div style={{
-                fontFamily: 'var(--tk-font-sans)', fontSize: 14,
+                fontFamily: 'var(--tk-font-sans)', fontSize: 'var(--tk-fs-body-sm)',
                 color: 'var(--tk-fg-3)', lineHeight: 1.5,
               }}>{p.label}</div>
             </a>
@@ -63,7 +63,7 @@ function Footer() {
         <div style={{
           maxWidth: 1180, margin: '0 auto',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-          fontFamily: 'var(--tk-font-mono)', fontSize: 14,
+          fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-body-sm)',
           letterSpacing: '0.12em', textTransform: 'uppercase',
           color: 'var(--tk-fg-4)',
         }}>

@@ -27,12 +27,12 @@ function SubscribeBlock() {
       }}>Subscribe</div>
       <h3 style={{
         fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
-        fontSize: 28, lineHeight: 1.2, color: 'var(--tk-fg-1)',
+        fontSize: 'var(--tk-fs-h2)', lineHeight: 1.2, color: 'var(--tk-fg-1)',
         margin: '0 0 12px', letterSpacing: '-0.005em',
       }}>Get field notes in your inbox.</h3>
       <p style={{
         fontFamily: 'var(--tk-font-sans)', fontStyle: 'italic',
-        fontSize: 15, color: 'var(--tk-fg-3)', margin: '0 0 22px',
+        fontSize: 'var(--tk-fs-body)', color: 'var(--tk-fg-3)', margin: '0 0 22px',
         lineHeight: 1.55,
       }}>One short note a month. No tracking, no upsells. Unsubscribe with one click.</p>
 
@@ -46,7 +46,7 @@ function SubscribeBlock() {
               border: '1px solid var(--tk-ink-2)',
               color: 'var(--tk-fg-1)', padding: '12px 16px',
               borderRadius: 8, fontFamily: 'var(--tk-font-sans)',
-              fontSize: 16, outline: 'none',
+              fontSize: 'var(--tk-fs-body)', outline: 'none',
             }}
           />
           <button type="submit" disabled={state === 'sending'} style={{
@@ -62,10 +62,10 @@ function SubscribeBlock() {
           display: 'flex', alignItems: 'center', gap: 12,
           padding: '14px 18px', background: '#0a0d12',
           border: '1px solid rgba(126,219,165,0.4)', borderRadius: 8,
-          fontFamily: 'var(--tk-font-mono)', fontSize: 13,
+          fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-code)',
           letterSpacing: '0.06em', color: 'var(--tk-net)',
         }}>
-          <span style={{ fontSize: 16 }}>✓</span>
+          <span style={{ fontSize: 'var(--tk-fs-body)' }}>✓</span>
           <span>Confirmation sent to <span style={{ color: 'var(--tk-fg-1)' }}>{email}</span>. Click the link to finish.</span>
         </div>
       )}

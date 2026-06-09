@@ -112,15 +112,15 @@ function App() {
       )}
 
       {(view.path === 'studio' || view.path === 'about') && (
-        <main style={{ maxWidth: 760, margin: '0 auto', padding: '96px 32px', flex: 1 }}>
+        <main style={{ maxWidth: 600, margin: '0 auto', padding: '96px 32px', flex: 1 }}>
           <div style={{
-            fontFamily: 'var(--tk-font-mono)', fontSize: 11,
+            fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
             letterSpacing: '0.16em', textTransform: 'uppercase',
             color: 'var(--tk-cyan)', marginBottom: 14,
           }}>{view.path === 'studio' ? 'tekrogen.studio' : 'about'}</div>
           <h1 style={{
             fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
-            fontSize: 48, letterSpacing: '-0.01em', lineHeight: 1.12,
+            fontSize: 'var(--tk-fs-h1)', letterSpacing: '-0.01em', lineHeight: 1.12,
             color: 'var(--tk-fg-1)', margin: '0 0 20px',
           }}>{view.path === 'studio'
             ? 'Studio — proof of concept and demos.'
@@ -128,7 +128,7 @@ function App() {
           }</h1>
           <p style={{
             fontFamily: 'var(--tk-font-sans)', fontStyle: 'italic',
-            fontSize: 19, lineHeight: 1.6, color: 'var(--tk-fg-3)',
+            fontSize: 'var(--tk-fs-h3)', lineHeight: 1.6, color: 'var(--tk-fg-3)',
           }}>This page is intentionally short. Tekrogen sub-publications spin up here when their content is ready — they share the mark and the type system but each leads with its own wing color.</p>
         </main>
       )}

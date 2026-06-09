@@ -20,14 +20,14 @@ function Hero({ eyebrow, title, dek, meta }) {
 
           <h1 style={{
             fontFamily: 'var(--tk-font-sans)',
-            fontWeight: 600, fontSize: 52,
+            fontWeight: 600, fontSize: 'var(--tk-fs-display)',
             letterSpacing: '-0.01em', lineHeight: 1.1,
             margin: 0, color: 'var(--tk-fg-1)', textWrap: 'pretty',
           }}>{title}</h1>
 
           <p style={{
             fontFamily: 'var(--tk-font-sans)',
-            fontSize: 20, fontStyle: 'italic',
+            fontSize: 'var(--tk-fs-h3)', fontStyle: 'italic',
             lineHeight: 1.5, color: 'var(--tk-fg-3)',
             margin: '20px 0 0', maxWidth: 680,
           }}>{dek}</p>

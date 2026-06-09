@@ -31,7 +31,7 @@ function SiteHeader({ path, onNav }) {
           <Dragonfly size={36}/>
           <span style={{
             fontFamily: 'var(--tk-font-sans)',
-            fontWeight: 600, fontSize: 22, letterSpacing: '0.01em',
+            fontWeight: 600, fontSize: 'var(--tk-fs-h3)', letterSpacing: '0.01em',
             color: 'var(--tk-fg-1)',
           }}>Tekrogen</span>
         </a>
@@ -40,7 +40,7 @@ function SiteHeader({ path, onNav }) {
             <a key={l.id} href={l.href}
               onClick={e => { e.preventDefault(); onNav(l.id); }}
               style={{
-                fontFamily: 'var(--tk-font-sans)', fontSize: 14, fontWeight: 500,
+                fontFamily: 'var(--tk-font-sans)', fontSize: 'var(--tk-fs-body-sm)', fontWeight: 500,
                 color: path === l.id ? 'var(--tk-fg-1)' : 'var(--tk-fg-3)',
                 textDecoration: 'none', border: 'none',
                 transition: 'color 120ms cubic-bezier(.2,.7,.2,1)',
@@ -49,7 +49,7 @@ function SiteHeader({ path, onNav }) {
           <a href="/subscribe" onClick={e => { e.preventDefault(); onNav('subscribe'); }} style={{
             background: 'var(--tk-cyan)', color: '#0e1116',
             padding: '8px 16px', borderRadius: 6, border: 'none',
-            fontFamily: 'var(--tk-font-sans)', fontSize: 13, fontWeight: 600,
+            fontFamily: 'var(--tk-font-sans)', fontSize: 'var(--tk-fs-body-sm)', fontWeight: 600,
             letterSpacing: '0.08em', textTransform: 'uppercase',
             textDecoration: 'none',
           }}>Subscribe</a>

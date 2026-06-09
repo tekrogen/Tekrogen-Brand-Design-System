@@ -19,7 +19,7 @@ function SectionHead({ eyebrow, title, meta, style }) {
         )}
         <h2 style={{
           fontFamily: 'var(--tk-font-sans)', fontWeight: 700,
-          fontSize: 28, letterSpacing: '-0.015em', lineHeight: 1.1,
+          fontSize: 'var(--tk-fs-h2)', letterSpacing: '-0.015em', lineHeight: 1.1,
           margin: 0, color: 'var(--tk-fg-1)',
         }}>{title}</h2>
       </div>

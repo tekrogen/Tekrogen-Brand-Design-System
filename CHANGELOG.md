@@ -55,6 +55,7 @@ None.
 - Google Fonts CDN removed from six converted surfaces — the `<link>` tags in `index.html`, `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html`, `trust-state-matrix.html`, `review/index.html`, and the `@import` in `preview/_card.css`; each already links `colors_and_type.css`, now the sole font source. (`ui_kits/tekrogen-org/` and `ui_kits/mark-explorations/` clear during their P2 conversions — mark-explorations also drops non-brand Inter there.)
 - `ui_kits/asset-pack/index.html`, `ui_kits/master-lockups/index.html` — redundant inline 400 `@font-face` blocks and the stale "weights from Google" comment removed; fonts now sourced solely from `colors_and_type.css`.
 - `fonts/README.md` — rewritten to the self-hosted reality (table, OFL note, the `fontTools` subset command, flag #1 resolved, flag #4 added re: italic).
+- `ui_kits/tekrogen-org/` — converted to the shared type scale (P2): removed the Google Fonts `<link>` (fonts now via `colors_and_type.css`); tokenized all 28 literal sizes to `--tk-fs-*`, snapped to the nearest step (hero→`display`, article title→`h1`, card/section titles→`h2`, deks→`h3`, body→`body`); and narrowed the article + studio/about prose columns 760→600px so the 16px body sits at ~72 characters/line (Bringhurst measure). Verified via headless-Chrome render: 0 CDN font requests, 9 local woff2 fetched incl. real Poppins italic. No theme toggle (single-theme ink publication, unchanged).
 
 ### Fixed
 

@@ -25,7 +25,7 @@ function FieldNoteCard({ note, onOpen }) {
         display: 'flex', alignItems: 'baseline', gap: 16, marginBottom: 14,
       }}>
         <span style={{
-          fontFamily: 'var(--tk-font-mono)', fontWeight: 700, fontSize: 22,
+          fontFamily: 'var(--tk-font-mono)', fontWeight: 700, fontSize: 'var(--tk-fs-h3)',
           color: 'var(--tk-cyan)', letterSpacing: '0.02em', lineHeight: 1,
         }}>{String(note.id).padStart(2, '0')}</span>
         <span style={{
@@ -37,13 +37,13 @@ function FieldNoteCard({ note, onOpen }) {
 
       <h3 style={{
         fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
-        fontSize: 26, letterSpacing: '-0.005em', lineHeight: 1.2,
+        fontSize: 'var(--tk-fs-h2)', letterSpacing: '-0.005em', lineHeight: 1.2,
         color: 'var(--tk-fg-1)', margin: '0 0 14px', textWrap: 'pretty',
       }}>{note.title}</h3>
 
       <p style={{
         fontFamily: 'var(--tk-font-sans)', fontStyle: 'italic',
-        fontSize: 16, lineHeight: 1.55, color: 'var(--tk-fg-3)',
+        fontSize: 'var(--tk-fs-body)', lineHeight: 1.55, color: 'var(--tk-fg-3)',
         margin: '0 0 20px', maxWidth: 640,
       }}>{note.dek}</p>
 
