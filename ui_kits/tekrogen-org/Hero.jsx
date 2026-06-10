@@ -8,14 +8,14 @@ function Hero({ eyebrow, title, dek, meta }) {
     <section style={{
       maxWidth: 1180, margin: '0 auto',
       padding: '72px 32px 56px',
-      borderBottom: '1px solid var(--tk-ink-2)',
+      borderBottom: '1px solid var(--tk-border)',
     }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: 32 }}>
         <div style={{ flex: 1, maxWidth: 820 }}>
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontWeight: 500,
             fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: 'var(--tk-cyan)', marginBottom: 18,
+            color: 'var(--tk-accent)', marginBottom: 18,
           }}>{eyebrow}</div>
 
           <h1 style={{

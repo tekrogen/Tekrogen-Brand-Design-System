@@ -14,8 +14,8 @@ function FieldNoteCard({ note, onOpen }) {
       onMouseLeave={() => setHover(false)}
       style={{
         display: 'block', textDecoration: 'none',
-        background: 'var(--tk-ink-soft)',
-        border: '1px solid ' + (hover ? 'rgba(31,213,218,0.4)' : 'var(--tk-ink-2)'),
+        background: 'var(--tk-bg-2)',
+        border: '1px solid ' + (hover ? 'rgba(31,213,218,0.4)' : 'var(--tk-border)'),
         borderRadius: 12, padding: '28px 30px',
         color: 'inherit',
         transition: 'border-color 220ms cubic-bezier(.2,.7,.2,1)',
@@ -26,7 +26,7 @@ function FieldNoteCard({ note, onOpen }) {
       }}>
         <span style={{
           fontFamily: 'var(--tk-font-mono)', fontWeight: 700, fontSize: 'var(--tk-fs-h3)',
-          color: 'var(--tk-cyan)', letterSpacing: '0.02em', lineHeight: 1,
+          color: 'var(--tk-accent)', letterSpacing: '0.02em', lineHeight: 1,
         }}>{String(note.id).padStart(2, '0')}</span>
         <span style={{
           fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',

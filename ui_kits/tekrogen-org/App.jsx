@@ -116,7 +116,7 @@ function App() {
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
             letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: 'var(--tk-cyan)', marginBottom: 14,
+            color: 'var(--tk-accent)', marginBottom: 14,
           }}>{view.path === 'studio' ? 'tekrogen.studio' : 'about'}</div>
           <h1 style={{
             fontFamily: 'var(--tk-font-sans)', fontWeight: 600,

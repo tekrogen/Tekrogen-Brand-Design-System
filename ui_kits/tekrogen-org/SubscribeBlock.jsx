@@ -14,7 +14,7 @@ function SubscribeBlock() {
 
   return (
     <div style={{
-      background: 'var(--tk-ink-soft)',
+      background: 'var(--tk-bg-2)',
       border: '1px solid var(--tk-cyan)',
       borderRadius: 12, padding: '36px 36px 32px',
       maxWidth: 720, margin: '64px auto',
@@ -23,7 +23,7 @@ function SubscribeBlock() {
       <div style={{
         fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
         letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: 'var(--tk-cyan)', marginBottom: 14,
+        color: 'var(--tk-accent)', marginBottom: 14,
       }}>Subscribe</div>
       <h3 style={{
         fontFamily: 'var(--tk-font-sans)', fontWeight: 600,
@@ -42,15 +42,15 @@ function SubscribeBlock() {
             type="email" value={email} onChange={e => setEmail(e.target.value)}
             placeholder="you@domain.com"
             style={{
-              flex: 1, background: '#0a0d12',
-              border: '1px solid var(--tk-ink-2)',
+              flex: 1, background: 'var(--tk-bg-3)',
+              border: '1px solid var(--tk-border)',
               color: 'var(--tk-fg-1)', padding: '12px 16px',
               borderRadius: 8, fontFamily: 'var(--tk-font-sans)',
               fontSize: 'var(--tk-fs-body)', outline: 'none',
             }}
           />
           <button type="submit" disabled={state === 'sending'} style={{
-            background: 'var(--tk-cyan)', color: '#0e1116',
+            background: 'var(--tk-cyan)', color: 'var(--tk-ink)',
             border: 'none', padding: '12px 20px', borderRadius: 6,
             fontFamily: 'var(--tk-font-mono)', fontWeight: 600,
             fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.12em', textTransform: 'uppercase',
@@ -60,7 +60,7 @@ function SubscribeBlock() {
       ) : (
         <div style={{
           display: 'flex', alignItems: 'center', gap: 12,
-          padding: '14px 18px', background: '#0a0d12',
+          padding: '14px 18px', background: 'var(--tk-bg-3)',
           border: '1px solid rgba(126,219,165,0.4)', borderRadius: 8,
           fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-code)',
           letterSpacing: '0.06em', color: 'var(--tk-net)',

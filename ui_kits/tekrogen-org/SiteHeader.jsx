@@ -11,12 +11,14 @@ function SiteHeader({ path, onNav }) {
     { id: 'studio', label: 'Studio',      href: '/studio' },
     { id: 'about',  label: 'About',       href: '/about' },
   ];
+  const curTheme = (typeof document !== 'undefined'
+    && document.documentElement.getAttribute('data-tk-theme')) || 'ink';
   return (
     <header style={{
       position: 'sticky', top: 0, zIndex: 50,
-      background: 'rgba(14,17,22,0.92)',
+      background: 'color-mix(in srgb, var(--tk-bg-1) 92%, transparent)',
       backdropFilter: 'blur(8px)',
-      borderBottom: '1px solid var(--tk-ink-2)',
+      borderBottom: '1px solid var(--tk-border)',
     }}>
       <div style={{
         maxWidth: 1180, margin: '0 auto',
@@ -46,8 +48,12 @@ function SiteHeader({ path, onNav }) {
                 transition: 'color 120ms cubic-bezier(.2,.7,.2,1)',
               }}>{l.label}</a>
           ))}
+          <div className="tk-theme-toggle" role="group" aria-label="Theme">
+            <button type="button" data-tk-theme-set="ink" aria-pressed={curTheme === 'ink'}>Ink</button>
+            <button type="button" data-tk-theme-set="paper" aria-pressed={curTheme === 'paper'}>Paper</button>
+          </div>
           <a href="/subscribe" onClick={e => { e.preventDefault(); onNav('subscribe'); }} style={{
-            background: 'var(--tk-cyan)', color: '#0e1116',
+            background: 'var(--tk-cyan)', color: 'var(--tk-ink)',
             padding: '8px 16px', borderRadius: 6, border: 'none',
             fontFamily: 'var(--tk-font-sans)', fontSize: 'var(--tk-fs-body-sm)', fontWeight: 600,
             letterSpacing: '0.08em', textTransform: 'uppercase',

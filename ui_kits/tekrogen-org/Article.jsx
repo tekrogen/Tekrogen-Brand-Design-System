@@ -10,7 +10,7 @@ function Article({ note, onBack }) {
       padding: '56px 32px 96px',
     }}>
       <button onClick={onBack} style={{
-        background: 'transparent', border: '1px solid var(--tk-ink-2)',
+        background: 'transparent', border: '1px solid var(--tk-border)',
         color: 'var(--tk-fg-3)',
         fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-meta)',
         letterSpacing: '0.14em', textTransform: 'uppercase',
@@ -21,7 +21,7 @@ function Article({ note, onBack }) {
       <div style={{
         fontFamily: 'var(--tk-font-mono)', fontSize: 'var(--tk-fs-eyebrow)',
         letterSpacing: '0.16em', textTransform: 'uppercase',
-        color: 'var(--tk-cyan)', marginBottom: 14,
+        color: 'var(--tk-accent)', marginBottom: 14,
       }}>{note.kicker} · {String(note.id).padStart(2, '0')}</div>
 
       <h1 style={{
@@ -38,7 +38,7 @@ function Article({ note, onBack }) {
 
       <div style={{
         display: 'flex', alignItems: 'center', gap: 14, marginBottom: 36,
-        paddingBottom: 28, borderBottom: '1px solid var(--tk-ink-2)',
+        paddingBottom: 28, borderBottom: '1px solid var(--tk-border)',
       }}>
         <div style={{
           width: 44, height: 44, borderRadius: '50%',
@@ -65,7 +65,7 @@ function Article({ note, onBack }) {
       </div>
 
       <div style={{
-        marginTop: 56, paddingTop: 32, borderTop: '1px solid var(--tk-ink-2)',
+        marginTop: 56, paddingTop: 32, borderTop: '1px solid var(--tk-border)',
         display: 'flex', alignItems: 'center', gap: 18,
       }}>
         <Dragonfly size={48}/>

@@ -6,7 +6,7 @@ function SectionHead({ eyebrow, title, meta, style }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between',
-      gap: 24, paddingBottom: 18, borderBottom: '1px solid var(--tk-ink-2)',
+      gap: 24, paddingBottom: 18, borderBottom: '1px solid var(--tk-border)',
       marginBottom: 32, ...style,
     }}>
       <div>
@@ -14,7 +14,7 @@ function SectionHead({ eyebrow, title, meta, style }) {
           <div style={{
             fontFamily: 'var(--tk-font-mono)', fontWeight: 500,
             fontSize: 'var(--tk-fs-eyebrow)', letterSpacing: '0.16em', textTransform: 'uppercase',
-            color: 'var(--tk-cyan)', marginBottom: 8,
+            color: 'var(--tk-accent)', marginBottom: 8,
           }}>{eyebrow}</div>
         )}
         <h2 style={{

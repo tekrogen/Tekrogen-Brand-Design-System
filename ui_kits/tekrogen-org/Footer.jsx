@@ -11,8 +11,8 @@ function Footer() {
   return (
     <footer style={{
       marginTop: 80, paddingTop: 56,
-      borderTop: '1px solid var(--tk-ink-2)',
-      background: '#0a0d12',
+      borderTop: '1px solid var(--tk-border)',
+      background: 'var(--tk-bg-3)',
     }}>
       <div style={{
         maxWidth: 1180, margin: '0 auto',
@@ -38,8 +38,8 @@ function Footer() {
             <a key={p.id} href={`https://${p.name}`}
               style={{
                 display: 'block', padding: '18px 20px',
-                background: 'var(--tk-ink-soft)',
-                border: '1px solid var(--tk-ink-2)',
+                background: 'var(--tk-bg-2)',
+                border: '1px solid var(--tk-border)',
                 borderLeft: `2px solid ${p.color}`,
                 borderRadius: 8, textDecoration: 'none',
               }}>
@@ -57,7 +57,7 @@ function Footer() {
       </div>
 
       <div style={{
-        borderTop: '1px solid var(--tk-ink-2)',
+        borderTop: '1px solid var(--tk-border)',
         padding: '20px 32px',
       }}>
         <div style={{
