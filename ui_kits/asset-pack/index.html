@@ -46,6 +46,7 @@
   table.slots tr:last-child td{border-bottom:none}
   table.slots th{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--tk-bg-3)}
   table.slots code{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-code);color:var(--tk-accent)}
+  .table-scroll{overflow-x:auto}  /* slot table min-content ≈ 518px — scroll, don't push the page, on narrow viewports */
   pre.svg{background:#0a0d12;border:1px solid var(--line);border-radius:10px;padding:18px;font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-code);color:#cbd5e1;overflow:auto;max-height:280px;line-height:1.55}
   .toolbar{position:sticky;top:0;z-index:50;margin:-64px -48px 24px;padding:14px 48px;background:color-mix(in srgb, var(--tk-bg-1) 92%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .toolbar .meta{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.14em;text-transform:uppercase;color:var(--muted-d)}
@@ -55,7 +56,7 @@
   .og-mount svg{display:block;width:100%;height:auto;border-radius:8px}
   .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
   .note{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
-  @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:var(--tk-fs-h1)}}
+  @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:var(--tk-fs-h1)}.toolbar{margin:-48px -20px 24px;padding:14px 20px}}
 </style>
 </head>
 <body>
@@ -111,7 +112,7 @@
 
   <section>
     <div class="section-head"><div><div class="eyebrow">03 · slot map</div><h2>Where each file goes in Ghost</h2></div><div class="right">Settings → Design</div></div>
-    <table class="slots"><thead><tr><th>Asset</th><th>Ghost slot</th><th>File</th><th>Dimensions</th></tr></thead><tbody>
+    <div class="table-scroll"><table class="slots"><thead><tr><th>Asset</th><th>Ghost slot</th><th>File</th><th>Dimensions</th></tr></thead><tbody>
       <tr><td>Publication logo (light)</td><td><code>publication_logo</code> · header on light themes</td><td>tekrogen-logo-light.png</td><td>600 × 160</td></tr>
       <tr><td>Publication logo (dark)</td><td><code>publication_logo</code> · header on dark themes</td><td>tekrogen-logo-dark.png</td><td>600 × 160</td></tr>
       <tr><td>Publication icon</td><td><code>publication_icon</code> · member emails, fallback favicon</td><td>tekrogen-icon-512.png</td><td>512 × 512</td></tr>
@@ -120,7 +121,7 @@
       <tr><td>Article OG (per post)</td><td>Per-post <code>feature_image</code> fallback</td><td>og-article.png</td><td>1200 × 630</td></tr>
       <tr><td>Author OG (per author)</td><td>Author profile <code>cover_image</code></td><td>og-author.png</td><td>1200 × 630</td></tr>
       <tr><td>Series card</td><td>Tag page <code>feature_image</code> for /notes/</td><td>og-series.png</td><td>1200 × 630</td></tr>
-    </tbody></table>
+    </tbody></table></div>
     <div class="note">Hybrid plan: this pack ships tekrogen.org. When .studio / .com / .net spin up as sub-publications, re-render OG cards with the appropriate wing color lead (Section 04 of the Master Lockups doc).</div>
   </section>
 
