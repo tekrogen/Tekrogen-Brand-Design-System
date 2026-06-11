@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en" data-screen-label="Component Gap Analysis">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Component Gap Analysis · Tekrogen UI Kit</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Manrope:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 40px 140px; }
+
+  /* ─── Top eyebrow row ─── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tk-fg-4);
+    padding-bottom: 14px; margin-bottom: 40px;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .topbar .brand { color: var(--tk-fg-2); display: flex; align-items: center; gap: 10px; }
+  .topbar .brand b { color: var(--tk-fg-1); font-weight: 600; letter-spacing: 0.18em; }
+  .topbar .ver { color: var(--tk-fg-4); }
+
+  /* ─── Hero ─── */
+  .hero { margin-bottom: 48px; }
+  .hero .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--tk-cyan); margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.022em; line-height: 1.04;
+    margin: 0 0 18px; max-width: 16ch;
+  }
+  .hero p { font-size: 16px; line-height: 1.6; color: var(--tk-fg-2); max-width: 64ch; margin: 0; }
+
+  /* ─── Stat strip ─── */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl);
+    overflow: hidden; margin: 44px 0 12px;
+  }
+  .stat { padding: 22px 24px; border-right: 1px solid var(--tk-border); }
+  .stat:last-child { border-right: 0; }
+  .stat .n { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--tk-fg-1); }
+  .stat .n.cyan { color: var(--tk-cyan); }
+  .stat .k {
+    font-family: var(--tk-font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--tk-fg-4); margin-top: 12px;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 22px; align-items: center;
+    font-family: var(--tk-font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--tk-fg-4); margin-bottom: 56px; padding: 0 2px;
+  }
+  .legend .item { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .dot.have    { background: var(--tk-success); }
+  .dot.partial { background: var(--tk-warning); }
+  .dot.missing { background: var(--tk-fg-5); border: 1px solid var(--tk-fg-4); }
+
+  /* ─── Section ─── */
+  section.fam { margin-bottom: 52px; scroll-margin-top: 24px; }
+  .sec-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 14px; border-bottom: 1px solid var(--tk-border); margin-bottom: 4px; gap: 24px;
+  }
+  .sec-head .l-eyebrow {
+    font-family: var(--tk-font-mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--tk-cyan);
+  }
+  .sec-head h2 { font-size: 24px; letter-spacing: -0.015em; margin: 8px 0 0; color: var(--tk-fg-1); }
+  .sec-head .r {
+    font-family: var(--tk-font-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--tk-fg-3); text-align: right;
+  }
+  .sec-head .r b { color: var(--tk-fg-1); font-weight: 500; }
+
+  /* ─── Matrix table ─── */
+  table.matrix { width: 100%; border-collapse: collapse; }
+  table.matrix thead th {
+    font-family: var(--tk-font-mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--tk-fg-4); font-weight: 500; text-align: left;
+    padding: 16px 14px 12px; border-bottom: 1px solid var(--tk-border);
+  }
+  table.matrix tbody td { padding: 15px 14px; border-bottom: 1px solid var(--tk-border); vertical-align: top; }
+  table.matrix tbody tr:last-child td { border-bottom: 0; }
+  table.matrix tbody tr { transition: background var(--tk-dur-1) var(--tk-ease); }
+  table.matrix tbody tr:hover { background: var(--tk-bg-2); }
+
+  .col-idx   { width: 44px; font-family: var(--tk-font-mono); font-size: 11px; color: var(--tk-cyan); }
+  .col-name  { width: 188px; }
+  .col-name .nm { font-weight: 600; font-size: 15px; color: var(--tk-fg-1); letter-spacing: -0.01em; }
+  .col-name .cat {
+    display: block; margin-top: 4px;
+    font-family: var(--tk-font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tk-fg-5);
+  }
+  .col-status { width: 116px; }
+  .col-pri    { width: 70px; }
+  .col-note .nt { font-size: 13.5px; line-height: 1.5; color: var(--tk-fg-3); max-width: 56ch; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--tk-font-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: var(--tk-radius-pill); border: 1px solid var(--tk-border);
+    white-space: nowrap;
+  }
+  .pill.have    { color: var(--tk-success); border-color: color-mix(in srgb, var(--tk-success) 36%, var(--tk-border)); }
+  .pill.partial { color: var(--tk-warning); border-color: color-mix(in srgb, var(--tk-warning) 36%, var(--tk-border)); }
+  .pill.missing { color: var(--tk-fg-3); }
+
+  .pri {
+    font-family: var(--tk-font-mono); font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--tk-fg-4);
+  }
+  .pri b { color: var(--tk-fg-2); font-weight: 600; }
+
+  /* ─── Footer note ─── */
+  .method {
+    margin-top: 8px; padding: 24px; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl);
+    background: var(--tk-bg-2);
+  }
+  .method h3 { font-size: 15px; margin: 0 0 10px; color: var(--tk-fg-1); }
+  .method p { font-size: 13px; line-height: 1.65; color: var(--tk-fg-3); margin: 0 0 8px; max-width: 78ch; }
+  .method p:last-child { margin-bottom: 0; }
+  .method code { font-size: 11.5px; }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 36px 20px 100px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--tk-border); }
+    .col-note { display: none; }
+    table.matrix tbody td { padding: 13px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="brand"><b>TEKROGEN</b> · UI Kit</span>
+    <span class="ver">component parity · shadcn defaults · jun 2026</span>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Gap analysis · build roadmap</div>
+    <h1>50 components stand between the kit and full coverage.</h1>
+    <p>Every default component on <span style="font-family:var(--tk-font-mono);font-size:13px">ui.shadcn.com/docs/components</span>, measured against what the Tekrogen kit ships today. Each gap below carries a build note that maps it onto the existing token layer — ink/paper surfaces, hairline borders, one cyan per surface, mono-caps labels — so nothing has to be designed from scratch. Header, Navigation Menu, and Footer are out of scope here and tracked separately.</p>
+  </header>
+
+  <div class="stats" id="stats"></div>
+  <div class="legend">
+    <span class="item"><span class="dot have"></span> In kit</span>
+    <span class="item"><span class="dot partial"></span> Partial — bits exist, not componentized</span>
+    <span class="item"><span class="dot missing"></span> Missing — to build</span>
+    <span class="item" style="margin-left:auto"><b style="color:var(--tk-fg-2)">P1</b>&nbsp;foundation&nbsp;·&nbsp;<b style="color:var(--tk-fg-2)">P2</b>&nbsp;common&nbsp;·&nbsp;<b style="color:var(--tk-fg-2)">P3</b>&nbsp;advanced</span>
+  </div>
+
+  <main id="families"></main>
+
+  <div class="method">
+    <h3>Method &amp; scope</h3>
+    <p>Source set: the full default component index at <code>ui.shadcn.com/docs/components</code>. Compared against the kit inventory catalogued in <code>index.html</code> (Components 02) and the <code>preview/</code> specimens. Already-shipped matches: Button, Card, Input, Avatar, Badge (mono pill), and the Typography scale. Brand-specific surfaces the kit also covers — Dragonfly mark, lockups, OG cards, section heads, eyebrow/meta, glyph + Lucide vocabularies — have no shadcn equivalent and aren't counted here.</p>
+    <p>Excluded by request: <b style="color:var(--tk-fg-2);font-weight:600">Navigation Menu</b> (handled separately), plus <b style="color:var(--tk-fg-2);font-weight:600">Header</b> and <b style="color:var(--tk-fg-2);font-weight:600">Footer</b>, which already ship in <code>ui_kits/tekrogen-org/</code> (SiteHeader, Footer). The "Beyond shadcn" group lists kit-native components the brand will want that the shadcn set doesn't define — additive, not part of the 50.</p>
+  </div>
+
+</div>
+
+<script>
+/* ── Parity data ───────────────────────────────────────────────
+ * status: have | partial | missing   ·   pri: P1 | P2 | P3
+ * cat = the shadcn docs grouping it falls under
+ */
+const FAMILIES = [
+  {
+    idx: "01", title: "Overlays & menus", note: "floating surfaces · bg-2 · hairline · shadow-2",
+    rows: [
+      ["Dialog", "Overlay", "missing", "P1", "Modal on ink-soft with a hairline border; backdrop = ink at 70%. One cyan primary action, the rest outline."],
+      ["Alert Dialog", "Overlay", "missing", "P1", "Destructive-confirm variant of Dialog — the confirm action takes the --tk-danger token, not cyan."],
+      ["Popover", "Overlay", "missing", "P1", "Anchored panel on bg-2, 8px radius, hairline border. No arrow by default; shadow-2 only when it floats free."],
+      ["Tooltip", "Overlay", "missing", "P1", "Mono-caps micro-label on ink-2, 10.5px / 0.12em, 120ms open delay. Single line, never wraps."],
+      ["Dropdown Menu", "Overlay", "missing", "P1", "Action menu — mono-caps items, hairline separators, active row = cyan text on ink-2."],
+      ["Hover Card", "Overlay", "missing", "P2", "Preview-on-hover panel; reuse FieldNoteCard density for author / entity cards."],
+      ["Context Menu", "Overlay", "missing", "P2", "Right-click variant of Dropdown Menu — identical item styling, pointer-anchored."],
+      ["Menubar", "Overlay", "missing", "P2", "App menubar; horizontal mono-caps triggers that open shared Dropdown Menu panels."],
+      ["Command", "Overlay", "missing", "P2", "⌘K palette — reuse the dashboard search field (the '/' affordance) plus mono result rows."],
+      ["Sheet", "Overlay", "missing", "P2", "Edge-anchored panel sliding from left/right; full-height hairline divider, shadow-2."],
+      ["Drawer", "Overlay", "missing", "P3", "Bottom-sheet for narrow viewports; grabber handle on the same surface as Sheet."],
+    ],
+  },
+  {
+    idx: "02", title: "Forms & controls", note: "input family · 8px radius · cyan focus ring",
+    rows: [
+      ["Label", "Form", "missing", "P1", "Form label — sans 13.5px / 500 in --tk-fg-2, 6px gap above its control."],
+      ["Field", "Form", "missing", "P1", "Label + control + help/error wrapper; invalid state swaps to --tk-danger on border and message."],
+      ["Form", "Form", "missing", "P1", "Field group + validation scaffolding on a consistent 16px row rhythm."],
+      ["Textarea", "Form", "missing", "P1", "Multiline Input — same 8px radius, hairline, and cyan focus ring as the text input."],
+      ["Checkbox", "Form", "missing", "P1", "16px square, 4px radius; cyan fill + ✓ glyph when checked on ink."],
+      ["Radio Group", "Form", "missing", "P1", "Circular companion to Checkbox — hairline ring, cyan dot when selected."],
+      ["Switch", "Form", "missing", "P1", "Pill toggle; track animates ink-2 → cyan over 220ms on the standard ease."],
+      ["Select", "Form", "missing", "P1", "Trigger borrows Input styling; panel is a Dropdown Menu; chevron uses the mono glyph."],
+      ["Combobox", "Form", "missing", "P2", "Searchable Select — Command panel mounted under an Input trigger."],
+      ["Slider", "Form", "missing", "P2", "Hairline track, cyan fill + handle; snap steps off the 4-pt spacing scale."],
+      ["Button Group", "Form", "missing", "P2", "Segmented buttons sharing one hairline; the single active segment goes cyan."],
+      ["Toggle", "Form", "missing", "P2", "Pressable icon/text toggle; pressed = ink-2 fill with cyan text."],
+      ["Toggle Group", "Form", "missing", "P2", "A set of Toggles, single- or multi-select, sharing segment borders."],
+      ["Input Group", "Form", "missing", "P2", "Input with leading/trailing addon — icon, mono unit label, or inline button."],
+      ["Calendar", "Form", "missing", "P2", "Month grid; mono day labels, hairline cells, cyan selected day."],
+      ["Date Picker", "Form", "missing", "P2", "Input trigger opening a Popover-mounted Calendar."],
+      ["Input OTP", "Form", "missing", "P3", "Segmented code field — mono digits in per-cell hairline boxes."],
+    ],
+  },
+  {
+    idx: "03", title: "Data & feedback", note: "hairline rows · semantic states · no zebra",
+    rows: [
+      ["Table", "Data", "missing", "P1", "Hairline rows, mono-caps header, no zebra fills; numeric columns right-aligned."],
+      ["Progress", "Feedback", "missing", "P1", "Track on ink-2, cyan fill bar; 4px tall with pill ends."],
+      ["Skeleton", "Feedback", "missing", "P1", "Shimmer placeholder on bg-2 that matches the radius of whatever it stands in for."],
+      ["Spinner", "Feedback", "missing", "P1", "Mono rotating indicator — cyan arc over an ink-2 ring."],
+      ["Alert", "Feedback", "missing", "P1", "Inline banner with a semantic left accent (info / success / warning / danger)."],
+      ["Empty", "Data", "missing", "P2", "Empty-state block — mono eyebrow, muted body, a single CTA."],
+      ["Item", "Data", "missing", "P2", "Generic list row: media + title + meta + trailing action."],
+      ["Data Table", "Data", "missing", "P2", "Table plus sort / filter / pagination; composes Pagination + Dropdown Menu."],
+      ["Chart", "Data", "missing", "P2", "Pillar-keyed series colors (org/studio/com/net); hairline axes, no gridline fills."],
+      ["Sonner / Toast", "Feedback", "partial", "P2", "The 'Toast & dock' specimen exists — formalize the stack, auto-dismiss, and variants."],
+      ["Kbd", "Data", "partial", "P3", "A '/' key hint already lives in the search bar — promote it to a reusable mono key-cap."],
+    ],
+  },
+  {
+    idx: "04", title: "Navigation & disclosure", note: "mono-caps · cyan current · 280ms ease",
+    rows: [
+      ["Breadcrumb", "Navigation", "missing", "P1", "Mono-caps trail with · separators; the current crumb resolves to --tk-fg-1."],
+      ["Pagination", "Navigation", "missing", "P1", "Mono page numbers, cyan current page, ← → glyph ends."],
+      ["Tabs", "Navigation", "missing", "P1", "Underline tabs — active tab takes a cyan border-bottom; mono-caps labels."],
+      ["Accordion", "Disclosure", "missing", "P1", "Hairline-divided disclosure; + / − or chevron, expanding over 280ms."],
+      ["Collapsible", "Disclosure", "missing", "P2", "Single show/hide region — the lighter-weight primitive under Accordion."],
+      ["Sidebar", "Navigation", "missing", "P2", "App nav rail; reuses the dashboard sidebar pattern — eyebrow groups + nav rows."],
+    ],
+  },
+  {
+    idx: "05", title: "Layout & utility", note: "structure primitives · hairline everything",
+    rows: [
+      ["Separator", "Layout", "missing", "P1", "Hairline divider, horizontal or vertical, drawn at --tk-border."],
+      ["Aspect Ratio", "Layout", "missing", "P2", "Ratio box for media / OG frames; locks 16:9 and 1:1."],
+      ["Scroll Area", "Layout", "missing", "P2", "Custom thin scrollbar — mono-thin track on overflow regions."],
+      ["Carousel", "Layout", "missing", "P3", "Slide track with mono dots; ← → controls sit outside the scaled frame."],
+      ["Resizable", "Layout", "missing", "P3", "Draggable split panes; hairline handle that goes cyan on grab."],
+    ],
+  },
+  {
+    idx: "06", title: "Beyond shadcn · kit-native", note: "additive · not part of the 50",
+    rows: [
+      ["Code Block", "Extension", "missing", "P2", "pre.tk-pre exists — wrap it as a component with a copy button and language label."],
+      ["Stat / Metric", "Extension", "missing", "P2", "Big number + mono label; this is what powers the dashboard hero-meta today."],
+      ["File Dropzone", "Extension", "missing", "P2", "Asset upload target — dashed hairline that turns cyan on drag-over."],
+      ["Banner", "Extension", "missing", "P3", "Full-width notice strip, one per surface, dismissible."],
+      ["Stepper", "Extension", "missing", "P3", "Numbered flow progress — mono indices, cyan active step."],
+      ["Timeline", "Extension", "missing", "P3", "Vertical changelog / roadmap; hairline spine with mono dates."],
+    ],
+  },
+];
+
+/* ── Render ── */
+const families = document.getElementById('families');
+let totalMissing = 0, totalPartial = 0, p1 = 0;
+
+FAMILIES.forEach(fam => {
+  const sec = document.createElement('section');
+  sec.className = 'fam';
+  const isExt = fam.idx === "06";
+  const missingInFam = fam.rows.filter(r => r[2] !== 'have').length;
+
+  let rowsHtml = '';
+  fam.rows.forEach((r, i) => {
+    const [name, cat, status, pri, note] = r;
+    if (!isExt) {
+      if (status === 'missing') totalMissing++;
+      if (status === 'partial') totalPartial++;
+      if (pri === 'P1') p1++;
+    }
+    const label = { have: 'In kit', partial: 'Partial', missing: 'Missing' }[status];
+    rowsHtml += `
+      <tr>
+        <td class="col-idx">${fam.idx}.${String(i + 1).padStart(2, '0')}</td>
+        <td class="col-name"><span class="nm">${name}</span><span class="cat">${cat}</span></td>
+        <td class="col-status"><span class="pill ${status}"><span class="dot ${status}"></span>${label}</span></td>
+        <td class="col-pri"><span class="pri"><b>${pri}</b></span></td>
+        <td class="col-note"><span class="nt">${note}</span></td>
+      </tr>`;
+  });
+
+  sec.innerHTML = `
+    <div class="sec-head">
+      <div>
+        <div class="l-eyebrow">${fam.idx} · ${isExt ? 'Extension' : 'Gap family'}</div>
+        <h2>${fam.title}</h2>
+      </div>
+      <div class="r">${missingInFam} to build<br/><b>${fam.note}</b></div>
+    </div>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="col-idx">#</th>
+          <th class="col-name">Component</th>
+          <th class="col-status">Status</th>
+          <th class="col-pri">Pri</th>
+          <th class="col-note">Tekrogen build note</th>
+        </tr>
+      </thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>`;
+  families.appendChild(sec);
+});
+
+/* ── Stat strip ── */
+const stats = [
+  { n: 57, k: "shadcn defaults", cyan: false },
+  { n: 6, k: "already in kit", cyan: false },
+  { n: totalMissing + totalPartial, k: "to build", cyan: true },
+  { n: p1, k: "P1 · foundation first", cyan: false },
+];
+document.getElementById('stats').innerHTML = stats.map(s =>
+  `<div class="stat"><div class="n ${s.cyan ? 'cyan' : ''}">${s.n}</div><div class="k">${s.k}</div></div>`
+).join('');
+</script>
+</body>
+</html>

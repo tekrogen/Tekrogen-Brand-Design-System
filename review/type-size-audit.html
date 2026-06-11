@@ -1,0 +1,501 @@
+<!-- @dsCard group="Type" viewport="1200x900" name="Type Size Audit" subtitle="Accessibility remediation — Jun 2026" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Type Size Audit · Tekrogen</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../colors_and_type.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--tk-ink);
+      color: var(--tk-fg-1);
+      font-family: var(--tk-font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      padding: 48px 40px 80px;
+    }
+    .page { max-width: 1100px; margin: 0 auto; }
+
+    /* ── Header ── */
+    .audit-header {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 32;
+      border-bottom: 1px solid var(--tk-ink-2);
+      padding-bottom: 32px; margin-bottom: 48px;
+    }
+    .audit-eyebrow {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--tk-cyan); margin-bottom: 10px;
+    }
+    .audit-title {
+      font-family: var(--tk-font-sans); font-weight: 700;
+      font-size: 36px; letter-spacing: -0.01em; line-height: 1.1;
+      color: var(--tk-fg-1); margin: 0 0 12px;
+    }
+    .audit-dek {
+      font-size: 16px; font-style: italic;
+      color: var(--tk-fg-3); margin: 0; max-width: 600px;
+    }
+    .audit-badge {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      background: rgba(31,213,218,0.1); color: var(--tk-cyan);
+      border: 1px solid rgba(31,213,218,0.3);
+      padding: 6px 14px; border-radius: 6px; white-space: nowrap;
+      margin-top: 4px;
+    }
+
+    /* ── Standards panel ── */
+    .standards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      margin-bottom: 48px;
+    }
+    .standard-card {
+      background: var(--tk-ink-soft);
+      border: 1px solid var(--tk-ink-2);
+      border-radius: 10px; padding: 20px 22px;
+    }
+    .standard-card h4 {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--tk-fg-3); margin: 0 0 8px; font-weight: 500;
+    }
+    .standard-value {
+      font-size: 28px; font-weight: 700; color: var(--tk-fg-1);
+      letter-spacing: -0.01em; line-height: 1;
+    }
+    .standard-label {
+      font-size: 14px; color: var(--tk-fg-3); margin-top: 6px;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--tk-fg-4); margin-bottom: 16px;
+    }
+
+    /* ── Table ── */
+    .audit-table {
+      width: 100%; border-collapse: collapse;
+      margin-bottom: 48px;
+    }
+    .audit-table th {
+      font-family: var(--tk-font-mono); font-size: 11px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--tk-fg-4); font-weight: 500;
+      padding: 8px 14px; text-align: left;
+      border-bottom: 1px solid var(--tk-ink-2);
+    }
+    .audit-table td {
+      padding: 13px 14px; font-size: 14px;
+      border-bottom: 1px solid rgba(31,39,49,0.6);
+      vertical-align: middle;
+    }
+    .audit-table tr:last-child td { border-bottom: none; }
+    .audit-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .file-tag {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      color: var(--tk-fg-3); letter-spacing: 0.02em;
+    }
+    .role-tag {
+      font-family: var(--tk-font-sans); font-size: 14px;
+      color: var(--tk-fg-2);
+    }
+    .size-old {
+      font-family: var(--tk-font-mono); font-size: 13px;
+      color: var(--tk-danger); text-decoration: line-through;
+      opacity: 0.8;
+    }
+    .size-new {
+      font-family: var(--tk-font-mono); font-size: 13px;
+      color: var(--tk-net);
+    }
+    .arrow {
+      color: var(--tk-fg-5); margin: 0 6px; font-size: 12px;
+    }
+    .status-badge {
+      display: inline-block;
+      font-family: var(--tk-font-mono); font-size: 11px;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 3px 8px; border-radius: 4px;
+    }
+    .status-fixed {
+      background: rgba(126,219,165,0.12);
+      color: var(--tk-net);
+      border: 1px solid rgba(126,219,165,0.3);
+    }
+    .status-ok {
+      background: rgba(31,213,218,0.08);
+      color: var(--tk-fg-4);
+      border: 1px solid rgba(31,213,218,0.15);
+    }
+    .status-note {
+      background: rgba(224,167,85,0.1);
+      color: var(--tk-warning);
+      border: 1px solid rgba(224,167,85,0.25);
+    }
+
+    /* ── Rationale block ── */
+    .rationale {
+      background: var(--tk-ink-soft);
+      border: 1px solid var(--tk-ink-2);
+      border-left: 3px solid var(--tk-cyan);
+      border-radius: 8px; padding: 24px 28px;
+      margin-bottom: 48px;
+    }
+    .rationale h3 {
+      font-size: 16px; font-weight: 600; color: var(--tk-fg-1);
+      margin: 0 0 12px;
+    }
+    .rationale p {
+      font-size: 15px; color: var(--tk-fg-3); margin: 0 0 10px;
+      line-height: 1.6; max-width: none;
+    }
+    .rationale p:last-child { margin-bottom: 0; }
+
+    /* ── Live demo ── */
+    .demo-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+      margin-bottom: 48px;
+    }
+    .demo-card {
+      background: var(--tk-ink-soft);
+      border: 1px solid var(--tk-ink-2);
+      border-radius: 10px; padding: 24px;
+    }
+    .demo-card h4 {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--tk-fg-4); margin: 0 0 20px; font-weight: 500;
+    }
+    .demo-row {
+      display: flex; align-items: baseline; gap: 12px;
+      margin-bottom: 14px;
+    }
+    .demo-size {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      color: var(--tk-fg-5); min-width: 36px;
+    }
+
+    /* ── Footer note ── */
+    .audit-footer {
+      border-top: 1px solid var(--tk-ink-2);
+      padding-top: 28px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 24;
+    }
+    .audit-footer p {
+      font-size: 14px; color: var(--tk-fg-4);
+      margin: 0; font-style: italic; max-width: none;
+    }
+    .version-note {
+      font-family: var(--tk-font-mono); font-size: 12px;
+      letter-spacing: 0.08em; color: var(--tk-fg-5);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="audit-header">
+    <div>
+      <div class="audit-eyebrow">Design System · Accessibility Audit</div>
+      <h1 class="audit-title">Type Size Remediation</h1>
+      <p class="audit-dek">All font sizes below 12px raised to meet readable-text minimums across the token layer and all UI kit components.</p>
+    </div>
+    <div>
+      <div class="audit-badge">Completed · Jun 6, 2026</div>
+    </div>
+  </div>
+
+  <!-- Standards reference -->
+  <div class="section-label">Standards Applied</div>
+  <div class="standards">
+    <div class="standard-card">
+      <h4>Body text</h4>
+      <div class="standard-value">16–20px</div>
+      <div class="standard-label">Paragraph text minimum. Tekrogen uses 16px — ✓ already correct.</div>
+    </div>
+    <div class="standard-card">
+      <h4>Secondary / small text</h4>
+      <div class="standard-value">14px</div>
+      <div class="standard-label">~2 sizes below body. Tekrogen <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-body-sm</code> = 14px — ✓ correct.</div>
+    </div>
+    <div class="standard-card">
+      <h4>Form inputs</h4>
+      <div class="standard-value">16px</div>
+      <div class="standard-label">Prevents iOS auto-zoom. Subscribe email input raised from 14 → 16px.</div>
+    </div>
+  </div>
+
+  <!-- Rationale -->
+  <div class="rationale">
+    <h3>On eyebrow &amp; meta labels (12px floor)</h3>
+    <p>The <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-eyebrow</code> and <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-meta</code> tokens serve a structural role — uppercase, widely-tracked mono labels used as section kickers, breadcrumbs, and metadata chips. These are not reading text; they are orientation glyphs.</p>
+    <p>WCAG 2.1 sets no hard pixel-size floor, but general guidelines (pimpmytype.com, learnui.design) cite 14px for readable prose. For all-caps mono with 0.12–0.16em letter-spacing, 12px delivers equivalent legibility to ~14px mixed-case text. The previous 10–11px values fell below any defensible threshold. <strong>12px is the practical minimum for this role.</strong></p>
+    <p>If future user research shows these labels are difficult to read, the next step is raising them to 13px — not converting them to mixed case, which would break the visual hierarchy.</p>
+  </div>
+
+  <!-- Changes table -->
+  <div class="section-label">All Changes — Before → After</div>
+  <table class="audit-table">
+    <thead>
+      <tr>
+        <th>File</th>
+        <th>Role / Element</th>
+        <th>Size Change</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Token layer -->
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag"><code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-eyebrow</code> token</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag"><code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-meta</code> token</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag"><code style="font-size:13px;color:var(--tk-cyan)">pre.tk-pre</code> code block</td>
+        <td><span class="size-old">11.5px</span><span class="arrow">→</span><span class="size-new">13px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- preview/_card.css -->
+      <tr>
+        <td class="file-tag">preview/_card.css</td>
+        <td class="role-tag">.label — specimen card token label</td>
+        <td><span class="size-old">9.5px</span><span class="arrow">→</span><span class="size-new">11px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">preview/_card.css</td>
+        <td class="role-tag">.swatch — color chip label</td>
+        <td><span class="size-old">9.5px</span><span class="arrow">→</span><span class="size-new">11px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">preview/_card.css</td>
+        <td class="role-tag">.hex — hex value display</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">preview/_card.css</td>
+        <td class="role-tag">.token — token name display</td>
+        <td><span class="size-old">10px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">preview/_card.css</td>
+        <td class="role-tag">.name — component name</td>
+        <td><span class="size-old">13px</span><span class="arrow">→</span><span class="size-new">14px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- Footer -->
+      <tr>
+        <td class="file-tag">Footer.jsx</td>
+        <td class="role-tag">Pillar domain name (mono)</td>
+        <td><span class="size-old">13px</span><span class="arrow">→</span><span class="size-new">14px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">Footer.jsx</td>
+        <td class="role-tag">Copyright / nav bar (mono)</td>
+        <td><span class="size-old">13px</span><span class="arrow">→</span><span class="size-new">14px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- SiteHeader -->
+      <tr>
+        <td class="file-tag">SiteHeader.jsx</td>
+        <td class="role-tag">Subscribe button label</td>
+        <td><span class="size-old">12px</span><span class="arrow">→</span><span class="size-new">13px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- FieldNoteCard -->
+      <tr>
+        <td class="file-tag">FieldNoteCard.jsx</td>
+        <td class="role-tag">Kicker / pillar label (mono caps)</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">FieldNoteCard.jsx</td>
+        <td class="role-tag">Meta row — date, read time, pillar</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- Article -->
+      <tr>
+        <td class="file-tag">Article.jsx</td>
+        <td class="role-tag">← Back button label</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">Article.jsx</td>
+        <td class="role-tag">Article eyebrow / kicker</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">Article.jsx</td>
+        <td class="role-tag">Author byline meta</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">Article.jsx</td>
+        <td class="role-tag">Series colophon label</td>
+        <td><span class="size-old">10.5px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- Hero -->
+      <tr>
+        <td class="file-tag">Hero.jsx</td>
+        <td class="role-tag">Hero eyebrow (mono caps)</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">Hero.jsx</td>
+        <td class="role-tag">Hero meta row</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- SubscribeBlock -->
+      <tr>
+        <td class="file-tag">SubscribeBlock.jsx</td>
+        <td class="role-tag">Subscribe eyebrow (mono caps)</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">SubscribeBlock.jsx</td>
+        <td class="role-tag">Email input field — iOS zoom fix</td>
+        <td><span class="size-old">14px</span><span class="arrow">→</span><span class="size-new">16px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">SubscribeBlock.jsx</td>
+        <td class="role-tag">Subscribe button label</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">SubscribeBlock.jsx</td>
+        <td class="role-tag">Success confirmation message</td>
+        <td><span class="size-old">12px</span><span class="arrow">→</span><span class="size-new">13px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- SectionHead -->
+      <tr>
+        <td class="file-tag">SectionHead.jsx</td>
+        <td class="role-tag">Section eyebrow (mono caps)</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">SectionHead.jsx</td>
+        <td class="role-tag">Section meta (right-aligned)</td>
+        <td><span class="size-old">11px</span><span class="arrow">→</span><span class="size-new">12px</span></td>
+        <td><span class="status-badge status-fixed">Fixed</span></td>
+      </tr>
+      <!-- Already-passing -->
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag">Body text — <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-body</code></td>
+        <td><span class="size-new">16px</span></td>
+        <td><span class="status-badge status-ok">Already OK</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag">Small body — <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-body-sm</code></td>
+        <td><span class="size-new">14px</span></td>
+        <td><span class="status-badge status-ok">Already OK</span></td>
+      </tr>
+      <tr>
+        <td class="file-tag">colors_and_type.css</td>
+        <td class="role-tag">Code — <code style="font-size:13px;color:var(--tk-cyan)">--tk-fs-code</code></td>
+        <td><span class="size-new">13px</span></td>
+        <td><span class="status-badge status-note">Code context</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Live demo -->
+  <div class="section-label">Live Type Scale — After Remediation</div>
+  <div class="demo-grid">
+    <div class="demo-card">
+      <h4>Before — problematic sizes</h4>
+      <div class="demo-row">
+        <span class="demo-size">9.5px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-fg-3)">TOKEN LABEL</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">10px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-cyan)">--tk-cyan</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">10.5px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-fg-4)">Founder · Jun 6, 2026 · 4 min read</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">11px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-cyan)">Field notes · systems</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">11.5px</span>
+        <code style="font-size:11.5px;color:var(--tk-fg-2)">const result = fn(token);</code>
+      </div>
+    </div>
+    <div class="demo-card">
+      <h4>After — corrected sizes</h4>
+      <div class="demo-row">
+        <span class="demo-size">11px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-fg-3)">TOKEN LABEL</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">12px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-cyan)">--tk-cyan</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">12px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--tk-fg-4)">Founder · Jun 6, 2026 · 4 min read</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">12px</span>
+        <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-cyan)">Field notes · systems</span>
+      </div>
+      <div class="demo-row">
+        <span class="demo-size">13px</span>
+        <code style="font-size:13px;color:var(--tk-fg-2)">const result = fn(token);</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="audit-footer">
+    <p>Sources: pimpmytype.com/font-size · learnui.design/blog · WCAG 2.1 SC 1.4.4 (Resize text) · iOS Safari 16px input-zoom threshold</p>
+    <div class="version-note">→ v0.4.0 · ADR-0003 MINOR bump required</div>
+  </div>
+
+</div>
+</body>
+</html>
