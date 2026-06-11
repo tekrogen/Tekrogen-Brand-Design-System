@@ -20,7 +20,9 @@ const FILES = ['index.html'];  // sole canonical Dashboard (UI Kit Dashboard.htm
 // Two capture groups bracket the version token in each rule.
 const RULES = [
   /(<span class="pill cyan">)v ?[0-9][0-9.]*(<\/span>)/gi,   // topbar pill
-  /(ui kit · )v ?[0-9][0-9.]*( · may)/gi,                    // footer colophon
+  // footer colophon — month-agnostic so the date (hand-maintained) never
+  // breaks the version match; g2 preserves the live " · <mon> <year>".
+  /(ui kit · )v ?[0-9][0-9.]*( · (?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec) 20[0-9]{2})/gi,
 ];
 
 (async () => {
