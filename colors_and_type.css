@@ -168,6 +168,9 @@
   --tk-bg-2:         var(--tk-ink-soft);
   --tk-bg-3:         #0a0d12;       /* deeper than ink, e.g. code blocks */
   --tk-border:       var(--tk-ink-2);
+  --tk-mark-head:    var(--tk-head-inv);   /* dragonfly mark — surface-adaptive: lifted set on dark (ink) */
+  --tk-mark-body:    var(--tk-body-inv);
+  --tk-mark-facet:   #1b2530;
 
   /* ─── Semantic / state ────────────────────────────────────── */
   --tk-accent:       var(--tk-cyan);
@@ -277,6 +280,9 @@
   --tk-focus:  #0a7e83;   /* darker teal · cyan is 1.76:1 on paper; this 4.73:1 (AA) */
   --tk-link:   #0a7e83;   /* paper link — cyan fails at 1.76:1; this 4.73:1 (AA · WCAG 1.4.3) */
   --tk-accent: #0a7e83;   /* paper accent text — matches link/focus teal */
+  --tk-mark-head:  var(--tk-head);   /* dragonfly mark on light (paper): darker non-inverse set */
+  --tk-mark-body:  var(--tk-body);
+  --tk-mark-facet: var(--tk-body);
 }
 
 /* ============================================================
