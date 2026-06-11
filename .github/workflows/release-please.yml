@@ -1,0 +1,21 @@
+name: release-please
+
+# Tekrogen canonical release automation. On every push to main, release-please
+# maintains a "Release" PR that bumps the version (SemVer, from conventional
+# commits) and updates CHANGELOG.md. Merge that PR to tag vX.Y.Z + cut a GitHub
+# release. Policy: admin/internal/workflows/01.environment/BRANCH-WORKFLOWS.md
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      # Config is read from release-please-config.json + .release-please-manifest.json
+      - uses: googleapis/release-please-action@v4

@@ -18,7 +18,8 @@ The system is small enough that the README and code carry most decisions. ADRs e
 | 0006 | [Trust-state CTAs — paired-content primitive](0006-trust-state-cta.md) | Accepted | `trust-state-matrix.html`, future commerce surfaces        |
 | 0007 | [Fluid, rem-based type scale](0007-fluid-rem-type-scale.md) | Accepted | `colors_and_type.css` (scale); all kit pages + JSX (consumers) |
 | 0008 | [Fully self-hosted fonts (no remote CDN)](0008-self-hosted-fonts.md) | Accepted | `colors_and_type.css`, `fonts/`; 6 surfaces (remote links removed) |
+| 0009 | [Release automation — release-please + conventional commits](0009-release-automation-release-please.md) | Accepted | `.github/workflows/`, `release-please-config.json`, `.release-please-manifest.json`, `package.json`, `commitlint.config.cjs`, `.husky/`, `CHANGELOG.md` |
 
 ## Out of scope here
 
-The Cursor analysis flagged drift in `workflows/_planning/WF-001` and the BNR roadmap (`admin/about/01.Tekrogen_BNR_Roadmap_v1.md`). Those live outside this design-system repo. ADR-0004 flags the BNR ↔ live-stack mismatch but does not fix it — the fix belongs in the BNR amendment process, not here.
+The Cursor analysis flagged drift in `workflows/_planning/WF-001` and the BNR roadmap (`admin/internal/business/01.Tekrogen_BNR_Roadmap_v1.md`). Those live outside this design-system repo. ADR-0004 flags the BNR ↔ live-stack mismatch but does not fix it — the fix belongs in the BNR amendment process, not here.
