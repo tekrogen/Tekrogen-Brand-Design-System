@@ -20,6 +20,7 @@ The system is small enough that the README and code carry most decisions. ADRs e
 | 0008 | [Fully self-hosted fonts (no remote CDN)](0008-self-hosted-fonts.md) | Accepted | `colors_and_type.css`, `fonts/`; 6 surfaces (remote links removed) |
 | 0009 | [Release automation — release-please + conventional commits](0009-release-automation-release-please.md) | Accepted | `.github/workflows/`, `release-please-config.json`, `.release-please-manifest.json`, `package.json`, `commitlint.config.cjs`, `.husky/`, `CHANGELOG.md` |
 | 0010 | [OG/social artifact tokens — stylesheet as source of truth](0010-og-artifact-tokens.md) | Accepted | `colors_and_type.css` (`--tk-og-*`); `ui_kits/asset-pack` (generator consumes); shipped `og-*.png` (regenerate on token change) |
+| 0011 | [Component model conventions — shadcn structure, no-build idiom](0011-component-model-conventions.md) | Accepted | `Component Model Study.html` (the study); all stage-(d) component CSS/markup (consumers); `colors_and_type.css` (token completions land separately) |
 
 ## Out of scope here
 
