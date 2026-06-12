@@ -257,14 +257,52 @@ function iconSVG(size, inverse) {
 </svg>`;
 }
 
-// ─── OG / social cards — pure SVG (fluid viewBox + reliable raster) ──
-// One builder feeds BOTH the on-page preview (document fonts) and the zip
-// export (fonts embedded as base64 so canvas rasterization renders real
-// Poppins). Replaces the old foreignObject + remote @import path, which
-// browsers blocked during rasterization (the "skipped" OG cards).
-const OG_W = 1200, OG_H = 630, OG_P = 48;
-const OG_C = { ink:'#0e1116', white:'#ffffff', cyan:'#1fd5da', muted:'#8a98a8', pill:'#2a3340' };
+// ─── OG / social cards — pure SVG, token-driven (ADR-0010) ──────────
+// One builder feeds BOTH the on-page preview (document fonts) and the
+// zip export (fonts embedded as base64 so canvas rasterization renders
+// real Poppins). Every font size, color, and core spacing value comes
+// from the --tk-og-* ARTIFACT tokens in ../../colors_and_type.css —
+// the generator holds no design literals. Per-card geometry (baselines,
+// gaps, radii) is component layout, derived from the tokens.
+// Legibility floor: --tk-og-fs-meta (≈12px at feed render scale).
+// Layout honors the center-80% safe zone; no critical text in the
+// bottom 60px (platform overlay strip).
+const OG_W = 1200, OG_H = 630;
+const OG_SAFE_BOTTOM = OG_H - 60;
+const OG = (() => {
+  const cs = getComputedStyle(document.documentElement);
+  const n = p => parseFloat(cs.getPropertyValue(p));
+  const c = p => cs.getPropertyValue(p).trim();
+  return {
+    pad: n('--tk-og-pad'), chipPad: n('--tk-og-chip-pad'),
+    fs: { title: n('--tk-og-fs-title'), name: n('--tk-og-fs-name'),
+          body: n('--tk-og-fs-body'), wordmark: n('--tk-og-fs-wordmark'),
+          meta: n('--tk-og-fs-meta'), chipNum: n('--tk-og-fs-chip-num') },
+    c:  { bg: c('--tk-og-bg'), fg: c('--tk-og-fg'), accent: c('--tk-og-accent'),
+          muted: c('--tk-og-muted'), chip: c('--tk-og-chip'),
+          gradA: c('--tk-org'), gradB: c('--tk-com') },
+  };
+})();
 const SANS = "Poppins, 'Manrope', sans-serif", MONO = "'JetBrains Mono', monospace";
+
+// All editable card copy — previews, downloads, and the inline editor
+// (issue #4) share this one object. The TEKROGEN wordmark is brand
+// lockup, not content — it stays fixed.
+const OG_CONTENT = {
+  default: { eyebrow: 'FIELD NOTES · RESEARCH · INSTRUCTION',
+             title:   'Real solutions. Built, proven, ready to use.',
+             url:     'TEKROGEN.ORG' },
+  article: { chip:  'Field note · 04',
+             title: 'Building an instructional-design system that compounds across four entities.',
+             name:  'Martinique Dolce', role: 'FOUNDER · .STUDIO' },
+  author:  { name: 'Martinique Dolce', role: 'FOUNDER · RESEARCHER · INSTRUCTOR',
+             bio:  'Backend systems and instructional design. Writes field notes from the intersection of both.' },
+  series:  { num: '04', label: 'FIELD NOTES · SERIES',
+             title: 'What happens when five engineers also grade dissertations on Thursdays.',
+             url:  'TEKROGEN.ORG/NOTES/04' },
+};
+const ogInitials = name =>
+  (String(name).trim().split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase()) || 'T';
 
 const OG_FONT_FILES = {
   p400:'../../fonts/poppins-v24-latin-regular.woff2',
@@ -292,16 +330,36 @@ function ogFontFace(b) {
 }
 
 const _ogCtx = document.createElement('canvas').getContext('2d');
-function ogWrap(text, font, maxW) {
-  _ogCtx.font = font;
+// Canvas font shorthand from a text-run spec. First family only; the JBM
+// name is pre-quoted inside MONO so the shorthand stays valid.
+const ogMFont = o => `${o.weight || 400} ${o.size}px ${o.family.split(',')[0].trim()}`;
+// Measured run width INCLUDING letter-spacing — canvas measureText ignores
+// SVG letter-spacing, which is exactly how the old outlined pill spilled.
+function ogTextW(str, o) {
+  _ogCtx.font = ogMFont(o);
+  const t = String(str);
+  return _ogCtx.measureText(t).width + ((o.ls || 0) * Math.max(0, t.length - 1));
+}
+function ogWrap(text, o, maxW) {
   const words = String(text).split(' ');
   const lines = []; let cur = '';
   for (const w of words) {
     const t = cur ? cur + ' ' + w : w;
-    if (cur && _ogCtx.measureText(t).width > maxW) { lines.push(cur); cur = w; } else cur = t;
+    if (cur && ogTextW(t, o) > maxW) { lines.push(cur); cur = w; } else cur = t;
   }
   if (cur) lines.push(cur);
   return lines;
+}
+// Title block: wrap at the token size; if it exceeds maxLines, step down —
+// never below the meta floor (the legibility contract holds for any input).
+function ogFitTitle(text, maxW, maxLines = 3) {
+  for (let size = OG.fs.title; size > OG.fs.meta; size -= 4) {
+    const o = { family: SANS, weight: 700, size, ls: -0.5 };
+    const lines = ogWrap(text, o, maxW);
+    if (lines.length <= maxLines) return { size, lines, lh: Math.round(size * 1.2) };
+  }
+  const o = { family: SANS, weight: 700, size: OG.fs.meta, ls: -0.5 };
+  return { size: OG.fs.meta, lines: ogWrap(text, o, maxW), lh: Math.round(OG.fs.meta * 1.2) };
 }
 function ogEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function ogT(x, y, str, o) {
@@ -315,91 +373,116 @@ function ogMark(px, tx, ty) {
   const inner = full.replace(/^<\?xml[^>]+\?>\s*/, '').replace(/<svg[^>]*>/, '').replace('</svg>', '');
   return `<g transform="translate(${tx},${ty}) scale(${(px/200).toFixed(4)})">${inner}</g>`;
 }
-// rounded pill sized to a single left-aligned text run
-function ogPill(x, cy, text, o) {
-  _ogCtx.font = `${o.weight||400} ${o.size}px ${o.family.split(',')[0].replace(/'/g,'')}`;
-  const tw = _ogCtx.measureText(text).width;
-  const w = tw + o.padX*2, h = o.size + o.padY*2;
-  const rect = `<rect x="${x}" y="${(cy-h/2).toFixed(1)}" width="${w.toFixed(1)}" height="${h}" rx="${h/2}" fill="none" stroke="${OG_C.pill}"/>`;
-  const txt = ogT(x+o.padX, cy + o.size*0.34, text, { family:o.family, weight:o.weight, size:o.size, ls:o.ls, fill:o.fill });
-  return rect + txt;
+// Filled chip — no stroke (a 1px hairline dies at feed scale). Width is
+// letter-spacing-aware via ogTextW, so any edited label still fits.
+function ogChip(x, cy, runs, gap = 18) {
+  const ws = runs.map(r => ogTextW(r.str, r));
+  const h = Math.round(Math.max(...runs.map(r => r.size)) * 1.9);
+  const w = OG.chipPad * 2 + ws.reduce((a, b) => a + b, 0) + gap * (runs.length - 1);
+  let s = `<rect x="${x}" y="${(cy - h / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h}" rx="${(h / 2).toFixed(1)}" fill="${OG.c.chip}"/>`;
+  let tx = x + OG.chipPad;
+  runs.forEach((r, i) => { s += ogT(tx, cy + r.size * 0.34, r.str, r); tx += ws[i] + gap; });
+  return s;
 }
 
-// top row: mark + wordmark (default is larger/700; the rest 600/16)
-function ogTop(kind) {
-  if (kind === 'default')
-    return ogMark(36,48,44) + ogT(100,76,'TEKROGEN',{ family:SANS, weight:700, size:24, ls:4.3, fill:OG_C.white });
-  return ogMark(32,48,46) + ogT(94,70,'TEKROGEN',{ family:SANS, weight:600, size:16, ls:2.2, fill:OG_C.white });
+// Brand row — one treatment on all four cards (lockup, not content)
+function ogTop() {
+  const p = OG.pad;
+  return ogMark(44, p, p - 6) +
+    ogT(p + 62, p + 32, 'TEKROGEN', { family: SANS, weight: 700, size: OG.fs.wordmark, ls: 6, fill: OG.c.fg });
 }
 
-// per-card lower content
+// Per-card lower content — bottom-anchored so titles of any length stay
+// inside the safe zone (URL row sits just above the bottom-60px strip).
 function ogBody(kind) {
-  const xL = OG_P;
+  const xL = OG.pad, maxW = OG_W - OG.pad * 2;
+  const C = OG_CONTENT[kind];
+  const meta = { family: MONO, size: OG.fs.meta, ls: 2, fill: OG.c.muted };
+  const accentMeta = { family: MONO, size: OG.fs.meta, ls: 2, fill: OG.c.accent };
+  const titleRun = sz => ({ family: SANS, weight: 700, size: sz, ls: -0.5, fill: OG.c.fg });
+
   if (kind === 'default') {
-    const lines = ogWrap('Real solutions. Built, proven, ready to use.', '700 34px Poppins', 960);
-    const tagY = 430, titleY0 = 474, urlY = titleY0 + 40*(lines.length-1) + 50;
-    let s = ogT(xL, tagY, 'FIELD NOTES · RESEARCH · INSTRUCTION', { family:MONO, size:11, ls:1.8, fill:OG_C.cyan });
-    lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
-    s += ogT(xL, urlY, 'TEKROGEN.ORG', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+    const t = ogFitTitle(C.title, maxW);
+    const urlY = OG_SAFE_BOTTOM - 16;
+    const y0 = (urlY - OG.fs.meta - 34) - t.lh * (t.lines.length - 1);
+    let s = ogT(xL, y0 - t.lh, C.eyebrow, accentMeta);
+    t.lines.forEach((ln, i) => s += ogT(xL, y0 + i * t.lh, ln, titleRun(t.size)));
+    s += ogT(xL, urlY, C.url, meta);
     return s;
   }
   if (kind === 'article') {
-    const lines = ogWrap('Building an instructional-design system that compounds across four entities.', '700 34px Poppins', 960);
-    let s = ogPill(xL, 372, 'Field note · 04', { family:SANS, weight:500, size:14, ls:0, fill:OG_C.cyan, padX:14, padY:7 });
-    const titleY0 = 424;
-    lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
-    const lastY = titleY0 + 40*(lines.length-1);
-    const avR = 28, avCx = xL+avR, avCy = lastY + 58;
+    const t = ogFitTitle(C.title, maxW);
+    const avR = 38, avCy = OG_SAFE_BOTTOM - 46, avCx = xL + avR;
+    const y0 = (avCy - avR - 34) - t.lh * (t.lines.length - 1);
+    // chip rides 28px above the title's cap top (cap height ~0.73em)
+    const capTop = y0 - Math.round(t.size * 0.73);
+    const chipH = Math.round(OG.fs.meta * 1.9);
+    let s = ogChip(xL, capTop - 28 - chipH / 2,
+      [{ str: C.chip, family: SANS, weight: 600, size: OG.fs.meta, ls: 0, fill: OG.c.accent }]);
+    t.lines.forEach((ln, i) => s += ogT(xL, y0 + i * t.lh, ln, titleRun(t.size)));
     s += `<circle cx="${avCx}" cy="${avCy}" r="${avR}" fill="url(#ogAvatar)"/>`;
-    s += ogT(avCx, avCy+6, 'MD', { family:SANS, weight:600, size:18, fill:OG_C.white, anchor:'middle' });
-    const tx = xL + avR*2 + 22;
-    s += ogT(tx, avCy-2, 'Martinique Dolce', { family:SANS, weight:600, size:16, fill:OG_C.white });
-    s += ogT(tx, avCy+20, 'FOUNDER · .STUDIO', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+    s += ogT(avCx, avCy + OG.fs.meta * 0.34, ogInitials(C.name),
+      { family: SANS, weight: 600, size: OG.fs.meta, fill: OG.c.fg, anchor: 'middle' });
+    const tx = avCx + avR + 26;
+    s += ogT(tx, avCy - 6, C.name, { family: SANS, weight: 600, size: OG.fs.name, fill: OG.c.fg });
+    s += ogT(tx, avCy + 32, C.role, meta);
     return s;
   }
   if (kind === 'author') {
-    const avR = 70, avCx = xL+avR, avCy = 300;
+    const avR = 96, avCx = xL + avR, avCy = 330;
     let s = `<circle cx="${avCx}" cy="${avCy}" r="${avR}" fill="url(#ogAvatar)"/>`;
-    s += ogT(avCx, avCy+16, 'MD', { family:SANS, weight:600, size:48, fill:OG_C.white, anchor:'middle' });
-    const tx = xL + avR*2 + 30;
-    s += ogT(tx, avCy-26, 'Martinique Dolce', { family:SANS, weight:700, size:38, ls:-0.4, fill:OG_C.white });
-    s += ogT(tx, avCy+8, 'FOUNDER · RESEARCHER · INSTRUCTOR', { family:MONO, size:13, ls:1.8, fill:OG_C.cyan });
-    const bio = ogWrap('Backend systems and instructional design. Writes field notes from the intersection of both.', '400 22px Poppins', Math.min(560, OG_W-OG_P-tx));
-    bio.forEach((ln,i) => s += ogT(tx, avCy+46+i*30, ln, { family:SANS, weight:400, size:20, fill:OG_C.muted }));
+    s += ogT(avCx, avCy + 22, ogInitials(C.name),
+      { family: SANS, weight: 600, size: Math.round(avR * 0.67), fill: OG.c.fg, anchor: 'middle' });
+    const tx = avCx + avR + 44, colW = OG_W - OG.pad - tx;
+    const nameFit = ogFitTitle(C.name, colW, 1);
+    s += ogT(tx, avCy - 34, C.name, titleRun(nameFit.size));
+    s += ogT(tx, avCy + 14, C.role, accentMeta);
+    const bioRun = { family: SANS, weight: 400, size: OG.fs.body, fill: OG.c.muted };
+    ogWrap(C.bio, bioRun, colW).slice(0, 3).forEach((ln, i) =>
+      s += ogT(tx, avCy + 68 + i * Math.round(OG.fs.body * 1.35), ln, bioRun));
     return s;
   }
-  // series — pill holds [num 04][label], then title + url
-  const lines = ogWrap('What happens when five engineers also grade dissertations on Thursdays.', '700 34px Poppins', 960);
-  const numTxt = '04', label = 'FIELD NOTES · SERIES';
-  _ogCtx.font = '700 22px Poppins'; const nw = _ogCtx.measureText(numTxt).width;
-  _ogCtx.font = "400 12px 'JetBrains Mono'"; const lw = _ogCtx.measureText(label).width;
-  const padX = 16, gap = 12, pillCy = 384, pillH = 40, pillW = padX*2 + nw + gap + lw;
-  let s = `<rect x="${xL}" y="${pillCy-pillH/2}" width="${pillW.toFixed(1)}" height="${pillH}" rx="${pillH/2}" fill="none" stroke="${OG_C.pill}"/>`;
-  s += ogT(xL+padX, pillCy+7, numTxt, { family:SANS, weight:700, size:22, fill:OG_C.white });
-  s += ogT(xL+padX+nw+gap, pillCy+4, label, { family:MONO, size:12, ls:1.7, fill:OG_C.cyan });
-  const titleY0 = 452;
-  lines.forEach((ln,i) => s += ogT(xL, titleY0+i*40, ln, { family:SANS, weight:700, size:34, ls:-0.3, fill:OG_C.white }));
-  const urlY = titleY0 + 40*(lines.length-1) + 48;
-  s += ogT(xL, urlY, 'TEKROGEN.ORG/NOTES/04', { family:MONO, size:11, ls:1.5, fill:OG_C.muted });
+  // series — filled chip holds [number][label], then title + url
+  const t = ogFitTitle(C.title, maxW);
+  const urlY = OG_SAFE_BOTTOM - 16;
+  const y0 = (urlY - OG.fs.meta - 34) - t.lh * (t.lines.length - 1);
+  // chip rides 28px above the title's cap top (cap height ~0.73em)
+  const capTop = y0 - Math.round(t.size * 0.73);
+  const chipH = Math.round(Math.max(OG.fs.chipNum, OG.fs.meta) * 1.9);
+  let s = ogChip(xL, capTop - 28 - chipH / 2, [
+    { str: C.num,   family: SANS, weight: 700, size: OG.fs.chipNum, fill: OG.c.fg },
+    { str: C.label, family: MONO, size: OG.fs.meta, ls: 2, fill: OG.c.accent },
+  ]);
+  t.lines.forEach((ln, i) => s += ogT(xL, y0 + i * t.lh, ln, titleRun(t.size)));
+  s += ogT(xL, urlY, C.url, meta);
   return s;
 }
 
 async function ogSVG(kind, { embed = false } = {}) {
+  // Force-load every face the generator MEASURES with — fonts.ready alone
+  // only covers faces the page CSS uses, and canvas measureText silently
+  // falls back to a narrower face for unloaded ones (chip-width bug).
+  await Promise.all([
+    document.fonts.load(`700 ${OG.fs.title}px Poppins`),
+    document.fonts.load(`600 ${OG.fs.meta}px Poppins`),
+    document.fonts.load(`400 ${OG.fs.body}px Poppins`),
+    document.fonts.load(`400 ${OG.fs.meta}px 'JetBrains Mono'`),
+  ]);
   await document.fonts.ready;                 // accurate measureText + on-page render
   const fonts = embed ? ogFontFace(await ogFontsB64()) : '';
   const defs =
     `<radialGradient id="ogGlow" cx="0.5" cy="0.5" r="0.5">` +
-      `<stop offset="0%" stop-color="rgba(13,180,185,0.18)"/>` +
-      `<stop offset="60%" stop-color="rgba(13,180,185,0)"/>` +
+      `<stop offset="0%" stop-color="${OG.c.gradB}" stop-opacity="0.16"/>` +
+      `<stop offset="60%" stop-color="${OG.c.gradB}" stop-opacity="0"/>` +
     `</radialGradient>` +
     `<linearGradient id="ogAvatar" x1="0" y1="0" x2="1" y2="1">` +
-      `<stop offset="0%" stop-color="#446e88"/><stop offset="100%" stop-color="#0db4b9"/>` +
+      `<stop offset="0%" stop-color="${OG.c.gradA}"/><stop offset="100%" stop-color="${OG.c.gradB}"/>` +
     `</linearGradient>` +
     `<clipPath id="ogClip"><rect width="${OG_W}" height="${OG_H}" rx="8"/></clipPath>`;
   const inner =
-    `<rect width="${OG_W}" height="${OG_H}" fill="${OG_C.ink}"/>` +
+    `<rect width="${OG_W}" height="${OG_H}" fill="${OG.c.bg}"/>` +
     `<rect x="900" y="-50" width="380" height="380" fill="url(#ogGlow)"/>` +
-    ogTop(kind) + ogBody(kind);
+    ogTop() + ogBody(kind);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_W}" height="${OG_H}" viewBox="0 0 ${OG_W} ${OG_H}" role="img" aria-label="Tekrogen ${kind} card">` +
     `<defs>${fonts ? `<style>${fonts}</style>` : ''}${defs}</defs>` +
     `<g clip-path="url(#ogClip)">${inner}</g></svg>`;
