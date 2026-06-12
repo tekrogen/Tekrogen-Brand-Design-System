@@ -4,11 +4,19 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
-## [Unreleased]
+## [0.9.0](https://github.com/tekrogen/Tekrogen-Brand-Design-System/compare/v0.8.0...v0.9.0) (2026-06-12)
 
-### Fixed
 
-- `ui_kits/asset-pack/index.html` — two mid/narrow-width horizontal-overflow bugs (found while closing the P3 clip check; the `.row-4` cards themselves verified clean at every 4-column width, 198–301px/card, zero clipping). **Toolbar:** the sticky bar's full-bleed margins were fixed at `-48px`, calibrated to desktop page padding — under the 980px breakpoint the page padding drops to 20px, so the bar poked 7–18px past the viewport; the breakpoint now sets `margin:-48px -20px 24px; padding:14px 20px` to match. **Slot table:** `table.slots` has a ~518px min-content width and pushed the page on small screens; now wrapped in `.table-scroll{overflow-x:auto}` so it scrolls in place. Verified headless at 414/600/768/960/1280: page overflow 0px at every width, wrapper scrollable at 414, desktop toolbar bleed unchanged.
+### Features
+
+* **asset-pack:** inline-editable OG card content with live preview + export ([#11](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/11)) ([f63b0f9](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/f63b0f9c114c7a5595cd79ac6e6245bf67eaa0a1))
+* **asset-pack:** redesign OG cards — legibility floor via --tk-og-* tokens ([#10](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/10)) ([eda2264](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/eda226407db3c4762cb1718dd4d2ce2209137270))
+
+
+### Bug Fixes
+
+* **asset-pack:** mid/narrow-width overflow — toolbar bleed at 980px breakpoint + slot-table scroll wrapper ([7ca9776](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/7ca9776b8c5676ce3ed88ed079fb1caa6b9e957f))
+* **theme:** paper pill contrast + background separation ([#12](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/12)) ([0c7eaad](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/0c7eaad147ac71652c35656f7a748b97e339586d))
 
 ## [0.8.0] — 2026-06-11
 
