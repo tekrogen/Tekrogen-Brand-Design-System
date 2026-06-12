@@ -4,6 +4,20 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [0.9.0](https://github.com/tekrogen/Tekrogen-Brand-Design-System/compare/v0.8.0...v0.9.0) (2026-06-12)
+
+
+### Features
+
+* **asset-pack:** inline-editable OG card content with live preview + export ([#11](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/11)) ([f63b0f9](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/f63b0f9c114c7a5595cd79ac6e6245bf67eaa0a1))
+* **asset-pack:** redesign OG cards — legibility floor via --tk-og-* tokens ([#10](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/10)) ([eda2264](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/eda226407db3c4762cb1718dd4d2ce2209137270))
+
+
+### Bug Fixes
+
+* **asset-pack:** mid/narrow-width overflow — toolbar bleed at 980px breakpoint + slot-table scroll wrapper ([7ca9776](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/7ca9776b8c5676ce3ed88ed079fb1caa6b9e957f))
+* **theme:** paper pill contrast + background separation ([#12](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/12)) ([0c7eaad](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/0c7eaad147ac71652c35656f7a748b97e339586d))
+
 ## [Unreleased]
 
 ### Fixed
