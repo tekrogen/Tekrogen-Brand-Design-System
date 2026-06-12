@@ -66,12 +66,12 @@
       background: transparent;
       cursor: default;
     }
-    .pill.cyan { color: var(--tk-cyan); border-color: color-mix(in srgb, var(--tk-cyan) 35%, transparent); }
-    .pill.live { color: var(--tk-net); border-color: color-mix(in srgb, var(--tk-net) 40%, transparent); }
+    .pill.cyan { color: var(--tk-accent); border-color: color-mix(in srgb, var(--tk-accent) 35%, transparent); }
+    .pill.live { color: var(--tk-success-text); border-color: color-mix(in srgb, var(--tk-success-text) 40%, transparent); }
     .pill.live::before {
       content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-      background: var(--tk-net); margin-right: 7px; vertical-align: 1px;
-      box-shadow: 0 0 0 3px color-mix(in srgb, var(--tk-net) 25%, transparent);
+      background: currentColor; margin-right: 7px; vertical-align: 1px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
     }
 
     .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
@@ -85,7 +85,7 @@
       width: 320px;
       transition: border-color var(--tk-dur-1) var(--tk-ease);
     }
-    .search:focus-within { border-color: var(--tk-cyan); }
+    .search:focus-within { border-color: var(--tk-focus); }
     .search svg { color: var(--tk-fg-4); stroke-width: 1.5; }
     .search input {
       background: transparent; border: 0; outline: 0;
@@ -132,7 +132,7 @@
       margin-bottom: 10px;
       display: flex; align-items: center; gap: 8px;
     }
-    .sidebar-eyebrow .idx { color: var(--tk-cyan); font-weight: 600; }
+    .sidebar-eyebrow .idx { color: var(--tk-accent); font-weight: 600; }
     .sidebar a.nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 6px 10px;
@@ -146,7 +146,7 @@
       transition: color var(--tk-dur-1) var(--tk-ease), border-color var(--tk-dur-1) var(--tk-ease);
     }
     .sidebar a.nav:hover { color: var(--tk-fg-1); }
-    .sidebar a.nav.active { color: var(--tk-cyan); border-left-color: var(--tk-cyan); }
+    .sidebar a.nav.active { color: var(--tk-accent); border-left-color: var(--tk-accent); }
     .sidebar a.nav .count {
       font-family: var(--tk-font-mono);
       font-size: 12px;
@@ -166,7 +166,7 @@
     .hero .eyebrow {
       font-family: var(--tk-font-mono);
       font-size: 12px; letter-spacing: 0.18em;
-      text-transform: uppercase; color: var(--tk-cyan);
+      text-transform: uppercase; color: var(--tk-accent);
       margin-bottom: 14px;
     }
     .hero h1 {
@@ -196,7 +196,7 @@
     }
     .hero-meta dt { color: var(--tk-fg-4); }
     .hero-meta dd { color: var(--tk-fg-1); margin: 0; }
-    .hero-meta dd.cyan { color: var(--tk-cyan); }
+    .hero-meta dd.cyan { color: var(--tk-accent); }
 
     /* ─── Section heads ───────────────────────────────────── */
     section.cat { margin-bottom: 56px; scroll-margin-top: 80px; }
@@ -212,7 +212,7 @@
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--tk-cyan);
+      color: var(--tk-accent);
     }
     .sec-head h2 {
       font-size: 26px;
@@ -262,7 +262,7 @@
       text-transform: uppercase;
     }
     .card-head .l { color: var(--tk-fg-3); }
-    .card-head .l b { color: var(--tk-cyan); font-weight: 500; margin-right: 8px; }
+    .card-head .l b { color: var(--tk-accent); font-weight: 500; margin-right: 8px; }
     .card-head .r { color: var(--tk-fg-4); }
 
     .card-body {
@@ -285,7 +285,7 @@
       color: var(--tk-fg-3);
       background: var(--tk-bg-2);
     }
-    .card-foot .token { color: var(--tk-cyan); }
+    .card-foot .token { color: var(--tk-accent); }
     .card-foot .path { color: var(--tk-fg-4); text-transform: none; letter-spacing: 0; }
 
     /* ─── Bits & micro-components ─────────────────────────── */
@@ -351,7 +351,7 @@
     .btn.secondary { border: 1px solid var(--tk-border); background: transparent; color: var(--tk-fg-1); }
     .btn.tertiary { border: 1px solid transparent; background: transparent; color: var(--tk-fg-2); padding: 9px 8px; }
     .btn.icon-only { padding: 9px 11px; }
-    .btn:hover { border-color: var(--tk-cyan); }
+    .btn:hover { border-color: var(--tk-focus); }
     .btn.primary:hover { background: color-mix(in srgb, var(--tk-cyan) 92%, white); }
     .btn:active { transform: scale(0.98); }
 
@@ -363,7 +363,7 @@
       color: var(--tk-fg-2);
       background: transparent;
     }
-    .mono-pill.cyan { color: var(--tk-cyan); }
+    .mono-pill.cyan { color: var(--tk-accent); }
     .mono-pill.filled { background: var(--tk-cyan); color: var(--tk-ink); border-color: var(--tk-cyan); font-weight: 700; }
     .mono-pill.muted { color: var(--tk-fg-3); }
 
@@ -375,7 +375,7 @@
       font-family: var(--tk-font-sans); font-size: 16px;
       outline: none;
     }
-    .input:focus { border-color: var(--tk-cyan); }
+    .input:focus { border-color: var(--tk-focus); }
 
     .avatar {
       border-radius: 50%;
@@ -421,7 +421,7 @@
     code, .code {
       font-family: var(--tk-font-mono);
       font-size: 13px;
-      color: var(--tk-cyan);
+      color: var(--tk-accent);
       text-transform: lowercase;
       background: transparent;
     }
@@ -437,7 +437,7 @@
       overflow: auto;
       white-space: pre;
     }
-    .codeblock .k { color: var(--tk-cyan); }
+    .codeblock .k { color: var(--tk-accent); }
     .codeblock .v { color: var(--tk-fg-1); }
     .codeblock .c { color: var(--tk-fg-4); }
 
@@ -482,7 +482,7 @@
       font-family: var(--tk-font-mono); font-size: 12px; letter-spacing: 0.1em;
       text-transform: uppercase; color: var(--tk-fg-4);
     }
-    .tilt-stage .label b { color: var(--tk-cyan); font-weight: 500; }
+    .tilt-stage .label b { color: var(--tk-accent); font-weight: 500; }
 
     .motion-row { display: flex; flex-direction: column; gap: 12px; width: 100%; }
     .motion-line { display: flex; align-items: center; gap: 12px; }
@@ -552,7 +552,7 @@
       letter-spacing: 0.12em; text-transform: uppercase; color: var(--tk-fg-3);
     }
     .anatomy-card > div:last-child { border-bottom: 0; }
-    .anatomy-card .annot { color: var(--tk-cyan); }
+    .anatomy-card .annot { color: var(--tk-accent); }
     .anatomy-card .body { padding: 28px 16px; color: var(--tk-fg-2); font-family: var(--tk-font-sans); font-size: 14px; letter-spacing: 0; text-transform: none; }
 
     /* ─── UI kit card ─────────────────────────────────────── */
@@ -567,7 +567,7 @@
       text-decoration: none;
       color: inherit;
     }
-    .kit-card:hover { border-color: var(--tk-cyan); }
+    .kit-card:hover { border-color: var(--tk-focus); }
     .kit-card .kit-thumb {
       width: 130px; height: 130px; flex-shrink: 0;
       border-radius: var(--tk-radius-lg);
@@ -580,7 +580,7 @@
     .kit-card .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
     .kit-card .body .ey {
       font-family: var(--tk-font-mono); font-size: 12px;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--tk-cyan);
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--tk-accent);
     }
     .kit-card .body h3 { margin: 0; font-size: 18px; letter-spacing: -0.01em; color: var(--tk-fg-1); }
     .kit-card .body p { margin: 4px 0 0; font-size: 14px; line-height: 1.55; color: var(--tk-fg-3); max-width: 100%; }
@@ -589,22 +589,22 @@
       font-family: var(--tk-font-mono); font-size: 12px;
       letter-spacing: 0.12em; text-transform: uppercase; color: var(--tk-fg-4);
     }
-    .kit-card .body .row .arrow { color: var(--tk-cyan); }
+    .kit-card .body .row .arrow { color: var(--tk-accent); }
 
     /* ─── Paper theme tweaks ───────────────────────────────── */
-    [data-tk-theme="paper"] .card-body.dark { background: #f3f5f7; }
-    [data-tk-theme="paper"] .codeblock { background: #f3f5f7; }
+    [data-tk-theme="paper"] .card-body.dark { background: var(--tk-bg-3); }
+    [data-tk-theme="paper"] .codeblock { background: var(--tk-bg-3); }
     [data-tk-theme="paper"] .toast { box-shadow: 0 14px 40px rgba(20,40,60,0.12); }
     [data-tk-theme="paper"] .shadow-tile.s1,
     [data-tk-theme="paper"] .shadow-tile.s2,
-    [data-tk-theme="paper"] .shadow-tile.glow { background: #f3f5f7; }
+    [data-tk-theme="paper"] .shadow-tile.glow { background: var(--tk-bg-3); }
     [data-tk-theme="paper"] .shadow-tile.s2 { box-shadow: 0 14px 40px rgba(20,40,60,0.12); }
     [data-tk-theme="paper"] .glyph-cell,
     [data-tk-theme="paper"] .icon-cell,
-    [data-tk-theme="paper"] .radius-cell { background: #f3f5f7; }
+    [data-tk-theme="paper"] .radius-cell { background: var(--tk-bg-3); }
     [data-tk-theme="paper"] .input { background: #fff; }
     [data-tk-theme="paper"] .search { background: #fff; }
-    [data-tk-theme="paper"] .anatomy-card { background: #f3f5f7; }
+    [data-tk-theme="paper"] .anatomy-card { background: var(--tk-bg-3); }
 
     /* ─── Responsiveness ──────────────────────────────────── */
     @media (max-width: 1180px) {
@@ -874,7 +874,7 @@
             <div style="display:flex;width:100%;height:120px;border-radius:8px;overflow:hidden;border:1px solid var(--tk-border)">
               <div style="flex:1;background:#fbfcfd;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">paper</div>
               <div style="flex:1;background:#ffffff;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">white</div>
-              <div style="flex:1;background:#f3f5f7;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">bg-3</div>
+              <div style="flex:1;background:#e9edf1;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">bg-3</div>
               <div style="flex:1;background:#f4ede2;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">warm</div>
             </div>
           </div>
@@ -1004,7 +1004,7 @@
         <article class="card" data-name="mono code jetbrains lowercase technical">
           <div class="card-head"><div class="l"><b>03.05</b> Mono · code</div><div class="r">jetbrains 500 · lowercase</div></div>
           <div class="card-body" style="flex-direction:column;align-items:flex-start;gap:10px">
-            <code style="font-size:16px;color:var(--tk-cyan)">tekrogen.org</code>
+            <code style="font-size:16px;color:var(--tk-accent)">tekrogen.org</code>
             <code style="font-size:14px;color:var(--tk-fg-2)">--tk-tilt-mark: 18deg;</code>
             <code style="font-size:13px;color:var(--tk-fg-3)">$ tk build --proof</code>
           </div>
@@ -1278,9 +1278,9 @@
           <div class="card-body stretch">
             <div style="display:grid;grid-template-columns:auto 1fr;gap:12px 18px;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-3)">
               <span>idle</span><span style="color:var(--tk-fg-1)">border · --tk-border</span>
-              <span>hover</span><span style="color:var(--tk-cyan)">border · --tk-cyan · 120ms</span>
+              <span>hover</span><span style="color:var(--tk-accent)">border · --tk-focus · 120ms</span>
               <span>active</span><span style="color:var(--tk-fg-1)">scale 0.98 · no color shift</span>
-              <span>focus</span><span style="color:var(--tk-fg-1)">outline · --tk-cyan ring</span>
+              <span>focus</span><span style="color:var(--tk-fg-1)">outline · --tk-focus ring</span>
               <span>disabled</span><span style="color:var(--tk-fg-4)">opacity 0.4 · no cursor</span>
             </div>
           </div>
@@ -1332,7 +1332,7 @@
           <div class="card-body stretch">
             <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:14px;border-bottom:1px solid var(--tk-border);gap:24px">
               <div>
-                <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-cyan)">04 · domain split</div>
+                <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-accent)">04 · domain split</div>
                 <div style="font-family:var(--tk-font-sans);font-size:24px;font-weight:700;letter-spacing:-0.015em;line-height:1.1;color:var(--tk-fg-1);margin-top:6px">One mark, four entities</div>
               </div>
               <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tk-fg-3)">subtle · balanced · bold</div>
@@ -1522,12 +1522,12 @@
             <div class="icon-grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="n">search</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span class="n">mail</span></div>
-              <div class="icon-cell" style="color:var(--tk-cyan)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span class="n">rss</span></div>
+              <div class="icon-cell" style="color:var(--tk-accent)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg><span class="n">rss</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg><span class="n">arrow-ur</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg><span class="n">download</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg><span class="n">file</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span class="n">book</span></div>
-              <div class="icon-cell" style="color:var(--tk-cyan)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg><span class="n">terminal</span></div>
+              <div class="icon-cell" style="color:var(--tk-accent)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg><span class="n">terminal</span></div>
             </div>
           </div>
           <div class="card-foot">
@@ -1798,7 +1798,7 @@
       </div>
       <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-4);text-align:right">
         readme.md · skill.md · colors_and_type.css<br/>
-        <span style="color:var(--tk-cyan)">tekrogen.org · .studio · .com · .net</span>
+        <span style="color:var(--tk-accent)">tekrogen.org · .studio · .com · .net</span>
       </div>
     </footer>
 
