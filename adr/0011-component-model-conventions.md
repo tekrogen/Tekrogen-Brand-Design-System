@@ -25,12 +25,14 @@ The component library will add ~50 components. Without a recorded model, each la
 6. **Attributes are the state API.** `open`, `aria-expanded`, `data-state` — JS reads/writes attributes, CSS styles off them. No hidden state in closures; any script (or none) can drive a component.
 
 7. **Token-contract completions** (each lands as its own change under ADR-0002/0003 — this ADR records intent, not values):
-   - `--tk-overlay` — the Dialog/Sheet/Drawer backdrop scrim, defined per theme. The one new color token.
+   - `--tk-overlay` — the Dialog/Sheet/Drawer backdrop scrim, defined per theme. The one new color token. No blur — README rules out blur for modal scrims; transparency-over-ink only.
    - `--tk-danger-text` — paper-AA destructive text, modeled on the existing `--tk-success-text`.
-   - **Focus ring recipe** — `outline: 2px solid var(--tk-focus); outline-offset: 2px` is the single focus convention (the color token already ships theme-aware; this fixes the recipe).
-   - **Disabled convention** — reduced opacity + `--tk-fg-5` text + `cursor: not-allowed`; one rule, not a token per component.
-   - **Radius mapping** — input family = `--tk-radius-md`, panels = `--tk-radius-xl`, pills/badges = `--tk-radius-pill`. The scale exists; this fixes which alias each control family uses.
+   - **Disabled convention** — reduced opacity + `--tk-fg-4` (the token `colors_and_type.css` annotates "DECORATIVE / DISABLED ONLY — dividers, disabled UI") + `cursor: not-allowed`; one rule, not a token per component. `--tk-fg-5` stays decorative-only — never disabled text.
    - **Muted pairing** — muted surface = `--tk-bg-2` + `--tk-fg-3/4`; recorded as the canonical pairing, no new token.
+
+   **Already shipped — components inherit, never redefine:**
+   - **Focus ring** — `colors_and_type.css` applies `outline: 2px solid var(--tk-focus); outline-offset: 2px` to every focusable via zero-specificity `:where(…):focus-visible` (WCAG 2.4.7/2.4.11). Flush-edge elements inside `overflow: hidden` containers use `outline-offset: -2px`, per the stylesheet's own note.
+   - **Radius mapping** — README "Corner radii" fixes it: badges = `--tk-radius-xs`, buttons = `-sm`, inputs = `-md`, cards/panels = `-xl`, chips = `-pill`. Component CSS binds to that mapping.
 
 8. **Layering holds.** `preview/` specimens (reference primitives) → `ui_kits/_shared/` (modified primitives) → `ui_kits/tekrogen-org/` (product blocks). Stage (d) builds at the first layer and must compose upward without redesign.
 
