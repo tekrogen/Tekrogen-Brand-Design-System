@@ -55,6 +55,15 @@
   .og-mount{display:block;width:100%}
   .og-mount svg{display:block;width:100%;height:auto;border-radius:8px}
   .preview-wrap{padding:14px;background:#0a0d12;border-radius:8px;border:1px solid var(--line)}
+  /* Inline OG card editor (issue #4) */
+  .og-editor{display:flex;flex-direction:column;gap:10px;padding:14px 16px;border-top:1px solid var(--line)}
+  .og-editor[hidden]{display:none}
+  .og-field{display:flex;flex-direction:column;gap:4px}
+  .og-field label{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .og-field input,.og-field textarea{background:var(--tk-bg-1);border:1px solid var(--line);border-radius:6px;color:var(--tk-fg-1);font-family:'Poppins','Manrope',sans-serif;font-size:var(--tk-fs-body-sm);padding:8px 10px}
+  .og-field textarea{min-height:64px;resize:vertical}
+  .og-field input:focus,.og-field textarea:focus{outline:none;border-color:var(--cyan)}
+  .og-editor .btn{align-self:flex-start}
   .note{font-family:'JetBrains Mono',monospace;font-size:var(--tk-fs-meta);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:18px}
   @media(max-width:980px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.page{padding:48px 20px 100px}h1{font-size:var(--tk-fs-h1)}.toolbar{margin:-48px -20px 24px;padding:14px 20px}}
 </style>
@@ -358,8 +367,17 @@ function ogFitTitle(text, maxW, maxLines = 3) {
     const lines = ogWrap(text, o, maxW);
     if (lines.length <= maxLines) return { size, lines, lh: Math.round(size * 1.2) };
   }
+  // At the floor the size contract wins over the line cap: clamp to
+  // maxLines and ellipsize the last line so extreme input stays bounded.
   const o = { family: SANS, weight: 700, size: OG.fs.meta, ls: -0.5 };
-  return { size: OG.fs.meta, lines: ogWrap(text, o, maxW), lh: Math.round(OG.fs.meta * 1.2) };
+  let lines = ogWrap(text, o, maxW);
+  if (lines.length > maxLines) {
+    lines = lines.slice(0, maxLines);
+    let last = lines[maxLines - 1].split(' ');
+    while (last.length > 1 && ogTextW(last.join(' ') + ' \u2026', o) > maxW) last.pop();
+    lines[maxLines - 1] = last.join(' ') + ' \u2026';
+  }
+  return { size: OG.fs.meta, lines, lh: Math.round(OG.fs.meta * 1.2) };
 }
 function ogEsc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function ogT(x, y, str, o) {
@@ -510,6 +528,70 @@ const ASSETS = {
     catch (e) { console.warn('OG preview failed:', m.dataset.og, e); }
   }
 })();
+
+// ─── Inline card editor (issue #4) ───────────────────────────────────
+// Every content field binds to OG_CONTENT; edits re-render the preview
+// live through the same ogSVG() path the downloads use, so exports pick
+// up edited text automatically — one render path, no second pipeline.
+// The TEKROGEN wordmark is brand lockup, not content: no field for it.
+const OG_FIELDS = {
+  default: [['eyebrow','Eyebrow'], ['title','Title'], ['url','URL']],
+  article: [['chip','Chip label'], ['title','Title'], ['name','Byline name'], ['role','Byline role']],
+  author:  [['name','Name'], ['role','Role line'], ['bio','Bio']],
+  series:  [['num','Chip number'], ['label','Chip label'], ['title','Title'], ['url','URL']],
+};
+const OG_DEFAULTS = JSON.parse(JSON.stringify(OG_CONTENT));
+const _ogEditTimers = {};
+function ogQueueRender(kind) {
+  clearTimeout(_ogEditTimers[kind]);
+  _ogEditTimers[kind] = setTimeout(async () => {
+    const m = document.querySelector(`.og-mount[data-og="${kind}"]`);
+    try { m.innerHTML = await ogSVG(kind, { embed: false }); }
+    catch (e) { console.warn('OG re-render failed:', kind, e); }
+  }, 180);
+}
+document.querySelectorAll('.og-mount[data-og]').forEach(m => {
+  const kind = m.dataset.og;
+  const card = m.closest('.card');
+  const foot = card.querySelector('.card-foot');
+
+  const panel = document.createElement('div');
+  panel.className = 'og-editor';
+  panel.hidden = true;
+  for (const [key, label] of OG_FIELDS[kind]) {
+    const id = `og-ed-${kind}-${key}`;
+    const wrap = document.createElement('div'); wrap.className = 'og-field';
+    const lab = document.createElement('label'); lab.htmlFor = id; lab.textContent = label;
+    const input = document.createElement(key === 'bio' ? 'textarea' : 'input');
+    if (key !== 'bio') input.type = 'text';
+    input.id = id; input.dataset.key = key;
+    input.value = OG_CONTENT[kind][key];
+    input.addEventListener('input', () => {
+      OG_CONTENT[kind][key] = input.value;
+      ogQueueRender(kind);
+    });
+    wrap.append(lab, input); panel.append(wrap);
+  }
+  const reset = document.createElement('button');
+  reset.type = 'button'; reset.className = 'btn'; reset.textContent = '⟲ Reset';
+  reset.addEventListener('click', () => {
+    Object.assign(OG_CONTENT[kind], JSON.parse(JSON.stringify(OG_DEFAULTS[kind])));
+    panel.querySelectorAll('input,textarea').forEach(el => { el.value = OG_CONTENT[kind][el.dataset.key]; });
+    ogQueueRender(kind);
+  });
+  panel.append(reset);
+  card.insertBefore(panel, foot);
+
+  const btn = document.createElement('button');
+  btn.type = 'button'; btn.className = 'btn'; btn.textContent = '✎ Edit';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.addEventListener('click', () => {
+    panel.hidden = !panel.hidden;
+    btn.setAttribute('aria-expanded', String(!panel.hidden));
+    btn.textContent = panel.hidden ? '✎ Edit' : '✓ Done';
+  });
+  foot.insertBefore(btn, foot.querySelector('button'));
+});
 
 document.querySelectorAll('[data-dl]').forEach(btn => {
   btn.addEventListener('click', async () => {
