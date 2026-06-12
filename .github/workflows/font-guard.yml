@@ -1,0 +1,34 @@
+# font-guard — BNR §9.3 stage (b), issue #14. Two contracts in two jobs:
+#   static — scripts/font-guard.mjs: remote-font ban + var(--tk-*) token validity
+#             (dependency-free, seconds)
+#   cpl    — scripts/cpl-measure.mjs: rendered characters-per-line on designated
+#             prose surfaces (Bringhurst gate 45–75, target ~72) + runtime
+#             assertion of zero external font bytes (Playwright Chromium)
+name: font-guard
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Remote-font ban + token validity
+        run: node scripts/font-guard.mjs
+  cpl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Install Playwright (ephemeral, not a repo dependency)
+        run: |
+          npm i --no-save playwright
+          npx playwright install --with-deps chromium
+      - name: Rendered cpl gate + runtime font assertion
+        run: node scripts/cpl-measure.mjs
