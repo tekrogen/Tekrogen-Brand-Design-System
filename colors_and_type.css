@@ -177,6 +177,7 @@
   --tk-link:         var(--tk-cyan);
   --tk-focus:        var(--tk-cyan);   /* keyboard focus ring · Ink (10.44:1 vs ink) */
   --tk-success:      var(--tk-net);
+  --tk-success-text: var(--tk-net);  /* state color used AS TEXT — paper overrides to an AA green */
   --tk-info:         var(--tk-com);
   --tk-warning:      #e0a755;
   --tk-danger:       #d96b5c;
@@ -299,13 +300,14 @@
   --tk-fg-3: #6b7280;
   --tk-fg-4: #8a96a1;
   --tk-fg-5: #b5bdc6;
-  --tk-bg-1: var(--tk-paper);
+  --tk-bg-1: #f3f5f7;       /* decoupled from --tk-paper (print/lockups keep #fbfcfd): page bg one step down so white cards lift */
   --tk-bg-2: #ffffff;
-  --tk-bg-3: #f3f5f7;
+  --tk-bg-3: #e9edf1;       /* one step deeper — keeps the bg scale hierarchy under the new bg-1 */
   --tk-border: #d4dce3;   /* raised from #e6ebef (1.17→1.35:1) — more visible hairline (decorative) */
-  --tk-focus:  #0a7e83;   /* darker teal · cyan is 1.76:1 on paper; this 4.73:1 (AA) */
-  --tk-link:   #0a7e83;   /* paper link — cyan fails at 1.76:1; this 4.73:1 (AA · WCAG 1.4.3) */
-  --tk-accent: #0a7e83;   /* paper accent text — matches link/focus teal */
+  --tk-focus:  #086a6f;   /* darker teal · cyan fails on paper; 5.8:1 on bg-1, 5.4:1 on bg-3 (AA) */
+  --tk-link:   #086a6f;   /* paper link — cyan fails; 5.8:1 on bg-1 / 6.4:1 on white (AA · WCAG 1.4.3) */
+  --tk-accent: #086a6f;   /* paper accent text — matches link/focus teal; AA on bg-1/2/3 */
+  --tk-success-text: #1f7a4d;   /* paper success text — --tk-net is ~1.5:1 on paper; this ≥ 4.5:1 (AA) */
   --tk-mark-head:  var(--tk-head);   /* dragonfly mark on light (paper): darker non-inverse set */
   --tk-mark-body:  var(--tk-body);
   --tk-mark-facet: var(--tk-body);
