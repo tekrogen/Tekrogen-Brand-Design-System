@@ -28,13 +28,15 @@ Everything is hand-authored HTML/JSX/CSS — **no bundler, no npm install**. JSX
 | `admin/` | **Business/governance layer, NOT part of the design system.** Two trust zones: `admin/internal/` (Confidential) and `admin/public/` (publication-safe). See "Internal vs Public Documents" below — read it before touching anything under `admin/`. |
 | `README.md` | Top-line brand spec — voice, palette, mark, type, layout rules. Read first. |
 | `SKILL.md` | Claude Code skill metadata + invariants. User-invocable. |
-| `CHANGELOG.md` | Keep-a-Changelog format; pre-1.0 semver per ADR-0003. Current `0.8.0` (source of truth: `package.json`). |
+| `CHANGELOG.md` | Keep-a-Changelog format; pre-1.0 semver per ADR-0003. Current `0.9.0` (source of truth: `package.json`; `release-please` drives bumps). |
 | `colors_and_type.css` | The token layer — `--tk-*` CSS custom properties. Load first in any artifact. |
 | `tokens/palette.js` | Single source of truth for pillar/surface hexes (`window.TK_TOKENS`). |
 | `tokens/sync.mjs` | Node script mirroring `palette.js` → `colors_and_type.css`. `--check` flag for CI. |
-| `assets/` | Production SVGs (dragonfly mark, lockups, icons, favicon) + PNG OG cards. **Static exception** to single-source palette rule. |
+| `assets/` | Production SVGs (dragonfly mark, lockups, icons, favicon) + PNG OG cards. **Static exception** to single-source palette rule. `assets/og_ship/` holds the shipped OG card SVG+PNG pairs regenerated from the token-driven generator (ADR-0010). |
+| `index.html` (root) | The **UI Kit Dashboard** — the top-level standalone surface (~108KB). Its version label is stamped by `scripts/version-stamp.mjs` and CI-guarded (`stamp-check.yml`). Not to be confused with `review/index.html`. |
+| `scripts/` | Node CI/governance scripts: `version-stamp.mjs` (version-label parity), `font-guard.mjs` (remote-font ban + token-validity scan), `cpl-measure.mjs` (rendered characters-per-line gate, needs Playwright). |
 | `fonts/` | Self-hosted Regular (400) `.woff2` for Poppins, Manrope, JetBrains Mono. |
-| `adr/` | Nine accepted ADRs — the load-bearing decisions written down. |
+| `adr/` | Ten accepted ADRs — the load-bearing decisions written down. |
 | `ui_kits/_shared/` | React components shared across kits: `marks.jsx` (7 mark concepts), `lockups-app.jsx`, `design-canvas.jsx`, `tweaks-panel.jsx`, `concept-cards.jsx`. |
 | `ui_kits/tekrogen-org/` | Ghost-Pro publication mock — SiteHeader, Hero, FieldNoteCard, Article, SubscribeBlock, Footer, Dragonfly. The canonical brand surface. |
 | `ui_kits/asset-pack/` | Single-file Ghost Pro downloads UI (JSZip + Canvas + SVG→PNG). |
@@ -47,7 +49,7 @@ Everything is hand-authored HTML/JSX/CSS — **no bundler, no npm install**. JSX
 
 ## Architecture Decisions
 
-The repo is governed by nine ADRs in `adr/` — each is short and load-bearing:
+The repo is governed by ten ADRs in `adr/` — each is short and load-bearing:
 
 - **ADR-0001 · Typography: sans-only.** No serif face anywhere. Poppins (primary), Manrope (sans fallback), JetBrains Mono (technical). Editorial weight = Poppins 600 + italic, **not** a serif counterpoint. IBM Plex Sans was retired in v0.3.0.
 - **ADR-0002 · Palette: single source.** `tokens/palette.js` is canonical; `colors_and_type.css` is generated via `tokens/sync.mjs`. JS consumers read `window.TK_TOKENS` and **throw** if it's missing — no hardcoded fallback. SVGs in `assets/` are an explicit static exception.
@@ -58,6 +60,7 @@ The repo is governed by nine ADRs in `adr/` — each is short and load-bearing:
 - **ADR-0007 · Fluid, rem-based type scale.** The `--tk-fs-*` scale uses `clamp()` + `rem` so token-driven type auto-resizes with viewport and honors user zoom (WCAG 1.4.4); 12px floors hold. Kit pages reference the tokens — never literal sizes.
 - **ADR-0008 · Fully self-hosted fonts.** All brand weights (Poppins 400–800 + italic, Manrope 400–700, JetBrains Mono 400–700) ship as latin-subset `.woff2` in `fonts/`; the Google Fonts CDN `<link>`/`@import` is removed from every surface. No remote font dependency.
 - **ADR-0009 · Release automation.** Conventional commits enforced by commitlint (husky hooks); release-please drives versioning + CHANGELOG. Tooling only — still no build step.
+- **ADR-0010 · OG/social artifact tokens.** The stylesheet (`--tk-og-*` tokens) is the source of truth for *generated* brand assets — OG cards are rebuilt from tokens, not hand-tweaked. Governs generated ARTIFACTS (ADR-0007 governs on-PAGE text). The shipped pairs live in `assets/og_ship/`. This is the rehearsal for the future component-library phase (tokens-as-contract, shadcn model).
 
 ## Internal vs Public Documents (`admin/`)
 
@@ -132,8 +135,9 @@ Depth comes from **1px borders** at `--tk-border` (`#1f2731` on ink, `#e6ebef` o
 - **React 18.3.1** + **ReactDOM** (unpkg.com)
 - **@babel/standalone 7.29.0** — runs JSX in the browser
 - **JSZip / FileSaver** (asset-pack only) — client-side download bundling
-- **Google Fonts** — Poppins / Manrope / JetBrains Mono in weights 500–800
 - **Lucide** (`unpkg.com/lucide@latest`) — product-surface icon set per ADR-0005
+
+> **No fonts over CDN.** Per ADR-0008 the Google Fonts `<link>`/`@import` was removed from every surface; all weights are self-hosted `.woff2` in `fonts/`. `scripts/font-guard.mjs` and `cpl-measure.mjs` fail CI on *any* remote-font reference (including in comments). Don't reintroduce a Google Fonts link.
 
 ### Internal
 
@@ -143,7 +147,12 @@ Depth comes from **1px borders** at `--tk-border` (`#1f2731` on ink, `#e6ebef` o
 
 ### Tooling
 
-- **Node + pnpm** — for tooling (`tokens/sync.mjs`, `scripts/version-stamp.mjs` and their `--check` CI hooks), commit/release automation (husky + commitlint, release-please), and nothing else.
+- **Node ≥18 + pnpm 11** (`packageManager` pins `pnpm@11.5.3`) — for tooling only. The `package.json` scripts wrap the Node CLIs; CI runs the `--check` variants:
+  - `pnpm sync` / `pnpm check` → `tokens/sync.mjs` (palette mirror / parity check)
+  - `pnpm stamp` / `pnpm stamp:check` → `scripts/version-stamp.mjs` (version-label parity)
+  - `pnpm font:check` → `scripts/font-guard.mjs` (remote-font ban + `var(--tk-*)` token-validity scan; zero deps)
+  - `pnpm cpl:check` → `scripts/cpl-measure.mjs` (rendered characters-per-line gate, ~72 target per Bringhurst; runs headless Chromium, so CI installs Playwright ephemerally — not a repo dependency)
+- **CI workflows** (`.github/workflows/`): `font-guard.yml` (font ban + cpl gate), `stamp-check.yml` (version-label parity), `release-please.yml` (release automation per ADR-0009), `claude.yml` + `claude-code-review.yml` (Claude Code integration).
 - **`package.json` + `pnpm-lock.yaml` exist for that tooling; still no bundler.** The no-build stance is intentional (ADR-0002) — JSX renders in the browser, nothing compiles. Dev-time/CI tooling (husky, commitlint, release-please per ADR-0009) is not a build step. Versioning policy is ADR-0003.
 
 ## Common Operations
@@ -194,8 +203,10 @@ Open `ui_kits/tekrogen-org/index.html` directly in a browser (or serve the repo 
 ## Quick verification
 
 ```bash
-node tokens/sync.mjs --check                                  # palette parity
-node scripts/version-stamp.mjs --check                        # version label parity (source: package.json)
+pnpm check                                                    # palette parity (tokens/sync.mjs --check)
+pnpm stamp:check                                              # version label parity (source: package.json)
+pnpm font:check                                               # remote-font ban + token-validity scan
+pnpm cpl:check                                                # rendered chars-per-line gate (needs Playwright)
 grep -ri "serif" colors_and_type.css preview/_card.css ui_kits/  # only sans-serif fallbacks
 grep -rE "(#446e88|#6491ac|#0db4b9|#7edba5)" --include='*.{js,jsx,css,html}'
 # expect only: tokens/palette.js, colors_and_type.css, assets/*.svg
