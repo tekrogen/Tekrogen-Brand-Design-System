@@ -264,6 +264,32 @@
   --tk-shell-max:    min(1760px, 94vw);   /* app-shell max — fluid: 1760 cap on large screens, 94vw gutter below */
   --tk-gutter:       48px;
   --tk-gutter-sm:    20px;
+
+  /* ─── OG / social-card ARTIFACT tokens (ADR-0010) ───────────
+   * Single source of truth for the asset-pack OG card generator
+   * (ui_kits/asset-pack → ogSVG). Values are UNITLESS numbers in the
+   * fixed 1200×630 artifact space — NOT fluid CSS lengths — because
+   * exports must be deterministic. Feeds render the card at ~½ size,
+   * so the legibility floor is 30 (≈ 12px rendered).
+   * Distinct from --tk-fs-og-title above, which sizes on-PAGE text
+   * set in the OG-card style (fluid clamp, CSS pixels).
+   * Colors alias the theme-invariant base palette and live in :root
+   * ONLY — the artifact is always Ink; it must not flip with
+   * data-tk-theme. Changing any value here changes every future
+   * render AND export — regenerate shipped PNGs (ADR-0010).        */
+  --tk-og-fs-title:    58;   /* card title / author name · Poppins 700  */
+  --tk-og-fs-name:     34;   /* byline name · Poppins 600               */
+  --tk-og-fs-body:     34;   /* author bio · Poppins 400                */
+  --tk-og-fs-wordmark: 32;   /* TEKROGEN top row · Poppins              */
+  --tk-og-fs-meta:     30;   /* eyebrow / URL / role / chip label · mono — the floor */
+  --tk-og-fs-chip-num: 36;   /* series chip number · Poppins 700        */
+  --tk-og-pad:         80;   /* artifact margin (center-80% safe zone)  */
+  --tk-og-chip-pad:    24;   /* chip horizontal padding                 */
+  --tk-og-bg:        var(--tk-ink);
+  --tk-og-fg:        #ffffff;
+  --tk-og-accent:    var(--tk-cyan);
+  --tk-og-muted:     #8a98a8;   /* matches --tk-fg-3 on ink, frozen so Paper can't shift it */
+  --tk-og-chip:      #1f2731;   /* matches --tk-ink-2, frozen for the same reason          */
 }
 
 /* ─── Paper theme override ─────────────────────────────────── */
