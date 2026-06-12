@@ -533,7 +533,7 @@ async function dcExport(node, w, h, name, kind) {
   })).catch(() => url);
 
   // Collect @font-face rules. ss.cssRules throws SecurityError on
-  // cross-origin sheets (e.g. fonts.googleapis.com) — in that case fetch
+  // cross-origin sheets (e.g. third-party font CDNs) — in that case fetch
   // the CSS text directly (those endpoints send ACAO:*) and regex-extract
   // the blocks. @import and @media/@supports are walked so nested
   // @font-face rules aren't missed.

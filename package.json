@@ -9,6 +9,8 @@
     "check": "node tokens/sync.mjs --check",
     "stamp": "node scripts/version-stamp.mjs",
     "stamp:check": "node scripts/version-stamp.mjs --check",
+    "font:check": "node scripts/font-guard.mjs",
+    "cpl:check": "node scripts/cpl-measure.mjs",
     "prepare": "husky"
   },
   "engines": {
