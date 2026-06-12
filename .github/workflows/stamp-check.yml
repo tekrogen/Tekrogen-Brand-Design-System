@@ -1,0 +1,20 @@
+# stamp-check — fails any PR (or main push) where the dashboard's version
+# labels drift from package.json. Pairs with release-please extra-files
+# (release-please-config.json), which bumps index.html INSIDE the Release PR
+# so the tag always contains stamped surfaces. Closes the v0.6.0-footer bug
+# class for good (issue #6).
+name: stamp-check
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  stamp-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Verify surfaces match package.json version
+        run: node scripts/version-stamp.mjs --check
