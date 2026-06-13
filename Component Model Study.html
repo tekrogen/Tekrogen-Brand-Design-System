@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en" data-screen-label="Component Model Study">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Component Model Study · Tekrogen UI Kit</title>
+<link rel="stylesheet" href="colors_and_type.css"/>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 56px 40px 140px; }
+
+  /* ─── Top eyebrow row ─── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--tk-font-mono);
+    font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--tk-fg-4);
+    padding-bottom: 14px; margin-bottom: 40px;
+    border-bottom: 1px solid var(--tk-border);
+  }
+  .topbar .brand { color: var(--tk-fg-2); display: flex; align-items: center; gap: 10px; }
+  .topbar .brand b { color: var(--tk-fg-1); font-weight: 600; letter-spacing: 0.18em; }
+  .topbar .ver { color: var(--tk-fg-4); }
+
+  /* ─── Hero ─── */
+  .hero { margin-bottom: 48px; }
+  .hero .eyebrow {
+    font-family: var(--tk-font-mono);
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--tk-cyan); margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 4.6vw, 56px); letter-spacing: -0.022em; line-height: 1.04;
+    margin: 0 0 18px; max-width: 18ch;
+  }
+  .hero p { font-size: 16px; line-height: 1.6; color: var(--tk-fg-2); max-width: 64ch; margin: 0; }
+
+  /* ─── Stat strip ─── */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl);
+    overflow: hidden; margin: 44px 0 12px;
+  }
+  .stat { padding: 22px 24px; border-right: 1px solid var(--tk-border); }
+  .stat:last-child { border-right: 0; }
+  .stat .n { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1; color: var(--tk-fg-1); }
+  .stat .n.cyan { color: var(--tk-cyan); }
+  .stat .k {
+    font-family: var(--tk-font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--tk-fg-4); margin-top: 12px;
+  }
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 22px; align-items: center;
+    font-family: var(--tk-font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--tk-fg-4); margin-bottom: 56px; padding: 0 2px;
+  }
+  .legend .item { display: flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
+  .dot.have    { background: var(--tk-success); }
+  .dot.partial { background: var(--tk-warning); }
+  .dot.missing { background: var(--tk-fg-5); border: 1px solid var(--tk-fg-4); }
+
+  /* ─── Section ─── */
+  section.conv { margin-bottom: 52px; scroll-margin-top: 24px; }
+  .sec-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 14px; border-bottom: 1px solid var(--tk-border); margin-bottom: 4px; gap: 24px;
+  }
+  .sec-head .l-eyebrow {
+    font-family: var(--tk-font-mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--tk-cyan);
+  }
+  .sec-head h2 { font-size: 24px; letter-spacing: -0.015em; margin: 8px 0 0; color: var(--tk-fg-1); }
+  .sec-head .r {
+    font-family: var(--tk-font-mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--tk-fg-3); text-align: right;
+  }
+  .sec-head .r b { color: var(--tk-fg-1); font-weight: 500; }
+  .sec-intro {
+    font-size: 14px; line-height: 1.65; color: var(--tk-fg-3); max-width: 78ch;
+    margin: 18px 0 6px; padding: 0 2px;
+  }
+  .sec-intro b { color: var(--tk-fg-2); font-weight: 600; }
+  .sec-intro code { font-size: 12px; }
+
+  /* ─── Matrix table ─── */
+  table.matrix { width: 100%; border-collapse: collapse; }
+  table.matrix thead th {
+    font-family: var(--tk-font-mono); font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--tk-fg-4); font-weight: 500; text-align: left;
+    padding: 16px 14px 12px; border-bottom: 1px solid var(--tk-border);
+  }
+  table.matrix tbody td { padding: 15px 14px; border-bottom: 1px solid var(--tk-border); vertical-align: top; }
+  table.matrix tbody tr:last-child td { border-bottom: 0; }
+  table.matrix tbody tr { transition: background var(--tk-dur-1) var(--tk-ease); }
+  table.matrix tbody tr:hover { background: var(--tk-bg-2); }
+
+  .col-idx   { width: 44px; font-family: var(--tk-font-mono); font-size: 11px; color: var(--tk-cyan); }
+  .col-name  { width: 188px; }
+  .col-name .nm { font-weight: 600; font-size: 15px; color: var(--tk-fg-1); letter-spacing: -0.01em; }
+  .col-name .cat {
+    display: block; margin-top: 4px;
+    font-family: var(--tk-font-mono); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--tk-fg-5);
+  }
+  .col-half  { width: 38%; }
+  .col-half .nt { font-size: 13.5px; line-height: 1.5; color: var(--tk-fg-3); max-width: 48ch; }
+  .col-half .nt b { color: var(--tk-fg-2); font-weight: 600; }
+  .col-half .nt code { font-size: 11.5px; }
+  .col-half.tk .nt { color: var(--tk-fg-2); }
+
+  .col-status { width: 116px; }
+  .col-token  { width: 220px; }
+  .col-token .nt { font-size: 12px; line-height: 1.5; }
+  .col-token code { font-size: 11px; }
+  .col-act .nt { font-size: 13.5px; line-height: 1.5; color: var(--tk-fg-3); max-width: 44ch; }
+  .col-act .nt b { color: var(--tk-fg-2); font-weight: 600; }
+  .col-act .nt code { font-size: 11.5px; }
+
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--tk-font-mono); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 4px 9px; border-radius: var(--tk-radius-pill); border: 1px solid var(--tk-border);
+    white-space: nowrap;
+  }
+  .pill.have    { color: var(--tk-success); border-color: color-mix(in srgb, var(--tk-success) 36%, var(--tk-border)); }
+  .pill.partial { color: var(--tk-warning); border-color: color-mix(in srgb, var(--tk-warning) 36%, var(--tk-border)); }
+  .pill.missing { color: var(--tk-fg-3); }
+
+  /* ─── Footer note ─── */
+  .method {
+    margin-top: 8px; padding: 24px; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl);
+    background: var(--tk-bg-2);
+  }
+  .method h3 { font-size: 15px; margin: 0 0 10px; color: var(--tk-fg-1); }
+  .method p { font-size: 13px; line-height: 1.65; color: var(--tk-fg-3); margin: 0 0 8px; max-width: 78ch; }
+  .method p:last-child { margin-bottom: 0; }
+  .method code { font-size: 11.5px; }
+  .method b { color: var(--tk-fg-2); font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .wrap { padding: 36px 20px 100px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: 0; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--tk-border); }
+    .col-half:not(.tk), .col-act { display: none; }
+    table.matrix tbody td { padding: 13px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <span class="brand"><b>TEKROGEN</b> · UI Kit</span>
+    <span class="ver">component model · shadcn/ui study · jun 2026</span>
+  </div>
+
+  <header class="hero">
+    <div class="eyebrow">Component-model study · stage (c)</div>
+    <h1>Four conventions, translated into the no-build idiom.</h1>
+    <p>What shadcn/ui actually standardizes — anatomy, variants, tokens-as-contract, composition — extracted as structure and translated for a system that ships hand-authored HTML/CSS/JSX with no bundler. shadcn is a distribution system that <em>amplifies</em> design decisions; it does not create them. The decisions here already exist — hairlines, one cyan, ink/paper, mono-caps, the <span style="font-family:var(--tk-font-mono);font-size:13px">--tk-*</span> contract — so the study extracts shadcn's four structural conventions, not its software. The translations below are recorded as ADR-0011 and are what the component library (stage d, <span style="font-family:var(--tk-font-mono);font-size:13px">Component Gap Analysis.html</span>) builds against.</p>
+  </header>
+
+  <div class="stats" id="stats"></div>
+  <div class="legend">
+    <span class="item"><span class="dot have"></span> Contract holds — token or convention exists</span>
+    <span class="item"><span class="dot partial"></span> Partial — exists, needs completion</span>
+    <span class="item"><span class="dot missing"></span> Missing — proposed addition</span>
+    <span class="item" style="margin-left:auto">gap rows are <b style="color:var(--tk-fg-2)">proposals</b> · additions land under ADR-0002/0003</span>
+  </div>
+
+  <main id="sections"></main>
+
+  <div class="method">
+    <h3>Method, sources &amp; scope</h3>
+    <p><b>Sources (fresh top-3, per the stage-opening rule):</b> the canonical anatomy deep-dive (manupa.dev, "The anatomy of shadcn/ui") — the two-layer split of headless structure/behavior vs. style, with style itself split into structural and visual properties; the official theming and CVA documentation — semantic background/foreground token pairs, named variant axes, <code>cn()</code> merge-order, and the Tailwind-v4-era refresh (<code>data-slot</code> on every primitive, forwardRef removed); and 2026 production-structure guidance — shadcn as a component <em>distribution system</em> that assumes design intent, with a layered tree (raw primitives → modified primitives → product blocks) and tokens defined once, consumed everywhere.</p>
+    <p><b>The strategic read:</b> the BDS already owns what shadcn requires but cannot supply — the design intent. The <code>--tk-og-*</code> generator (ADR-0010) was the explicit rehearsal: tokens carry the design decisions, the component computes its own geometry, and retheming costs zero component edits. Stage (d) applies the same boundary to fifty components.</p>
+    <p><b>Out of scope here:</b> building any component (stage d), reprioritizing the Gap Analysis, and adding tokens to <code>tokens/palette.js</code> — the §03 gap rows are proposals; each addition lands as its own change under ADR-0002 (single source) and ADR-0003 (versioning intent) discipline. Decision record: <code>adr/0011-component-model-conventions.md</code>.</p>
+  </div>
+
+</div>
+
+<script>
+/* ── Study data ────────────────────────────────────────────────
+ * Two row shapes:
+ *   translation row: [name, cat, shadcnNote, tekrogenNote]
+ *   contract row:    [name, shadcnToken, status, tkResolution, action]
+ * status: have | partial | missing
+ */
+const SECTIONS = [
+  {
+    idx: "01", title: "Anatomy — the two-layer split", kind: "translation",
+    note: "behavior is headless · style is tokens",
+    intro: `Every shadcn component separates a <b>structure-and-behavior layer</b> — headless composition, keyboard navigation, WAI-ARIA, supplied by Radix where native elements can't do it — from a <b>style layer</b>, itself split into structural properties (radius, dimensions, spacing, type) and visual style (fg/bg/border). The Tekrogen translation replaces Radix with the platform: in 2026 browsers, native elements cover most of the Gap Analysis P1 set without a dependency.`,
+    rows: [
+      ["Headless behavior", "Layer 1",
+       "Radix primitives carry open/close state, focus trapping, keyboard nav, and ARIA — components are headless representations, design kept separate from implementation.",
+       "<b>Native-element-first.</b> <code>&lt;dialog&gt;</code> (modal, backdrop, focus trap, Esc), <code>&lt;details&gt;/&lt;summary&gt;</code> (disclosure), the <code>popover</code> attribute (light-dismiss overlays), native form controls. Minimal vanilla JS only where the platform has no primitive. No Radix, no React requirement — behavior ships in the browser like everything else here."],
+      ["Separated style layer", "Layer 2",
+       "Styling lives apart from the component (Badge vs. <code>badgeVariants</code>); structural and visual properties are both expressed as classes reading theme tokens.",
+       "All visual decisions are <code>var(--tk-*)</code> consumption inside one <code>.tk-&lt;component&gt;</code> block per component — type from the ADR-0007 scale, color from the ADR-0002 palette, radius/spacing from the existing scales. Zero literal values in component CSS."],
+      ["data-slot sub-parts", "Naming",
+       "The Tailwind-v4-era refresh added <code>data-slot</code> to every primitive sub-part so styling can target parts without class proliferation; forwardRef was removed.",
+       "Adopt as <b><code>data-tk-slot</code></b> — <code>trigger · content · header · footer · item · handle</code>. Same attribute mechanism the system already uses for theming (<code>data-tk-theme</code>). Kit JSX components stay thin renderers of the same DOM contract; no ref plumbing exists to remove."],
+      ["No wrapper DOM", "Structure",
+       "Components render flat, predictable markup; what you copy is what mounts.",
+       "Components are <b>DOM conventions, not APIs</b> — documented markup patterns any surface (plain HTML page, browser-Babel JSX, future Ghost theme) reproduces verbatim. The specimen in <code>preview/</code> is the contract's reference render."],
+    ],
+  },
+  {
+    idx: "02", title: "Variants — named axes, one definition site", kind: "translation",
+    note: "data-variant · data-size · cascade discipline",
+    intro: `shadcn declares variants once with CVA — named axes (<code>variant</code>, <code>size</code>) in a single <code>cva()</code> call with <code>defaultVariants</code> — and resolves consumer overrides through <code>cn()</code> merge order. The translation keeps both properties (one definition site, deliberate override seams) without Tailwind or a class-merge utility.`,
+    rows: [
+      ["Named variant axes", "CVA → CSS",
+       "Axes are declared data: <code>variant: default | outline | ghost | destructive</code>, <code>size: sm | default | lg</code> — never improvised per call-site.",
+       "Attribute selectors on the base class: <code>.tk-button[data-variant=\"outline\"]</code>, <code>.tk-button[data-size=\"sm\"]</code>. One definition site per component in CSS; pages set attributes, never restyle. The axes and their values are enumerated per component in stage (d) specs."],
+      ["Default variants", "CVA → CSS",
+       "<code>defaultVariants</code> makes the bare component usable with zero props.",
+       "The bare <code>.tk-&lt;component&gt;</code> class <b>is</b> the default variant; attributes express deviation only. A missing attribute must equal the default — selectors test for presence, never require it."],
+      ["Override merge order", "cn()",
+       "<code>cn(\"p-4\", className)</code> — consumer classes win by coming last; reversing the order locks the component's value. The seam is deliberate.",
+       "Cascade discipline: component blocks declare at single-class/attribute specificity so a consumer rule loaded later wins naturally. Overrides target <code>data-tk-slot</code> hooks. <b>Never <code>!important</code>; never inline styles for themable properties</b> — both destroy the seam."],
+      ["Variants read tokens", "Production rule",
+       "Variant values should resolve to theme tokens, not raw values — that's what keeps dark mode and rebrands single-source.",
+       "Already system law (ADR-0002/0007), restated for variants: every value inside a variant block is <code>var(--tk-*)</code>, so ink/paper and any future retheme cost zero component edits — the property ADR-0010 proved on the OG generator."],
+    ],
+  },
+  {
+    idx: "03", title: "Tokens as contract — the semantic audit", kind: "contract",
+    note: "shadcn semantic pairs · --tk-* resolution",
+    intro: `shadcn's theming model is semantic <b>background/foreground pairs</b> — <code>background · foreground · primary · border · ring · muted · accent · destructive</code> — consumed by default, overridden to retheme, re-overridden in a selector for dark mode. The Tekrogen equivalent is already live (<code>data-tk-theme</code> swaps the same <code>--tk-*</code> set for ink/paper). This table audits each pair the component library will consume. <b>Gap rows are proposals, not changes</b> — each lands separately under ADR-0002/0003.`,
+    rows: [
+      ["background / foreground", "background · foreground", "have",
+       "<code>--tk-bg-1/2/3</code> · <code>--tk-fg-1…5</code>",
+       "Richer than shadcn's single pair — two depth ramps. Document which step each component consumes (panel = bg-2, page = bg-1)."],
+      ["primary", "primary · primary-foreground", "have",
+       "<code>--tk-cyan</code>",
+       "Constrained harder than shadcn: one cyan per surface. A component may <b>offer</b> a primary variant; the page decides which single instance gets it."],
+      ["border", "border · input", "have",
+       "<code>--tk-border</code> · <code>--tk-border-hair</code> · <code>--tk-border-accent</code>",
+       "Hairlines-not-shadows is the system's depth model; shadcn's separate <code>input</code> border token collapses into <code>--tk-border</code>."],
+      ["muted", "muted · muted-foreground", "have",
+       "<code>--tk-bg-2</code> + <code>--tk-fg-3/4</code>",
+       "Exists as a pairing convention, not a dedicated token. Record the canonical pairing in ADR-0011; no new token needed."],
+      ["accent (hover surface)", "accent · accent-foreground", "have",
+       "<code>--tk-bg-2</code> hover + cyan text",
+       "The Gap Analysis already specifies it per component (\"active row = cyan text on ink-2\"). Convention, recorded."],
+      ["chart / series", "chart-1…5", "have",
+       "<code>--tk-org · -studio · -com · -net</code>",
+       "Pillar-keyed series colors — semantically stronger than shadcn's numbered set. Chart components key series to pillars."],
+      ["ring", "ring", "have",
+       "<code>--tk-focus</code> + global <code>:focus-visible</code> recipe",
+       "Fully ships: <code>colors_and_type.css</code> applies <code>outline: 2px solid var(--tk-focus); outline-offset: 2px</code> to every focusable via <code>:where()</code> at specificity 0. Components inherit it, never redefine it; flush-edge elements inside <code>overflow:hidden</code> take <code>outline-offset: -2px</code> per the stylesheet note."],
+      ["destructive", "destructive · destructive-foreground", "partial",
+       "<code>--tk-danger</code>",
+       "Fill/border use ships. Missing the paper-AA <b>text</b> pairing that <code>--tk-success-text</code> already models — propose <code>--tk-danger-text</code> before Alert/Alert Dialog build."],
+      ["radius derivation", "--radius (all sizes derive)", "have",
+       "<code>--tk-radius-xs…2xl · -pill</code>",
+       "Scale <b>and</b> mapping both ship — README \"Corner radii\" fixes it: badges = <code>-xs</code>, buttons = <code>-sm</code>, inputs = <code>-md</code>, cards/panels = <code>-xl</code>, chips = <code>-pill</code>. ADR-0011 binds component CSS to that mapping; no new token."],
+      ["overlay / scrim", "(Dialog overlay: black/80)", "missing",
+       "—",
+       "Dialog, Alert Dialog, Sheet, and Drawer all need the \"ink at 70%\" backdrop the Gap Analysis specifies. Propose <code>--tk-overlay</code>, defined per theme — the one genuinely new color token."],
+      ["disabled state", "disabled: opacity-50", "missing",
+       "—",
+       "No disabled convention exists anywhere in the kit. Propose one rule in ADR-0011: reduced opacity + <code>--tk-fg-4</code> — the token the stylesheet annotates \"DECORATIVE / DISABLED ONLY\" — + <code>cursor: not-allowed</code>. <code>--tk-fg-5</code> stays decorative-only, never disabled text."],
+    ],
+  },
+  {
+    idx: "04", title: "Composition — compound parts, platform state", kind: "translation",
+    note: "Root/Trigger/Content · attributes are the state API",
+    intro: `shadcn components compose as <b>compound parts</b> — <code>Dialog.Root / Trigger / Content / Footer</code> — with state either controlled by the consumer or internal to the primitive, and substitution via the <code>asChild</code>/Slot pattern. The translation makes the DOM itself carry all three ideas.`,
+    rows: [
+      ["Compound components", "Structure",
+       "Each primitive exports named parts; consumers compose them in markup order, and the parts coordinate through shared context.",
+       "A root class plus slotted children: <code>.tk-dialog</code> &gt; <code>[data-tk-slot=\"trigger\"] · [data-tk-slot=\"content\"] · [data-tk-slot=\"footer\"]</code>. Part inventory is documented per component; coordination is proximity + attributes, not context objects."],
+      ["Controlled vs. internal state", "State",
+       "Primitives manage their own state by default; an <code>open</code> prop + change handler hands control to the consumer.",
+       "<b>Attributes are the state API.</b> <code>&lt;dialog open&gt;</code>, <code>&lt;details open&gt;</code>, <code>aria-expanded</code>, <code>data-state</code> — JS reads/writes attributes, CSS styles off them, and any script (or no script) can drive a component. No hidden state in closures."],
+      ["asChild / Slot", "Substitution",
+       "The trigger can merge onto any element the consumer supplies instead of imposing a wrapper button.",
+       "Whatever element carries <code>data-tk-slot=\"trigger\"</code> is the trigger — an existing link, button, or card opts in by attribute. No imposed wrapper element, which is the same outcome with less machinery."],
+      ["Layered component tree", "Scale",
+       "Production teams layer: raw ui primitives → lightly-modified primitives → product-level blocks; tokens defined once, consumed everywhere.",
+       "The kit already mirrors this: <code>preview/</code> specimens (reference primitives) → <code>ui_kits/_shared/</code> (modified) → <code>ui_kits/tekrogen-org/</code> (product blocks). Stage (d) builds at the first layer and must compose upward without redesign."],
+    ],
+  },
+];
+
+/* ── Render ── */
+const sections = document.getElementById('sections');
+let nHave = 0, nPartial = 0, nMissing = 0;
+
+SECTIONS.forEach(sec => {
+  const el = document.createElement('section');
+  el.className = 'conv';
+  let rowsHtml = '', headHtml = '';
+
+  if (sec.kind === 'contract') {
+    headHtml = `
+      <th class="col-idx">#</th>
+      <th class="col-name">Contract pair</th>
+      <th class="col-status">Status</th>
+      <th class="col-token">--tk-* resolution</th>
+      <th class="col-act">Action</th>`;
+    sec.rows.forEach((r, i) => {
+      const [name, shadcnToken, status, tk, action] = r;
+      if (status === 'have') nHave++;
+      if (status === 'partial') nPartial++;
+      if (status === 'missing') nMissing++;
+      const label = { have: 'Holds', partial: 'Partial', missing: 'Missing' }[status];
+      rowsHtml += `
+        <tr>
+          <td class="col-idx">${sec.idx}.${String(i + 1).padStart(2, '0')}</td>
+          <td class="col-name"><span class="nm">${name}</span><span class="cat">${shadcnToken}</span></td>
+          <td class="col-status"><span class="pill ${status}"><span class="dot ${status}"></span>${label}</span></td>
+          <td class="col-token"><span class="nt">${tk}</span></td>
+          <td class="col-act"><span class="nt">${action}</span></td>
+        </tr>`;
+    });
+  } else {
+    headHtml = `
+      <th class="col-idx">#</th>
+      <th class="col-name">Convention</th>
+      <th class="col-half">What shadcn establishes</th>
+      <th class="col-half tk">Tekrogen translation</th>`;
+    sec.rows.forEach((r, i) => {
+      const [name, cat, shadcnNote, tkNote] = r;
+      rowsHtml += `
+        <tr>
+          <td class="col-idx">${sec.idx}.${String(i + 1).padStart(2, '0')}</td>
+          <td class="col-name"><span class="nm">${name}</span><span class="cat">${cat}</span></td>
+          <td class="col-half"><span class="nt">${shadcnNote}</span></td>
+          <td class="col-half tk"><span class="nt">${tkNote}</span></td>
+        </tr>`;
+    });
+  }
+
+  el.innerHTML = `
+    <div class="sec-head">
+      <div>
+        <div class="l-eyebrow">${sec.idx} · ${sec.kind === 'contract' ? 'Token audit' : 'Convention study'}</div>
+        <h2>${sec.title}</h2>
+      </div>
+      <div class="r">${sec.rows.length} rows<br/><b>${sec.note}</b></div>
+    </div>
+    <p class="sec-intro">${sec.intro}</p>
+    <table class="matrix">
+      <thead><tr>${headHtml}</tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>`;
+  sections.appendChild(el);
+});
+
+/* ── Stat strip ── */
+const stats = [
+  { n: 4, k: "conventions studied", cyan: false },
+  { n: nHave, k: "contract pairs hold", cyan: false },
+  { n: nPartial + nMissing, k: "gaps → proposals", cyan: true },
+  { n: 1, k: "decision record · adr-0011", cyan: false },
+];
+document.getElementById('stats').innerHTML = stats.map(s =>
+  `<div class="stat"><div class="n ${s.cyan ? 'cyan' : ''}">${s.n}</div><div class="k">${s.k}</div></div>`
+).join('');
+</script>
+</body>
+</html>
