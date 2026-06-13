@@ -82,7 +82,39 @@
 .tk-footer [data-tk-slot="colophon"] a { color: var(--tk-fg-4); text-decoration: none; border: 0; }
 .tk-footer [data-tk-slot="colophon"] nav { display: flex; gap: var(--tk-space-5); }
 
+/* nav variant (data-style="nav") — column-links footer: brand + four pillar link columns
+ * (richer than the canonical pillar-cards). Pillars slot dissolves so its columns join the
+ * top grid; each column = mono pillar header + a stacked link list. */
+.tk-footer[data-style="nav"] [data-tk-slot="top"] {
+  grid-template-columns: 1.4fr repeat(4, 1fr);
+  gap: var(--tk-space-6);
+}
+.tk-footer[data-style="nav"] [data-tk-slot="pillars"] { display: contents; }
+.tk-footer[data-style="nav"] [data-tk-slot="col"][data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-footer[data-style="nav"] [data-tk-slot="col"][data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-footer[data-style="nav"] [data-tk-slot="col"][data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-footer[data-style="nav"] [data-tk-slot="col"][data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-footer[data-style="nav"] [data-tk-slot="col"] h5 {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--pillar, var(--tk-fg-4));
+  margin: 0 0 var(--tk-space-3);
+}
+.tk-footer[data-style="nav"] [data-tk-slot="col"] a {
+  display: block;
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+  padding: var(--tk-space-1) 0;
+  text-decoration: none;
+  border: 0;
+}
+.tk-footer[data-style="nav"] [data-tk-slot="col"] a:hover { color: var(--tk-accent); }
+
 @media (max-width: 760px) {
   .tk-footer [data-tk-slot="top"] { grid-template-columns: 1fr; gap: var(--tk-space-8); }
   .tk-footer [data-tk-slot="pillars"] { grid-template-columns: 1fr; }
+  .tk-footer[data-style="nav"] [data-tk-slot="top"] { grid-template-columns: 1fr 1fr; }
 }

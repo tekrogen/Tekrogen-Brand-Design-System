@@ -9,5 +9,9 @@
     <nav data-tk-slot="nav">
       {{navigation}}
     </nav>
+    <div data-tk-slot="util">
+      <span class="tk-label">Search</span>
+      {{#unless @member}}<a class="tk-button" data-style="cta" data-variant="secondary" href="#/portal/signin">Sign in</a>{{else}}<a class="tk-button" data-style="cta" data-variant="secondary" href="#/portal/account">Account</a>{{/unless}}
+    </div>
   </div>
 </header>
