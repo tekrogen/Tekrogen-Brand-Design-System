@@ -4,6 +4,24 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [0.10.0](https://github.com/tekrogen/Tekrogen-Brand-Design-System/compare/v0.9.0...v0.10.0) (2026-06-13)
+
+
+### Features
+
+* **components:** C1 structural composites — header / footer / section-head / label (stage d) ([#30](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/30)) ([0d05b79](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/0d05b799d2276942184fbe581a2815d62e1abc12))
+* **components:** C2 data & forms — table, field, callout, cta-block, stat (stage d) ([#34](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/34)) ([34ece1e](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/34ece1e300eea2202852532d49b18a005970fd0a))
+* **components:** C3 cards — content/listing/pillar-button/category/team/manifesto (stage d) ([#36](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/36)) ([2b62b30](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/2b62b302bda8ec0a0677c92ac5b2f4057c973357))
+* **components:** C4 flywheel — tk-flywheel (SVG) + tk-flywheel-stepper (stage d) ([#38](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/38)) ([c9cdd18](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/c9cdd18e86d922b6787793284784777c8712ef70))
+* **components:** C5 commerce composites (license tier, product hero, feature grid, demo, artifacts) ([#40](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/40)) ([968aed1](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/968aed19ecc470f40d34540adf27c3c0fa0e783c))
+* **components:** C6 distribution composites (docs hero, pipeline, version timeline) ([#42](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/42)) ([ae0accf](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/ae0accfadf41ed6ab7553f97267fc0e4c3a9e353))
+* **components:** C7 membership composites + --tk-fg-on-accent token (closes [#19](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/19), [#43](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/43)) ([#44](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/44)) ([0208909](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/0208909ad07657c25be260abf98446d334f31203))
+* **components:** pillar-aware button/badge/card variants (stage d, PR 1) ([#24](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/24)) ([288d6b7](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/288d6b7e5070e3f7bbbd5c48c648acff728972eb))
+* **components:** registry + gallery with HTML·CSS·Ghost copy (stage d, PR 1) ([#18](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/18)) ([c012caa](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/c012caa451804f18d4595d87c4a9f10e7f2b94aa))
+* **components:** site-header util slot + footer nav variant (stage d, C1) ([#32](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/32)) ([0c2c511](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/0c2c511fdbd2ffa17af8ad5a4e4c4b039e7ee416))
+* **components:** tk-button editorial CTA variant — data-style=cta (stage d) ([#28](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/28)) ([e124550](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/e124550c88df220b09e3a99f55c93aecdf27bfd2))
+* **components:** tk-button inline-flex + gap + hint slot (stage d) ([#26](https://github.com/tekrogen/Tekrogen-Brand-Design-System/issues/26)) ([23cd1a4](https://github.com/tekrogen/Tekrogen-Brand-Design-System/commit/23cd1a4a88b283ea18cbe577243e65c64c9262f3))
+
 ## [Unreleased]
 
 > **Versioning intent — minor.** First implementation of the component model (ADR-0011): the five already-shipped primitives are lifted out of the `index.html` dashboard `<style>` into a token-only `components/` registry and presented in a new `Component Gallery.html` with per-component `HTML · CSS · Ghost` copy. Off-scale padding on the extracted primitives is snapped to the `--tk-space-*` scale — an intended, sub-pixel-to-2px visual change on the **preview specimens only** (the dashboard itself is untouched this PR). New surfaces + an intended pixel-diff ⇒ minor per ADR-0003. Gallery & copy-code contract recorded in ADR-0012; Header / Footer / Navigation and the token completions (`--tk-overlay`, `--tk-danger-text`, `--tk-fg-on-accent`) follow in later PRs.
