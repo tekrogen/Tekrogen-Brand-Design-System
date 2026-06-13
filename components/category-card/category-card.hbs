@@ -1,0 +1,7 @@
+{{!-- Tekrogen · Category card partial → doc/section category. --}}
+<article class="tk-category-card"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>
+  <div data-tk-slot="icon">{{icon}}</div>
+  <h4>{{title}}</h4>
+  <p>{{description}}</p>
+  <div data-tk-slot="links">{{#foreach links}}<a href="{{this.url}}">{{this.label}}</a>{{/foreach}}</div>
+</article>

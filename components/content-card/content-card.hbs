@@ -1,0 +1,7 @@
+{{!-- Tekrogen · Content card partial → Ghost post card (inside {{#foreach posts}}). --}}
+<article class="tk-content-card"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>
+  <div data-tk-slot="head"><span class="tk-badge" data-pillar="{{pillar}}">{{primary_tag.name}}</span><span class="tk-label" data-variant="tag">{{date format="MMM YYYY"}}</span></div>
+  <h3><a href="{{url}}">{{title}}</a></h3>
+  <p data-tk-slot="desc">{{excerpt words="20"}}</p>
+  <div data-tk-slot="rel">{{#foreach tags}}<span class="tk-label" data-variant="chip">{{name}}</span>{{/foreach}}</div>
+</article>

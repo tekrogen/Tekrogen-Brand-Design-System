@@ -1,0 +1,39 @@
+/* Tekrogen · Listing card — .tk-listing-card
+ * Case-study list row: pillar left-accent, index kicker, title, then a related-links block
+ * (label → link pairs). Per ADR-0011 (stage d, C3). Slots: data-tk-slot="ind | desc | rel".
+ * data-pillar keys the left accent. Token-only.
+ */
+.tk-listing-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-3);
+  padding: var(--tk-space-6);
+  background: var(--tk-bg-2);
+  border: var(--tk-border-1);
+  border-left: 3px solid var(--pillar, var(--tk-org));
+  border-radius: var(--tk-radius-xl);
+}
+.tk-listing-card[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-listing-card[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-listing-card[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-listing-card[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-listing-card [data-tk-slot="ind"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+}
+.tk-listing-card h3 { margin: 0; font-size: var(--tk-fs-h3); }
+.tk-listing-card [data-tk-slot="desc"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: 0; }
+.tk-listing-card [data-tk-slot="rel"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-2);
+  margin-top: var(--tk-space-1);
+  padding-top: var(--tk-space-3);
+  border-top: var(--tk-border-hair);
+}
+.tk-listing-card [data-tk-slot="rel"] .r { display: flex; gap: var(--tk-space-2); font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-3); }
+.tk-listing-card [data-tk-slot="rel"] .r b { color: var(--tk-fg-4); min-width: 62px; font-weight: 500; }
+.tk-listing-card [data-tk-slot="rel"] .r a { color: var(--tk-fg-2); }
