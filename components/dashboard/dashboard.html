@@ -1,0 +1,26 @@
+<!-- Tekrogen · Member dashboard specimen (ADR-0011 reference render). Head (tk-avatar + identity + role +
+     actions) / side nav (counts, a.on active) / main (mh + orders tk-table with .ord/.lic/.dl cells). -->
+<div class="tk-dashboard">
+  <div data-tk-slot="head">
+    <span class="tk-avatar" data-style="mono" style="width:42px;height:42px;font-size:13px">MD</span>
+    <div class="who"><h3>Martinique Dolce</h3><div class="role">● paid member · team license</div></div>
+    <span class="tk-label">2 active licenses</span>
+    <a class="tk-button" data-style="cta" data-variant="secondary" href="#">Account settings</a>
+  </div>
+  <div data-tk-slot="body">
+    <nav data-tk-slot="nav">
+      <a class="on" href="#">Overview</a>
+      <a href="#">Orders <span class="ct">04</span></a>
+      <a href="#">Downloads <span class="ct">11</span></a>
+      <a href="#">License keys <span class="ct">02</span></a>
+      <a href="#">Billing</a>
+    </nav>
+    <div data-tk-slot="main">
+      <div class="mh"><h3>Recent orders.</h3><a href="#">View all orders →</a></div>
+      <table class="tk-table"><thead><tr><th>Order</th><th>Product</th><th>License</th><th>Total</th><th>Action</th></tr></thead><tbody>
+        <tr><td class="ord">TK-2026-0089</td><td>Spine — fleet replay engine · v0.4.2</td><td class="lic">Team</td><td>$1,490</td><td><a class="dl" href="#">Download ↗</a></td></tr>
+        <tr><td class="ord">TK-2026-0064</td><td>Margin — deterministic PDF kit · v0.2.1</td><td class="lic">Extended</td><td>$429</td><td><a class="dl" href="#">Download ↗</a></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>

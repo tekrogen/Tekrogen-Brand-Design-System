@@ -1,0 +1,62 @@
+/* Tekrogen · Purchase confirmation — .tk-confirm (ADR-0011, C7 membership)
+ * Post-checkout panel with a pillar left-accent: status line + heading + a detail grid + a license
+ * keyline + actions. Sub-parts: .ok (status), .conf-grid (with .k / .v cells), .keyline (with .copy).
+ * Pillar-keyed via data-pillar (default com). Token-only; literals are the 3px left-accent + 1px hairline.
+ */
+.tk-confirm {
+  --pillar: var(--tk-com);
+  border: 1px solid var(--tk-border);
+  border-left: 3px solid var(--pillar);
+  border-radius: var(--tk-radius-2xl);
+  padding: var(--tk-space-8);
+  background: var(--tk-bg-2);
+}
+.tk-confirm[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-confirm[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-confirm[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-confirm[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-confirm .ok {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--pillar);
+}
+.tk-confirm .conf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: var(--tk-space-10);
+  margin: var(--tk-space-5) 0;
+}
+.tk-confirm .conf-grid .k {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+  margin-bottom: var(--tk-space-1);
+}
+.tk-confirm .conf-grid .v { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-1); }
+.tk-confirm .keyline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tk-space-3);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  background: var(--tk-bg-3);
+  padding: var(--tk-space-3) var(--tk-space-4);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-2);
+  margin: var(--tk-space-4) 0;
+}
+.tk-confirm .keyline .copy {
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-cyan);
+  cursor: pointer;
+}
+.tk-confirm .fineprint { font-size: var(--tk-fs-meta); color: var(--tk-fg-4); margin-top: var(--tk-space-4); }
+@media (max-width: 640px) { .tk-confirm .conf-grid { grid-template-columns: 1fr; } }

@@ -1,0 +1,19 @@
+<!-- Tekrogen · Member ladder specimen (ADR-0011 reference render). Pillar-keyed access steps with a top
+     accent; per step data-tk-slot="state | features" + an <h4>; li[data-state="excluded"] flips ✓→✕. -->
+<div class="tk-member-ladder">
+  <div data-tk-slot="step" data-pillar="studio">
+    <span data-tk-slot="state">● anonymous · guest</span>
+    <h4>Read everything</h4>
+    <ul data-tk-slot="features"><li>Articles, recon &amp; demos</li><li>Product pages &amp; pricing</li><li data-state="excluded">Demo source downloads</li><li data-state="excluded">Product downloads</li></ul>
+  </div>
+  <div data-tk-slot="step" data-pillar="net">
+    <span data-tk-slot="state">● free member</span>
+    <h4>Demo source &amp; saves</h4>
+    <ul data-tk-slot="features"><li>MIT demo-source bundles</li><li>Sample datasets</li><li>Save favorites</li><li data-state="excluded">Paid product downloads</li></ul>
+  </div>
+  <div data-tk-slot="step" data-pillar="com">
+    <span data-tk-slot="state">● paid member · subscription</span>
+    <h4>Products &amp; portal</h4>
+    <ul data-tk-slot="features"><li>Product downloads + source</li><li>License keys</li><li>Customer portal</li><li>Versioned updates in window</li></ul>
+  </div>
+</div>

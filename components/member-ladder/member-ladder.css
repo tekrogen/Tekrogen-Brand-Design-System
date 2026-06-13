@@ -1,0 +1,61 @@
+/* Tekrogen · Member ladder — .tk-member-ladder (ADR-0011, C7 membership)
+ * The access ladder (anonymous → free → paid) as pillar-keyed steps with a top accent. Sub-parts
+ * (per step): data-tk-slot="step | state | features"; the step holds an <h4> heading. Steps carry
+ * data-pillar; included items get a ✓, data-state="excluded" items a ✕. The ADR-0006 trust-state
+ * map as a component. Token-only; literals are the 3px top accent + 1px hairlines + breakpoint.
+ */
+.tk-member-ladder {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tk-space-4);
+}
+.tk-member-ladder [data-tk-slot="step"] {
+  --pillar: var(--tk-cyan);
+  border: 1px solid var(--tk-border);
+  border-top: 3px solid var(--pillar);
+  border-radius: var(--tk-radius-lg);
+  padding: var(--tk-space-5);
+  background: var(--tk-bg-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-2);
+}
+.tk-member-ladder [data-tk-slot="step"][data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-member-ladder [data-tk-slot="step"][data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-member-ladder [data-tk-slot="step"][data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-member-ladder [data-tk-slot="step"][data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-member-ladder [data-tk-slot="state"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--pillar);
+}
+.tk-member-ladder [data-tk-slot="step"] h4 { margin: 0; }
+.tk-member-ladder [data-tk-slot="features"] {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-2);
+}
+.tk-member-ladder [data-tk-slot="features"] li {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+  display: flex;
+  gap: var(--tk-space-2);
+}
+.tk-member-ladder [data-tk-slot="features"] li::before {
+  content: "\2713"; /* ✓ */
+  color: var(--pillar);
+  flex: none;
+  font-weight: 700;
+}
+.tk-member-ladder [data-tk-slot="features"] li[data-state="excluded"] { color: var(--tk-fg-5); }
+.tk-member-ladder [data-tk-slot="features"] li[data-state="excluded"]::before {
+  content: "\2715"; /* ✕ */
+  color: var(--tk-fg-5);
+  font-weight: 400;
+}
+@media (max-width: 760px) { .tk-member-ladder { grid-template-columns: 1fr; } }
