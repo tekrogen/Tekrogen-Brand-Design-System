@@ -18,3 +18,6 @@
   font-family: var(--tk-font-sans);
   font-weight: 600;
 }
+
+/* mono-initials variant — technical surfaces (team cards, dashboards) */
+.tk-avatar[data-style="mono"] { font-family: var(--tk-font-mono); font-weight: 500; }

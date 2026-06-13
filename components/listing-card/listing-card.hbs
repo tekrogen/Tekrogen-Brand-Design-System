@@ -1,0 +1,7 @@
+{{!-- Tekrogen · Listing card partial → case-study list row. --}}
+<article class="tk-listing-card"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>
+  <span data-tk-slot="ind">{{industry}}</span>
+  <h3><a href="{{url}}">{{title}}</a></h3>
+  <p data-tk-slot="desc">{{excerpt words="24"}}</p>
+  <div data-tk-slot="rel">{{#foreach related}}<div class="r"><b>{{this.kind}}</b><a href="{{this.url}}">{{this.label}}</a></div>{{/foreach}}</div>
+</article>

@@ -549,6 +549,107 @@ const COMPONENTS = [
 `{{!-- Tekrogen · Stat partial. --}}
 <div class="tk-stat"><div data-tk-slot="value">{{value}}</div><div data-tk-slot="label">{{label}}</div></div>`,
   },
+  {
+    id: 'content-card', idx: '15', name: 'Content card', family: 'Cards', grid: true,
+    note: 'Study/post card · head + title + desc + <b>rel</b> chips · <b>data-pillar</b> hover accent',
+    html:
+`<article class="tk-content-card" data-pillar="org" style="max-width:340px">
+  <div data-tk-slot="head"><span class="tk-badge" data-pillar="org">.org</span><span class="tk-label" data-variant="tag">EBIA · finance</span></div>
+  <h3>Token-safe Plaid integration on a four-week budget.</h3>
+  <p data-tk-slot="desc">Why we kept access tokens server-side, and the revocation path that shipped.</p>
+  <div data-tk-slot="rel"><span class="tk-label" data-variant="chip" data-pillar="org">recon</span><span class="tk-label" data-variant="chip" data-pillar="studio">demo</span><span class="tk-label" data-variant="chip" data-pillar="com">product</span></div>
+</article>`,
+    css:
+`.tk-content-card { display: flex; flex-direction: column; gap: var(--tk-space-3); padding: var(--tk-space-6); background: var(--tk-bg-2); border: var(--tk-border-1); border-radius: var(--tk-radius-xl); transition: border-color var(--tk-dur-2) var(--tk-ease); }
+.tk-content-card[data-pillar="org"] { --pillar: var(--tk-org); }  /* +studio/com/net */
+.tk-content-card:hover { border-color: color-mix(in srgb, var(--pillar, var(--tk-cyan)) 55%, var(--tk-border)); }
+.tk-content-card [data-tk-slot="head"] { display: flex; justify-content: space-between; align-items: center; gap: var(--tk-space-2); }
+.tk-content-card [data-tk-slot="desc"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: 0; }
+.tk-content-card [data-tk-slot="rel"] { display: flex; gap: var(--tk-space-2); flex-wrap: wrap; margin-top: auto; padding-top: var(--tk-space-3); border-top: var(--tk-border-hair); }`,
+    hbs: `{{!-- Content card → post card inside {{#foreach posts}}. See components/content-card/content-card.hbs. --}}`,
+  },
+  {
+    id: 'pillar-button', idx: '16', name: 'Pillar button', family: 'Cards', grid: true,
+    note: 'Browse-by-pillar tile · top accent · slots label/name/count · <b>data-pillar</b>',
+    html:
+`<a class="tk-pillar-button" data-pillar="org" href="#"><span data-tk-slot="label">.org</span><span data-tk-slot="name">Case studies &amp; recon</span><span data-tk-slot="count">24 studies · 52 recon</span></a>
+<a class="tk-pillar-button" data-pillar="studio" href="#"><span data-tk-slot="label">.studio</span><span data-tk-slot="name">Demos &amp; POCs</span><span data-tk-slot="count">11 live demos</span></a>
+<a class="tk-pillar-button" data-pillar="com" href="#"><span data-tk-slot="label">.com</span><span data-tk-slot="name">Products &amp; licensing</span><span data-tk-slot="count">06 products</span></a>
+<a class="tk-pillar-button" data-pillar="net" href="#"><span data-tk-slot="label">.net</span><span data-tk-slot="name">Docs &amp; distribution</span><span data-tk-slot="count">version history</span></a>`,
+    css:
+`.tk-pillar-button { display: flex; flex-direction: column; gap: var(--tk-space-1); padding: var(--tk-space-4); background: var(--tk-bg-2); border: var(--tk-border-1); border-top: 3px solid var(--pillar, var(--tk-cyan)); border-radius: var(--tk-radius-lg); text-decoration: none; }
+.tk-pillar-button[data-pillar="org"] { --pillar: var(--tk-org); }  /* +studio/com/net */
+.tk-pillar-button:hover { border-color: var(--pillar); }
+.tk-pillar-button [data-tk-slot="label"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-code); color: var(--pillar); }
+.tk-pillar-button [data-tk-slot="name"] { font-weight: 600; font-size: var(--tk-fs-body-sm); color: var(--tk-fg-1); }
+.tk-pillar-button [data-tk-slot="count"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-3); }`,
+    hbs: `<a class="tk-pillar-button" data-pillar="{{pillar}}" href="{{url}}"><span data-tk-slot="label">.{{pillar}}</span><span data-tk-slot="name">{{name}}</span><span data-tk-slot="count">{{count}}</span></a>`,
+  },
+  {
+    id: 'listing-card', idx: '17', name: 'Listing card', family: 'Cards', grid: true,
+    note: 'Case-study row · pillar left-accent · index + title + <b>rel</b> link pairs',
+    html:
+`<article class="tk-listing-card" data-pillar="org" style="max-width:520px">
+  <span data-tk-slot="ind">EBIA · personal finance</span>
+  <h3>Token-safe Plaid integration on a four-week budget.</h3>
+  <p data-tk-slot="desc">The problem, the AC, the stack decision, and what we'd do differently.</p>
+  <div data-tk-slot="rel"><div class="r"><b>Recon</b><a href="#">Token vaults vs. server-only</a></div><div class="r"><b>Demo</b><a href="#">Banking panel · live</a></div></div>
+</article>`,
+    css:
+`.tk-listing-card { display: flex; flex-direction: column; gap: var(--tk-space-3); padding: var(--tk-space-6); background: var(--tk-bg-2); border: var(--tk-border-1); border-left: 3px solid var(--pillar, var(--tk-org)); border-radius: var(--tk-radius-xl); }
+.tk-listing-card[data-pillar="org"] { --pillar: var(--tk-org); }  /* +studio/com/net */
+.tk-listing-card [data-tk-slot="ind"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); }
+.tk-listing-card [data-tk-slot="rel"] { display: flex; flex-direction: column; gap: var(--tk-space-2); padding-top: var(--tk-space-3); border-top: var(--tk-border-hair); }
+.tk-listing-card [data-tk-slot="rel"] .r { display: flex; gap: var(--tk-space-2); font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-3); }
+.tk-listing-card [data-tk-slot="rel"] .r b { color: var(--tk-fg-4); min-width: 62px; font-weight: 500; }`,
+    hbs: `{{!-- Listing card → case-study row. See components/listing-card/listing-card.hbs. --}}`,
+  },
+  {
+    id: 'category-card', idx: '18', name: 'Category card', family: 'Cards', grid: true,
+    note: 'Tinted icon + title + blurb + link list · <b>data-pillar</b> (default net)',
+    html:
+`<article class="tk-category-card" data-pillar="net" style="max-width:320px">
+  <div data-tk-slot="icon">IN</div>
+  <h4>Installation guides.</h4>
+  <p>Get Spine running in a fresh Vite + React project, a Next.js app, or self-hosted Go.</p>
+  <div data-tk-slot="links"><a href="#">install · npm package</a><a href="#">migrate from the demo</a></div>
+</article>`,
+    css:
+`.tk-category-card { display: flex; flex-direction: column; gap: var(--tk-space-3); padding: var(--tk-space-6); background: var(--tk-bg-2); border: var(--tk-border-1); border-radius: var(--tk-radius-xl); }
+.tk-category-card[data-pillar="net"] { --pillar: var(--tk-net); }  /* +org/studio/com */
+.tk-category-card [data-tk-slot="icon"] { width: 30px; height: 30px; border-radius: var(--tk-radius-sm); display: grid; place-items: center; font-family: var(--tk-font-mono); font-size: var(--tk-fs-code); font-weight: 600; color: var(--pillar, var(--tk-net)); background: color-mix(in srgb, var(--pillar, var(--tk-net)) 16%, transparent); }
+.tk-category-card [data-tk-slot="links"] a { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-3); text-decoration: none; }
+.tk-category-card [data-tk-slot="links"] a::before { content: "↗ "; color: var(--pillar, var(--tk-net)); }`,
+    hbs: `{{!-- Category card → doc section. See components/category-card/category-card.hbs. --}}`,
+  },
+  {
+    id: 'team-card', idx: '19', name: 'Team card', family: 'Cards', grid: true,
+    note: 'Avatar (mono variant) + name + role + bio · slots role/bio',
+    html:
+`<article class="tk-team-card" style="max-width:460px">
+  <span class="tk-avatar" data-style="mono" style="width:44px;height:44px;font-size:13px">MD</span>
+  <div><h4>M. Dolce</h4><p data-tk-slot="role">Founder</p><p data-tk-slot="bio">Documenting the build — research, decisions, and the templates that come out the other side.</p></div>
+</article>`,
+    css:
+`.tk-team-card { display: flex; gap: var(--tk-space-4); padding: var(--tk-space-6); background: var(--tk-bg-2); border: var(--tk-border-1); border-radius: var(--tk-radius-xl); }
+.tk-team-card .tk-avatar { flex: none; }
+.tk-team-card [data-tk-slot="role"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); margin: var(--tk-space-1) 0 var(--tk-space-2); }
+.tk-team-card [data-tk-slot="bio"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: 0; }
+/* avatar mono variant: .tk-avatar[data-style="mono"] { font-family: var(--tk-font-mono); font-weight: 500; } */`,
+    hbs: `{{!-- Team card → author byline. See components/team-card/team-card.hbs. --}}`,
+  },
+  {
+    id: 'manifesto-card', idx: '20', name: 'Manifesto card', family: 'Cards',
+    note: 'Pillar left-accent + label + title + blurb · <b>data-pillar</b>',
+    html:
+`<article class="tk-manifesto-card" data-pillar="org" style="max-width:260px"><span data-tk-slot="label">.org</span><h4>Knowledge</h4><p>Use case studies and Recon — the credibility layer.</p></article>`,
+    css:
+`.tk-manifesto-card { padding: var(--tk-space-6); background: var(--tk-bg-2); border: var(--tk-border-1); border-left: 3px solid var(--pillar, var(--tk-cyan)); border-radius: var(--tk-radius-lg); }
+.tk-manifesto-card[data-pillar="org"] { --pillar: var(--tk-org); }  /* +studio/com/net */
+.tk-manifesto-card [data-tk-slot="label"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-eyebrow); color: var(--pillar); }
+.tk-manifesto-card p { font-size: var(--tk-fs-code); color: var(--tk-fg-3); margin: 0; }`,
+    hbs: `<article class="tk-manifesto-card" data-pillar="{{pillar}}"><span data-tk-slot="label">.{{pillar}}</span><h4>{{title}}</h4><p>{{description}}</p></article>`,
+  },
 ];
 
 const TABS = [['html', 'HTML'], ['css', 'CSS'], ['hbs', 'Ghost']];

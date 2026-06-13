@@ -1,0 +1,23 @@
+/* Tekrogen · Manifesto card — .tk-manifesto-card
+ * The four-pillar "system" cards (About): pillar left-accent + mono label + title + blurb.
+ * Per ADR-0011 (stage d, C3). Slot: data-tk-slot="label". data-pillar required. Token-only.
+ */
+.tk-manifesto-card {
+  padding: var(--tk-space-6);
+  background: var(--tk-bg-2);
+  border: var(--tk-border-1);
+  border-left: 3px solid var(--pillar, var(--tk-cyan));
+  border-radius: var(--tk-radius-lg);
+}
+.tk-manifesto-card[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-manifesto-card[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-manifesto-card[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-manifesto-card[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-manifesto-card [data-tk-slot="label"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-eyebrow);
+  color: var(--pillar);
+  letter-spacing: 0.04em;
+}
+.tk-manifesto-card h4 { margin: var(--tk-space-2) 0 var(--tk-space-1); }
+.tk-manifesto-card p { font-size: var(--tk-fs-code); color: var(--tk-fg-3); margin: 0; }

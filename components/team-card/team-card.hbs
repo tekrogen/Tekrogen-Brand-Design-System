@@ -1,0 +1,9 @@
+{{!-- Tekrogen · Team card partial → author byline. Initials via a theme helper or profile image. --}}
+<article class="tk-team-card">
+  <span class="tk-avatar" data-style="mono" style="width:44px;height:44px;font-size:13px">{{initials author.name}}</span>
+  <div>
+    <h4>{{author.name}}</h4>
+    <p data-tk-slot="role">{{author.role}}</p>
+    <p data-tk-slot="bio">{{author.bio}}</p>
+  </div>
+</article>

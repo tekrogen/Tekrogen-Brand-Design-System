@@ -1,0 +1,41 @@
+/* Tekrogen · Content card — .tk-content-card
+ * The publishing-system study/post card: head row (badge + meta) → title → desc → related
+ * chips foot. Richer than the dashboard's .tk-card; the flywheel surface's primary card.
+ * Per ADR-0011 (stage d, C3). Sub-parts: data-tk-slot="head | desc | rel". data-pillar keys
+ * the hover accent. Token-only.
+ */
+.tk-content-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-3);
+  padding: var(--tk-space-6);
+  background: var(--tk-bg-2);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-xl);
+  transition: border-color var(--tk-dur-2) var(--tk-ease);
+}
+.tk-content-card[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-content-card[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-content-card[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-content-card[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-content-card:hover { border-color: color-mix(in srgb, var(--pillar, var(--tk-cyan)) 55%, var(--tk-border)); }
+.tk-content-card [data-tk-slot="head"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--tk-space-2);
+}
+.tk-content-card h3 { margin: 0; }
+.tk-content-card [data-tk-slot="desc"] {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+  margin: 0;
+}
+.tk-content-card [data-tk-slot="rel"] {
+  display: flex;
+  gap: var(--tk-space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: var(--tk-space-3);
+  border-top: var(--tk-border-hair);
+}
