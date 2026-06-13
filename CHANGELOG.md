@@ -32,6 +32,7 @@ None.
 
 - `preview/card-{button,avatar,input,mono-pill,card-anatomy}.html` — upgraded from inline-literal demo cards to ADR-0011 reference renders that link the component CSS and use the `.tk-*` classes; `@dsCard` annotations preserved.
 - `components/{button,badge,card}` — **pillar-aware** `data-pillar="org|studio|com|net"` axis (ADR-0011 §4, the brand's pillar-keyed color access): the button fill/accent, the badge (now a tinted pill + leading status dot), and the card hover hairline key off the pillar instead of cyan; the button also gains `data-block` (full-width CTA). Specimens, `.hbs` partials, and the gallery demos/copy updated in lockstep. **Additive — bare classes and existing `data-variant` defaults are unchanged (no pixel-diff to current usages).** Unblocks the Tekrogen Ghost-theme-mockup migration (its pillar-colored CTAs / badges / cards can now consume the registry). The lone literal remains `.tk-avatar`'s `#fff` (`--tk-fg-on-accent` still deferred, issue #19).
+- `components/button` — base is now `inline-flex` + `gap` (composes icon / label / sub-label) and gains a `[data-tk-slot="hint"]` mono-dimmed sub-label (e.g. `Run the demo ↗ studio`). **Additive — single-label buttons render unchanged.** Unblocks the mockup's sub-label CTAs ahead of the primitive migration (#25).
 
 ## [0.9.0](https://github.com/tekrogen/Tekrogen-Brand-Design-System/compare/v0.8.0...v0.9.0) (2026-06-12)
 

@@ -5,6 +5,9 @@
  * logged as a MINOR pixel-diff per ADR-0003); hairlines via --tk-border-* tokens.
  */
 .tk-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tk-space-2);
   font-family: var(--tk-font-mono);
   font-size: var(--tk-fs-meta);
   letter-spacing: 0.12em;
@@ -68,3 +71,13 @@
 }
 
 .tk-button[data-block] { display: flex; width: 100%; justify-content: center; }
+
+/* ── Sub-label hint (data-tk-slot="hint") — a mono, dimmed secondary label inside the
+ *    button, e.g. a destination: "Run the demo  ↗ studio". Composes via the base gap. ── */
+.tk-button [data-tk-slot="hint"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-eyebrow);
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 0.7;
+}
