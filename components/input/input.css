@@ -1,0 +1,18 @@
+/* Tekrogen · Input — .tk-input
+ * Extracted from index.html dashboard `.input` per ADR-0011 (stage d, PR 1).
+ * Inherits the global cyan focus ring from colors_and_type.css; the cyan
+ * border-on-focus is the brand affordance the dashboard already shipped.
+ * Token-only: padding snapped to --tk-space-* (PR-1 normalization, ADR-0003).
+ */
+.tk-input {
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body);
+  padding: var(--tk-space-3) var(--tk-space-4);
+  background: var(--tk-bg-3);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-md);
+  color: var(--tk-fg-1);
+  outline: none;
+}
+
+.tk-input:focus { border-color: var(--tk-focus); }

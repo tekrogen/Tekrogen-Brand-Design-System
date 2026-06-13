@@ -4,6 +4,34 @@ All notable changes to the Tekrogen Design System. Format follows [Keep a Change
 
 ---
 
+## [Unreleased]
+
+> **Versioning intent — minor.** First implementation of the component model (ADR-0011): the five already-shipped primitives are lifted out of the `index.html` dashboard `<style>` into a token-only `components/` registry and presented in a new `Component Gallery.html` with per-component `HTML · CSS · Ghost` copy. Off-scale padding on the extracted primitives is snapped to the `--tk-space-*` scale — an intended, sub-pixel-to-2px visual change on the **preview specimens only** (the dashboard itself is untouched this PR). New surfaces + an intended pixel-diff ⇒ minor per ADR-0003. Gallery & copy-code contract recorded in ADR-0012; Header / Footer / Navigation and the token completions (`--tk-overlay`, `--tk-danger-text`, `--tk-fg-on-accent`) follow in later PRs.
+
+### Pixel diff
+
+- **Visible — `preview/card-{button,input,mono-pill,card-anatomy}.html` (Ink + Paper).** These specimens now consume the new `.tk-*` classes instead of inline literals; component padding is snapped to the spacing scale, so chrome shifts ≤2px per edge (button `9×14 → 8×16`, input `10×14 → 12×16`, badge `5×11 → 4×12`, card head/body/foot to `--tk-space-*`). Colors, type, and radius are unchanged (mapped to render-identical tokens). `card-avatar.html` is value-identical (size stays inline geometry).
+- **Not visible — `index.html` (Dashboard).** The source `.btn` / `.card` / `.input` / `.mono-pill` / `.avatar` blocks are unchanged; the registry is a parallel extraction, not a refactor of the dashboard. The dashboard adopting `.tk-*` is a later follow-up.
+
+### Migration
+
+- None required. New consumers should link `components/tk-components.css` (the barrel) **after** `colors_and_type.css` and use the `.tk-*` classes with `data-variant` / `data-tk-slot`; the bare class renders the default variant.
+- The barrel and every component import must use the `@import url('./…')` form — `scripts/font-guard.mjs` only follows `url()` imports (ADR-0012).
+
+### Assets to regenerate
+
+None.
+
+### Added
+
+- `components/` — token-only component registry: `button/`, `card/`, `input/`, `badge/` (from the mono pill), `avatar/`, each shipping `<name>.{css,html,hbs}`, plus the `tk-components.css` `@import url()` barrel. CSS consumes `var(--tk-*)` exclusively; the sole literal exception is `.tk-avatar`'s white-on-pillar `color: #fff` (documented; `--tk-fg-on-accent` deferred per ADR-0011 §7).
+- `Component Gallery.html` (repo root) — single-page gallery: live theme-following specimens + per-component tabbed `HTML · CSS · Ghost` copy (`⧉` glyph, `navigator.clipboard`). Reuses the study-page chrome, the `_shared/tk-theme.*` toggle, and the asset-pack clipboard idiom. Static `jun 2026` label, intentionally outside `version-stamp` `FILES`.
+- `adr/0012-gallery-and-copy-code-contract.md` — "Component gallery & copy-code contract" decision (Accepted): per-component registry, the `@import url()` requirement, the three renderings, and the `.hbs` Ghost helper-mapping table. Index row added.
+
+### Changed
+
+- `preview/card-{button,avatar,input,mono-pill,card-anatomy}.html` — upgraded from inline-literal demo cards to ADR-0011 reference renders that link the component CSS and use the `.tk-*` classes; `@dsCard` annotations preserved.
+
 ## [0.9.0](https://github.com/tekrogen/Tekrogen-Brand-Design-System/compare/v0.8.0...v0.9.0) (2026-06-12)
 
 
