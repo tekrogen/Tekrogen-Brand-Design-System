@@ -1,0 +1,21 @@
+{{!-- Tekrogen · Footer partial → Ghost theme footer (default.hbs). The four entity pillars
+      are brand-fixed; colophon uses {{@site}}. --}}
+<footer class="tk-footer">
+  <div data-tk-slot="top">
+    <div data-tk-slot="brand">
+      <img src="{{@site.icon}}" alt="" width="40" height="40"/>
+      <div data-tk-slot="wordmark">TEKROGEN</div>
+      <p data-tk-slot="tagline">Real solutions. Built, proven, ready to use.</p>
+    </div>
+    <div data-tk-slot="pillars">
+      <a href="https://tekrogen.org" data-pillar="org"><div class="name">tekrogen.org</div><div class="label">Research, academic groups, open work</div></a>
+      <a href="https://tekrogen.studio" data-pillar="studio"><div class="name">tekrogen.studio</div><div class="label">Proof of concept and demos</div></a>
+      <a href="https://tekrogen.com" data-pillar="com"><div class="name">tekrogen.com</div><div class="label">Commercial product, paid offerings</div></a>
+      <a href="https://tekrogen.net" data-pillar="net"><div class="name">tekrogen.net</div><div class="label">Infrastructure, platform, developer tools</div></a>
+    </div>
+  </div>
+  <div data-tk-slot="colophon">
+    <span>&copy; {{date format="YYYY"}} {{@site.title}} &middot; Martinique Dolce</span>
+    <nav><a href="/colophon">Colophon</a><a href="{{@site.url}}/rss">RSS</a><a href="/contact">Contact</a></nav>
+  </div>
+</footer>

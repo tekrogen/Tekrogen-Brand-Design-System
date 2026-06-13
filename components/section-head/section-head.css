@@ -1,0 +1,52 @@
+/* Tekrogen · Section head — .tk-section-head
+ * Extracted from ui_kits/tekrogen-org/SectionHead.jsx (canonical) per ADR-0011 (stage d, C1).
+ * Eyebrow + title on the left, mono meta on the right, hairline underline. Sub-parts:
+ * data-tk-slot="eyebrow | title | meta". data-size="sm" is the compact in-article variant
+ * (baseline-aligned, tighter rhythm — the mockup's .sec-head-sm). Token-only.
+ */
+.tk-section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--tk-space-6);
+  padding-bottom: var(--tk-space-5);
+  border-bottom: var(--tk-border-1);
+  margin-bottom: var(--tk-space-8);
+}
+
+.tk-section-head [data-tk-slot="eyebrow"] {
+  font-family: var(--tk-font-mono);
+  font-weight: 500;
+  font-size: var(--tk-fs-eyebrow);
+  letter-spacing: var(--tk-ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--tk-accent);
+  margin-bottom: var(--tk-space-2);
+}
+
+.tk-section-head [data-tk-slot="title"] {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  font-size: var(--tk-fs-h2);
+  letter-spacing: -0.015em;
+  line-height: var(--tk-lh-snug);
+  margin: 0;
+  color: var(--tk-fg-1);
+}
+
+.tk-section-head [data-tk-slot="meta"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+}
+
+/* compact in-article variant (the mockup's .sec-head-sm): baseline-aligned, tighter */
+.tk-section-head[data-size="sm"] {
+  align-items: baseline;
+  padding-bottom: var(--tk-space-3);
+  margin-bottom: var(--tk-space-5);
+}
+.tk-section-head[data-size="sm"] [data-tk-slot="eyebrow"] { margin-bottom: 0; }
+.tk-section-head[data-size="sm"] [data-tk-slot="title"] { font-size: var(--tk-fs-h3); }

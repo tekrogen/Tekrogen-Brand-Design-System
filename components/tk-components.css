@@ -10,8 +10,14 @@
  *
  * ADR-0011 (component model) · ADR-0012 (gallery & copy-code contract).
  */
+/* primitives */
 @import url('./button/button.css');
 @import url('./card/card.css');
 @import url('./input/input.css');
 @import url('./badge/badge.css');
 @import url('./avatar/avatar.css');
+/* C1 structural composites */
+@import url('./section-head/section-head.css');
+@import url('./label/label.css');
+@import url('./site-header/site-header.css');
+@import url('./footer/footer.css');

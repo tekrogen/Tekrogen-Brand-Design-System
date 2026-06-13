@@ -1,0 +1,42 @@
+/* Tekrogen · Label — .tk-label (mono micro-labels: pill / chip / tag)
+ * Consolidates the mockup's .pill-mono, .chip, .tag per ADR-0011 (stage d, C1).
+ * Bare = mono pill (the search/status pill). data-variant: chip (→-prefixed relationship
+ * marker) · tag (lowercase, square). data-pillar keys the color to a pillar. Token-only.
+ */
+.tk-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tk-space-2);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  padding: var(--tk-space-1) var(--tk-space-3);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-pill);
+  color: var(--tk-fg-3);
+}
+
+/* relationship chip — leading arrow, square corners */
+.tk-label[data-variant="chip"] {
+  gap: var(--tk-space-1);
+  border-radius: var(--tk-radius-sm);
+}
+.tk-label[data-variant="chip"]::before { content: "→"; font-weight: 600; opacity: 0.7; }
+
+/* tag — lowercase, smallest radius */
+.tk-label[data-variant="tag"] {
+  text-transform: lowercase;
+  letter-spacing: 0;
+  border-radius: var(--tk-radius-xs);
+}
+
+/* pillar-keyed color (org|studio|com|net) */
+.tk-label[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-label[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-label[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-label[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-label[data-pillar] {
+  color: var(--pillar);
+  border-color: color-mix(in srgb, var(--pillar) 45%, transparent);
+}

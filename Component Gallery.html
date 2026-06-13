@@ -128,7 +128,8 @@
   <header class="hero">
     <div class="eyebrow">Component library · stage d</div>
     <h1>Every component, with the code beside it.</h1>
-    <p>The five primitives the kit ships today, lifted out of the dashboard into the token-only
+    <p>The kit's components — the five primitives plus the C1 structural composites (header,
+    footer, section-head, label) — in the token-only
     <code>components/</code> registry per <a href="adr/0011-component-model-conventions.md">ADR-0011</a>.
     Each block shows a live, theme-following specimen and a tabbed <b style="color:var(--tk-fg-2)">⧉ copy</b>
     control: <code>HTML</code> (the markup contract), <code>CSS</code> (the <code>.tk-*</code> token block), and
@@ -346,6 +347,109 @@ const COMPONENTS = [
     hbs:
 `{{!-- Tekrogen · Avatar partial → author byline; initials via theme helper. --}}
 <span class="tk-avatar" style="width:40px;height:40px;font-size:14.4px">{{initials author.name}}</span>`,
+  },
+  {
+    id: 'section-head', idx: '06', name: 'Section head', family: 'Structure',
+    note: 'Source <b>SectionHead.jsx</b> · slots <b>eyebrow·title·meta</b> · <b>data-size=sm</b>',
+    html:
+`<div class="tk-section-head">
+  <div>
+    <p data-tk-slot="eyebrow">.org · use case studies</p>
+    <h2 data-tk-slot="title">Featured studies.</h2>
+  </div>
+  <span data-tk-slot="meta">04 · domain split</span>
+</div>`,
+    css:
+`.tk-section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--tk-space-6); padding-bottom: var(--tk-space-5); border-bottom: var(--tk-border-1); margin-bottom: var(--tk-space-8); }
+.tk-section-head [data-tk-slot="eyebrow"] { font-family: var(--tk-font-mono); font-weight: 500; font-size: var(--tk-fs-eyebrow); letter-spacing: var(--tk-ls-eyebrow); text-transform: uppercase; color: var(--tk-accent); margin-bottom: var(--tk-space-2); }
+.tk-section-head [data-tk-slot="title"] { font-family: var(--tk-font-sans); font-weight: 700; font-size: var(--tk-fs-h2); letter-spacing: -0.015em; margin: 0; color: var(--tk-fg-1); }
+.tk-section-head [data-tk-slot="meta"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-3); }
+/* data-size="sm" = compact in-article variant */`,
+    hbs:
+`{{!-- Tekrogen · Section head partial. --}}
+<div class="tk-section-head">
+  <div>{{#if eyebrow}}<p data-tk-slot="eyebrow">{{eyebrow}}</p>{{/if}}<h2 data-tk-slot="title">{{title}}</h2></div>
+  {{#if meta}}<span data-tk-slot="meta">{{meta}}</span>{{/if}}
+</div>`,
+  },
+  {
+    id: 'label', idx: '07', name: 'Label', family: 'Display',
+    note: 'Consolidates <b>.pill-mono / .chip / .tag</b> · variants <b>chip·tag</b> · <b>data-pillar</b>',
+    html:
+`<span class="tk-label">Search</span>
+<span class="tk-label">● Live</span>
+<span class="tk-label" data-variant="chip" data-pillar="studio">demo</span>
+<span class="tk-label" data-variant="chip" data-pillar="com">product</span>
+<span class="tk-label" data-variant="tag">next.js</span>`,
+    css:
+`.tk-label { display: inline-flex; align-items: center; gap: var(--tk-space-2); font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; padding: var(--tk-space-1) var(--tk-space-3); border: var(--tk-border-1); border-radius: var(--tk-radius-pill); color: var(--tk-fg-3); }
+.tk-label[data-variant="chip"] { gap: var(--tk-space-1); border-radius: var(--tk-radius-sm); }
+.tk-label[data-variant="chip"]::before { content: "→"; font-weight: 600; opacity: 0.7; }
+.tk-label[data-variant="tag"] { text-transform: lowercase; letter-spacing: 0; border-radius: var(--tk-radius-xs); }
+.tk-label[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-label[data-pillar] { color: var(--pillar); border-color: color-mix(in srgb, var(--pillar) 45%, transparent); }`,
+    hbs:
+`{{!-- Tekrogen · Label partial. --}}
+<span class="tk-label"{{#if variant}} data-variant="{{variant}}"{{/if}}{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>{{text}}</span>`,
+  },
+  {
+    id: 'site-header', idx: '08', name: 'Site header', family: 'Structure', grid: true,
+    note: 'Source <b>SiteHeader.jsx</b> · sticky+blur default · <b>data-style=framed</b> · slots brand·wordmark·nav',
+    html:
+`<header class="tk-site-header" data-style="framed">
+  <div data-tk-slot="inner">
+    <a data-tk-slot="brand" href="/"><img src="assets/tekrogen-mark.svg" alt="" width="24" height="24"/><span data-tk-slot="wordmark">Tekrogen</span></a>
+    <nav data-tk-slot="nav"><a href="#" aria-current="page">Home</a><a href="#">Case Studies</a><a href="#">Recon</a><a href="#">About</a></nav>
+  </div>
+</header>`,
+    css:
+`.tk-site-header { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--tk-bg-1) 92%, transparent); backdrop-filter: blur(8px); border-bottom: var(--tk-border-1); }
+.tk-site-header [data-tk-slot="inner"] { display: flex; align-items: center; justify-content: space-between; gap: var(--tk-space-6); padding: var(--tk-space-4) var(--tk-gutter); }
+.tk-site-header [data-tk-slot="brand"] { display: flex; align-items: center; gap: var(--tk-space-3); text-decoration: none; border: 0; }
+.tk-site-header [data-tk-slot="wordmark"] { font-family: var(--tk-font-sans); font-weight: 600; font-size: var(--tk-fs-h3); letter-spacing: 0.01em; color: var(--tk-fg-1); }
+.tk-site-header [data-tk-slot="nav"] { display: flex; align-items: center; gap: var(--tk-space-6); }
+.tk-site-header [data-tk-slot="nav"] a { font-family: var(--tk-font-sans); font-size: var(--tk-fs-body-sm); font-weight: 500; color: var(--tk-fg-3); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; }
+.tk-site-header [data-tk-slot="nav"] a:hover, .tk-site-header [data-tk-slot="nav"] a[aria-current="page"] { color: var(--tk-fg-1); }
+/* data-style="framed": position: static; background: none; backdrop-filter: none; active nav underlined with var(--tk-accent) */`,
+    hbs:
+`{{!-- Tekrogen · Site header → default.hbs. {{@site}} + {{navigation}}. --}}
+<header class="tk-site-header">
+  <div data-tk-slot="inner">
+    <a data-tk-slot="brand" href="{{@site.url}}"><img src="{{@site.icon}}" alt="{{@site.title}}" width="24" height="24"/><span data-tk-slot="wordmark">{{@site.title}}</span></a>
+    <nav data-tk-slot="nav">{{navigation}}</nav>
+  </div>
+</header>`,
+  },
+  {
+    id: 'footer', idx: '09', name: 'Footer', family: 'Structure', grid: true,
+    note: 'Source <b>Footer.jsx</b> · brand + four pillar cards + colophon · slots top·brand·pillars·colophon',
+    html:
+`<footer class="tk-footer">
+  <div data-tk-slot="top">
+    <div data-tk-slot="brand"><img src="assets/tekrogen-mark.svg" alt="" width="40" height="40"/><div data-tk-slot="wordmark">TEKROGEN</div><p data-tk-slot="tagline">Real solutions. Built, proven, ready to use.</p></div>
+    <div data-tk-slot="pillars">
+      <a href="#" data-pillar="org"><div class="name">tekrogen.org</div><div class="label">Research, academic groups, open work</div></a>
+      <a href="#" data-pillar="studio"><div class="name">tekrogen.studio</div><div class="label">Proof of concept and demos</div></a>
+      <a href="#" data-pillar="com"><div class="name">tekrogen.com</div><div class="label">Commercial product, paid offerings</div></a>
+      <a href="#" data-pillar="net"><div class="name">tekrogen.net</div><div class="label">Infrastructure, platform, developer tools</div></a>
+    </div>
+  </div>
+  <div data-tk-slot="colophon"><span>© 2026 Tekrogen · Martinique Dolce</span><nav><a href="#">Colophon</a><a href="#">RSS</a><a href="#">Contact</a></nav></div>
+</footer>`,
+    css:
+`.tk-footer { margin-top: var(--tk-space-20); padding-top: var(--tk-space-16); border-top: var(--tk-border-1); background: var(--tk-bg-3); }
+.tk-footer [data-tk-slot="top"] { display: grid; grid-template-columns: 1fr 2fr; gap: var(--tk-space-16); padding: 0 var(--tk-gutter) var(--tk-space-16); }
+.tk-footer [data-tk-slot="wordmark"] { font-family: var(--tk-font-sans); font-weight: 700; font-size: var(--tk-fs-body); letter-spacing: var(--tk-ls-wordmark); text-transform: uppercase; color: var(--tk-fg-1); margin-top: var(--tk-space-5); }
+.tk-footer [data-tk-slot="tagline"] { font-family: var(--tk-font-sans); font-style: italic; font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: var(--tk-space-3) 0 0; max-width: 36ch; }
+.tk-footer [data-tk-slot="pillars"] { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--tk-space-6); }
+.tk-footer [data-tk-slot="pillars"] a { display: block; padding: var(--tk-space-5); background: var(--tk-bg-2); border: var(--tk-border-1); border-left: 2px solid var(--pillar, var(--tk-cyan)); border-radius: var(--tk-radius-md); text-decoration: none; }
+.tk-footer [data-tk-slot="pillars"] a[data-pillar="org"] { --pillar: var(--tk-org); }  /* +studio/com/net */
+.tk-footer [data-tk-slot="pillars"] .name { font-family: var(--tk-font-mono); font-size: var(--tk-fs-body-sm); color: var(--pillar, var(--tk-fg-1)); }
+.tk-footer [data-tk-slot="pillars"] .label { font-family: var(--tk-font-sans); font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); }
+.tk-footer [data-tk-slot="colophon"] { border-top: var(--tk-border-1); padding: var(--tk-space-5) var(--tk-gutter); display: flex; justify-content: space-between; gap: var(--tk-space-4); flex-wrap: wrap; font-family: var(--tk-font-mono); font-size: var(--tk-fs-body-sm); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); }`,
+    hbs:
+`{{!-- Tekrogen · Footer → default.hbs. Pillars brand-fixed; colophon uses {{@site}}. --}}
+<footer class="tk-footer"> … (see components/footer/footer.hbs) … </footer>`,
   },
 ];
 

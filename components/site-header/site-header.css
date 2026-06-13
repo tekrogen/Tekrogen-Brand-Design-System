@@ -1,0 +1,64 @@
+/* Tekrogen · Site header — .tk-site-header
+ * Extracted from ui_kits/tekrogen-org/SiteHeader.jsx (canonical) per ADR-0011 (stage d, C1).
+ * Sticky, blurred, hairline-bottom; sans mixed-case wordmark + nav. Sub-parts:
+ * data-tk-slot="inner | brand | wordmark | nav". data-style="framed" = the static, in-frame
+ * variant (the mockup's browser-chrome device): non-sticky, no blur, active nav underlined.
+ * Token-only. The mark (Dragonfly SVG) is supplied by the consumer in the brand slot.
+ */
+.tk-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--tk-bg-1) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: var(--tk-border-1);
+}
+.tk-site-header [data-tk-slot="inner"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tk-space-6);
+  padding: var(--tk-space-4) var(--tk-gutter);
+}
+.tk-site-header [data-tk-slot="brand"] {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-3);
+  text-decoration: none;
+  border: 0;
+}
+.tk-site-header [data-tk-slot="wordmark"] {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  font-size: var(--tk-fs-h3);
+  letter-spacing: 0.01em;
+  color: var(--tk-fg-1);
+}
+.tk-site-header [data-tk-slot="nav"] {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-6);
+}
+.tk-site-header [data-tk-slot="nav"] a {
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body-sm);
+  font-weight: 500;
+  color: var(--tk-fg-3);
+  text-decoration: none;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color var(--tk-dur-1) var(--tk-ease), border-color var(--tk-dur-1) var(--tk-ease);
+}
+.tk-site-header [data-tk-slot="nav"] a:hover,
+.tk-site-header [data-tk-slot="nav"] a[aria-current="page"] { color: var(--tk-fg-1); }
+
+/* framed variant — static, inside a browser-chrome device (the mockup); active nav underlined */
+.tk-site-header[data-style="framed"] {
+  position: static;
+  background: none;
+  backdrop-filter: none;
+}
+.tk-site-header[data-style="framed"] [data-tk-slot="nav"] a[aria-current="page"] {
+  border-bottom-color: var(--tk-accent);
+}
