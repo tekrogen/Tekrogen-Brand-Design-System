@@ -1,0 +1,7 @@
+{{!-- Tekrogen · Table partial. Build rows from a Ghost collection or custom data. --}}
+<table class="tk-table">
+  <thead><tr><th>Column</th><th data-num>Value</th></tr></thead>
+  <tbody>
+    {{#foreach rows}}<tr><td>{{this.label}}</td><td data-num>{{this.value}}</td></tr>{{/foreach}}
+  </tbody>
+</table>

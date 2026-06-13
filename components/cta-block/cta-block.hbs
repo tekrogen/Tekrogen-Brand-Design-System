@@ -1,0 +1,6 @@
+{{!-- Tekrogen · CTA block partial → next-step / subscribe block. --}}
+<div class="tk-cta-block"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>
+  {{#if eyebrow}}<p class="tk-eyebrow">{{eyebrow}}</p>{{/if}}
+  <h3>{{title}}</h3>
+  <div data-tk-slot="actions">{{{actions}}}</div>
+</div>

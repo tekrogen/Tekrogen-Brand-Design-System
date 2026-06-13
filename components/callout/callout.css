@@ -1,0 +1,17 @@
+/* Tekrogen · Callout — .tk-callout
+ * Inline note with a left accent (default cyan; data-pillar keys it). Per ADR-0011 (C2).
+ */
+.tk-callout {
+  border: var(--tk-border-1);
+  border-left: 3px solid var(--pillar, var(--tk-accent));
+  border-radius: var(--tk-radius-md);
+  padding: var(--tk-space-4) var(--tk-space-5);
+  background: var(--tk-bg-2);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-2);
+}
+.tk-callout strong { color: var(--tk-fg-1); }
+.tk-callout[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-callout[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-callout[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-callout[data-pillar="net"]    { --pillar: var(--tk-net); }

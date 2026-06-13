@@ -1,0 +1,30 @@
+/* Tekrogen · Table — .tk-table
+ * Hairline rows, mono-caps header, no zebra fills (gap-analysis P1) per ADR-0011 (stage d, C2).
+ * Numeric columns right-align via [data-num]. Token-only.
+ */
+.tk-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--tk-fs-body-sm);
+  margin: var(--tk-space-1) 0;
+}
+.tk-table th {
+  text-align: left;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+  font-weight: 500;
+  padding: var(--tk-space-3) var(--tk-space-4);
+  border-bottom: var(--tk-border-1);
+}
+.tk-table td {
+  padding: var(--tk-space-3) var(--tk-space-4);
+  border-bottom: var(--tk-border-hair);
+  color: var(--tk-fg-2);
+  vertical-align: top;
+}
+.tk-table tr:last-child td { border-bottom: 0; }
+.tk-table td b { color: var(--tk-fg-1); font-weight: 600; }
+.tk-table [data-num], .tk-table th[data-num] { text-align: right; font-variant-numeric: tabular-nums; }

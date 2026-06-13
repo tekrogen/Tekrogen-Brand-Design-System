@@ -1,0 +1,23 @@
+/* Tekrogen · CTA block — .tk-cta-block
+ * Centered next-step block: eyebrow + title + an action row. Left accent (default cyan;
+ * data-pillar keys it). Relates to SubscribeBlock.jsx. Per ADR-0011 (C2).
+ */
+.tk-cta-block {
+  border: var(--tk-border-1);
+  border-left: 3px solid var(--pillar, var(--tk-accent));
+  border-radius: var(--tk-radius-xl);
+  padding: var(--tk-space-8);
+  background: var(--tk-bg-2);
+  text-align: center;
+}
+.tk-cta-block [data-tk-slot="actions"] {
+  display: flex;
+  gap: var(--tk-space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--tk-space-5);
+}
+.tk-cta-block[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-cta-block[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-cta-block[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-cta-block[data-pillar="net"]    { --pillar: var(--tk-net); }
