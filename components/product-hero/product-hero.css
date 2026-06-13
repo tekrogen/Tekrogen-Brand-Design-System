@@ -1,0 +1,103 @@
+/* Tekrogen · Product hero — .tk-product-hero (ADR-0011, C5 commerce)
+ * Two-column product header: body (badge/title/lead + price-block + actions + ✓ summary) and a
+ * striped visual panel. Sub-parts: data-tk-slot="body | price | summary | visual". Price-block
+ * children: .amt (+ .from), .term, .lic chip. Summary items are <div> with a ✓ marker. com-keyed.
+ * Token-only; literals are the visual panel's hatch geometry + accent ring + the 1px hairline.
+ */
+.tk-product-hero {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: var(--tk-space-12);
+  align-items: start;
+}
+.tk-product-hero [data-tk-slot="price"] {
+  display: flex;
+  align-items: baseline;
+  gap: var(--tk-space-3);
+  flex-wrap: wrap;
+  margin: var(--tk-space-6) 0;
+}
+.tk-product-hero [data-tk-slot="price"] .amt {
+  font-weight: 700;
+  font-size: var(--tk-fs-h1);
+  letter-spacing: var(--tk-ls-tight);
+  line-height: 1;
+}
+.tk-product-hero [data-tk-slot="price"] .amt .from {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+  margin-right: var(--tk-space-2);
+  font-weight: 500;
+}
+.tk-product-hero [data-tk-slot="price"] .term {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+}
+.tk-product-hero [data-tk-slot="price"] .lic {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-com);
+  border: 1px solid color-mix(in srgb, var(--tk-com) 40%, transparent);
+  background: color-mix(in srgb, var(--tk-com) 12%, transparent);
+  border-radius: var(--tk-radius-pill);
+  padding: var(--tk-space-1) var(--tk-space-3);
+}
+.tk-product-hero [data-tk-slot="summary"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-3);
+  margin-top: var(--tk-space-6);
+}
+.tk-product-hero [data-tk-slot="summary"] > * {
+  display: flex;
+  gap: var(--tk-space-2);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-2);
+}
+.tk-product-hero [data-tk-slot="summary"] > *::before {
+  content: "\2713"; /* ✓ */
+  color: var(--tk-com);
+  font-weight: 700;
+  flex: none;
+}
+.tk-product-hero [data-tk-slot="visual"] {
+  position: relative;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-2xl);
+  background: repeating-linear-gradient(135deg, var(--tk-bg-2), var(--tk-bg-2) 16px, var(--tk-bg-3) 16px, var(--tk-bg-3) 32px);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--tk-space-5);
+  overflow: hidden;
+}
+.tk-product-hero [data-tk-slot="visual"]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(60% 60% at 70% 62%, color-mix(in srgb, var(--tk-com) 20%, transparent), transparent 70%);
+  pointer-events: none;
+}
+.tk-product-hero [data-tk-slot="visual"] .v-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+  position: relative;
+  z-index: 1;
+}
+.tk-product-hero [data-tk-slot="visual"] .v-foot .d { color: var(--tk-com); }
+@media (max-width: 860px) { .tk-product-hero { grid-template-columns: 1fr; } }

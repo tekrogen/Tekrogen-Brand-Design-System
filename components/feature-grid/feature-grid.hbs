@@ -1,0 +1,10 @@
+{{!-- Tekrogen · Feature grid partial. Features are structured content (page blocks or a custom
+      collection); each item supplies a name + desc. --}}
+<div class="tk-feature-grid">
+  {{#foreach features}}
+  <div class="tk-feature">
+    <div data-tk-slot="name">{{this.name}}</div>
+    <div data-tk-slot="desc">{{this.desc}}</div>
+  </div>
+  {{/foreach}}
+</div>

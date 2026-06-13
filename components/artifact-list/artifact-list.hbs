@@ -1,0 +1,25 @@
+{{!-- Tekrogen · Artifact list partial — the ADR-0006 trust-state download gate. Anonymous/free visitors
+      see the registration gate + "Sign in to download"; paid members get direct links. Files are custom
+      content (page settings / a downloads collection). --}}
+<div class="tk-artifact-list" data-pillar="studio">
+  {{#unless @member}}
+  <div data-tk-slot="gate">
+    <div>
+      <span class="lock">⊘ Registration required · free tier</span>
+      <h3>{{@custom.gate_title}}</h3>
+      <p class="desc">{{@custom.gate_desc}}</p>
+    </div>
+    <div class="actions">
+      <a class="tk-button" data-style="cta" data-pillar="studio" href="#/signup">Create free account</a>
+      <a class="tk-button" data-style="cta" data-variant="secondary" href="#/signin">Sign in</a>
+    </div>
+  </div>
+  {{/unless}}
+  {{#foreach @custom.artifacts}}
+  <div data-tk-slot="row">
+    <span class="name">{{this.name}}</span>
+    <span class="size">{{this.size}}</span>
+    {{#if @member}}<a class="dl" href="{{this.url}}">Download</a>{{else}}<a class="dl" href="#/signin">Sign in to download</a>{{/if}}
+  </div>
+  {{/foreach}}
+</div>
