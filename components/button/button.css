@@ -1,0 +1,45 @@
+/* Tekrogen · Button — .tk-button
+ * Extracted from index.html dashboard `.btn` per ADR-0011 (stage d, PR 1).
+ * Bare class = the default (primary) variant; deviations via data-variant / data-size.
+ * Token-only: padding snapped to the --tk-space-* scale (PR-1 normalization,
+ * logged as a MINOR pixel-diff per ADR-0003); hairlines via --tk-border-* tokens.
+ */
+.tk-button {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: var(--tk-space-2) var(--tk-space-4);
+  border: var(--tk-border-accent);
+  border-radius: var(--tk-radius-sm);
+  background: var(--tk-cyan);
+  color: var(--tk-ink);
+  cursor: pointer;
+  transition: background var(--tk-dur-1) var(--tk-ease),
+              color var(--tk-dur-1) var(--tk-ease),
+              border-color var(--tk-dur-1) var(--tk-ease),
+              transform var(--tk-dur-1) var(--tk-ease);
+}
+
+.tk-button[data-variant="secondary"] {
+  border: var(--tk-border-1);
+  background: transparent;
+  color: var(--tk-fg-1);
+}
+
+.tk-button[data-variant="tertiary"] {
+  border: var(--tk-border-1);
+  border-color: transparent;
+  background: transparent;
+  color: var(--tk-fg-2);
+  padding: var(--tk-space-2);
+}
+
+.tk-button[data-size="icon"] { padding: var(--tk-space-2) var(--tk-space-3); }
+
+.tk-button:hover { border-color: var(--tk-focus); }
+.tk-button:where(:not([data-variant]), [data-variant="primary"]):hover {
+  background: color-mix(in srgb, var(--tk-cyan) 92%, white);
+}
+.tk-button:active { transform: scale(0.98); }

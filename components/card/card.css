@@ -1,0 +1,55 @@
+/* Tekrogen · Card — .tk-card
+ * Extracted from index.html dashboard `.card` / `.card-head` / `.card-body` /
+ * `.card-foot` per ADR-0011 (stage d, PR 1).
+ * Sub-parts are data-tk-slot="head | body | foot" (ADR-0011 §3); optional grid
+ * placement via data-span (a layout modifier, not a visual variant). The
+ * dashboard's min-height floor is a layout concern and is left to the usage.
+ * Token-only: padding snapped to --tk-space-* (PR-1 normalization, ADR-0003).
+ */
+.tk-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  grid-column: span 4;
+  background: var(--tk-bg-2);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-xl);
+  transition: border-color var(--tk-dur-2) var(--tk-ease);
+}
+
+.tk-card[data-span="6"]  { grid-column: span 6; }
+.tk-card[data-span="8"]  { grid-column: span 8; }
+.tk-card[data-span="12"] { grid-column: span 12; }
+
+.tk-card:hover { border-color: color-mix(in srgb, var(--tk-cyan) 40%, var(--tk-border)); }
+
+.tk-card [data-tk-slot="head"] {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: var(--tk-space-3) var(--tk-space-4);
+  border-bottom: var(--tk-border-1);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+}
+
+.tk-card [data-tk-slot="body"] {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: var(--tk-space-6) var(--tk-space-5);
+  background: var(--tk-bg-2);
+  color: var(--tk-fg-2);
+}
+
+.tk-card [data-tk-slot="foot"] {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--tk-space-3);
+  padding: var(--tk-space-3) var(--tk-space-4);
+  border-top: var(--tk-border-1);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: 0.08em;
+  color: var(--tk-fg-3);
+  background: var(--tk-bg-2);
+}

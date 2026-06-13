@@ -1,0 +1,20 @@
+/* Tekrogen · Avatar — .tk-avatar
+ * Extracted from index.html dashboard `.avatar` per ADR-0011 (stage d, PR 1).
+ * The org→com pillar gradient with white initials.
+ *
+ * Two deliberate literal exceptions (no themable token applies):
+ *   · border-radius: 50%  — circle geometry, not a radius-scale value.
+ *   · color: #fff         — white-on-pillar. No token exists yet; --tk-fg-on-accent
+ *                           is deferred to the PR-3 token batch (ADR-0011 §7).
+ * Dimensions (width / height / font-size) are per-usage geometry, set inline by
+ * the consumer — exactly as the dashboard does — so they stay out of the token CSS.
+ */
+.tk-avatar {
+  display: inline-flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--tk-org), var(--tk-com));
+  color: #fff;
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+}

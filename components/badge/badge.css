@@ -1,0 +1,29 @@
+/* Tekrogen · Badge — .tk-badge (the "mono pill" label)
+ * Extracted from index.html dashboard `.mono-pill` per ADR-0011 (stage d, PR 1).
+ * Bare class = the default (outline) variant; data-variant cyan / filled / muted.
+ * Token-only: padding snapped to --tk-space-*, the pill radius → --tk-radius-pill
+ * (PR-1 normalization, ADR-0003); hairline via --tk-border-* tokens.
+ */
+.tk-badge {
+  display: inline-block;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: var(--tk-space-1) var(--tk-space-3);
+  border: var(--tk-border-1);
+  border-radius: var(--tk-radius-pill);
+  background: transparent;
+  color: var(--tk-fg-2);
+}
+
+.tk-badge[data-variant="cyan"] { color: var(--tk-accent); }
+
+.tk-badge[data-variant="filled"] {
+  border: var(--tk-border-accent);
+  background: var(--tk-cyan);
+  color: var(--tk-ink);
+  font-weight: 700;
+}
+
+.tk-badge[data-variant="muted"] { color: var(--tk-fg-3); }

@@ -1,0 +1,17 @@
+/* Tekrogen component registry — barrel
+ * ----------------------------------------------------------------------------
+ * One @import per component bundle. Link THIS file from a surface to pull the
+ * whole registry; each component also stands alone (components/<name>/<name>.css).
+ *
+ * The url() form is REQUIRED: scripts/font-guard.mjs (CSS_IMPORT regex) only
+ * follows `@import url(...)` when validating the var(--tk-*) chain — a bare
+ * `@import "…"` would be invisible to CI. Tokens resolve from colors_and_type.css,
+ * which the consuming surface links alongside this barrel.
+ *
+ * ADR-0011 (component model) · ADR-0012 (gallery & copy-code contract).
+ */
+@import url('./button/button.css');
+@import url('./card/card.css');
+@import url('./input/input.css');
+@import url('./badge/badge.css');
+@import url('./avatar/avatar.css');
