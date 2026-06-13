@@ -1,6 +1,6 @@
 {{!-- Tekrogen · Card partial → Ghost post card. Drop inside {{#foreach posts}} …
       {{/foreach}}. Maps the head/body/foot slots onto post helpers. --}}
-<article class="tk-card">
+<article class="tk-card"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>
   <div data-tk-slot="head"><span>{{primary_tag.name}}</span><span>{{date format="MMM YYYY"}}</span></div>
   <div data-tk-slot="body"><a href="{{url}}">{{title}}</a></div>
   <div data-tk-slot="foot"><span>{{reading_time}}</span><span>{{primary_author.name}}</span></div>

@@ -1,3 +1,3 @@
 {{!-- Tekrogen · Button partial. Usage: {{> "button" label="Subscribe"}}
       Primitive carries no Ghost data; {{label}} is the only slot. --}}
-<button class="tk-button"{{#if variant}} data-variant="{{variant}}"{{/if}}>{{label}}</button>
+<button class="tk-button"{{#if variant}} data-variant="{{variant}}"{{/if}}{{#if pillar}} data-pillar="{{pillar}}"{{/if}}{{#if block}} data-block{{/if}}>{{label}}</button>
