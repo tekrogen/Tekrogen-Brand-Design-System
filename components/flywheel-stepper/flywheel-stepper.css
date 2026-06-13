@@ -1,0 +1,40 @@
+/* Tekrogen · Flywheel stepper — .tk-flywheel-stepper
+ * The linear 8-step position bar (Product/Docs pages) per ADR-0011 (stage d, C4). Each step:
+ * data-tk-slot="step" with data-pillar (top accent) + data-state="done | here", containing
+ * data-tk-slot="num | name". Token-only; sub-12px mockup sizes raised to the floor.
+ * Responsive: 8 → 4 columns, hidden below 640.
+ */
+.tk-flywheel-stepper {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  border-bottom: var(--tk-border-1);
+}
+.tk-flywheel-stepper [data-tk-slot="step"] {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-1);
+  padding: var(--tk-space-3) var(--tk-space-4);
+  border-top: 2px solid color-mix(in srgb, var(--pillar, var(--tk-border)) 28%, transparent);
+  border-right: var(--tk-border-hair);
+}
+.tk-flywheel-stepper [data-tk-slot="step"]:last-child { border-right: 0; }
+.tk-flywheel-stepper [data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-flywheel-stepper [data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-flywheel-stepper [data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-flywheel-stepper [data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-flywheel-stepper [data-tk-slot="num"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--pillar);
+}
+.tk-flywheel-stepper [data-tk-slot="name"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); }
+.tk-flywheel-stepper [data-state="done"] [data-tk-slot="name"] { color: var(--tk-fg-2); }
+.tk-flywheel-stepper [data-state="here"] {
+  border-top-color: var(--pillar);
+  background: color-mix(in srgb, var(--pillar) 9%, transparent);
+}
+.tk-flywheel-stepper [data-state="here"] [data-tk-slot="name"] { color: var(--tk-fg-1); font-weight: 600; }
+@media (max-width: 1080px) { .tk-flywheel-stepper { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 640px)  { .tk-flywheel-stepper { display: none; } }

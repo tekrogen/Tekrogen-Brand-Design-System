@@ -1,0 +1,5 @@
+{{!-- Tekrogen · Flywheel stepper partial → position bar on a product/doc page. The 8 stages are
+      brand-fixed; set data-state per the current page. --}}
+<nav class="tk-flywheel-stepper" aria-label="Flywheel position">
+  {{#foreach stages}}<div data-tk-slot="step" data-pillar="{{this.pillar}}"{{#if this.state}} data-state="{{this.state}}"{{/if}}><span data-tk-slot="num">{{this.num}}</span><span data-tk-slot="name">{{this.name}}</span></div>{{/foreach}}
+</nav>

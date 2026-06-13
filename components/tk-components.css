@@ -34,3 +34,6 @@
 @import url('./category-card/category-card.css');
 @import url('./team-card/team-card.css');
 @import url('./manifesto-card/manifesto-card.css');
+/* C4 flywheel */
+@import url('./flywheel/flywheel.css');
+@import url('./flywheel-stepper/flywheel-stepper.css');
