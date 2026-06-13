@@ -37,3 +37,9 @@
 /* C4 flywheel */
 @import url('./flywheel/flywheel.css');
 @import url('./flywheel-stepper/flywheel-stepper.css');
+/* C5 commerce */
+@import url('./license-tier/license-tier.css');
+@import url('./product-hero/product-hero.css');
+@import url('./feature-grid/feature-grid.css');
+@import url('./demo-preview/demo-preview.css');
+@import url('./artifact-list/artifact-list.css');

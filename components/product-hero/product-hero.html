@@ -1,0 +1,28 @@
+<!-- Tekrogen · Product hero specimen (ADR-0011 reference render). Body composes tk-badge / tk-button;
+     price-block = .amt(.from) + .term + .lic chip; summary items get a ✓ marker. com-keyed. -->
+<section class="tk-product-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="com">.com · product</span>
+    <h1 style="margin-top:14px">Spine — fleet replay engine.</h1>
+    <p class="lead">A production-grade route-replay engine for telemetry. Drop-in React component, headless engine for any framework, deterministic CSV/Parquet export, and a small Go API service if you want it self-hosted.</p>
+    <div data-tk-slot="price">
+      <div class="amt"><span class="from">from</span>$129</div>
+      <div class="term">one-time · per developer</div>
+      <div class="lic">Standard · Extended · Team</div>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <a class="tk-button" data-style="cta" data-pillar="com" href="#">Pick a license →</a>
+      <a class="tk-button" data-style="cta" data-variant="secondary" href="#">Try the demo first</a>
+    </div>
+    <div data-tk-slot="summary">
+      <div>React component, headless engine, and Go API — pick what you need.</div>
+      <div>Deterministic export — same input data, identical output bytes.</div>
+      <div>Six-month update window included; commercial deployment from $129.</div>
+      <div>Built from a working case study and a public demo, not a slide deck.</div>
+    </div>
+  </div>
+  <div data-tk-slot="visual">
+    <div><span class="tk-badge" data-pillar="com">.com · v0.4.2</span></div>
+    <div class="v-foot"><span>Latest release</span><span class="d">2026-05-28</span></div>
+  </div>
+</section>

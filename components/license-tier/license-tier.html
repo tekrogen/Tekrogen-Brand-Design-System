@@ -1,0 +1,31 @@
+<!-- Tekrogen · License tier specimen (ADR-0011 reference render). data-variant="featured" adds the
+     ribbon + com ring; feature li[data-state="excluded"] flips ✓→✗. Wrap tiers in .tk-license-grid. -->
+<div class="tk-license-grid">
+  <article class="tk-license-tier">
+    <div data-tk-slot="name">MIT · free</div>
+    <div data-tk-slot="price">$0</div>
+    <p data-tk-slot="desc">The demo source, MIT-licensed. For evaluation, study, and non-commercial use.</p>
+    <ul data-tk-slot="features">
+      <li>Demo source code</li>
+      <li>Sample dataset</li>
+      <li>Architecture diagram</li>
+      <li data-state="excluded">Production support</li>
+      <li data-state="excluded">Commercial deployment</li>
+    </ul>
+    <a data-tk-slot="cta" href="#">Get the demo source</a>
+  </article>
+  <article class="tk-license-tier" data-variant="featured">
+    <span data-tk-slot="ribbon">Recommended</span>
+    <div data-tk-slot="name">Standard</div>
+    <div data-tk-slot="price">$129<span class="term">/ dev</span></div>
+    <p data-tk-slot="desc">One developer, one production deployment. The default tier for indie shops.</p>
+    <ul data-tk-slot="features">
+      <li>Full source · React + headless engine</li>
+      <li>One internal production deployment</li>
+      <li>Six months of updates</li>
+      <li>Email support</li>
+      <li data-state="excluded">Sub-license to clients</li>
+    </ul>
+    <a data-tk-slot="cta" data-variant="buy" href="#">Buy Standard →</a>
+  </article>
+</div>

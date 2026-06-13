@@ -128,8 +128,9 @@
   <header class="hero">
     <div class="eyebrow">Component library · stage d</div>
     <h1>Every component, with the code beside it.</h1>
-    <p>The kit's components — the five primitives plus the C1 structural composites (header,
-    footer, section-head, label) — in the token-only
+    <p>The kit's components — the five primitives plus the composites batch: C1 structural
+    (header, footer, section-head, label), C2 data &amp; forms, C3 cards, C4 signature flywheel,
+    and C5 commerce (license tiers, product hero, feature grid, demo, gated downloads) — in the token-only
     <code>components/</code> registry per <a href="adr/0011-component-model-conventions.md">ADR-0011</a>.
     Each block shows a live, theme-following specimen and a tabbed <b style="color:var(--tk-fg-2)">⧉ copy</b>
     control: <code>HTML</code> (the markup contract), <code>CSS</code> (the <code>.tk-*</code> token block), and
@@ -705,6 +706,127 @@ const COMPONENTS = [
 .tk-flywheel-stepper [data-state="here"] { border-top-color: var(--pillar); background: color-mix(in srgb, var(--pillar) 9%, transparent); }
 .tk-flywheel-stepper [data-state="here"] [data-tk-slot="name"] { color: var(--tk-fg-1); font-weight: 600; }`,
     hbs: `{{!-- Flywheel stepper partial → page position bar. See components/flywheel-stepper/flywheel-stepper.hbs. --}}`,
+  },
+  {
+    id: 'license-tier', idx: '23', name: 'License tier', family: 'Commerce', grid: true,
+    note: 'Pricing-tier card · <b>data-variant</b>=featured (ribbon + com ring) · <b>data-state</b>=excluded list items · slots name/price/desc/features/cta',
+    html:
+`<div class="tk-license-grid">
+  <article class="tk-license-tier">
+    <div data-tk-slot="name">MIT · free</div>
+    <div data-tk-slot="price">$0</div>
+    <p data-tk-slot="desc">The demo source, MIT-licensed. For evaluation and study.</p>
+    <ul data-tk-slot="features"><li>Demo source code</li><li>Sample dataset</li><li data-state="excluded">Production support</li></ul>
+    <a data-tk-slot="cta" href="#">Get the demo source</a>
+  </article>
+  <article class="tk-license-tier" data-variant="featured">
+    <span data-tk-slot="ribbon">Recommended</span>
+    <div data-tk-slot="name">Standard</div>
+    <div data-tk-slot="price">$129<span class="term">/ dev</span></div>
+    <p data-tk-slot="desc">One developer, one production deployment.</p>
+    <ul data-tk-slot="features"><li>Full source</li><li>Six months of updates</li><li data-state="excluded">Sub-license to clients</li></ul>
+    <a data-tk-slot="cta" data-variant="buy" href="#">Buy Standard →</a>
+  </article>
+</div>`,
+    css:
+`.tk-license-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--tk-space-4); }
+.tk-license-tier { position: relative; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl); padding: var(--tk-space-6); background: var(--tk-bg-2); display: flex; flex-direction: column; gap: var(--tk-space-3); }
+.tk-license-tier[data-variant="featured"] { border-color: var(--tk-com); box-shadow: 0 0 0 1px var(--tk-com); }
+.tk-license-tier [data-tk-slot="ribbon"] { position: absolute; top: 0; left: 0; font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; background: var(--tk-cyan); color: var(--tk-ink); padding: var(--tk-space-1) var(--tk-space-3); border-radius: var(--tk-radius-xl) 0 var(--tk-radius-md) 0; }
+.tk-license-tier [data-tk-slot="price"] { font-weight: 700; font-size: var(--tk-fs-h2); letter-spacing: var(--tk-ls-tight); }
+.tk-license-tier [data-tk-slot="features"] { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: var(--tk-space-2); font-size: var(--tk-fs-body-sm); }
+.tk-license-tier [data-tk-slot="features"] li::before { content: "\\2713"; color: var(--tk-com); font-weight: 700; }
+.tk-license-tier [data-tk-slot="features"] li[data-state="excluded"] { color: var(--tk-fg-5); }
+.tk-license-tier [data-tk-slot="features"] li[data-state="excluded"]::before { content: "\\2717"; color: var(--tk-fg-5); }
+.tk-license-tier [data-tk-slot="cta"][data-variant="buy"] { background: var(--tk-com); border-color: var(--tk-com); color: var(--tk-ink); }`,
+    hbs: `{{!-- License-tier partial → {{#foreach tiers}}. See components/license-tier/license-tier.hbs. --}}`,
+  },
+  {
+    id: 'product-hero', idx: '24', name: 'Product hero', family: 'Commerce', grid: true,
+    note: 'Two-column product header · price-block (amt/from/term/lic) + ✓ summary + striped visual · com-keyed · slots body/price/summary/visual',
+    html:
+`<section class="tk-product-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="com">.com · product</span>
+    <h1 style="margin-top:14px">Spine — fleet replay engine.</h1>
+    <p class="lead">A production-grade route-replay engine for telemetry.</p>
+    <div data-tk-slot="price"><div class="amt"><span class="from">from</span>$129</div><div class="term">one-time · per developer</div><div class="lic">Standard · Extended · Team</div></div>
+    <div data-tk-slot="summary"><div>Deterministic export — identical output bytes.</div><div>Six-month update window included.</div></div>
+  </div>
+  <div data-tk-slot="visual"><div><span class="tk-badge" data-pillar="com">.com · v0.4.2</span></div><div class="v-foot"><span>Latest release</span><span class="d">2026-05-28</span></div></div>
+</section>`,
+    css:
+`.tk-product-hero { display: grid; grid-template-columns: 1.12fr 0.88fr; gap: var(--tk-space-12); align-items: start; }
+.tk-product-hero [data-tk-slot="price"] { display: flex; align-items: baseline; gap: var(--tk-space-3); flex-wrap: wrap; margin: var(--tk-space-6) 0; }
+.tk-product-hero [data-tk-slot="price"] .amt { font-weight: 700; font-size: var(--tk-fs-h1); letter-spacing: var(--tk-ls-tight); line-height: 1; }
+.tk-product-hero [data-tk-slot="price"] .lic { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-com); border: 1px solid color-mix(in srgb, var(--tk-com) 40%, transparent); background: color-mix(in srgb, var(--tk-com) 12%, transparent); border-radius: var(--tk-radius-pill); padding: var(--tk-space-1) var(--tk-space-3); }
+.tk-product-hero [data-tk-slot="summary"] > *::before { content: "\\2713"; color: var(--tk-com); font-weight: 700; }
+.tk-product-hero [data-tk-slot="visual"] { position: relative; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-2xl); background: repeating-linear-gradient(135deg, var(--tk-bg-2), var(--tk-bg-2) 16px, var(--tk-bg-3) 16px, var(--tk-bg-3) 32px); min-height: 380px; display: flex; flex-direction: column; justify-content: space-between; padding: var(--tk-space-5); overflow: hidden; }
+/* @media (max-width: 860px) { grid-template-columns: 1fr; } */`,
+    hbs: `{{!-- Product-hero partial → page title/excerpt + @custom price/summary. See components/product-hero/product-hero.hbs. --}}`,
+  },
+  {
+    id: 'feature-grid', idx: '25', name: 'Feature grid', family: 'Commerce', grid: true,
+    note: 'Two-column "what you get" cards · per card slots name/desc',
+    html:
+`<div class="tk-feature-grid">
+  <div class="tk-feature"><div data-tk-slot="name">Headless engine</div><div data-tk-slot="desc">A small TypeScript core with no UI dependency. Wire it into any framework.</div></div>
+  <div class="tk-feature"><div data-tk-slot="name">Deterministic export</div><div data-tk-slot="desc">CSV and Parquet output is byte-for-byte reproducible from identical input.</div></div>
+  <div class="tk-feature"><div data-tk-slot="name">Self-hostable API</div><div data-tk-slot="desc">A small Go service for hourly batch ingest. Ships as a container image.</div></div>
+  <div class="tk-feature"><div data-tk-slot="name">Map-vendor agnostic</div><div data-tk-slot="desc">Adapters for MapLibre, Mapbox GL, and a no-map canvas fallback.</div></div>
+</div>`,
+    css:
+`.tk-feature-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--tk-space-5); }
+.tk-feature { border: 1px solid var(--tk-border); border-radius: var(--tk-radius-lg); padding: var(--tk-space-5); background: var(--tk-bg-2); }
+.tk-feature [data-tk-slot="name"] { font-weight: 600; color: var(--tk-fg-1); margin-bottom: var(--tk-space-2); }
+.tk-feature [data-tk-slot="desc"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); }
+/* @media (max-width: 720px) { grid-template-columns: 1fr; } */`,
+    hbs: `{{!-- Feature-grid partial → {{#foreach features}}. See components/feature-grid/feature-grid.hbs. --}}`,
+  },
+  {
+    id: 'demo-preview', idx: '26', name: 'Demo preview', family: 'Commerce', grid: true,
+    note: 'Striped iframe-preview placeholder + 3-up shots grid + mono key/val meta strip · meta slots key/val (val[data-mono])',
+    html:
+`<div class="tk-demo-meta">
+  <div><div data-tk-slot="key">Status</div><div data-tk-slot="val">● Live · stable</div></div>
+  <div><div data-tk-slot="key">Version</div><div data-tk-slot="val" data-mono>v0.3.1 · 2026-05-22</div></div>
+  <div><div data-tk-slot="key">License</div><div data-tk-slot="val">MIT (demo source)</div></div>
+  <div><div data-tk-slot="key">Time to try</div><div data-tk-slot="val">~3 minutes</div></div>
+</div>
+<div class="tk-demo-preview" style="margin-top:32px"><span>live preview · &lt;iframe&gt; embed</span></div>
+<div class="tk-demo-shots" style="margin-top:24px"><div class="tk-demo-shot">screenshot 01</div><div class="tk-demo-shot">screenshot 02</div><div class="tk-demo-shot">screenshot 03</div></div>`,
+    css:
+`.tk-demo-preview { aspect-ratio: 16 / 8; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl); background: repeating-linear-gradient(135deg, var(--tk-bg-2), var(--tk-bg-2) 14px, var(--tk-bg-3) 14px, var(--tk-bg-3) 28px); display: grid; place-items: center; color: var(--tk-fg-4); }
+.tk-demo-shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--tk-space-4); }
+.tk-demo-shot { aspect-ratio: 4 / 3; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-md); background: var(--tk-bg-2); display: grid; place-items: center; font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-5); text-transform: uppercase; letter-spacing: var(--tk-ls-meta); }
+.tk-demo-meta { display: grid; grid-template-columns: repeat(4, auto); gap: var(--tk-space-10); padding: var(--tk-space-5) 0; border-top: 1px solid var(--tk-border); border-bottom: 1px solid var(--tk-border); }
+.tk-demo-meta [data-tk-slot="key"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--tk-fg-4); }
+.tk-demo-meta [data-tk-slot="val"][data-mono] { font-family: var(--tk-font-mono); }`,
+    hbs: `{{!-- Demo-preview partial → <iframe> demo URL + @custom meta/shots. See components/demo-preview/demo-preview.hbs. --}}`,
+  },
+  {
+    id: 'artifact-list', idx: '27', name: 'Artifact list', family: 'Commerce',
+    note: 'Membership-gated download panel (ADR-0006 trust state) · gate header + name/size/dl rows · <b>data-pillar</b> keys the lock · slots gate/row',
+    html:
+`<div class="tk-artifact-list" data-pillar="studio">
+  <div data-tk-slot="gate">
+    <div><span class="lock">⊘ Registration required · free tier</span><h3>Download the free starter (MIT).</h3><p class="desc">A free Tekrogen account unlocks the source bundle and the sample dataset.</p></div>
+    <div class="actions"><a class="tk-button" data-style="cta" data-pillar="studio" href="#">Create free account</a><a class="tk-button" data-style="cta" data-variant="secondary" href="#">Sign in</a></div>
+  </div>
+  <div data-tk-slot="row"><span class="name">banking-panel-source.zip</span><span class="size">3.8 MB</span><a class="dl" href="#">Sign in to download</a></div>
+  <div data-tk-slot="row"><span class="name">sample-transactions.csv</span><span class="size">12 MB</span><a class="dl" href="#">Sign in to download</a></div>
+</div>`,
+    css:
+`.tk-artifact-list { --pillar: var(--tk-studio); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl); overflow: hidden; }
+.tk-artifact-list[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-artifact-list [data-tk-slot="gate"] { display: flex; align-items: center; justify-content: space-between; gap: var(--tk-space-5); flex-wrap: wrap; padding: var(--tk-space-6); background: var(--tk-bg-2); border-bottom: 1px solid var(--tk-border); }
+.tk-artifact-list [data-tk-slot="gate"] .lock { display: block; font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--pillar); }
+.tk-artifact-list [data-tk-slot="row"] { display: grid; grid-template-columns: 1fr auto auto; gap: var(--tk-space-5); align-items: center; padding: var(--tk-space-3) var(--tk-space-6); border-bottom: 1px solid var(--tk-border-hair, var(--tk-border)); }
+.tk-artifact-list [data-tk-slot="row"]:last-child { border-bottom: 0; }
+.tk-artifact-list [data-tk-slot="row"] .name { font-family: var(--tk-font-mono); font-size: var(--tk-fs-body-sm); color: var(--tk-fg-4); display: flex; align-items: center; gap: var(--tk-space-2); }
+.tk-artifact-list [data-tk-slot="row"] .name::before { content: "\\2298"; color: var(--tk-fg-5); }
+.tk-artifact-list [data-tk-slot="row"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; color: var(--tk-fg-3); }`,
+    hbs: `{{!-- Artifact-list partial → {{#unless @member}} gate + per-row CTA. See components/artifact-list/artifact-list.hbs. --}}`,
   },
 ];
 

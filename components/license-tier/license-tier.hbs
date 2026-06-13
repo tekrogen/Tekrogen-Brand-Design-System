@@ -1,0 +1,16 @@
+{{!-- Tekrogen · License tier partial. Tiers are content (e.g. a custom "license_tiers" collection or
+      page blocks); set the featured tier + buy CTA per tier. Wrap the loop in .tk-license-grid. --}}
+<div class="tk-license-grid">
+  {{#foreach tiers}}
+  <article class="tk-license-tier"{{#if this.featured}} data-variant="featured"{{/if}}>
+    {{#if this.featured}}<span data-tk-slot="ribbon">{{this.ribbon}}</span>{{/if}}
+    <div data-tk-slot="name">{{this.name}}</div>
+    <div data-tk-slot="price">{{this.price}}{{#if this.term}}<span class="term">{{this.term}}</span>{{/if}}</div>
+    <p data-tk-slot="desc">{{this.desc}}</p>
+    <ul data-tk-slot="features">
+      {{#foreach this.features}}<li{{#unless this.included}} data-state="excluded"{{/unless}}>{{this.label}}</li>{{/foreach}}
+    </ul>
+    <a data-tk-slot="cta"{{#if this.buy}} data-variant="buy"{{/if}} href="{{this.url}}">{{this.cta}}</a>
+  </article>
+  {{/foreach}}
+</div>

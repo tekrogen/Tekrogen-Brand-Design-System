@@ -1,0 +1,25 @@
+{{!-- Tekrogen · Product hero partial. A product is typically a page; pull title/excerpt/feature_image
+      from the page and the price/summary from custom page settings or structured content. --}}
+<section class="tk-product-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="com">.com · product</span>
+    <h1 style="margin-top:14px">{{title}}</h1>
+    <p class="lead">{{excerpt}}</p>
+    <div data-tk-slot="price">
+      <div class="amt"><span class="from">from</span>{{@custom.price_from}}</div>
+      <div class="term">{{@custom.price_term}}</div>
+      <div class="lic">{{@custom.license_tiers}}</div>
+    </div>
+    <div style="display:flex;gap:var(--tk-space-3);flex-wrap:wrap">
+      <a class="tk-button" data-style="cta" data-pillar="com" href="{{@custom.buy_url}}">Pick a license →</a>
+      <a class="tk-button" data-style="cta" data-variant="secondary" href="{{@custom.demo_url}}">Try the demo first</a>
+    </div>
+    <div data-tk-slot="summary">
+      {{#foreach @custom.summary_points}}<div>{{this}}</div>{{/foreach}}
+    </div>
+  </div>
+  <div data-tk-slot="visual">
+    <div><span class="tk-badge" data-pillar="com">.com · {{@custom.version}}</span></div>
+    <div class="v-foot"><span>Latest release</span><span class="d">{{@custom.release_date}}</span></div>
+  </div>
+</section>

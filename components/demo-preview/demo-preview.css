@@ -1,0 +1,58 @@
+/* Tekrogen · Demo preview — .tk-demo-preview / .tk-demo-shots / .tk-demo-meta (ADR-0011, C5)
+ * The .studio demo surface: a striped 16:8 live-preview placeholder, a 3-up screenshot grid, and a
+ * mono key/value metadata strip. Three sibling blocks (compose as needed). Sub-parts: meta uses
+ * data-tk-slot="key | val" (val takes data-mono for the mono face); shots are .tk-demo-shot.
+ * Token-only; literals are the hatch geometry, aspect ratios, and the 1px hairlines.
+ */
+.tk-demo-preview {
+  aspect-ratio: 16 / 8;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-xl);
+  background: repeating-linear-gradient(135deg, var(--tk-bg-2), var(--tk-bg-2) 14px, var(--tk-bg-3) 14px, var(--tk-bg-3) 28px);
+  display: grid;
+  place-items: center;
+  color: var(--tk-fg-4);
+}
+.tk-demo-shots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tk-space-4);
+}
+.tk-demo-shot {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  background: var(--tk-bg-2);
+  display: grid;
+  place-items: center;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-5);
+  text-transform: uppercase;
+  letter-spacing: var(--tk-ls-meta);
+}
+.tk-demo-meta {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: var(--tk-space-10);
+  padding: var(--tk-space-5) 0;
+  border-top: 1px solid var(--tk-border);
+  border-bottom: 1px solid var(--tk-border);
+}
+.tk-demo-meta [data-tk-slot="key"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+  margin-bottom: var(--tk-space-1);
+}
+.tk-demo-meta [data-tk-slot="val"] {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-1);
+}
+.tk-demo-meta [data-tk-slot="val"][data-mono] { font-family: var(--tk-font-mono); }
+@media (max-width: 720px) {
+  .tk-demo-shots { grid-template-columns: 1fr; }
+  .tk-demo-meta { grid-template-columns: repeat(2, auto); }
+}

@@ -1,0 +1,85 @@
+/* Tekrogen · Artifact list — .tk-artifact-list (ADR-0011, C5 commerce)
+ * Membership-gated download panel: a gate header (lock eyebrow + title + desc + actions) over a
+ * hairline-separated list of download rows. The Ghost trust-state partial (ADR-0006 — swap the gate
+ * + each row's CTA per @member). Sub-parts: data-tk-slot="gate | row"; the gate holds .lock/.actions,
+ * each row holds .name/.size/.dl. Pillar-keyed via data-pillar (default studio). Each name carries a
+ * ⊘ lock glyph. Token-only; literals are the 1px/hairline borders + the breakpoint.
+ */
+.tk-artifact-list {
+  --pillar: var(--tk-studio);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-xl);
+  overflow: hidden;
+}
+.tk-artifact-list[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-artifact-list[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-artifact-list[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-artifact-list[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-artifact-list [data-tk-slot="gate"] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tk-space-5);
+  flex-wrap: wrap;
+  padding: var(--tk-space-6);
+  background: var(--tk-bg-2);
+  border-bottom: 1px solid var(--tk-border);
+}
+.tk-artifact-list [data-tk-slot="gate"] .lock {
+  display: block;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--pillar);
+  margin-bottom: var(--tk-space-1);
+}
+.tk-artifact-list [data-tk-slot="gate"] h3 { margin: 0; font-size: var(--tk-fs-h3); }
+.tk-artifact-list [data-tk-slot="gate"] .desc {
+  margin: var(--tk-space-1) 0 0;
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+}
+.tk-artifact-list [data-tk-slot="gate"] .actions {
+  display: flex;
+  gap: var(--tk-space-3);
+  flex-wrap: wrap;
+}
+.tk-artifact-list [data-tk-slot="row"] {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: var(--tk-space-5);
+  align-items: center;
+  padding: var(--tk-space-3) var(--tk-space-6);
+  border-bottom: 1px solid var(--tk-border-hair, var(--tk-border));
+}
+.tk-artifact-list [data-tk-slot="row"]:last-child { border-bottom: 0; }
+.tk-artifact-list [data-tk-slot="row"] .name {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-4);
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-2);
+}
+.tk-artifact-list [data-tk-slot="row"] .name::before {
+  content: "\2298"; /* ⊘ */
+  color: var(--tk-fg-5);
+}
+.tk-artifact-list [data-tk-slot="row"] .size {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-5);
+}
+.tk-artifact-list [data-tk-slot="row"] .dl {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .tk-artifact-list [data-tk-slot="row"] { grid-template-columns: 1fr auto; }
+  .tk-artifact-list [data-tk-slot="row"] .dl { grid-column: 1 / -1; }
+}

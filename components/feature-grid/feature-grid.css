@@ -1,0 +1,26 @@
+/* Tekrogen · Feature grid — .tk-feature-grid (+ .tk-feature) (ADR-0011, C5 commerce)
+ * "What you get" two-column grid of bordered feature cards. Sub-parts (per .tk-feature):
+ * data-tk-slot="name | desc". Token-only; literals are the 1px hairline + the breakpoint.
+ */
+.tk-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--tk-space-5);
+}
+.tk-feature {
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-lg);
+  padding: var(--tk-space-5);
+  background: var(--tk-bg-2);
+}
+.tk-feature [data-tk-slot="name"] {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  color: var(--tk-fg-1);
+  margin-bottom: var(--tk-space-2);
+}
+.tk-feature [data-tk-slot="desc"] {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+}
+@media (max-width: 720px) { .tk-feature-grid { grid-template-columns: 1fr; } }

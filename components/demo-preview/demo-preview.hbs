@@ -1,0 +1,14 @@
+{{!-- Tekrogen · Demo preview partial. The live preview embeds the demo URL; meta + shots come from
+      custom page settings. Swap the placeholder <div> for a real <iframe> with the demo URL. --}}
+<div class="tk-demo-meta">
+  <div><div data-tk-slot="key">Status</div><div data-tk-slot="val">{{@custom.demo_status}}</div></div>
+  <div><div data-tk-slot="key">Version</div><div data-tk-slot="val" data-mono>{{@custom.demo_version}}</div></div>
+  <div><div data-tk-slot="key">Default license</div><div data-tk-slot="val">{{@custom.demo_license}}</div></div>
+  <div><div data-tk-slot="key">Time to try</div><div data-tk-slot="val">{{@custom.demo_time}}</div></div>
+</div>
+<div class="tk-demo-preview" style="margin-top:var(--tk-space-8)">
+  <iframe src="{{@custom.demo_url}}" title="{{title}} live preview" style="width:100%;height:100%;border:0;border-radius:inherit"></iframe>
+</div>
+<div class="tk-demo-shots" style="margin-top:var(--tk-space-6)">
+  {{#foreach @custom.shots}}<div class="tk-demo-shot"><img src="{{this}}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit"/></div>{{/foreach}}
+</div>
