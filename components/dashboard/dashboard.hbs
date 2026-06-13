@@ -1,0 +1,20 @@
+{{!-- Tekrogen · Member dashboard partial. The paid-member account view — gate with {{#if @member.paid}}.
+      Identity from {{@member}}; orders/downloads from a custom data source or the Members API. --}}
+<div class="tk-dashboard">
+  <div data-tk-slot="head">
+    <span class="tk-avatar" data-style="mono" style="width:42px;height:42px;font-size:13px">{{@member.initials}}</span>
+    <div class="who"><h3>{{@member.name}}</h3><div class="role">● {{@member.status}}</div></div>
+    <a class="tk-button" data-style="cta" data-variant="secondary" href="#/account">Account settings</a>
+  </div>
+  <div data-tk-slot="body">
+    <nav data-tk-slot="nav">
+      {{#foreach nav}}<a {{#if this.active}}class="on" {{/if}}href="{{this.url}}">{{this.label}}{{#if this.count}} <span class="ct">{{this.count}}</span>{{/if}}</a>{{/foreach}}
+    </nav>
+    <div data-tk-slot="main">
+      <div class="mh"><h3>Recent orders.</h3><a href="#/orders">View all orders →</a></div>
+      <table class="tk-table"><thead><tr><th>Order</th><th>Product</th><th>License</th><th>Total</th><th>Action</th></tr></thead><tbody>
+        {{#foreach orders}}<tr><td class="ord">{{this.id}}</td><td>{{this.product}}</td><td class="lic">{{this.tier}}</td><td>{{this.total}}</td><td><a class="dl" href="{{this.url}}">Download ↗</a></td></tr>{{/foreach}}
+      </tbody></table>
+    </div>
+  </div>
+</div>

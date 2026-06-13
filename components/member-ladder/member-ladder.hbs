@@ -1,0 +1,11 @@
+{{!-- Tekrogen · Member ladder partial → the access tiers. Tiers are structured content; each carries a
+      pillar, a state label, a heading, and an included/excluded feature list. --}}
+<div class="tk-member-ladder">
+  {{#foreach tiers}}
+  <div data-tk-slot="step" data-pillar="{{this.pillar}}">
+    <span data-tk-slot="state">{{this.state}}</span>
+    <h4>{{this.heading}}</h4>
+    <ul data-tk-slot="features">{{#foreach this.features}}<li{{#unless this.included}} data-state="excluded"{{/unless}}>{{this.label}}</li>{{/foreach}}</ul>
+  </div>
+  {{/foreach}}
+</div>

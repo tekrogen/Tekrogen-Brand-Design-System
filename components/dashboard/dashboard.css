@@ -1,0 +1,70 @@
+/* Tekrogen · Member dashboard — .tk-dashboard (ADR-0011, C7 membership)
+ * The paid-member account shell: a head (tk-avatar + identity + role badge + actions), a side nav with
+ * counts, and a main column (header + an orders tk-table). Sub-parts: data-tk-slot="head | nav | main";
+ * the head holds .who (+ .role), the nav holds links with .ct counts (a.on = active), the main holds .mh
+ * (header) and an orders table whose .ord / .lic / .dl cells carry mono accents. Composes tk-avatar /
+ * tk-table / tk-button. Token-only; literals are the 1px hairlines + the nav-column track width.
+ */
+.tk-dashboard {
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-2xl);
+  overflow: hidden;
+  background: var(--tk-bg-2);
+}
+.tk-dashboard [data-tk-slot="head"] {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-3);
+  padding: var(--tk-space-6);
+  border-bottom: 1px solid var(--tk-border);
+  flex-wrap: wrap;
+}
+.tk-dashboard [data-tk-slot="head"] .who { flex: 1; min-width: 200px; }
+.tk-dashboard [data-tk-slot="head"] .who h3 { margin: 0; font-size: var(--tk-fs-h3); }
+.tk-dashboard [data-tk-slot="head"] .role {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-net);
+  margin-top: var(--tk-space-1);
+}
+.tk-dashboard [data-tk-slot="body"] { display: grid; grid-template-columns: 230px 1fr; }
+.tk-dashboard [data-tk-slot="nav"] {
+  border-right: 1px solid var(--tk-border);
+  padding: var(--tk-space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tk-dashboard [data-tk-slot="nav"] a {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--tk-space-2);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+  padding: var(--tk-space-2) var(--tk-space-3);
+  border-radius: var(--tk-radius-sm);
+  text-decoration: none;
+}
+.tk-dashboard [data-tk-slot="nav"] a .ct { color: var(--tk-fg-5); }
+.tk-dashboard [data-tk-slot="nav"] a.on { background: var(--tk-bg-3); color: var(--tk-fg-1); }
+.tk-dashboard [data-tk-slot="main"] { padding: var(--tk-space-6); }
+.tk-dashboard [data-tk-slot="main"] .mh {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: var(--tk-space-4);
+}
+.tk-dashboard [data-tk-slot="main"] .mh h3 { margin: 0; }
+.tk-dashboard [data-tk-slot="main"] .mh a { font-family: var(--tk-font-sans); font-size: var(--tk-fs-body-sm); color: var(--tk-cyan); text-decoration: none; }
+.tk-dashboard [data-tk-slot="main"] .ord { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-4); }
+.tk-dashboard [data-tk-slot="main"] .lic { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-net); }
+.tk-dashboard [data-tk-slot="main"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-cyan); white-space: nowrap; text-decoration: none; }
+@media (max-width: 760px) {
+  .tk-dashboard [data-tk-slot="body"] { grid-template-columns: 1fr; }
+  .tk-dashboard [data-tk-slot="nav"] { border-right: 0; border-bottom: 1px solid var(--tk-border); }
+}

@@ -1,0 +1,17 @@
+{{!-- Tekrogen · Purchase confirmation partial → post-checkout page (LemonSqueezy/Stripe success redirect).
+      Order + key from the checkout session / Members API. com-keyed by default. --}}
+<div class="tk-confirm" data-pillar="com">
+  <span class="ok">● payment complete</span>
+  <h3 style="margin:10px 0 0">{{product_name}} — {{tier}} license.</h3>
+  <div class="conf-grid">
+    <div><div class="k">Order</div><div class="v">{{order_id}}</div></div>
+    <div><div class="k">Tier · total</div><div class="v">{{tier}} · {{total}}</div></div>
+    <div><div class="k">Update window</div><div class="v">{{update_window}}</div></div>
+  </div>
+  <div class="keyline"><span>license key · {{license_key}}</span><span class="copy" data-copy="{{license_key}}">copy</span></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <a class="tk-button" data-style="cta" data-pillar="com" href="{{download_url}}">Download {{product_name}} ↗</a>
+    <a class="tk-button" data-style="cta" data-variant="secondary" href="{{portal_url}}">Open customer portal ↗</a>
+  </div>
+  <p class="fineprint">Receipt emailed · the key and download also live in your dashboard and the .net customer portal.</p>
+</div>

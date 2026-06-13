@@ -130,8 +130,9 @@
     <h1>Every component, with the code beside it.</h1>
     <p>The kit's components — the five primitives plus the composites batch: C1 structural
     (header, footer, section-head, label), C2 data &amp; forms, C3 cards, C4 signature flywheel,
-    C5 commerce (license tiers, product hero, feature grid, demo, gated downloads), and C6 distribution
-    (docs hero, pipeline, version timeline) — in the token-only
+    C5 commerce (license tiers, product hero, feature grid, demo, gated downloads), C6 distribution
+    (docs hero, pipeline, version timeline), and C7 membership (member ladder, auth card, dashboard,
+    confirmation) — in the token-only
     <code>components/</code> registry per <a href="adr/0011-component-model-conventions.md">ADR-0011</a>.
     Each block shows a live, theme-following specimen and a tabbed <b style="color:var(--tk-fg-2)">⧉ copy</b>
     control: <code>HTML</code> (the markup contract), <code>CSS</code> (the <code>.tk-*</code> token block), and
@@ -912,6 +913,123 @@ const COMPONENTS = [
 .tk-version-timeline [data-tk-slot="row"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; letter-spacing: var(--tk-ls-meta); color: var(--pillar); white-space: nowrap; }
 /* @media (max-width: 720px) { row grid-template-columns: 1fr; } */`,
     hbs: `{{!-- Version-timeline partial → {{#foreach releases}}. See components/version-timeline/version-timeline.hbs. --}}`,
+  },
+  {
+    id: 'member-ladder', idx: '31', name: 'Member ladder', family: 'Membership', grid: true,
+    note: 'Access ladder (anonymous → free → paid) · pillar-keyed steps with top accent · <b>data-state</b>=excluded items · slots step/state/features',
+    html:
+`<div class="tk-member-ladder">
+  <div data-tk-slot="step" data-pillar="studio">
+    <span data-tk-slot="state">● anonymous · guest</span>
+    <h4>Read everything</h4>
+    <ul data-tk-slot="features"><li>Articles, recon &amp; demos</li><li>Product pages &amp; pricing</li><li data-state="excluded">Demo source downloads</li></ul>
+  </div>
+  <div data-tk-slot="step" data-pillar="net">
+    <span data-tk-slot="state">● free member</span>
+    <h4>Demo source &amp; saves</h4>
+    <ul data-tk-slot="features"><li>MIT demo-source bundles</li><li>Sample datasets</li><li data-state="excluded">Paid product downloads</li></ul>
+  </div>
+  <div data-tk-slot="step" data-pillar="com">
+    <span data-tk-slot="state">● paid member</span>
+    <h4>Products &amp; portal</h4>
+    <ul data-tk-slot="features"><li>Product downloads + source</li><li>License keys</li><li>Customer portal</li></ul>
+  </div>
+</div>`,
+    css:
+`.tk-member-ladder { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--tk-space-4); }
+.tk-member-ladder [data-tk-slot="step"] { --pillar: var(--tk-cyan); border: 1px solid var(--tk-border); border-top: 3px solid var(--pillar); border-radius: var(--tk-radius-lg); padding: var(--tk-space-5); background: var(--tk-bg-2); display: flex; flex-direction: column; gap: var(--tk-space-2); }
+.tk-member-ladder [data-tk-slot="step"][data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-member-ladder [data-tk-slot="state"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--pillar); }
+.tk-member-ladder [data-tk-slot="features"] { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--tk-space-2); font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); }
+.tk-member-ladder [data-tk-slot="features"] li::before { content: "\\2713"; color: var(--pillar); font-weight: 700; }
+.tk-member-ladder [data-tk-slot="features"] li[data-state="excluded"] { color: var(--tk-fg-5); }
+.tk-member-ladder [data-tk-slot="features"] li[data-state="excluded"]::before { content: "\\2715"; color: var(--tk-fg-5); font-weight: 400; }`,
+    hbs: `{{!-- Member-ladder partial → {{#foreach tiers}}. See components/member-ladder/member-ladder.hbs. --}}`,
+  },
+  {
+    id: 'auth-card', idx: '32', name: 'Auth card', family: 'Membership', grid: true,
+    note: 'Sign-in / register card · head (label + state pill) + tk-form + footer notes · slot head',
+    html:
+`<article class="tk-auth-card">
+  <div data-tk-slot="head"><span class="lab">Sub-screen · sign in</span><span class="state-pill">anonymous</span></div>
+  <h3>Sign in to Tekrogen.</h3>
+  <p class="sub">A free account unlocks demo-source downloads. Paid members get products, license keys, and the portal.</p>
+  <div class="tk-form">
+    <div class="tk-field"><label for="g-si-email">Email</label><input class="tk-input" id="g-si-email" type="email" placeholder="you@example.com"/></div>
+    <a class="tk-button" data-style="cta" data-block href="#">Sign in →</a>
+    <p class="muted-line">New here? Create a free account · magic-link sign-in</p>
+  </div>
+  <p class="ghost-note">ghost portal · members</p>
+</article>`,
+    css:
+`.tk-auth-card { border: 1px solid var(--tk-border); border-radius: var(--tk-radius-2xl); padding: var(--tk-space-8); background: var(--tk-bg-2); display: flex; flex-direction: column; gap: var(--tk-space-3); }
+.tk-auth-card [data-tk-slot="head"] { display: flex; justify-content: space-between; align-items: center; gap: var(--tk-space-3); margin-bottom: var(--tk-space-2); }
+.tk-auth-card [data-tk-slot="head"] .lab { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--tk-cyan); }
+.tk-auth-card .state-pill { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-3); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-sm); padding: var(--tk-space-1) var(--tk-space-2); white-space: nowrap; }
+.tk-auth-card h3 { margin: 0; font-size: var(--tk-fs-h3); }
+.tk-auth-card .sub { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: 0; }
+.tk-auth-card .muted-line { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); }
+.tk-auth-card .ghost-note { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-5); text-transform: lowercase; margin: var(--tk-space-3) 0 0; }`,
+    hbs: `{{!-- Auth-card partial → Ghost Members portal form shell. See components/auth-card/auth-card.hbs. --}}`,
+  },
+  {
+    id: 'dashboard', idx: '33', name: 'Member dashboard', family: 'Membership',
+    note: 'Account shell · head (tk-avatar + identity + role + actions) / side nav (counts, a.on) / main (mh + orders tk-table) · slots head/body/nav/main',
+    html:
+`<div class="tk-dashboard">
+  <div data-tk-slot="head">
+    <span class="tk-avatar" data-style="mono" style="width:42px;height:42px;font-size:13px">MD</span>
+    <div class="who"><h3>Martinique Dolce</h3><div class="role">● paid member · team license</div></div>
+    <span class="tk-label">2 active licenses</span>
+    <a class="tk-button" data-style="cta" data-variant="secondary" href="#">Account settings</a>
+  </div>
+  <div data-tk-slot="body">
+    <nav data-tk-slot="nav"><a class="on" href="#">Overview</a><a href="#">Orders <span class="ct">04</span></a><a href="#">Downloads <span class="ct">11</span></a><a href="#">License keys <span class="ct">02</span></a><a href="#">Billing</a></nav>
+    <div data-tk-slot="main">
+      <div class="mh"><h3>Recent orders.</h3><a href="#">View all orders →</a></div>
+      <table class="tk-table"><thead><tr><th>Order</th><th>Product</th><th>License</th><th>Total</th><th>Action</th></tr></thead><tbody>
+        <tr><td class="ord">TK-2026-0089</td><td>Spine · v0.4.2</td><td class="lic">Team</td><td>$1,490</td><td><a class="dl" href="#">Download ↗</a></td></tr>
+        <tr><td class="ord">TK-2026-0064</td><td>Margin · v0.2.1</td><td class="lic">Extended</td><td>$429</td><td><a class="dl" href="#">Download ↗</a></td></tr>
+      </tbody></table>
+    </div>
+  </div>
+</div>`,
+    css:
+`.tk-dashboard { border: 1px solid var(--tk-border); border-radius: var(--tk-radius-2xl); overflow: hidden; background: var(--tk-bg-2); }
+.tk-dashboard [data-tk-slot="head"] { display: flex; align-items: center; gap: var(--tk-space-3); padding: var(--tk-space-6); border-bottom: 1px solid var(--tk-border); flex-wrap: wrap; }
+.tk-dashboard [data-tk-slot="head"] .who { flex: 1; min-width: 200px; }
+.tk-dashboard [data-tk-slot="head"] .role { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-net); margin-top: var(--tk-space-1); }
+.tk-dashboard [data-tk-slot="body"] { display: grid; grid-template-columns: 230px 1fr; }
+.tk-dashboard [data-tk-slot="nav"] { border-right: 1px solid var(--tk-border); padding: var(--tk-space-4); display: flex; flex-direction: column; gap: 2px; }
+.tk-dashboard [data-tk-slot="nav"] a { display: flex; justify-content: space-between; gap: var(--tk-space-2); font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-3); padding: var(--tk-space-2) var(--tk-space-3); border-radius: var(--tk-radius-sm); text-decoration: none; }
+.tk-dashboard [data-tk-slot="nav"] a.on { background: var(--tk-bg-3); color: var(--tk-fg-1); }
+.tk-dashboard [data-tk-slot="main"] { padding: var(--tk-space-6); }
+.tk-dashboard [data-tk-slot="main"] .ord { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-4); }
+.tk-dashboard [data-tk-slot="main"] .lic { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; color: var(--tk-net); }
+.tk-dashboard [data-tk-slot="main"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; color: var(--tk-cyan); white-space: nowrap; }`,
+    hbs: `{{!-- Dashboard partial → {{#if @member.paid}} account view. See components/dashboard/dashboard.hbs. --}}`,
+  },
+  {
+    id: 'confirm', idx: '34', name: 'Confirmation', family: 'Membership',
+    note: 'Post-checkout panel · pillar left-accent (default com) · .ok status + .conf-grid (k/v) + .keyline (key + copy) + actions',
+    html:
+`<div class="tk-confirm" data-pillar="com">
+  <span class="ok">● payment complete</span>
+  <h3 style="margin:10px 0 0">Spine — Standard license.</h3>
+  <div class="conf-grid"><div><div class="k">Order</div><div class="v">TK-2026-0090</div></div><div><div class="k">Tier · total</div><div class="v">Standard · $129</div></div><div><div class="k">Update window</div><div class="v">6 months</div></div></div>
+  <div class="keyline"><span>license key · tkrg-spine-7q4d-····-9f2a</span><span class="copy">copy</span></div>
+  <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="tk-button" data-style="cta" data-pillar="com" href="#">Download Spine ↗</a><a class="tk-button" data-style="cta" data-variant="secondary" href="#">Open customer portal ↗</a></div>
+</div>`,
+    css:
+`.tk-confirm { --pillar: var(--tk-com); border: 1px solid var(--tk-border); border-left: 3px solid var(--pillar); border-radius: var(--tk-radius-2xl); padding: var(--tk-space-8); background: var(--tk-bg-2); }
+.tk-confirm[data-pillar="net"] { --pillar: var(--tk-net); }  /* +org/studio/com */
+.tk-confirm .ok { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--pillar); }
+.tk-confirm .conf-grid { display: grid; grid-template-columns: repeat(3, auto); gap: var(--tk-space-10); margin: var(--tk-space-5) 0; }
+.tk-confirm .conf-grid .k { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); margin-bottom: var(--tk-space-1); }
+.tk-confirm .conf-grid .v { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-1); }
+.tk-confirm .keyline { display: flex; align-items: center; justify-content: space-between; gap: var(--tk-space-3); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-md); background: var(--tk-bg-3); padding: var(--tk-space-3) var(--tk-space-4); font-family: var(--tk-font-mono); font-size: var(--tk-fs-body-sm); color: var(--tk-fg-2); margin: var(--tk-space-4) 0; }
+.tk-confirm .keyline .copy { font-size: var(--tk-fs-meta); text-transform: uppercase; color: var(--tk-cyan); cursor: pointer; }`,
+    hbs: `{{!-- Confirm partial → checkout success page. See components/confirm/confirm.hbs. --}}`,
   },
 ];
 

@@ -1,0 +1,13 @@
+{{!-- Tekrogen · Auth card partial. Ghost members auth lives on dedicated routes; this is the visual shell
+      for sign-in / signup forms (wire inputs to the Ghost Members API / portal). --}}
+<article class="tk-auth-card">
+  <div data-tk-slot="head"><span class="lab">{{label}}</span><span class="state-pill">{{state}}</span></div>
+  <h3>{{title}}</h3>
+  <p class="sub">{{description}}</p>
+  <form class="tk-form" data-members-form="{{form_type}}">
+    <div class="tk-field"><label for="auth-email">Email</label><input class="tk-input" id="auth-email" type="email" name="email" placeholder="you@example.com"/></div>
+    <a class="tk-button" data-style="cta" data-block href="#">{{cta}} →</a>
+    <p class="muted-line">{{alt_action}}</p>
+  </form>
+  <p class="ghost-note">ghost portal · members</p>
+</article>

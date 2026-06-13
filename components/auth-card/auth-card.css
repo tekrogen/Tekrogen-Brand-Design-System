@@ -1,0 +1,57 @@
+/* Tekrogen · Auth card — .tk-auth-card (ADR-0011, C7 membership)
+ * Sign-in / register card: a head (mono label + state pill) over a heading, sub-copy, a tk-form, and
+ * footer notes. Sub-parts: data-tk-slot="head"; the head holds .lab + .state-pill, the body holds .sub
+ * (sub-copy), and any of .muted-line / .fineprint / .ghost-note footnotes. Composes tk-form / tk-field /
+ * tk-button. Token-only; literals are the 1px hairlines.
+ */
+.tk-auth-card {
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-2xl);
+  padding: var(--tk-space-8);
+  background: var(--tk-bg-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-3);
+}
+.tk-auth-card [data-tk-slot="head"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--tk-space-3);
+  margin-bottom: var(--tk-space-2);
+}
+.tk-auth-card [data-tk-slot="head"] .lab {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--tk-cyan);
+}
+.tk-auth-card .state-pill {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-3);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-sm);
+  padding: var(--tk-space-1) var(--tk-space-2);
+  white-space: nowrap;
+}
+.tk-auth-card h3 { margin: 0; font-size: var(--tk-fs-h3); }
+.tk-auth-card .sub { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); margin: 0; }
+.tk-auth-card .muted-line {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+}
+.tk-auth-card .fineprint { font-size: var(--tk-fs-meta); color: var(--tk-fg-4); margin: 0; }
+.tk-auth-card .ghost-note {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-5);
+  text-transform: lowercase;
+  margin: var(--tk-space-3) 0 0;
+}

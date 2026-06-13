@@ -164,6 +164,7 @@
   --tk-fg-3:         #8a98a8;  /* muted, captions, meta — lowest token for readable TEXT (AA: ink 6.43:1 / paper 4.71:1) */
   --tk-fg-4:         #6b7785;  /* DECORATIVE / DISABLED ONLY — dividers, disabled UI; NOT text (fails AA: ink 4.14 / paper 2.94) */
   --tk-fg-5:         #5d6975;  /* DECORATIVE ONLY — faint dividers; NOT text (fails AA: ink 3.37 / paper 1.85) */
+  --tk-fg-on-accent: #ffffff;  /* text/initials ON a pillar or cyan fill (avatars, ribbons); holds in ink + paper (the fill is colored in both) */
   --tk-bg-1:         var(--tk-ink);
   --tk-bg-2:         var(--tk-ink-soft);
   --tk-bg-3:         #0a0d12;       /* deeper than ink, e.g. code blocks */
