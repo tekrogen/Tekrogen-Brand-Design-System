@@ -650,6 +650,62 @@ const COMPONENTS = [
 .tk-manifesto-card p { font-size: var(--tk-fs-code); color: var(--tk-fg-3); margin: 0; }`,
     hbs: `<article class="tk-manifesto-card" data-pillar="{{pillar}}"><span data-tk-slot="label">.{{pillar}}</span><h4>{{title}}</h4><p>{{description}}</p></article>`,
   },
+  {
+    id: 'flywheel', idx: '21', name: 'Flywheel', family: 'Signature', grid: true,
+    note: 'The 8-node publishing-system viz · pillar arcs via <b>data-arc</b> · fluid SVG',
+    html:
+`<div class="tk-flywheel" role="img" aria-label="The Tekrogen flywheel" style="max-width:340px">
+  <svg viewBox="0 0 460 460" aria-hidden="true">
+    <circle data-track cx="230" cy="230" r="160" fill="none" stroke-width="1"/>
+    <path data-arc="org" d="M230 70 A160 160 0 0 1 343.1 116.9" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <path data-arc="studio" d="M390 230 A160 160 0 0 1 343.1 343.1" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <path data-arc="com" d="M230 390 A160 160 0 0 1 116.9 343.1" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <path data-arc="net" d="M70 230 A160 160 0 0 1 116.9 116.9" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <circle data-node data-pillar="org" cx="230" cy="70" r="9"/><circle data-node data-pillar="org" cx="343.1" cy="116.9" r="7"/>
+    <circle data-node data-pillar="studio" cx="390" cy="230" r="7"/><circle data-node data-pillar="studio" cx="343.1" cy="343.1" r="7"/>
+    <circle data-node data-pillar="com" cx="230" cy="390" r="9"/><circle data-node data-pillar="com" cx="116.9" cy="343.1" r="7"/>
+    <circle data-node data-pillar="net" cx="70" cy="230" r="7"/><circle data-node data-pillar="net" cx="116.9" cy="116.9" r="7"/>
+    <text x="230" y="58" text-anchor="middle">01 · use case</text><text x="360" y="120" text-anchor="start">02 · recon</text>
+    <text x="406" y="234" text-anchor="start">03 · demo</text><text x="360" y="360" text-anchor="start">04 · register</text>
+    <text x="230" y="410" text-anchor="middle">05 · product</text><text x="100" y="360" text-anchor="end">06 · license</text>
+    <text x="54" y="234" text-anchor="end">07 · download</text><text x="100" y="120" text-anchor="end">08 · docs</text>
+    <text data-tk-slot="core" x="230" y="226" text-anchor="middle">build → prove</text><text data-tk-slot="core" x="230" y="244" text-anchor="middle">→ package</text>
+  </svg>
+</div>`,
+    css:
+`.tk-flywheel { width: 100%; max-width: 440px; }
+.tk-flywheel svg { width: 100%; height: auto; }
+.tk-flywheel text { font-family: var(--tk-font-mono); font-size: 9px; letter-spacing: 0.06em; fill: var(--tk-fg-3); text-transform: uppercase; }
+.tk-flywheel [data-tk-slot="core"] { font-size: 11px; fill: var(--tk-fg-1); }
+.tk-flywheel [data-node] { fill: var(--tk-bg-1); stroke-width: 2; }
+.tk-flywheel [data-track] { stroke: var(--tk-border); }
+.tk-flywheel [data-arc="org"], .tk-flywheel [data-node][data-pillar="org"] { stroke: var(--tk-org); }  /* +studio/com/net */`,
+    hbs: `{{!-- Flywheel partial → static SVG (see components/flywheel/flywheel.html). --}}`,
+  },
+  {
+    id: 'flywheel-stepper', idx: '22', name: 'Flywheel stepper', family: 'Signature', grid: true,
+    note: 'Linear 8-step position bar · <b>data-pillar</b> + <b>data-state</b>=done/here · slots num/name',
+    html:
+`<nav class="tk-flywheel-stepper" aria-label="Flywheel position">
+  <div data-tk-slot="step" data-pillar="org" data-state="done"><span data-tk-slot="num">01 · org</span><span data-tk-slot="name">Use case</span></div>
+  <div data-tk-slot="step" data-pillar="org" data-state="done"><span data-tk-slot="num">02 · org</span><span data-tk-slot="name">Recon</span></div>
+  <div data-tk-slot="step" data-pillar="studio" data-state="done"><span data-tk-slot="num">03 · studio</span><span data-tk-slot="name">Demo</span></div>
+  <div data-tk-slot="step" data-pillar="studio" data-state="done"><span data-tk-slot="num">04 · studio</span><span data-tk-slot="name">Registration</span></div>
+  <div data-tk-slot="step" data-pillar="com" data-state="here"><span data-tk-slot="num">05 · com</span><span data-tk-slot="name">Product</span></div>
+  <div data-tk-slot="step" data-pillar="com" data-state="here"><span data-tk-slot="num">06 · com</span><span data-tk-slot="name">License</span></div>
+  <div data-tk-slot="step" data-pillar="net"><span data-tk-slot="num">07 · net</span><span data-tk-slot="name">Download</span></div>
+  <div data-tk-slot="step" data-pillar="net"><span data-tk-slot="num">08 · net</span><span data-tk-slot="name">Docs</span></div>
+</nav>`,
+    css:
+`.tk-flywheel-stepper { display: grid; grid-template-columns: repeat(8, 1fr); border-bottom: var(--tk-border-1); }
+.tk-flywheel-stepper [data-tk-slot="step"] { display: flex; flex-direction: column; gap: var(--tk-space-1); padding: var(--tk-space-3) var(--tk-space-4); border-top: 2px solid color-mix(in srgb, var(--pillar, var(--tk-border)) 28%, transparent); border-right: var(--tk-border-hair); }
+.tk-flywheel-stepper [data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-flywheel-stepper [data-tk-slot="num"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--pillar); }
+.tk-flywheel-stepper [data-tk-slot="name"] { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-3); }
+.tk-flywheel-stepper [data-state="here"] { border-top-color: var(--pillar); background: color-mix(in srgb, var(--pillar) 9%, transparent); }
+.tk-flywheel-stepper [data-state="here"] [data-tk-slot="name"] { color: var(--tk-fg-1); font-weight: 600; }`,
+    hbs: `{{!-- Flywheel stepper partial → page position bar. See components/flywheel-stepper/flywheel-stepper.hbs. --}}`,
+  },
 ];
 
 const TABS = [['html', 'HTML'], ['css', 'CSS'], ['hbs', 'Ghost']];

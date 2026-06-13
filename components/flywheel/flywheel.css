@@ -1,0 +1,24 @@
+/* Tekrogen · Flywheel — .tk-flywheel
+ * The signature 8-node publishing-system viz (Use Case → Recon → Demo → Register → Product →
+ * License → Download → Docs) as a fluid SVG. Per ADR-0011 (stage d, C4). The arcs use the four
+ * pillar stroke colors; nodes/labels/center text are token-driven. SVG font sizes are
+ * coordinate-space geometry (the 460-unit artifact), like the OG cards (ADR-0010). The core
+ * label is data-tk-slot="core" (no !important — attribute selector beats the element rule).
+ */
+.tk-flywheel { width: 100%; max-width: 440px; }
+.tk-flywheel svg { width: 100%; height: auto; }
+.tk-flywheel text {
+  font-family: var(--tk-font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  fill: var(--tk-fg-3);
+  text-transform: uppercase;
+}
+.tk-flywheel [data-tk-slot="core"] { font-size: 11px; fill: var(--tk-fg-1); }
+.tk-flywheel [data-node] { fill: var(--tk-bg-1); stroke-width: 2; }
+/* arc + node colors live here (not inline) so the token chain resolves */
+.tk-flywheel [data-track] { stroke: var(--tk-border); }
+.tk-flywheel [data-arc="org"],    .tk-flywheel [data-node][data-pillar="org"]    { stroke: var(--tk-org); }
+.tk-flywheel [data-arc="studio"], .tk-flywheel [data-node][data-pillar="studio"] { stroke: var(--tk-studio); }
+.tk-flywheel [data-arc="com"],    .tk-flywheel [data-node][data-pillar="com"]    { stroke: var(--tk-com); }
+.tk-flywheel [data-arc="net"],    .tk-flywheel [data-node][data-pillar="net"]    { stroke: var(--tk-net); }
