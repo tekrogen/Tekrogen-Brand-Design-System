@@ -1,0 +1,11 @@
+{{!-- Tekrogen · Pipeline partial → distribution/architecture flow. Nodes are structured content
+      (page blocks or a custom collection); mark the current stage active. --}}
+<div class="tk-pipeline" data-pillar="net">
+  <div data-tk-slot="head">{{@custom.pipeline_head}}</div>
+  <div data-tk-slot="nodes">
+    {{#foreach nodes}}
+    <div data-tk-slot="node"{{#if this.active}} data-state="active"{{/if}}><span class="n">{{this.num}}</span><span class="nm">{{this.name}}</span><span class="sub">{{this.sub}}</span></div>
+    {{#unless @last}}<div data-tk-slot="arrow">→</div>{{/unless}}
+    {{/foreach}}
+  </div>
+</div>

@@ -130,7 +130,8 @@
     <h1>Every component, with the code beside it.</h1>
     <p>The kit's components — the five primitives plus the composites batch: C1 structural
     (header, footer, section-head, label), C2 data &amp; forms, C3 cards, C4 signature flywheel,
-    and C5 commerce (license tiers, product hero, feature grid, demo, gated downloads) — in the token-only
+    C5 commerce (license tiers, product hero, feature grid, demo, gated downloads), and C6 distribution
+    (docs hero, pipeline, version timeline) — in the token-only
     <code>components/</code> registry per <a href="adr/0011-component-model-conventions.md">ADR-0011</a>.
     Each block shows a live, theme-following specimen and a tabbed <b style="color:var(--tk-fg-2)">⧉ copy</b>
     control: <code>HTML</code> (the markup contract), <code>CSS</code> (the <code>.tk-*</code> token block), and
@@ -827,6 +828,90 @@ const COMPONENTS = [
 .tk-artifact-list [data-tk-slot="row"] .name::before { content: "\\2298"; color: var(--tk-fg-5); }
 .tk-artifact-list [data-tk-slot="row"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; color: var(--tk-fg-3); }`,
     hbs: `{{!-- Artifact-list partial → {{#unless @member}} gate + per-row CTA. See components/artifact-list/artifact-list.hbs. --}}`,
+  },
+  {
+    id: 'docs-hero', idx: '28', name: 'Docs hero', family: 'Distribution', grid: true,
+    note: 'Two-col docs header · body (badge/title/lead/search/labels) + aside (a tk-pipeline) · net-keyed · slots body/search/aside',
+    html:
+`<section class="tk-docs-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="net">.net · distribution</span>
+    <h1 style="margin-top:14px">Spine — documentation &amp; releases.</h1>
+    <p class="lead">Install, API reference, migration guides, and the full release timeline.</p>
+    <div data-tk-slot="search"><span>⌕</span><input type="search" placeholder="Search this product's documentation…" aria-label="Search docs"/><span class="k">/</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tk-label">spine · 0.4.2</span><span class="tk-label">released 2026-05-28</span></div>
+  </div>
+  <div data-tk-slot="aside">
+    <div class="tk-pipeline" data-pillar="net">
+      <div data-tk-slot="head">Ghost → LemonSqueezy → portal</div>
+      <div data-tk-slot="nodes"><div data-tk-slot="node"><span class="n">01 · com</span><span class="nm">LemonSqueezy</span><span class="sub">checkout</span></div><div data-tk-slot="arrow">→</div><div data-tk-slot="node" data-state="active"><span class="n">02 · net</span><span class="nm">Download</span><span class="sub">bundle</span></div></div>
+    </div>
+  </div>
+</section>`,
+    css:
+`.tk-docs-hero { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--tk-space-10); padding: var(--tk-space-12) var(--tk-gutter); align-items: start; }
+.tk-docs-hero [data-tk-slot="search"] { display: flex; align-items: center; gap: var(--tk-space-2); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-md); background: var(--tk-bg-2); padding: var(--tk-space-3) var(--tk-space-4); margin: var(--tk-space-5) 0; max-width: 460px; }
+.tk-docs-hero [data-tk-slot="search"] > span:first-child { color: var(--tk-fg-4); }
+.tk-docs-hero [data-tk-slot="search"] input { flex: 1; background: none; border: 0; outline: 0; color: var(--tk-fg-1); font-family: var(--tk-font-mono); font-size: var(--tk-fs-body-sm); }
+.tk-docs-hero [data-tk-slot="search"] .k { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-5); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xs); padding: var(--tk-space-1) var(--tk-space-2); }
+/* @media (max-width: 860px) { grid-template-columns: 1fr; } */`,
+    hbs: `{{!-- Docs-hero partial → page title/excerpt + {{> "pipeline"}} aside. See components/docs-hero/docs-hero.hbs. --}}`,
+  },
+  {
+    id: 'pipeline', idx: '29', name: 'Pipeline', family: 'Distribution', grid: true,
+    note: 'Distribution-architecture flow · nodes joined by → arrows · <b>data-state</b>=active · <b>data-pillar</b> (default net) · slots head/nodes/node/arrow',
+    html:
+`<div class="tk-pipeline" data-pillar="net">
+  <div data-tk-slot="head">Distribution architecture · Ghost → LemonSqueezy → portal</div>
+  <div data-tk-slot="nodes">
+    <div data-tk-slot="node"><span class="n">01 · org/com</span><span class="nm">Ghost Pro</span><span class="sub">product page</span></div>
+    <div data-tk-slot="arrow">→</div>
+    <div data-tk-slot="node"><span class="n">02 · com</span><span class="nm">LemonSqueezy</span><span class="sub">checkout</span></div>
+    <div data-tk-slot="arrow">→</div>
+    <div data-tk-slot="node" data-state="active"><span class="n">03 · net</span><span class="nm">Download</span><span class="sub">artifact bundle</span></div>
+  </div>
+</div>`,
+    css:
+`.tk-pipeline { --pillar: var(--tk-net); border: 1px solid var(--tk-border); border-radius: var(--tk-radius-xl); background: var(--tk-bg-2); padding: var(--tk-space-6); }
+.tk-pipeline[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-pipeline [data-tk-slot="head"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-caps); text-transform: uppercase; color: var(--pillar); margin-bottom: var(--tk-space-4); }
+.tk-pipeline [data-tk-slot="nodes"] { display: flex; align-items: stretch; gap: var(--tk-space-2); flex-wrap: wrap; }
+.tk-pipeline [data-tk-slot="node"] { flex: 1; min-width: 104px; border: 1px solid var(--tk-border); border-radius: var(--tk-radius-md); padding: var(--tk-space-3); display: flex; flex-direction: column; gap: var(--tk-space-1); }
+.tk-pipeline [data-tk-slot="node"][data-state="active"] { border-color: var(--pillar); box-shadow: 0 0 0 1px var(--pillar); }
+.tk-pipeline [data-tk-slot="node"] .nm { font-size: var(--tk-fs-body-sm); font-weight: 600; color: var(--tk-fg-1); }
+.tk-pipeline [data-tk-slot="node"] .n, .tk-pipeline [data-tk-slot="node"] .sub { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); color: var(--tk-fg-4); }
+.tk-pipeline [data-tk-slot="arrow"] { display: flex; align-items: center; color: var(--tk-fg-5); }`,
+    hbs: `{{!-- Pipeline partial → {{#foreach nodes}} + arrows. See components/pipeline/pipeline.hbs. --}}`,
+  },
+  {
+    id: 'version-timeline', idx: '30', name: 'Version timeline', family: 'Distribution',
+    note: 'Release history · version+date / body+chips / download per row · <b>data-pillar</b> (default net) · slots title/row',
+    html:
+`<div class="tk-version-timeline" data-pillar="net">
+  <h3 data-tk-slot="title">spine · version history</h3>
+  <div data-tk-slot="row">
+    <div class="vn">v0.4.2<span class="date">2026-05-28</span></div>
+    <div class="vbody"><strong>Deterministic CSV export.</strong> Exports are byte-for-byte reproducible.<div class="vchips"><span class="tk-label" data-variant="tag">non-breaking</span><span class="tk-label" data-variant="tag">engine</span></div></div>
+    <a class="dl" href="#">Download ↗</a>
+  </div>
+  <div data-tk-slot="row">
+    <div class="vn">v0.4.0<span class="date">2026-03-02</span></div>
+    <div class="vbody"><strong>First commercial release.</strong> Standard / Extended / Team tiers live.<div class="vchips"><span class="tk-label" data-variant="tag">breaking</span><span class="tk-label" data-variant="tag">licenses</span></div></div>
+    <a class="dl" href="#">Download ↗</a>
+  </div>
+</div>`,
+    css:
+`.tk-version-timeline { --pillar: var(--tk-net); }
+.tk-version-timeline[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */
+.tk-version-timeline [data-tk-slot="title"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-wordmark); text-transform: uppercase; color: var(--pillar); margin-bottom: var(--tk-space-2); }
+.tk-version-timeline [data-tk-slot="row"] { display: grid; grid-template-columns: 150px 1fr auto; gap: var(--tk-space-5); padding: var(--tk-space-5) 0; border-top: 1px solid var(--tk-border); align-items: start; }
+.tk-version-timeline [data-tk-slot="row"] .vn { font-family: var(--tk-font-mono); font-size: var(--tk-fs-body); color: var(--pillar); display: flex; flex-direction: column; gap: var(--tk-space-1); }
+.tk-version-timeline [data-tk-slot="row"] .vn .date { font-size: var(--tk-fs-meta); color: var(--tk-fg-4); letter-spacing: var(--tk-ls-meta); }
+.tk-version-timeline [data-tk-slot="row"] .vbody { font-size: var(--tk-fs-body-sm); color: var(--tk-fg-2); }
+.tk-version-timeline [data-tk-slot="row"] .vbody strong { color: var(--tk-fg-1); }
+.tk-version-timeline [data-tk-slot="row"] .dl { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); text-transform: uppercase; letter-spacing: var(--tk-ls-meta); color: var(--pillar); white-space: nowrap; }
+/* @media (max-width: 720px) { row grid-template-columns: 1fr; } */`,
+    hbs: `{{!-- Version-timeline partial → {{#foreach releases}}. See components/version-timeline/version-timeline.hbs. --}}`,
   },
 ];
 

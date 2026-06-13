@@ -1,0 +1,71 @@
+/* Tekrogen · Pipeline — .tk-pipeline (ADR-0011, C6 distribution)
+ * Horizontal distribution-architecture flow: a mono-caps head over a row of nodes joined by →
+ * arrows. Sub-parts: data-tk-slot="head | nodes | node | arrow"; each node holds .n / .nm / .sub.
+ * data-state="active" highlights the current stage. Pillar-keyed via data-pillar (default net).
+ * Token-only; literals are the 1px hairlines / active ring + the node min-width.
+ */
+.tk-pipeline {
+  --pillar: var(--tk-net);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-xl);
+  background: var(--tk-bg-2);
+  padding: var(--tk-space-6);
+}
+.tk-pipeline[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-pipeline[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-pipeline[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-pipeline[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-pipeline [data-tk-slot="head"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-caps);
+  text-transform: uppercase;
+  color: var(--pillar);
+  margin-bottom: var(--tk-space-4);
+}
+.tk-pipeline [data-tk-slot="nodes"] {
+  display: flex;
+  align-items: stretch;
+  gap: var(--tk-space-2);
+  flex-wrap: wrap;
+}
+.tk-pipeline [data-tk-slot="node"] {
+  flex: 1;
+  min-width: 104px;
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  padding: var(--tk-space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-1);
+}
+.tk-pipeline [data-tk-slot="node"][data-state="active"] {
+  border-color: var(--pillar);
+  box-shadow: 0 0 0 1px var(--pillar);
+}
+.tk-pipeline [data-tk-slot="node"] .n {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+}
+.tk-pipeline [data-tk-slot="node"] .nm {
+  font-size: var(--tk-fs-body-sm);
+  font-weight: 600;
+  color: var(--tk-fg-1);
+}
+.tk-pipeline [data-tk-slot="node"] .sub {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-4);
+}
+.tk-pipeline [data-tk-slot="arrow"] {
+  display: flex;
+  align-items: center;
+  color: var(--tk-fg-5);
+}
+@media (max-width: 720px) {
+  .tk-pipeline [data-tk-slot="nodes"] { flex-direction: column; }
+  .tk-pipeline [data-tk-slot="arrow"] { transform: rotate(90deg); }
+}

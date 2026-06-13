@@ -1,0 +1,21 @@
+<!-- Tekrogen · Docs hero specimen (ADR-0011 reference render). Two-col: body (badge/title/lead/search/
+     labels) + aside (a tk-pipeline). net-keyed. The search slot has a leading glyph + "/" key hint. -->
+<section class="tk-docs-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="net">.net · distribution</span>
+    <h1 style="margin-top:14px">Spine — documentation &amp; releases.</h1>
+    <p class="lead">Install, API reference, migration guides, and the full release timeline. Paid members open the customer portal for license keys, version updates, and order history.</p>
+    <div data-tk-slot="search"><span>⌕</span><input type="search" placeholder="Search this product's documentation…" aria-label="Search docs"/><span class="k">/</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tk-label">spine · 0.4.2</span><span class="tk-label">released 2026-05-28</span><span class="tk-label">node 18+ · go 1.22+</span></div>
+  </div>
+  <div data-tk-slot="aside">
+    <div class="tk-pipeline" data-pillar="net">
+      <div data-tk-slot="head">Distribution · Ghost → LemonSqueezy → portal</div>
+      <div data-tk-slot="nodes">
+        <div data-tk-slot="node"><span class="n">01 · com</span><span class="nm">LemonSqueezy</span><span class="sub">checkout</span></div>
+        <div data-tk-slot="arrow">→</div>
+        <div data-tk-slot="node" data-state="active"><span class="n">02 · net</span><span class="nm">Download</span><span class="sub">artifact bundle</span></div>
+      </div>
+    </div>
+  </div>
+</section>

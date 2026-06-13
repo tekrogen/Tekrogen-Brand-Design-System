@@ -1,0 +1,14 @@
+{{!-- Tekrogen · Docs hero partial. A product-docs page header — title/excerpt from the page, the
+      pipeline + version labels from custom settings. Wire the search to Ghost search or a custom index. --}}
+<section class="tk-docs-hero">
+  <div data-tk-slot="body">
+    <span class="tk-badge" data-pillar="net">.net · distribution</span>
+    <h1 style="margin-top:14px">{{title}}</h1>
+    <p class="lead">{{excerpt}}</p>
+    <div data-tk-slot="search"><span>⌕</span><input type="search" placeholder="Search this product's documentation…" aria-label="Search docs" data-ghost-search/><span class="k">/</span></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">{{#foreach @custom.doc_labels}}<span class="tk-label">{{this}}</span>{{/foreach}}</div>
+  </div>
+  <div data-tk-slot="aside">
+    {{> "pipeline"}}
+  </div>
+</section>

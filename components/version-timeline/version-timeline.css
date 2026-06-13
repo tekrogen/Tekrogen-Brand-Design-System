@@ -1,0 +1,65 @@
+/* Tekrogen · Version timeline — .tk-version-timeline (ADR-0011, C6 distribution)
+ * Release history: a mono-caps title over hairline-separated version rows. Each row is a 3-col grid:
+ * version+date / body (with strong lede + chips) / download link. Sub-parts: data-tk-slot="title | row";
+ * a row holds .vn (+ .date), .vbody (+ .vchips), .dl. Pillar-keyed via data-pillar (default net).
+ * Token-only; the only literal is the 1px row hairline + the version-column track width.
+ */
+.tk-version-timeline {
+  --pillar: var(--tk-net);
+}
+.tk-version-timeline[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-version-timeline[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-version-timeline[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-version-timeline[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-version-timeline [data-tk-slot="title"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-wordmark);
+  text-transform: uppercase;
+  color: var(--pillar);
+  margin-bottom: var(--tk-space-2);
+}
+.tk-version-timeline [data-tk-slot="row"] {
+  display: grid;
+  grid-template-columns: 150px 1fr auto;
+  gap: var(--tk-space-5);
+  padding: var(--tk-space-5) 0;
+  border-top: 1px solid var(--tk-border);
+  align-items: start;
+}
+.tk-version-timeline [data-tk-slot="row"] .vn {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body);
+  color: var(--pillar);
+  display: flex;
+  flex-direction: column;
+  gap: var(--tk-space-1);
+}
+.tk-version-timeline [data-tk-slot="row"] .vn .date {
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-4);
+  letter-spacing: var(--tk-ls-meta);
+}
+.tk-version-timeline [data-tk-slot="row"] .vbody {
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-2);
+}
+.tk-version-timeline [data-tk-slot="row"] .vbody strong { color: var(--tk-fg-1); }
+.tk-version-timeline [data-tk-slot="row"] .vchips {
+  display: flex;
+  gap: var(--tk-space-2);
+  flex-wrap: wrap;
+  margin-top: var(--tk-space-2);
+}
+.tk-version-timeline [data-tk-slot="row"] .dl {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  text-transform: uppercase;
+  letter-spacing: var(--tk-ls-meta);
+  color: var(--pillar);
+  white-space: nowrap;
+  text-decoration: none;
+}
+@media (max-width: 720px) {
+  .tk-version-timeline [data-tk-slot="row"] { grid-template-columns: 1fr; }
+}
