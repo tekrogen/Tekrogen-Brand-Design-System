@@ -23,6 +23,14 @@
 
 .tk-card:hover { border-color: color-mix(in srgb, var(--tk-cyan) 40%, var(--tk-border)); }
 
+/* ── Pillar-aware (data-pillar = org|studio|com|net) — the hairline hover accent
+ *    keys off the pillar instead of cyan. ADR-0011 §4. ── */
+.tk-card[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-card[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-card[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-card[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-card[data-pillar]:hover { border-color: color-mix(in srgb, var(--pillar) 55%, var(--tk-border)); }
+
 .tk-card [data-tk-slot="head"] {
   display: flex; align-items: center; justify-content: space-between;
   padding: var(--tk-space-3) var(--tk-space-4);

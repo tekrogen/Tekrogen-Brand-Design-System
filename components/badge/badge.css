@@ -27,3 +27,26 @@
 }
 
 .tk-badge[data-variant="muted"] { color: var(--tk-fg-3); }
+
+/* ── Pillar-aware (data-pillar = org|studio|com|net) — tinted pill + leading status
+ *    dot, the brand's pillar-keyed color access. ADR-0011 §4. ── */
+.tk-badge[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-badge[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-badge[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-badge[data-pillar="net"]    { --pillar: var(--tk-net); }
+
+.tk-badge[data-pillar] {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tk-space-2);
+  color: var(--pillar);
+  border-color: color-mix(in srgb, var(--pillar) 40%, transparent);
+  background: color-mix(in srgb, var(--pillar) 12%, transparent);
+}
+.tk-badge[data-pillar]::before {
+  content: "";
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: var(--pillar);
+}

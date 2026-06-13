@@ -43,3 +43,28 @@
   background: color-mix(in srgb, var(--tk-cyan) 92%, white);
 }
 .tk-button:active { transform: scale(0.98); }
+
+/* ── Pillar-aware (data-pillar = org|studio|com|net) — the accent keys off the
+ *    pillar instead of cyan, per the brand's pillar-keyed color access. ADR-0011 §4.
+ *    Composes with data-variant: bare/primary = filled with the pillar; secondary /
+ *    tertiary = pillar accent on hover. data-block = full-width CTA. ── */
+.tk-button[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-button[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-button[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-button[data-pillar="net"]    { --pillar: var(--tk-net); }
+
+.tk-button[data-pillar]:where(:not([data-variant]), [data-variant="primary"]) {
+  background: var(--pillar);
+  border-color: var(--pillar);
+  color: var(--tk-ink);
+}
+.tk-button[data-pillar]:where(:not([data-variant]), [data-variant="primary"]):hover {
+  background: color-mix(in srgb, var(--pillar) 92%, white);
+}
+.tk-button[data-pillar][data-variant="secondary"]:hover,
+.tk-button[data-pillar][data-variant="tertiary"]:hover {
+  border-color: var(--pillar);
+  color: var(--pillar);
+}
+
+.tk-button[data-block] { display: flex; width: 100%; justify-content: center; }

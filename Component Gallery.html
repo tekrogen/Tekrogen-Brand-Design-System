@@ -165,12 +165,15 @@
 const COMPONENTS = [
   {
     id: 'button', idx: '01', name: 'Button', family: 'Actions',
-    note: 'Source <b>.btn</b> · variants <b>primary·secondary·tertiary</b> · size <b>icon</b>',
+    note: 'Source <b>.btn</b> · variants <b>primary·secondary·tertiary</b> · size <b>icon</b> · <b>data-pillar</b> · <b>data-block</b>',
     html:
 `<button class="tk-button">Primary</button>
 <button class="tk-button" data-variant="secondary">Secondary</button>
 <button class="tk-button" data-variant="tertiary">Tertiary</button>
-<button class="tk-button" data-size="icon" aria-label="Open">↗</button>`,
+<button class="tk-button" data-size="icon" aria-label="Open">↗</button>
+<button class="tk-button" data-pillar="com">Get the template</button>
+<button class="tk-button" data-pillar="studio">Launch demo</button>
+<button class="tk-button" data-pillar="com" data-variant="secondary">Pillar ghost</button>`,
     css:
 `.tk-button {
   font-family: var(--tk-font-mono);
@@ -194,16 +197,21 @@ const COMPONENTS = [
 .tk-button[data-size="icon"] { padding: var(--tk-space-2) var(--tk-space-3); }
 .tk-button:hover { border-color: var(--tk-focus); }
 .tk-button:where(:not([data-variant]), [data-variant="primary"]):hover { background: color-mix(in srgb, var(--tk-cyan) 92%, white); }
-.tk-button:active { transform: scale(0.98); }`,
+.tk-button:active { transform: scale(0.98); }
+/* pillar-aware: accent keys off the pillar (org|studio|com|net) */
+.tk-button[data-pillar="com"] { --pillar: var(--tk-com); }   /* +org/studio/net */
+.tk-button[data-pillar]:where(:not([data-variant]), [data-variant="primary"]) { background: var(--pillar); border-color: var(--pillar); color: var(--tk-ink); }
+.tk-button[data-pillar][data-variant="secondary"]:hover { border-color: var(--pillar); color: var(--pillar); }
+.tk-button[data-block] { display: flex; width: 100%; justify-content: center; }`,
     hbs:
 `{{!-- Tekrogen · Button partial. Usage: {{> "button" label="Subscribe"}} --}}
 <button class="tk-button">{{label}}</button>`,
   },
   {
     id: 'card', idx: '02', name: 'Card', family: 'Containers', grid: true,
-    note: 'Source <b>.card</b> · slots <b>head·body·foot</b> · layout <b>data-span</b>',
+    note: 'Source <b>.card</b> · slots <b>head·body·foot</b> · layout <b>data-span</b> · <b>data-pillar</b> (hover accent)',
     html:
-`<article class="tk-card" data-span="12">
+`<article class="tk-card" data-span="12" data-pillar="org">
   <div data-tk-slot="head"><span>Field note · 04</span><span>org</span></div>
   <div data-tk-slot="body">Real solutions. Built, proven, ready to use.</div>
   <div data-tk-slot="foot"><span>--tk-radius-xl</span><span>ui_kits/tekrogen-org</span></div>
@@ -221,6 +229,9 @@ const COMPONENTS = [
 .tk-card[data-span="8"] { grid-column: span 8; }
 .tk-card[data-span="12"] { grid-column: span 12; }
 .tk-card:hover { border-color: color-mix(in srgb, var(--tk-cyan) 40%, var(--tk-border)); }
+/* pillar-aware: hover hairline keys off the pillar (org|studio|com|net) */
+.tk-card[data-pillar="org"] { --pillar: var(--tk-org); }   /* +studio/com/net */
+.tk-card[data-pillar]:hover { border-color: color-mix(in srgb, var(--pillar) 55%, var(--tk-border)); }
 .tk-card [data-tk-slot="head"] {
   display: flex; align-items: center; justify-content: space-between;
   padding: var(--tk-space-3) var(--tk-space-4);
@@ -270,12 +281,16 @@ const COMPONENTS = [
   },
   {
     id: 'badge', idx: '04', name: 'Badge', family: 'Display',
-    note: 'Source <b>.mono-pill</b> · variants <b>cyan·filled·muted</b>',
+    note: 'Source <b>.mono-pill</b> · variants <b>cyan·filled·muted</b> · <b>data-pillar</b> (tinted + dot)',
     html:
 `<span class="tk-badge" data-variant="cyan">Field note · 04</span>
 <span class="tk-badge">May 2026</span>
 <span class="tk-badge" data-variant="filled">✓ Previewing</span>
-<span class="tk-badge" data-variant="muted">Draft</span>`,
+<span class="tk-badge" data-variant="muted">Draft</span>
+<span class="tk-badge" data-pillar="org">.org · recon</span>
+<span class="tk-badge" data-pillar="studio">.studio · demo</span>
+<span class="tk-badge" data-pillar="com">.com · product</span>
+<span class="tk-badge" data-pillar="net">.net · docs</span>`,
     css:
 `.tk-badge {
   display: inline-block;
@@ -291,7 +306,11 @@ const COMPONENTS = [
 }
 .tk-badge[data-variant="cyan"]  { color: var(--tk-accent); }
 .tk-badge[data-variant="filled"] { border: var(--tk-border-accent); background: var(--tk-cyan); color: var(--tk-ink); font-weight: 700; }
-.tk-badge[data-variant="muted"]  { color: var(--tk-fg-3); }`,
+.tk-badge[data-variant="muted"]  { color: var(--tk-fg-3); }
+/* pillar-aware: tinted pill + leading status dot (org|studio|com|net) */
+.tk-badge[data-pillar="org"] { --pillar: var(--tk-org); }   /* +studio/com/net */
+.tk-badge[data-pillar] { display: inline-flex; align-items: center; gap: var(--tk-space-2); color: var(--pillar); border-color: color-mix(in srgb, var(--pillar) 40%, transparent); background: color-mix(in srgb, var(--pillar) 12%, transparent); }
+.tk-badge[data-pillar]::before { content: ""; width: 0.5em; height: 0.5em; border-radius: 50%; background: var(--pillar); }`,
     hbs:
 `{{!-- Tekrogen · Badge partial → Ghost tag / status label. --}}
 <span class="tk-badge" data-variant="cyan">{{name}}</span>`,
