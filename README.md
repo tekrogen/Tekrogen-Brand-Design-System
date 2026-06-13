@@ -88,7 +88,7 @@ All under `tekrogen-brand/` (locally mounted, read-only):
 │   ├── og-author*.png|svg                ← author OG cards
 │   └── og-series.png                     ← series OG card
 ├── fonts/
-│   └── README.md                   ← Google Fonts links (see Caveats)
+│   └── *.woff2 + README.md         ← self-hosted brand fonts, all weights (ADR-0008)
 ├── preview/                        ← Design-System-tab card files
 │   ├── card-palette-pillars.html
 │   ├── card-palette-neutrals.html
@@ -235,7 +235,7 @@ There is no in-between gradient backdrop. Pick a side.
 
 - **Wordmark + headings** — Poppins 700, UPPERCASE for wordmarks, sentence-case for headings.
 - **Body** — Poppins 400, 16/1.6.
-- **Sans fallback** — Manrope. If Poppins fails to load (network, embed, GDPR), the system falls back to Manrope before system-ui. Manrope was chosen as the fallback because its x-height and aperture closest match Poppins, so layout shift on the swap is minimal. Self-hosted Regular at `fonts/manrope-v20-latin-regular.woff2`.
+- **Sans fallback** — Manrope. If Poppins fails to load (network, embed, GDPR), the system falls back to Manrope before system-ui. Manrope was chosen as the fallback because its x-height and aperture closest match Poppins, so layout shift on the swap is minimal. Self-hosted at `fonts/manrope-v20-latin-{regular,500,600,700}.woff2`.
 - **Technical surfaces** — JetBrains Mono 500, lowercase. CLI splash, repo headers, API docs, terminal-adjacent.
 - **Editorial** — **also Poppins.** Long-form article hero titles use Poppins 600 with `-0.015em` tracking; italic deks use Poppins 400 italic. **No serif face is used in the brand.** This is a deliberate sans-only stance — the editorial weight comes from size, tracking, and the italic dek, not from a serif counterpoint.
 
@@ -389,9 +389,13 @@ above or write the word.
    `--tk-*`. Don't introduce new colors; if you need a color the system doesn't
    have, ask first.
 2. **Logos** — link the SVG files in `assets/`, don't redraw the dragonfly.
-3. **Type** — load Poppins + Manrope + JetBrains Mono from Google Fonts.
-   Tekrogen is sans-only; editorial slots (article hero, italic deks) use
-   Poppins 600 + Poppins italic. **Do not add a serif face.**
+3. **Type** — Poppins + Manrope + JetBrains Mono are **fully self-hosted**
+   from `fonts/` (latin-subset `.woff2`, all brand weights); the `@font-face`
+   declarations ship at the top of `colors_and_type.css`, so loading the
+   token stylesheet loads the type. **No Google Fonts `<link>`/`@import`** —
+   ADR-0008; CI (font-guard) fails on any remote font reference. Tekrogen is
+   sans-only; editorial slots (article hero, italic deks) use Poppins 600 +
+   Poppins italic. **Do not add a serif face.**
 4. **Components** — `ui_kits/_shared/marks.jsx` exports all seven mark concepts
    plus the palette object. `ui_kits/tekrogen-org/` has the publication
    components ready to assemble a page.
@@ -402,10 +406,12 @@ above or write the word.
 
 ## Caveats — please review
 
-- **Fonts are partially self-hosted.** Regular (400) weights of Poppins,
-  Manrope, and JetBrains Mono live in `fonts/`. Heavier weights (500–800)
-  load from Google Fonts as a progressive enhancement. The brand is
-  **sans-only** — no serif face anywhere.
+- **Fonts are fully self-hosted** (resolved in v0.9.0 per ADR-0008). All
+  brand weights — Poppins 400–800 + italic 400/500/600, Manrope 400–700,
+  JetBrains Mono 400–700 — live in `fonts/` as latin-subset `.woff2`; the
+  Google Fonts CDN dependency was removed from every surface and is banned
+  by CI (`scripts/font-guard.mjs`). The brand is **sans-only** — no serif
+  face anywhere.
 - **The icon system is unspecified.** I've defaulted product/app UIs to
   **Lucide outline** as the closest match to the brand DNA. The marketing
   surfaces stay icon-free as the source materials do. Flag if you want a

@@ -35,7 +35,7 @@ Everything is hand-authored HTML/JSX/CSS — **no bundler, no npm install**. JSX
 | `assets/` | Production SVGs (dragonfly mark, lockups, icons, favicon) + PNG OG cards. **Static exception** to single-source palette rule. `assets/og_ship/` holds the shipped OG card SVG+PNG pairs regenerated from the token-driven generator (ADR-0010). |
 | `index.html` (root) | The **UI Kit Dashboard** — the top-level standalone surface (~108KB). Its version label is stamped by `scripts/version-stamp.mjs` and CI-guarded (`stamp-check.yml`). Not to be confused with `review/index.html`. |
 | `scripts/` | Node CI/governance scripts: `version-stamp.mjs` (version-label parity), `font-guard.mjs` (remote-font ban + token-validity scan), `cpl-measure.mjs` (rendered characters-per-line gate, needs Playwright). |
-| `fonts/` | Self-hosted Regular (400) `.woff2` for Poppins, Manrope, JetBrains Mono. |
+| `fonts/` | Fully self-hosted latin-subset `.woff2` — Poppins 400–800 + italic 400/500/600, Manrope 400–700, JetBrains Mono 400–700 (ADR-0008). `@font-face` set lives at the top of `colors_and_type.css`. |
 | `adr/` | Ten accepted ADRs — the load-bearing decisions written down. |
 | `ui_kits/_shared/` | React components shared across kits: `marks.jsx` (7 mark concepts), `lockups-app.jsx`, `design-canvas.jsx`, `tweaks-panel.jsx`, `concept-cards.jsx`. |
 | `ui_kits/tekrogen-org/` | Ghost-Pro publication mock — SiteHeader, Hero, FieldNoteCard, Article, SubscribeBlock, Footer, Dragonfly. The canonical brand surface. |

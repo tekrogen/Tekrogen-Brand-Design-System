@@ -12,7 +12,7 @@ Read the `README.md` file within this skill first, and explore the other availab
 - `ui_kits/asset-pack/`, `ui_kits/master-lockups/`, `ui_kits/mark-explorations/` — production reference pages for brand foundations.
 - `preview/` — small specimen cards for individual tokens / components — useful as visual references when picking a color, radius, button style, etc.
 
-If creating visual artifacts (slides, mocks, throwaway prototypes, etc.), copy assets out and create static HTML files for the user to view. Pull from Google Fonts: Poppins (sans + wordmark + editorial), Manrope (sans fallback), JetBrains Mono (technical). Tekrogen is **sans-only** — do not load a serif face. If working on production code, you can copy the SVG marks and read `README.md` + `colors_and_type.css` to become an expert in designing with the Tekrogen brand.
+If creating visual artifacts (slides, mocks, throwaway prototypes, etc.), copy assets out and create static HTML files for the user to view. Fonts are **fully self-hosted** in `fonts/` (ADR-0008): Poppins (sans + wordmark + editorial), Manrope (sans fallback), JetBrains Mono (technical) — loading `colors_and_type.css` loads the `@font-face` set; never add a Google Fonts `<link>`/`@import` (CI font-guard fails on any remote font reference). For artifacts that live outside the repo, copy the needed `.woff2` files out alongside the stylesheet. Tekrogen is **sans-only** — do not load a serif face. If working on production code, you can copy the SVG marks and read `README.md` + `colors_and_type.css` to become an expert in designing with the Tekrogen brand.
 
 Key brand invariants — never break these:
 
