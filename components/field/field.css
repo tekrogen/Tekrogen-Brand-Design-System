@@ -1,0 +1,18 @@
+/* Tekrogen · Field & form — .tk-field / .tk-form
+ * Label + control wrapper and the form column it stacks in (gap-analysis P1) per ADR-0011 (C2).
+ * The control is a .tk-input (or any control); the label is mono-caps. .tk-field-row pairs two
+ * fields side by side. Token-only.
+ */
+.tk-form { display: flex; flex-direction: column; gap: var(--tk-space-4); }
+.tk-field { display: flex; flex-direction: column; gap: var(--tk-space-2); }
+.tk-field label,
+.tk-field [data-tk-slot="label"] {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+}
+.tk-field .tk-input { width: 100%; }
+.tk-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--tk-space-3); }
+@media (max-width: 640px) { .tk-field-row { grid-template-columns: 1fr; } }

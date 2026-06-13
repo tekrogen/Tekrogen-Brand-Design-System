@@ -21,3 +21,9 @@
 @import url('./label/label.css');
 @import url('./site-header/site-header.css');
 @import url('./footer/footer.css');
+/* C2 data & forms */
+@import url('./table/table.css');
+@import url('./field/field.css');
+@import url('./callout/callout.css');
+@import url('./cta-block/cta-block.css');
+@import url('./stat/stat.css');

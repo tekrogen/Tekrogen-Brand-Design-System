@@ -452,6 +452,103 @@ const COMPONENTS = [
 `{{!-- Tekrogen · Footer → default.hbs. Pillars brand-fixed; colophon uses {{@site}}. --}}
 <footer class="tk-footer"> … (see components/footer/footer.hbs) … </footer>`,
   },
+  {
+    id: 'table', idx: '10', name: 'Table', family: 'Data', grid: true,
+    note: 'Hairline rows · mono-caps header · no zebra · <b>[data-num]</b> right-aligns',
+    html:
+`<table class="tk-table">
+  <thead><tr><th>Order</th><th>Product</th><th>License</th><th data-num>Total</th></tr></thead>
+  <tbody>
+    <tr><td>TK-2026-0089</td><td><b>Spine</b> — fleet replay</td><td>Team</td><td data-num>$1,490</td></tr>
+    <tr><td>TK-2026-0064</td><td><b>Margin</b> — PDF kit</td><td>Extended</td><td data-num>$429</td></tr>
+  </tbody>
+</table>`,
+    css:
+`.tk-table { width: 100%; border-collapse: collapse; font-size: var(--tk-fs-body-sm); }
+.tk-table th { text-align: left; font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); font-weight: 500; padding: var(--tk-space-3) var(--tk-space-4); border-bottom: var(--tk-border-1); }
+.tk-table td { padding: var(--tk-space-3) var(--tk-space-4); border-bottom: var(--tk-border-hair); color: var(--tk-fg-2); vertical-align: top; }
+.tk-table td b { color: var(--tk-fg-1); font-weight: 600; }
+.tk-table [data-num] { text-align: right; font-variant-numeric: tabular-nums; }`,
+    hbs:
+`{{!-- Tekrogen · Table partial. --}}
+<table class="tk-table"><thead><tr><th>Column</th><th data-num>Value</th></tr></thead>
+<tbody>{{#foreach rows}}<tr><td>{{this.label}}</td><td data-num>{{this.value}}</td></tr>{{/foreach}}</tbody></table>`,
+  },
+  {
+    id: 'field', idx: '11', name: 'Field & form', family: 'Forms',
+    note: '<b>.tk-form</b> stacks <b>.tk-field</b> (label + .tk-input) · <b>.tk-field-row</b> pairs two',
+    html:
+`<div class="tk-form" style="max-width:420px">
+  <div class="tk-field-row">
+    <div class="tk-field"><label for="fn">First name</label><input class="tk-input" id="fn" placeholder="Martinique"/></div>
+    <div class="tk-field"><label for="ln">Last name</label><input class="tk-input" id="ln" placeholder="Dolce"/></div>
+  </div>
+  <div class="tk-field"><label for="em">Work email</label><input class="tk-input" id="em" type="email" placeholder="you@company.com"/></div>
+</div>`,
+    css:
+`.tk-form { display: flex; flex-direction: column; gap: var(--tk-space-4); }
+.tk-field { display: flex; flex-direction: column; gap: var(--tk-space-2); }
+.tk-field label { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-4); }
+.tk-field .tk-input { width: 100%; }
+.tk-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--tk-space-3); }`,
+    hbs:
+`{{!-- Tekrogen · Field/form partial → Ghost member form. --}}
+<form class="tk-form" data-members-form="signup">
+  <div class="tk-field"><label for="email">Email</label><input class="tk-input" id="email" type="email" data-members-email/></div>
+  <button class="tk-button" data-style="cta" data-block type="submit">Subscribe</button>
+</form>`,
+  },
+  {
+    id: 'callout', idx: '12', name: 'Callout', family: 'Feedback',
+    note: 'Left-accent note · default cyan · <b>data-pillar</b> keys the accent',
+    html:
+`<div class="tk-callout">Recon is qualitative — <strong>no ratings, ever</strong>.</div>
+<div class="tk-callout" data-pillar="com"><strong>Decision → the stack:</strong> server-only session handling.</div>`,
+    css:
+`.tk-callout { border: var(--tk-border-1); border-left: 3px solid var(--pillar, var(--tk-accent)); border-radius: var(--tk-radius-md); padding: var(--tk-space-4) var(--tk-space-5); background: var(--tk-bg-2); font-size: var(--tk-fs-body-sm); color: var(--tk-fg-2); }
+.tk-callout strong { color: var(--tk-fg-1); }
+.tk-callout[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */`,
+    hbs:
+`{{!-- Tekrogen · Callout partial. --}}
+<div class="tk-callout"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}>{{{content}}}</div>`,
+  },
+  {
+    id: 'cta-block', idx: '13', name: 'CTA block', family: 'Feedback', grid: true,
+    note: 'Centered next-step block · eyebrow + title + <b>actions</b> slot · <b>data-pillar</b>',
+    html:
+`<div class="tk-cta-block" data-pillar="com">
+  <p class="tk-eyebrow">next step</p>
+  <h3>Try it, then take the template.</h3>
+  <div data-tk-slot="actions">
+    <a class="tk-button" data-style="cta" data-variant="secondary" href="#">Run the demo</a>
+    <a class="tk-button" data-style="cta" data-pillar="com" href="#">Get the template</a>
+  </div>
+</div>`,
+    css:
+`.tk-cta-block { border: var(--tk-border-1); border-left: 3px solid var(--pillar, var(--tk-accent)); border-radius: var(--tk-radius-xl); padding: var(--tk-space-8); background: var(--tk-bg-2); text-align: center; }
+.tk-cta-block [data-tk-slot="actions"] { display: flex; gap: var(--tk-space-3); justify-content: center; flex-wrap: wrap; margin-top: var(--tk-space-5); }
+.tk-cta-block[data-pillar="com"] { --pillar: var(--tk-com); }  /* +org/studio/net */`,
+    hbs:
+`{{!-- Tekrogen · CTA block partial. --}}
+<div class="tk-cta-block"{{#if pillar}} data-pillar="{{pillar}}"{{/if}}><p class="tk-eyebrow">{{eyebrow}}</p><h3>{{title}}</h3><div data-tk-slot="actions">{{{actions}}}</div></div>`,
+  },
+  {
+    id: 'stat', idx: '14', name: 'Stat', family: 'Data',
+    note: 'Big number + mono label · slots <b>value·label</b> · <b>.tk-stats</b> row',
+    html:
+`<div class="tk-stats">
+  <div class="tk-stat"><div data-tk-slot="value">24</div><div data-tk-slot="label">Case studies</div></div>
+  <div class="tk-stat"><div data-tk-slot="value">52</div><div data-tk-slot="label">Recon entries</div></div>
+  <div class="tk-stat"><div data-tk-slot="value">11</div><div data-tk-slot="label">Live demos</div></div>
+</div>`,
+    css:
+`.tk-stats { display: flex; gap: var(--tk-space-10); flex-wrap: wrap; }
+.tk-stat [data-tk-slot="value"] { font-family: var(--tk-font-sans); font-weight: 700; font-size: var(--tk-fs-h2); letter-spacing: -0.02em; line-height: 1; color: var(--tk-fg-1); }
+.tk-stat [data-tk-slot="label"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-meta); letter-spacing: var(--tk-ls-meta); text-transform: uppercase; color: var(--tk-fg-3); margin-top: var(--tk-space-2); }`,
+    hbs:
+`{{!-- Tekrogen · Stat partial. --}}
+<div class="tk-stat"><div data-tk-slot="value">{{value}}</div><div data-tk-slot="label">{{label}}</div></div>`,
+  },
 ];
 
 const TABS = [['html', 'HTML'], ['css', 'CSS'], ['hbs', 'Ghost']];
