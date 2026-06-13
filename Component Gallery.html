@@ -394,12 +394,13 @@ const COMPONENTS = [
   },
   {
     id: 'site-header', idx: '08', name: 'Site header', family: 'Structure', grid: true,
-    note: 'Source <b>SiteHeader.jsx</b> · sticky+blur default · <b>data-style=framed</b> · slots brand·wordmark·nav',
+    note: 'Source <b>SiteHeader.jsx</b> · sticky+blur default · <b>data-style=framed</b> · slots brand·wordmark·nav·<b>util</b>',
     html:
 `<header class="tk-site-header" data-style="framed">
   <div data-tk-slot="inner">
     <a data-tk-slot="brand" href="/"><img src="assets/tekrogen-mark.svg" alt="" width="24" height="24"/><span data-tk-slot="wordmark">Tekrogen</span></a>
     <nav data-tk-slot="nav"><a href="#" aria-current="page">Home</a><a href="#">Case Studies</a><a href="#">Recon</a><a href="#">About</a></nav>
+    <div data-tk-slot="util"><span class="tk-label">Search</span><a class="tk-button" data-style="cta" data-variant="secondary" href="#">Sign in</a></div>
   </div>
 </header>`,
     css:
@@ -422,7 +423,7 @@ const COMPONENTS = [
   },
   {
     id: 'footer', idx: '09', name: 'Footer', family: 'Structure', grid: true,
-    note: 'Source <b>Footer.jsx</b> · brand + four pillar cards + colophon · slots top·brand·pillars·colophon',
+    note: 'Source <b>Footer.jsx</b> · pillar-cards default + <b>data-style=nav</b> (column-links) · slots top·brand·pillars·colophon',
     html:
 `<footer class="tk-footer">
   <div data-tk-slot="top">

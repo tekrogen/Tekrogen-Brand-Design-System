@@ -16,7 +16,6 @@
 .tk-site-header [data-tk-slot="inner"] {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--tk-space-6);
   padding: var(--tk-space-4) var(--tk-gutter);
 }
@@ -24,8 +23,15 @@
   display: flex;
   align-items: center;
   gap: var(--tk-space-3);
+  margin-right: auto;   /* pushes nav + util to the right */
   text-decoration: none;
   border: 0;
+}
+/* utility group — search / sign-in / cart / portal, beside the nav */
+.tk-site-header [data-tk-slot="util"] {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-3);
 }
 .tk-site-header [data-tk-slot="wordmark"] {
   font-family: var(--tk-font-sans);
