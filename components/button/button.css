@@ -81,3 +81,17 @@
   letter-spacing: 0;
   opacity: 0.7;
 }
+
+/* ── Editorial CTA (data-style="cta") — the publication button: sans, mixed-case,
+ *    weight 600, roomier. Overrides ONLY the typographic face of the default
+ *    (technical mono/UPPERCASE) button; color still comes from data-variant /
+ *    data-pillar, so it composes (e.g. data-style="cta" data-pillar="com"). The
+ *    hint sub-label stays mono by design. ADR-0011 §4. ── */
+.tk-button[data-style="cta"] {
+  font-family: var(--tk-font-sans);
+  font-weight: 600;
+  font-size: var(--tk-fs-body-sm);
+  letter-spacing: normal;
+  text-transform: none;
+  padding: var(--tk-space-3) var(--tk-space-5);
+}
