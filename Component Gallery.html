@@ -165,7 +165,7 @@
 const COMPONENTS = [
   {
     id: 'button', idx: '01', name: 'Button', family: 'Actions',
-    note: 'Source <b>.btn</b> · variants <b>primary·secondary·tertiary</b> · size <b>icon</b> · <b>data-pillar</b> · <b>data-block</b> · hint <b>data-tk-slot</b>',
+    note: 'Source <b>.btn</b> · variants <b>primary·secondary·tertiary</b> · size <b>icon</b> · <b>data-pillar</b> · <b>data-block</b> · hint <b>data-tk-slot</b> · editorial <b>data-style=cta</b>',
     html:
 `<button class="tk-button">Primary</button>
 <button class="tk-button" data-variant="secondary">Secondary</button>
@@ -174,7 +174,10 @@ const COMPONENTS = [
 <button class="tk-button" data-pillar="com">Get the template</button>
 <button class="tk-button" data-pillar="studio">Launch demo</button>
 <button class="tk-button" data-pillar="com" data-variant="secondary">Pillar ghost</button>
-<button class="tk-button" data-variant="secondary">Run the demo <span data-tk-slot="hint">↗ studio</span></button>`,
+<button class="tk-button" data-variant="secondary">Run the demo <span data-tk-slot="hint">↗ studio</span></button>
+<button class="tk-button" data-style="cta">Explore Case Studies</button>
+<button class="tk-button" data-style="cta" data-variant="secondary">View Demos</button>
+<button class="tk-button" data-style="cta" data-pillar="com">Get the template</button>`,
     css:
 `.tk-button {
   display: inline-flex; align-items: center; gap: var(--tk-space-2);
@@ -206,7 +209,9 @@ const COMPONENTS = [
 .tk-button[data-pillar][data-variant="secondary"]:hover { border-color: var(--pillar); color: var(--pillar); }
 .tk-button[data-block] { display: flex; width: 100%; justify-content: center; }
 /* sub-label hint: mono, dimmed secondary label inside the button */
-.tk-button [data-tk-slot="hint"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-eyebrow); text-transform: none; letter-spacing: 0; opacity: 0.7; }`,
+.tk-button [data-tk-slot="hint"] { font-family: var(--tk-font-mono); font-size: var(--tk-fs-eyebrow); text-transform: none; letter-spacing: 0; opacity: 0.7; }
+/* editorial CTA: sans, mixed-case, roomier — color still from variant/pillar */
+.tk-button[data-style="cta"] { font-family: var(--tk-font-sans); font-weight: 600; font-size: var(--tk-fs-body-sm); letter-spacing: normal; text-transform: none; padding: var(--tk-space-3) var(--tk-space-5); }`,
     hbs:
 `{{!-- Tekrogen · Button partial. Usage: {{> "button" label="Subscribe"}} --}}
 <button class="tk-button">{{label}}</button>`,
