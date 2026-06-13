@@ -1,0 +1,8 @@
+{{!-- Tekrogen · Section head partial. Eyebrow + title + optional mono meta. --}}
+<div class="tk-section-head">
+  <div>
+    {{#if eyebrow}}<p data-tk-slot="eyebrow">{{eyebrow}}</p>{{/if}}
+    <h2 data-tk-slot="title">{{title}}</h2>
+  </div>
+  {{#if meta}}<span data-tk-slot="meta">{{meta}}</span>{{/if}}
+</div>

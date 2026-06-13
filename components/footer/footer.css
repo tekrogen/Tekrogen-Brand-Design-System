@@ -1,0 +1,88 @@
+/* Tekrogen · Site footer — .tk-footer
+ * Extracted from ui_kits/tekrogen-org/Footer.jsx (canonical) per ADR-0011 (stage d, C1).
+ * Brand column (mark + locked TEKROGEN wordmark + tagline) | four entity-pillar cards |
+ * colophon row. Sub-parts: data-tk-slot="top | brand | wordmark | tagline | pillars |
+ * colophon". Pillar cards carry data-pillar for the left accent + name color. Token-only.
+ */
+.tk-footer {
+  margin-top: var(--tk-space-20);
+  padding-top: var(--tk-space-16);
+  border-top: var(--tk-border-1);
+  background: var(--tk-bg-3);
+}
+.tk-footer [data-tk-slot="top"] {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--tk-space-16);
+  padding: 0 var(--tk-gutter) var(--tk-space-16);
+}
+.tk-footer [data-tk-slot="wordmark"] {
+  font-family: var(--tk-font-sans);
+  font-weight: 700;
+  font-size: var(--tk-fs-body);
+  letter-spacing: var(--tk-ls-wordmark);
+  text-transform: uppercase;
+  color: var(--tk-fg-1);
+  margin-top: var(--tk-space-5);
+}
+.tk-footer [data-tk-slot="tagline"] {
+  font-family: var(--tk-font-sans);
+  font-style: italic;
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+  margin: var(--tk-space-3) 0 0;
+  max-width: 36ch;
+  line-height: var(--tk-lh-body);
+}
+.tk-footer [data-tk-slot="pillars"] {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--tk-space-6);
+}
+.tk-footer [data-tk-slot="pillars"] a {
+  display: block;
+  padding: var(--tk-space-5);
+  background: var(--tk-bg-2);
+  border: var(--tk-border-1);
+  border-left: 2px solid var(--pillar, var(--tk-cyan));
+  border-radius: var(--tk-radius-md);
+  text-decoration: none;
+}
+.tk-footer [data-tk-slot="pillars"] a[data-pillar="org"]    { --pillar: var(--tk-org); }
+.tk-footer [data-tk-slot="pillars"] a[data-pillar="studio"] { --pillar: var(--tk-studio); }
+.tk-footer [data-tk-slot="pillars"] a[data-pillar="com"]    { --pillar: var(--tk-com); }
+.tk-footer [data-tk-slot="pillars"] a[data-pillar="net"]    { --pillar: var(--tk-net); }
+.tk-footer [data-tk-slot="pillars"] .name {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--pillar, var(--tk-fg-1));
+  letter-spacing: 0.04em;
+  margin-bottom: var(--tk-space-1);
+}
+.tk-footer [data-tk-slot="pillars"] .label {
+  font-family: var(--tk-font-sans);
+  font-size: var(--tk-fs-body-sm);
+  color: var(--tk-fg-3);
+  line-height: var(--tk-lh-body);
+}
+.tk-footer [data-tk-slot="colophon"] {
+  border-top: var(--tk-border-1);
+  padding: var(--tk-space-5) var(--tk-gutter);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--tk-space-4);
+  flex-wrap: wrap;
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body-sm);
+  letter-spacing: var(--tk-ls-meta);
+  text-transform: uppercase;
+  color: var(--tk-fg-4);
+}
+.tk-footer [data-tk-slot="colophon"] a { color: var(--tk-fg-4); text-decoration: none; border: 0; }
+.tk-footer [data-tk-slot="colophon"] nav { display: flex; gap: var(--tk-space-5); }
+
+@media (max-width: 760px) {
+  .tk-footer [data-tk-slot="top"] { grid-template-columns: 1fr; gap: var(--tk-space-8); }
+  .tk-footer [data-tk-slot="pillars"] { grid-template-columns: 1fr; }
+}
