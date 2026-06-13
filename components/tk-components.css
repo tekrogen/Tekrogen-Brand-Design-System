@@ -43,3 +43,7 @@
 @import url('./feature-grid/feature-grid.css');
 @import url('./demo-preview/demo-preview.css');
 @import url('./artifact-list/artifact-list.css');
+/* C6 distribution */
+@import url('./docs-hero/docs-hero.css');
+@import url('./pipeline/pipeline.css');
+@import url('./version-timeline/version-timeline.css');

@@ -1,0 +1,12 @@
+{{!-- Tekrogen · Version timeline partial → release history. Releases are structured content (a custom
+      "releases" collection or page blocks); each carries version/date/body, chips, and a download URL. --}}
+<div class="tk-version-timeline" data-pillar="net">
+  <h3 data-tk-slot="title">{{@custom.timeline_title}}</h3>
+  {{#foreach releases}}
+  <div data-tk-slot="row">
+    <div class="vn">{{this.version}}<span class="date">{{this.date}}</span></div>
+    <div class="vbody"><strong>{{this.headline}}</strong> {{this.body}}<div class="vchips">{{#foreach this.chips}}<span class="tk-label" data-variant="tag">{{this}}</span>{{/foreach}}</div></div>
+    <a class="dl" href="{{this.url}}">Download ↗</a>
+  </div>
+  {{/foreach}}
+</div>

@@ -1,0 +1,44 @@
+/* Tekrogen · Docs hero — .tk-docs-hero (ADR-0011, C6 distribution)
+ * Two-column documentation header: a body column (badge / title / lead / search / version labels) and
+ * an aside column (typically a tk-pipeline). Sub-parts: data-tk-slot="body | search | aside". The search
+ * slot is a self-contained input bar with a leading glyph and a trailing "/" key hint. net-keyed context;
+ * colors are inherited tokens. Token-only; literals are the 1px hairlines, the search max-width, and the
+ * key-hint corner radius.
+ */
+.tk-docs-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--tk-space-10);
+  padding: var(--tk-space-12) var(--tk-gutter);
+  align-items: start;
+}
+.tk-docs-hero [data-tk-slot="search"] {
+  display: flex;
+  align-items: center;
+  gap: var(--tk-space-2);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-md);
+  background: var(--tk-bg-2);
+  padding: var(--tk-space-3) var(--tk-space-4);
+  margin: var(--tk-space-5) 0;
+  max-width: 460px;
+}
+.tk-docs-hero [data-tk-slot="search"] > span:first-child { color: var(--tk-fg-4); }
+.tk-docs-hero [data-tk-slot="search"] input {
+  flex: 1;
+  background: none;
+  border: 0;
+  outline: 0;
+  color: var(--tk-fg-1);
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-body-sm);
+}
+.tk-docs-hero [data-tk-slot="search"] .k {
+  font-family: var(--tk-font-mono);
+  font-size: var(--tk-fs-meta);
+  color: var(--tk-fg-5);
+  border: 1px solid var(--tk-border);
+  border-radius: var(--tk-radius-xs);
+  padding: var(--tk-space-1) var(--tk-space-2);
+}
+@media (max-width: 860px) { .tk-docs-hero { grid-template-columns: 1fr; } }
