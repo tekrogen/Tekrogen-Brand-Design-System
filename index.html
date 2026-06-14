@@ -6,6 +6,7 @@
   <title>Tekrogen UI Kit · Dashboard</title>
   <link rel="icon" href="assets/favicon.svg" />
   <link rel="stylesheet" href="colors_and_type.css" />
+  <link rel="stylesheet" href="components/tk-components.css" />
   <link rel="stylesheet" href="ui_kits/_shared/tk-theme.css" />
   <script src="ui_kits/_shared/tk-theme.js" defer></script>
   <style>
@@ -54,25 +55,6 @@
       line-height: 1;
     }
     .topbar-meta { display: flex; align-items: center; gap: 10px; margin-left: 8px; }
-    .pill {
-      font-family: var(--tk-font-mono);
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--tk-fg-3);
-      border: 1px solid var(--tk-border);
-      padding: 5px 10px;
-      border-radius: 9999px;
-      background: transparent;
-      cursor: default;
-    }
-    .pill.cyan { color: var(--tk-accent); border-color: color-mix(in srgb, var(--tk-accent) 35%, transparent); }
-    .pill.live { color: var(--tk-success-text); border-color: color-mix(in srgb, var(--tk-success-text) 40%, transparent); }
-    .pill.live::before {
-      content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
-      background: currentColor; margin-right: 7px; vertical-align: 1px;
-      box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
-    }
 
     .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
 
@@ -236,57 +218,6 @@
       gap: 14px;
       grid-template-columns: repeat(12, 1fr);
     }
-    .card {
-      grid-column: span 4;
-      background: var(--tk-bg-2);
-      border: 1px solid var(--tk-border);
-      border-radius: var(--tk-radius-xl);
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: border-color var(--tk-dur-2) var(--tk-ease);
-      min-height: 240px;
-    }
-    .card.hide { display: none; }
-    .card:hover { border-color: color-mix(in srgb, var(--tk-cyan) 40%, var(--tk-border)); }
-    .card.span-6 { grid-column: span 6; }
-    .card.span-8 { grid-column: span 8; }
-    .card.span-12 { grid-column: span 12; }
-
-    .card-head {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 16px;
-      border-bottom: 1px solid var(--tk-border);
-      font-family: var(--tk-font-mono);
-      font-size: 12px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-    .card-head .l { color: var(--tk-fg-3); }
-    .card-head .l b { color: var(--tk-accent); font-weight: 500; margin-right: 8px; }
-    .card-head .r { color: var(--tk-fg-4); }
-
-    .card-body {
-      flex: 1;
-      padding: 22px 18px;
-      display: flex; align-items: center; justify-content: center;
-      background: var(--tk-bg-2);
-    }
-    .card-body.stretch { display: block; padding: 22px 18px; }
-    .card-body.dark { background: var(--tk-bg-3); }
-
-    .card-foot {
-      padding: 10px 16px;
-      border-top: 1px solid var(--tk-border);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px;
-      font-family: var(--tk-font-mono);
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: var(--tk-fg-3);
-      background: var(--tk-bg-2);
-    }
-    .card-foot .token { color: var(--tk-accent); }
-    .card-foot .path { color: var(--tk-fg-4); text-transform: none; letter-spacing: 0; }
 
     /* ─── Bits & micro-components ─────────────────────────── */
     .swatch-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; width: 100%; }
@@ -340,51 +271,9 @@
       letter-spacing: 0.08em;
     }
 
-    .btn {
-      font-family: var(--tk-font-mono);
-      font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 9px 14px; border-radius: var(--tk-radius-sm);
-      cursor: pointer; font-weight: 600;
-      transition: background var(--tk-dur-1) var(--tk-ease), color var(--tk-dur-1) var(--tk-ease), border-color var(--tk-dur-1) var(--tk-ease), transform var(--tk-dur-1) var(--tk-ease);
-    }
-    .btn.primary { border: 1px solid var(--tk-cyan); background: var(--tk-cyan); color: var(--tk-ink); }
-    .btn.secondary { border: 1px solid var(--tk-border); background: transparent; color: var(--tk-fg-1); }
-    .btn.tertiary { border: 1px solid transparent; background: transparent; color: var(--tk-fg-2); padding: 9px 8px; }
-    .btn.icon-only { padding: 9px 11px; }
-    .btn:hover { border-color: var(--tk-focus); }
-    .btn.primary:hover { background: color-mix(in srgb, var(--tk-cyan) 92%, white); }
-    .btn:active { transform: scale(0.98); }
 
-    .mono-pill {
-      font-family: var(--tk-font-mono);
-      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
-      border: 1px solid var(--tk-border);
-      padding: 5px 11px; border-radius: 9999px;
-      color: var(--tk-fg-2);
-      background: transparent;
-    }
-    .mono-pill.cyan { color: var(--tk-accent); }
-    .mono-pill.filled { background: var(--tk-cyan); color: var(--tk-ink); border-color: var(--tk-cyan); font-weight: 700; }
-    .mono-pill.muted { color: var(--tk-fg-3); }
 
-    .input {
-      background: var(--tk-bg-3);
-      border: 1px solid var(--tk-border);
-      color: var(--tk-fg-1);
-      padding: 10px 14px; border-radius: var(--tk-radius-md);
-      font-family: var(--tk-font-sans); font-size: 16px;
-      outline: none;
-    }
-    .input:focus { border-color: var(--tk-focus); }
 
-    .avatar {
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--tk-org), var(--tk-com));
-      color: #fff;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-family: var(--tk-font-sans); font-weight: 600;
-      flex-shrink: 0;
-    }
 
     .glyph-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 8px; width: 100%; }
     .glyph-cell {
@@ -591,8 +480,27 @@
     }
     .kit-card .body .row .arrow { color: var(--tk-accent); }
 
+    /* ── Dashboard adoption of components/ registry (ADR-0011, #21):
+       surface-specific extensions the registry leaves to the consumer. ── */
+    .tk-card { min-height: 240px; }
+    .tk-card [data-tk-slot="head"] .l { color: var(--tk-fg-3); }
+    .tk-card [data-tk-slot="head"] .l b { color: var(--tk-accent); font-weight: 500; margin-right: 8px; }
+    .tk-card [data-tk-slot="head"] .r { color: var(--tk-fg-4); }
+    .tk-card [data-tk-slot="body"].stretch { display: block; }
+    .tk-card [data-tk-slot="body"].dark { background: var(--tk-bg-3); }
+    .tk-card [data-tk-slot="foot"] .token { color: var(--tk-accent); }
+    .tk-card [data-tk-slot="foot"] .path { color: var(--tk-fg-4); text-transform: none; letter-spacing: 0; }
+    .tk-card.hide { display: none; }
+    .tk-label.cyan { color: var(--tk-accent); border-color: color-mix(in srgb, var(--tk-accent) 35%, transparent); }
+    .tk-label.live { color: var(--tk-success-text); border-color: color-mix(in srgb, var(--tk-success-text) 40%, transparent); }
+    .tk-label.live::before {
+      content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+      background: currentColor; margin-right: 7px; vertical-align: 1px;
+      box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 25%, transparent);
+    }
+
     /* ─── Paper theme tweaks ───────────────────────────────── */
-    [data-tk-theme="paper"] .card-body.dark { background: var(--tk-bg-3); }
+    [data-tk-theme="paper"] .tk-card [data-tk-slot="body"].dark { background: var(--tk-bg-3); }
     [data-tk-theme="paper"] .codeblock { background: var(--tk-bg-3); }
     [data-tk-theme="paper"] .toast { box-shadow: 0 14px 40px rgba(20,40,60,0.12); }
     [data-tk-theme="paper"] .shadow-tile.s1,
@@ -602,14 +510,14 @@
     [data-tk-theme="paper"] .glyph-cell,
     [data-tk-theme="paper"] .icon-cell,
     [data-tk-theme="paper"] .radius-cell { background: var(--tk-bg-3); }
-    [data-tk-theme="paper"] .input { background: #fff; }
+    [data-tk-theme="paper"] .tk-input { background: #fff; }
     [data-tk-theme="paper"] .search { background: #fff; }
     [data-tk-theme="paper"] .anatomy-card { background: var(--tk-bg-3); }
 
     /* ─── Responsiveness ──────────────────────────────────── */
     @media (max-width: 1180px) {
-      .card { grid-column: span 6; }
-      .card.span-8, .card.span-12 { grid-column: span 12; }
+      .tk-card { grid-column: span 6; }
+      .tk-card[data-span="8"], .tk-card[data-span="12"] { grid-column: span 12; }
       .kit-card { grid-column: span 12; }
     }
     @media (max-width: 900px) {
@@ -619,7 +527,7 @@
       .hero { grid-template-columns: 1fr; }
       .topbar { padding: 12px 18px; }
       .search { width: 180px; }
-      .card { grid-column: span 12; }
+      .tk-card { grid-column: span 12; }
     }
 
     /* ─── Empty filter state ──────────────────────────────── */
@@ -686,9 +594,9 @@
   </div>
 
   <div class="topbar-meta">
-    <span class="pill cyan">v0.10.0</span><!-- x-release-please-version -->
-    <span class="pill live">published</span>
-    <span class="pill">jun 2026</span>
+    <span class="tk-label cyan">v0.10.0</span><!-- x-release-please-version -->
+    <span class="tk-label live">published</span>
+    <span class="tk-label">jun 2026</span>
   </div>
 
   <div class="topbar-right">
@@ -781,9 +689,9 @@
         <div class="r">one wing per entity<br/><b>—tk-org / .studio / .com / .net</b></div>
       </div>
       <div class="grid">
-        <article class="card span-6" data-name="pillars palette wings org studio com net swatch">
-          <div class="card-head"><div class="l"><b>01.01</b> Pillars</div><div class="r">screen</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="pillars palette wings org studio com net swatch">
+          <div data-tk-slot="head"><div class="l"><b>01.01</b> Pillars</div><div class="r">screen</div></div>
+          <div data-tk-slot="body">
             <div class="swatch-row">
               <div class="swatch" style="background:#446e88"><span>.org</span><span class="v">#446E88</span></div>
               <div class="swatch" style="background:#6491ac"><span>.studio</span><span class="v">#6491AC</span></div>
@@ -791,29 +699,29 @@
               <div class="swatch" style="background:#7edba5;color:#0e1116;border-color:rgba(0,0,0,0.1)"><span>.net</span><span class="v">#7EDBA5</span></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-org · --tk-studio · --tk-com · --tk-net</span>
             <span class="path">tokens/palette.js</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="cyan accent primary cta link spot">
-          <div class="card-head"><div class="l"><b>01.02</b> Cyan accent</div><div class="r">one-per-surface</div></div>
-          <div class="card-body" style="flex-direction:column;gap:14px">
+        <article class="tk-card" data-span="6" data-name="cyan accent primary cta link spot">
+          <div data-tk-slot="head"><div class="l"><b>01.02</b> Cyan accent</div><div class="r">one-per-surface</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;gap:14px">
             <div class="swatch" style="background:#1fd5da;color:#0e1116;width:100%;aspect-ratio:auto;height:80px"><span>cyan</span><span class="v">#1FD5DA</span></div>
             <div style="display:flex;gap:10px;align-items:center;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-3)">
               reserved for: primary cta · hero accent · this-is-the-action
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-cyan · --tk-accent · --tk-link</span>
             <span class="path">never used as a fill behind text</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="print palette cmyk pillars stable">
-          <div class="card-head"><div class="l"><b>01.03</b> Print column</div><div class="r">cmyk-nudged</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="print palette cmyk pillars stable">
+          <div data-tk-slot="head"><div class="l"><b>01.03</b> Print column</div><div class="r">cmyk-nudged</div></div>
+          <div data-tk-slot="body">
             <div class="swatch-row">
               <div class="swatch" style="background:#3a6079"><span>.org</span><span class="v">#3A6079</span></div>
               <div class="swatch" style="background:#5d89a5"><span>.studio</span><span class="v">#5D89A5</span></div>
@@ -821,15 +729,15 @@
               <div class="swatch" style="background:#6dc491;color:#0e1116"><span>.net</span><span class="v">#6DC491</span></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-*-print</span>
             <span class="path">coated stock survival</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="semantic state info success warning danger">
-          <div class="card-head"><div class="l"><b>01.04</b> Semantic states</div><div class="r">success · info · warn · danger</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="semantic state info success warning danger">
+          <div data-tk-slot="head"><div class="l"><b>01.04</b> Semantic states</div><div class="r">success · info · warn · danger</div></div>
+          <div data-tk-slot="body">
             <div class="swatch-row">
               <div class="swatch" style="background:#7edba5;color:#0e1116"><span>success</span><span class="v">--tk-net</span></div>
               <div class="swatch" style="background:#0db4b9"><span>info</span><span class="v">--tk-com</span></div>
@@ -837,7 +745,7 @@
               <div class="swatch" style="background:#d96b5c"><span>danger</span><span class="v">#D96B5C</span></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-success · --tk-info · --tk-warning · --tk-danger</span>
             <span class="path">borrowed from palette where possible</span>
           </div>
@@ -852,9 +760,9 @@
         <div class="r">two reigning surfaces<br/><b>ink · paper</b></div>
       </div>
       <div class="grid">
-        <article class="card span-6" data-name="ink surface dark background scale neutrals">
-          <div class="card-head"><div class="l"><b>02.01</b> Ink scale</div><div class="r">dark surface</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="ink surface dark background scale neutrals">
+          <div data-tk-slot="head"><div class="l"><b>02.01</b> Ink scale</div><div class="r">dark surface</div></div>
+          <div data-tk-slot="body">
             <div style="display:flex;width:100%;height:120px;border-radius:8px;overflow:hidden;border:1px solid var(--tk-border)">
               <div style="flex:1;background:#0a0d12;display:flex;align-items:flex-end;padding:8px;color:#9eb1c0;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">bg-3</div>
               <div style="flex:1;background:#0e1116;display:flex;align-items:flex-end;padding:8px;color:#9eb1c0;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">ink</div>
@@ -862,15 +770,15 @@
               <div style="flex:1;background:#1f2731;display:flex;align-items:flex-end;padding:8px;color:#9eb1c0;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">ink-2</div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-bg-3 · --tk-ink · --tk-ink-soft · --tk-ink-2</span>
             <span class="path">#0a0d12 → #1F2731</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="paper surface light warm neutrals">
-          <div class="card-head"><div class="l"><b>02.02</b> Paper scale</div><div class="r">light surface</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="paper surface light warm neutrals">
+          <div data-tk-slot="head"><div class="l"><b>02.02</b> Paper scale</div><div class="r">light surface</div></div>
+          <div data-tk-slot="body">
             <div style="display:flex;width:100%;height:120px;border-radius:8px;overflow:hidden;border:1px solid var(--tk-border)">
               <div style="flex:1;background:#fbfcfd;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">paper</div>
               <div style="flex:1;background:#ffffff;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">white</div>
@@ -878,15 +786,15 @@
               <div style="flex:1;background:#f4ede2;display:flex;align-items:flex-end;padding:8px;color:#475561;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.08em">warm</div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-paper · --tk-paper-warm</span>
             <span class="path">archive · print collateral</span>
           </div>
         </article>
 
-        <article class="card span-12" data-name="foreground text fg color scale">
-          <div class="card-head"><div class="l"><b>02.03</b> Foreground tokens · dark default</div><div class="r">primary → faint</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="foreground text fg color scale">
+          <div data-tk-slot="head"><div class="l"><b>02.03</b> Foreground tokens · dark default</div><div class="r">primary → faint</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px">
               <div style="display:flex;flex-direction:column;gap:6px">
                 <div style="height:36px;background:#e7ecf2;border-radius:4px"></div>
@@ -915,7 +823,7 @@
               </div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-fg-1 → --tk-fg-5</span>
             <span class="path">primary · secondary · muted · divider · faint</span>
           </div>
@@ -931,9 +839,9 @@
       </div>
       <div class="grid">
 
-        <article class="card span-8" data-name="display headings h1 h2 h3 h4 type scale">
-          <div class="card-head"><div class="l"><b>03.01</b> Headings · display</div><div class="r">poppins 700 · -0.02em</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="8" data-name="display headings h1 h2 h3 h4 type scale">
+          <div data-tk-slot="head"><div class="l"><b>03.01</b> Headings · display</div><div class="r">poppins 700 · -0.02em</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="type-stack">
               <div class="row">
                 <div class="sample" style="font-size:48px;font-weight:700;letter-spacing:-0.022em;line-height:1.05">Display · four wings</div>
@@ -957,79 +865,79 @@
               </div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-fs-display → --tk-fs-h4</span>
             <span class="path">tight negative tracking on display + h1/h2</span>
           </div>
         </article>
 
-        <article class="card" data-name="wordmark tekrogen uppercase locked tracking">
-          <div class="card-head"><div class="l"><b>03.02</b> Wordmark</div><div class="r">locked · 0.18em</div></div>
-          <div class="card-body" style="flex-direction:column;gap:18px">
+        <article class="tk-card" data-name="wordmark tekrogen uppercase locked tracking">
+          <div data-tk-slot="head"><div class="l"><b>03.02</b> Wordmark</div><div class="r">locked · 0.18em</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;gap:18px">
             <div style="font-family:var(--tk-font-sans);font-weight:700;text-transform:uppercase;letter-spacing:0.18em;font-size:22px;color:var(--tk-fg-1)">TEKROGEN</div>
             <div style="font-family:var(--tk-font-sans);font-weight:700;text-transform:uppercase;letter-spacing:0.18em;font-size:14px;color:var(--tk-fg-2)">TEKROGEN</div>
             <div style="font-family:var(--tk-font-sans);font-weight:700;text-transform:uppercase;letter-spacing:0.18em;font-size:12px;color:var(--tk-fg-3)">TEKROGEN</div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.tk-wordmark</span>
             <span class="path">always uppercase, never italicised</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="body lead text paragraph poppins 400">
-          <div class="card-head"><div class="l"><b>03.03</b> Body & lead</div><div class="r">poppins 400 · 16/1.6</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="6" data-name="body lead text paragraph poppins 400">
+          <div data-tk-slot="head"><div class="l"><b>03.03</b> Body & lead</div><div class="r">poppins 400 · 16/1.6</div></div>
+          <div class="stretch" data-tk-slot="body">
             <p style="font-size:17px;line-height:1.55;color:var(--tk-fg-2);margin:0 0 12px;max-width:none">Field notes on running a four-entity practice from a single mark — we build it, prove it, and publish what we learned.</p>
             <p style="font-size:16px;line-height:1.6;color:var(--tk-fg-2);margin:0 0 12px;max-width:none">Tekrogen runs on a tight two-mode system. Ink for the primary surface, paper for printed lockups and the light-themed publication header. No in-between gradient backdrop — pick a side.</p>
             <p style="font-size:14px;color:var(--tk-fg-3);margin:0;max-width:none">Small · captions, footnotes, dim secondary copy.</p>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.tk-lead · p · .tk-small</span>
             <span class="path">max-width: 760px</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="editorial italic dek long form article hero">
-          <div class="card-head"><div class="l"><b>03.04</b> Editorial</div><div class="r">poppins 600 + italic dek</div></div>
-          <div class="card-body" style="flex-direction:column;align-items:flex-start;gap:12px">
+        <article class="tk-card" data-span="6" data-name="editorial italic dek long form article hero">
+          <div data-tk-slot="head"><div class="l"><b>03.04</b> Editorial</div><div class="r">poppins 600 + italic dek</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;align-items:flex-start;gap:12px">
             <div style="font-family:var(--tk-font-sans);font-weight:600;letter-spacing:-0.015em;font-size:26px;line-height:1.15;color:var(--tk-fg-1)">Four wings, one pursuit.</div>
             <div style="font-family:var(--tk-font-sans);font-weight:400;font-style:italic;font-size:16px;line-height:1.55;color:var(--tk-fg-3)">How one mark carries .org, .studio, .com, and .net — same pursuit, four surfaces.</div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.tk-editorial · .tk-editorial-italic</span>
             <span class="path">sans-only — no serif counterpoint</span>
           </div>
         </article>
 
-        <article class="card" data-name="mono code jetbrains lowercase technical">
-          <div class="card-head"><div class="l"><b>03.05</b> Mono · code</div><div class="r">jetbrains 500 · lowercase</div></div>
-          <div class="card-body" style="flex-direction:column;align-items:flex-start;gap:10px">
+        <article class="tk-card" data-name="mono code jetbrains lowercase technical">
+          <div data-tk-slot="head"><div class="l"><b>03.05</b> Mono · code</div><div class="r">jetbrains 500 · lowercase</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;align-items:flex-start;gap:10px">
             <code style="font-size:16px;color:var(--tk-accent)">tekrogen.org</code>
             <code style="font-size:14px;color:var(--tk-fg-2)">--tk-tilt-mark: 18deg;</code>
             <code style="font-size:13px;color:var(--tk-fg-3)">$ tk build --proof</code>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-font-mono</span>
             <span class="path">code · cli · file paths</span>
           </div>
         </article>
 
-        <article class="card" data-name="eyebrow meta uppercase mono caps caption">
-          <div class="card-head"><div class="l"><b>03.06</b> Eyebrow & meta</div><div class="r">mono uppercase</div></div>
-          <div class="card-body" style="flex-direction:column;align-items:flex-start;gap:14px">
-            <div class="mono-pill cyan" style="border:0;padding:0;background:transparent">04 · DOMAIN SPLIT</div>
+        <article class="tk-card" data-name="eyebrow meta uppercase mono caps caption">
+          <div data-tk-slot="head"><div class="l"><b>03.06</b> Eyebrow & meta</div><div class="r">mono uppercase</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;align-items:flex-start;gap:14px">
+            <div class="tk-badge" data-variant="cyan" style="border:0;padding:0;background:transparent">04 · DOMAIN SPLIT</div>
             <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tk-fg-3)">FIELD NOTE · 04 · MAY 2026 · 8 MIN</div>
             <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-fg-4)">section eyebrow</div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.tk-eyebrow · .tk-meta</span>
             <span class="path">cyan kicker · dim row meta</span>
           </div>
         </article>
 
-        <article class="card" data-name="favicon scale 16 32 64 mark sizes pixel">
-          <div class="card-head"><div class="l"><b>03.07</b> Type scale ratio</div><div class="r">summary</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-name="favicon scale 16 32 64 mark sizes pixel">
+          <div data-tk-slot="head"><div class="l"><b>03.07</b> Type scale ratio</div><div class="r">summary</div></div>
+          <div class="stretch" data-tk-slot="body">
             <pre class="codeblock"><span class="c">/* fluid clamps */</span>
 <span class="k">--tk-fs-display</span>: <span class="v">clamp(40,5vw,64)</span>;
 <span class="k">--tk-fs-h1</span>     : <span class="v">clamp(32,3.5vw,48)</span>;
@@ -1039,7 +947,7 @@
 <span class="k">--tk-fs-eyebrow</span>: <span class="v">11</span>;
 <span class="k">--tk-fs-meta</span>   : <span class="v">10.5</span>;</pre>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-fs-*</span>
             <span class="path">colors_and_type.css</span>
           </div>
@@ -1055,9 +963,9 @@
         <div class="r">12 steps · 4px → 96px<br/><b>--tk-space-*</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="spacing scale 4 8 12 16 px steps">
-          <div class="card-head"><div class="l"><b>04.01</b> Step ladder</div><div class="r">12 stops</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="spacing scale 4 8 12 16 px steps">
+          <div data-tk-slot="head"><div class="l"><b>04.01</b> Step ladder</div><div class="r">12 stops</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="scale-row" style="align-items:flex-end;gap:10px">
               <div class="step"><div class="bar" style="height:4px;width:14px"></div><div class="px">1<br/>4</div></div>
               <div class="step"><div class="bar" style="height:8px;width:14px"></div><div class="px">2<br/>8</div></div>
@@ -1073,7 +981,7 @@
               <div class="step"><div class="bar" style="height:96px;width:14px"></div><div class="px">24<br/>96</div></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-space-1 · 2 · 3 · 4 · 5 · 6 · 8 · 10 · 12 · 16 · 20 · 24</span>
             <span class="path">labels = token suffix · px value</span>
           </div>
@@ -1088,9 +996,9 @@
         <div class="r">crisp · no soft 24/32<br/><b>4 → 9999</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="radius scale corners 4 6 8 10 12 16 pill">
-          <div class="card-head"><div class="l"><b>05.01</b> Radii</div><div class="r">7 stops</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="radius scale corners 4 6 8 10 12 16 pill">
+          <div data-tk-slot="head"><div class="l"><b>05.01</b> Radii</div><div class="r">7 stops</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px">
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:4px">xs</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">4 · chip</div></div>
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:6px">sm</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">6 · button</div></div>
@@ -1101,7 +1009,7 @@
               <div style="display:flex;flex-direction:column;gap:8px"><div class="radius-cell" style="border-radius:9999px">pill</div><div style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.06em">9999 · status</div></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-radius-xs → --tk-radius-pill</span>
             <span class="path">no 24/32px "soft" cards — tekrogen radii are crisp</span>
           </div>
@@ -1116,16 +1024,16 @@
         <div class="r">hairlines carry the weight<br/><b>shadows are rare</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="shadow recipes hairline glow elevation">
-          <div class="card-head"><div class="l"><b>06.01</b> Three shadow recipes</div><div class="r">no diffuse "elevation" system</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="shadow recipes hairline glow elevation">
+          <div data-tk-slot="head"><div class="l"><b>06.01</b> Three shadow recipes</div><div class="r">no diffuse "elevation" system</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="shadow-row">
               <div class="shadow-tile s1">hairline · default</div>
               <div class="shadow-tile s2">shadow-2 · floating dock</div>
               <div class="shadow-tile glow">shadow-glow · primary cta</div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-shadow-1 · --tk-shadow-2 · --tk-shadow-glow</span>
             <span class="path">depth from contrast, not blur</span>
           </div>
@@ -1140,9 +1048,9 @@
         <div class="r">snappy out · gentle settle<br/><b>cubic-bezier(.2, .7, .2, 1)</b></div>
       </div>
       <div class="grid">
-        <article class="card span-8" data-name="motion durations 120 220 280 420 hover transform fade">
-          <div class="card-head"><div class="l"><b>07.01</b> Durations</div><div class="r">4 stops</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="8" data-name="motion durations 120 220 280 420 hover transform fade">
+          <div data-tk-slot="head"><div class="l"><b>07.01</b> Durations</div><div class="r">4 stops</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="motion-row">
               <div class="motion-line fast">
                 <span class="motion-label"><b>120ms</b> · hover</span>
@@ -1166,15 +1074,15 @@
               </div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-dur-1 → 4</span>
             <span class="path">no autoplay · no parallax · no bouncing buttons</span>
           </div>
         </article>
 
-        <article class="card span-4" data-name="easings cubic bezier ease bounce curve">
-          <div class="card-head"><div class="l"><b>07.02</b> Easings</div><div class="r">2 curves</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="4" data-name="easings cubic bezier ease bounce curve">
+          <div data-tk-slot="head"><div class="l"><b>07.02</b> Easings</div><div class="r">2 curves</div></div>
+          <div class="stretch" data-tk-slot="body">
             <pre class="codeblock"><span class="c">/* primary curve */</span>
 <span class="k">--tk-ease</span>:
   cubic-bezier(<span class="v">.2,.7,.2,1</span>);
@@ -1183,7 +1091,7 @@
 <span class="k">--tk-ease-bounce</span>:
   cubic-bezier(<span class="v">.2,.9,.3,1.2</span>);</pre>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-ease · --tk-ease-bounce</span>
             <span class="path">bounce reserved for tilt</span>
           </div>
@@ -1198,9 +1106,9 @@
         <div class="r">single most recognisable element<br/><b>--tk-tilt-mark: 18deg</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="tilt 18 dragonfly never upright signature">
-          <div class="card-head"><div class="l"><b>08.01</b> The mark is never upright</div><div class="r">never zero</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="tilt 18 dragonfly never upright signature">
+          <div data-tk-slot="head"><div class="l"><b>08.01</b> The mark is never upright</div><div class="r">never zero</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="tilt-stage">
               <div class="step">
                 <div class="box" style="transform:rotate(0deg);opacity:0.35">
@@ -1234,7 +1142,7 @@
               </div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-tilt-mark</span>
             <span class="path">rotated inside the SVG · no CSS wrapper needed</span>
           </div>
@@ -1252,30 +1160,30 @@
         <div class="r">mono caps · 0.12em · 11px<br/><b>4 variants</b></div>
       </div>
       <div class="grid">
-        <article class="card span-8" data-name="buttons primary secondary tertiary icon variants">
-          <div class="card-head"><div class="l"><b>09.01</b> Variants</div><div class="r">primary · secondary · tertiary · icon</div></div>
-          <div class="card-body" style="flex-direction:column;align-items:flex-start;gap:18px">
+        <article class="tk-card" data-span="8" data-name="buttons primary secondary tertiary icon variants">
+          <div data-tk-slot="head"><div class="l"><b>09.01</b> Variants</div><div class="r">primary · secondary · tertiary · icon</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;align-items:flex-start;gap:18px">
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-              <button class="btn primary">↓ Download all</button>
-              <button class="btn secondary">↓ Style guide</button>
-              <button class="btn tertiary">↗ Field notes</button>
-              <button class="btn secondary icon-only" aria-label="copy">⧉</button>
-              <button class="btn secondary icon-only" aria-label="external">↗</button>
+              <button class="tk-button">↓ Download all</button>
+              <button class="tk-button" data-variant="secondary">↓ Style guide</button>
+              <button class="tk-button" data-variant="tertiary">↗ Field notes</button>
+              <button class="tk-button" data-variant="secondary" data-size="icon" aria-label="copy">⧉</button>
+              <button class="tk-button" data-variant="secondary" data-size="icon" aria-label="external">↗</button>
             </div>
             <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
               <span style="display:inline-block;background:#1fd5da;color:#0e1116;padding:7px 14px;border-radius:6px;font-family:var(--tk-font-sans);font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase">Subscribe</span>
               <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-4)">sans subscribe · ghost header variant</span>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.btn .primary / .secondary / .tertiary / .icon-only</span>
             <span class="path">radius 6 · hover border → cyan · active scale 0.98</span>
           </div>
         </article>
 
-        <article class="card span-4" data-name="button hover state active pressed">
-          <div class="card-head"><div class="l"><b>09.02</b> State table</div><div class="r">hover · active</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="4" data-name="button hover state active pressed">
+          <div data-tk-slot="head"><div class="l"><b>09.02</b> State table</div><div class="r">hover · active</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div style="display:grid;grid-template-columns:auto 1fr;gap:12px 18px;font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--tk-fg-3)">
               <span>idle</span><span style="color:var(--tk-fg-1)">border · --tk-border</span>
               <span>hover</span><span style="color:var(--tk-accent)">border · --tk-focus · 120ms</span>
@@ -1284,7 +1192,7 @@
               <span>disabled</span><span style="color:var(--tk-fg-4)">opacity 0.4 · no cursor</span>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">all transitions · 120ms · --tk-ease</span>
             <span class="path">no shadow on hover</span>
           </div>
@@ -1299,19 +1207,19 @@
         <div class="r">status · category · dimension<br/><b>4 fills</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="mono pill label outline filled cyan muted dim">
-          <div class="card-head"><div class="l"><b>10.01</b> Pill variants</div><div class="r">outline · cyan · filled · muted · square dim</div></div>
-          <div class="card-body" style="flex-wrap:wrap;gap:12px">
-            <span class="mono-pill cyan">Field note · 04</span>
-            <span class="mono-pill">May 2026</span>
-            <span class="mono-pill filled">✓ Previewing</span>
-            <span class="mono-pill muted">Draft · v 0.3</span>
+        <article class="tk-card" data-span="12" data-name="mono pill label outline filled cyan muted dim">
+          <div data-tk-slot="head"><div class="l"><b>10.01</b> Pill variants</div><div class="r">outline · cyan · filled · muted · square dim</div></div>
+          <div data-tk-slot="body" style="flex-wrap:wrap;gap:12px">
+            <span class="tk-badge" data-variant="cyan">Field note · 04</span>
+            <span class="tk-badge">May 2026</span>
+            <span class="tk-badge" data-variant="filled">✓ Previewing</span>
+            <span class="tk-badge" data-variant="muted">Draft · v 0.3</span>
             <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tk-fg-3);background:var(--tk-bg-3);padding:5px 10px;border-radius:4px">600 × 160 · png</span>
-            <span class="mono-pill" style="border-color:color-mix(in srgb,#7edba5 50%,transparent);color:#7edba5">● Live</span>
-            <span class="mono-pill" style="border-color:color-mix(in srgb,#d96b5c 50%,transparent);color:#d96b5c">✗ Failed</span>
-            <span class="mono-pill" style="border-color:color-mix(in srgb,#e0a755 50%,transparent);color:#e0a755">! Warning</span>
+            <span class="tk-badge" style="border-color:color-mix(in srgb,#7edba5 50%,transparent);color:#7edba5">● Live</span>
+            <span class="tk-badge" style="border-color:color-mix(in srgb,#d96b5c 50%,transparent);color:#d96b5c">✗ Failed</span>
+            <span class="tk-badge" style="border-color:color-mix(in srgb,#e0a755 50%,transparent);color:#e0a755">! Warning</span>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.mono-pill · .cyan / .filled / .muted</span>
             <span class="path">radius pill · padding 5/11 · 10.5px · 0.14em tracking</span>
           </div>
@@ -1327,9 +1235,9 @@
       </div>
       <div class="grid">
 
-        <article class="card span-12" data-name="section head pattern eyebrow h2 right meta separator">
-          <div class="card-head"><div class="l"><b>11.01</b> Section-head pattern</div><div class="r">eyebrow + h2 + right meta</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="section head pattern eyebrow h2 right meta separator">
+          <div data-tk-slot="head"><div class="l"><b>11.01</b> Section-head pattern</div><div class="r">eyebrow + h2 + right meta</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div style="display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:14px;border-bottom:1px solid var(--tk-border);gap:24px">
               <div>
                 <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--tk-accent)">04 · domain split</div>
@@ -1338,7 +1246,7 @@
               <div style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tk-fg-3)">subtle · balanced · bold</div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.sec-head</span>
             <span class="path">used on every long doc · 14px padding · hairline border</span>
           </div>
@@ -1353,36 +1261,36 @@
         <div class="r">8px radius · cyan focus<br/><b>poppins 14</b></div>
       </div>
       <div class="grid">
-        <article class="card span-8" data-name="input field text email subscribe radius cyan">
-          <div class="card-head"><div class="l"><b>12.01</b> Field types</div><div class="r">text · email · subscribe</div></div>
-          <div class="card-body" style="flex-direction:column;align-items:stretch;gap:12px">
+        <article class="tk-card" data-span="8" data-name="input field text email subscribe radius cyan">
+          <div data-tk-slot="head"><div class="l"><b>12.01</b> Field types</div><div class="r">text · email · subscribe</div></div>
+          <div data-tk-slot="body" style="flex-direction:column;align-items:stretch;gap:12px">
             <div style="display:flex;gap:10px;align-items:center">
-              <input class="input" placeholder="you@domain.com" style="flex:1" />
-              <button class="btn primary">Subscribe</button>
+              <input class="tk-input" placeholder="you@domain.com" style="flex:1" />
+              <button class="tk-button">Subscribe</button>
             </div>
             <div style="display:flex;gap:10px;align-items:center">
-              <input class="input" placeholder="Search field notes…" style="flex:1" />
+              <input class="tk-input" placeholder="Search field notes…" style="flex:1" />
             </div>
             <div style="display:flex;gap:10px;align-items:center">
-              <input class="input" placeholder="Disabled state" disabled style="flex:1;opacity:0.5;cursor:not-allowed" />
+              <input class="tk-input" placeholder="Disabled state" disabled style="flex:1;opacity:0.5;cursor:not-allowed" />
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.input · --tk-radius-md · --tk-bg-3</span>
             <span class="path">used in: ghost subscribe · asset pack search</span>
           </div>
         </article>
 
-        <article class="card span-4" data-name="search input slash key shortcut">
-          <div class="card-head"><div class="l"><b>12.02</b> Search w/ key hint</div><div class="r">slash shortcut</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="4" data-name="search input slash key shortcut">
+          <div data-tk-slot="head"><div class="l"><b>12.02</b> Search w/ key hint</div><div class="r">slash shortcut</div></div>
+          <div data-tk-slot="body">
             <div style="display:flex;align-items:center;gap:10px;background:var(--tk-bg-3);border:1px solid var(--tk-border);border-radius:8px;padding:8px 12px;width:100%">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="color:var(--tk-fg-4);stroke-width:1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
               <span style="flex:1;color:var(--tk-fg-4);font-size:13.5px">Filter…</span>
               <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;color:var(--tk-fg-4);border:1px solid var(--tk-border);padding:2px 6px;border-radius:4px">/</span>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.search</span>
             <span class="path">kbd hint · mono</span>
           </div>
@@ -1397,18 +1305,18 @@
         <div class="r">gradient .org → .com<br/><b>5 sizes</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="avatars gradient initials sizes 24 32 40 56 80">
-          <div class="card-head"><div class="l"><b>13.01</b> Size ladder</div><div class="r">24 · 32 · 40 · 56 · 80</div></div>
-          <div class="card-body" style="gap:24px">
+        <article class="tk-card" data-span="12" data-name="avatars gradient initials sizes 24 32 40 56 80">
+          <div data-tk-slot="head"><div class="l"><b>13.01</b> Size ladder</div><div class="r">24 · 32 · 40 · 56 · 80</div></div>
+          <div data-tk-slot="body" style="gap:24px">
             <div style="display:flex;align-items:center;gap:24px">
-              <span class="avatar" style="width:24px;height:24px;font-size:12px">RD</span>
-              <span class="avatar" style="width:32px;height:32px;font-size:12px">RD</span>
-              <span class="avatar" style="width:40px;height:40px;font-size:14.4px">RD</span>
-              <span class="avatar" style="width:56px;height:56px;font-size:20.2px">RD</span>
-              <span class="avatar" style="width:80px;height:80px;font-size:28.8px">RD</span>
+              <span class="tk-avatar" style="width:24px;height:24px;font-size:12px">RD</span>
+              <span class="tk-avatar" style="width:32px;height:32px;font-size:12px">RD</span>
+              <span class="tk-avatar" style="width:40px;height:40px;font-size:14.4px">RD</span>
+              <span class="tk-avatar" style="width:56px;height:56px;font-size:20.2px">RD</span>
+              <span class="tk-avatar" style="width:80px;height:80px;font-size:28.8px">RD</span>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.avatar · linear-gradient(135deg, --tk-org → --tk-com)</span>
             <span class="path">initials · poppins 600 · font-size ≈ 36% of dim</span>
           </div>
@@ -1423,9 +1331,9 @@
         <div class="r">three optional zones<br/><b>head · body · foot</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="card anatomy zones head body foot border radius">
-          <div class="card-head"><div class="l"><b>14.01</b> Card · 3 zones</div><div class="r">overflow hidden · radius 12 · border-1</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="card anatomy zones head body foot border radius">
+          <div data-tk-slot="head"><div class="l"><b>14.01</b> Card · 3 zones</div><div class="r">overflow hidden · radius 12 · border-1</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="anatomy-card">
               <div><span>card-head · mono labels left/right</span><span class="annot">↳ border-bottom · 1px</span></div>
               <div class="body" style="border-bottom:1px solid var(--tk-border)">
@@ -1435,7 +1343,7 @@
               <div><span>card-foot · filename · [↓ btn]</span><span class="annot">↳ border-top · 1px</span></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.card-head · .card-body · .card-foot</span>
             <span class="path">paper variant overrides --tk-border to #E6EBEF</span>
           </div>
@@ -1450,29 +1358,29 @@
         <div class="r">shadow-2 surfaces only<br/><b>--tk-shadow-2</b></div>
       </div>
       <div class="grid">
-        <article class="card span-6" data-name="toast copied success notification mono">
-          <div class="card-head"><div class="l"><b>15.01</b> Toast · copied</div><div class="r">120ms in · 420ms hold · 280ms out</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="toast copied success notification mono">
+          <div data-tk-slot="head"><div class="l"><b>15.01</b> Toast · copied</div><div class="r">120ms in · 420ms hold · 280ms out</div></div>
+          <div data-tk-slot="body">
             <div class="toast">
               <span class="dot"></span>
               <span>✓ Copied SVG to clipboard</span>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">.toast · shadow-2</span>
             <span class="path">single line · no body copy</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="download dock floating cta primary cyan glow">
-          <div class="card-head"><div class="l"><b>15.02</b> Floating dock</div><div class="r">primary cta · glow ring</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="6" data-name="download dock floating cta primary cyan glow">
+          <div data-tk-slot="head"><div class="l"><b>15.02</b> Floating dock</div><div class="r">primary cta · glow ring</div></div>
+          <div data-tk-slot="body">
             <div style="display:inline-flex;align-items:center;gap:8px;background:var(--tk-bg-2);border:1px solid var(--tk-border);border-radius:10px;padding:8px 8px 8px 14px;box-shadow:0 14px 40px rgba(0,0,0,0.5)">
               <span style="font-family:var(--tk-font-mono);font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--tk-fg-3)">Ready · 6 assets</span>
-              <button class="btn primary" style="box-shadow:0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18)">↓ Download all</button>
+              <button class="tk-button" style="box-shadow:0 0 0 1px var(--tk-cyan), 0 0 24px rgba(31,213,218,0.18)">↓ Download all</button>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">--tk-shadow-glow on primary only</span>
             <span class="path">one glow per surface · never more</span>
           </div>
@@ -1487,9 +1395,9 @@
         <div class="r">unicode in mono · 8 canonical<br/><b>brand surfaces</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="glyphs vocabulary unicode mono download external check error copy close separator loading">
-          <div class="card-head"><div class="l"><b>16.01</b> Eight canonical glyphs</div><div class="r">brand surfaces only · no icon font</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="12" data-name="glyphs vocabulary unicode mono download external check error copy close separator loading">
+          <div data-tk-slot="head"><div class="l"><b>16.01</b> Eight canonical glyphs</div><div class="r">brand surfaces only · no icon font</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="glyph-grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
               <div class="glyph-cell"><div class="g">↓</div><div class="n">download</div></div>
               <div class="glyph-cell"><div class="g">↗</div><div class="n">external</div></div>
@@ -1501,7 +1409,7 @@
               <div class="glyph-cell"><div class="g">…</div><div class="n">loading</div></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">jetbrains mono 500 · inherits color</span>
             <span class="path">no icon font · no svg icon system on brand</span>
           </div>
@@ -1516,9 +1424,9 @@
         <div class="r">outline · 1.5 stroke · currentColor<br/><b>16 · 20 · 24 · 32</b></div>
       </div>
       <div class="grid">
-        <article class="card span-8" data-name="lucide icon set search mail rss arrow download file terminal book">
-          <div class="card-head"><div class="l"><b>17.01</b> Sample set</div><div class="r">canonical product affordances</div></div>
-          <div class="card-body stretch">
+        <article class="tk-card" data-span="8" data-name="lucide icon set search mail rss arrow download file terminal book">
+          <div data-tk-slot="head"><div class="l"><b>17.01</b> Sample set</div><div class="r">canonical product affordances</div></div>
+          <div class="stretch" data-tk-slot="body">
             <div class="icon-grid" style="grid-template-columns:repeat(auto-fit,minmax(96px,1fr))">
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span class="n">search</span></div>
               <div class="icon-cell"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><span class="n">mail</span></div>
@@ -1530,15 +1438,15 @@
               <div class="icon-cell" style="color:var(--tk-accent)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" x2="20" y1="19" y2="19"/></svg><span class="n">terminal</span></div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">stroke-width: 1.5 · currentColor</span>
             <span class="path">lucide.dev · don't substitute tabler/phosphor/heroicons</span>
           </div>
         </article>
 
-        <article class="card span-4" data-name="lucide scale 16 20 24 32 sizes 4 step search">
-          <div class="card-head"><div class="l"><b>17.02</b> Scale</div><div class="r">4-step</div></div>
-          <div class="card-body">
+        <article class="tk-card" data-span="4" data-name="lucide scale 16 20 24 32 sizes 4 step search">
+          <div data-tk-slot="head"><div class="l"><b>17.02</b> Scale</div><div class="r">4-step</div></div>
+          <div data-tk-slot="body">
             <div style="display:flex;align-items:flex-end;gap:24px;color:var(--tk-fg-2)">
               <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" style="stroke-width:1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -1558,7 +1466,7 @@
               </div>
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">16 / 20 / 24 / 32 · no 18 · no 21</span>
             <span class="path">matches --tk-space-* scale</span>
           </div>
@@ -1613,27 +1521,27 @@
         <div class="r">four wings, one pursuit<br/><b>tilted 18° clockwise</b></div>
       </div>
       <div class="grid">
-        <article class="card span-6" data-name="mark dragonfly ink dark surface inverse">
-          <div class="card-head"><div class="l"><b>18.01</b> Mark · ink</div><div class="r">inverse fills · dark bg</div></div>
-          <div class="card-body" style="background:var(--tk-ink)">
+        <article class="tk-card" data-span="6" data-name="mark dragonfly ink dark surface inverse">
+          <div data-tk-slot="head"><div class="l"><b>18.01</b> Mark · ink</div><div class="r">inverse fills · dark bg</div></div>
+          <div data-tk-slot="body" style="background:var(--tk-ink)">
             <div class="mark-stage" style="background:radial-gradient(circle at 60% 40%, rgba(31,213,218,0.10), transparent 60%)">
               <img src="assets/tekrogen-mark-inverse.svg" alt="Tekrogen dragonfly" style="width:120px;height:auto" />
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">assets/tekrogen-mark-inverse.svg</span>
             <span class="path">use on ink / ink-soft</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="mark dragonfly paper light surface body spine">
-          <div class="card-head"><div class="l"><b>18.02</b> Mark · paper</div><div class="r">body fills · light bg</div></div>
-          <div class="card-body" style="background:var(--tk-paper)">
+        <article class="tk-card" data-span="6" data-name="mark dragonfly paper light surface body spine">
+          <div data-tk-slot="head"><div class="l"><b>18.02</b> Mark · paper</div><div class="r">body fills · light bg</div></div>
+          <div data-tk-slot="body" style="background:var(--tk-paper)">
             <div class="mark-stage">
               <img src="assets/tekrogen-mark.svg" alt="Tekrogen dragonfly" style="width:120px;height:auto" />
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">assets/tekrogen-mark.svg</span>
             <span class="path">use on paper / paper-warm</span>
           </div>
@@ -1648,27 +1556,27 @@
         <div class="r">poppins 700 · 0.18em · locked<br/><b>600 × 160</b></div>
       </div>
       <div class="grid">
-        <article class="card span-6" data-name="lockup dark logo full wordmark ink">
-          <div class="card-head"><div class="l"><b>19.01</b> Lockup · dark</div><div class="r">ink bg · 600 × 160</div></div>
-          <div class="card-body" style="padding:0">
+        <article class="tk-card" data-span="6" data-name="lockup dark logo full wordmark ink">
+          <div data-tk-slot="head"><div class="l"><b>19.01</b> Lockup · dark</div><div class="r">ink bg · 600 × 160</div></div>
+          <div data-tk-slot="body" style="padding:0">
             <div class="lockup-stage ink">
               <img src="assets/tekrogen-logo-dark.svg" alt="Tekrogen logo on ink" />
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">assets/tekrogen-logo-dark.svg</span>
             <span class="path">ink bg · primary brand mode</span>
           </div>
         </article>
 
-        <article class="card span-6" data-name="lockup light logo full wordmark paper">
-          <div class="card-head"><div class="l"><b>19.02</b> Lockup · light</div><div class="r">paper bg · 600 × 160</div></div>
-          <div class="card-body" style="padding:0">
+        <article class="tk-card" data-span="6" data-name="lockup light logo full wordmark paper">
+          <div data-tk-slot="head"><div class="l"><b>19.02</b> Lockup · light</div><div class="r">paper bg · 600 × 160</div></div>
+          <div data-tk-slot="body" style="padding:0">
             <div class="lockup-stage paper">
               <img src="assets/tekrogen-logo-light.svg" alt="Tekrogen logo on paper" />
             </div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">assets/tekrogen-logo-light.svg</span>
             <span class="path">paper bg · print collateral</span>
           </div>
@@ -1683,16 +1591,16 @@
         <div class="r">rounded-square icon · dark bg<br/><b>16 → 256</b></div>
       </div>
       <div class="grid">
-        <article class="card span-12" data-name="favicon scale icon sizes 16 32 64 128 256 512">
-          <div class="card-head"><div class="l"><b>20.01</b> Icon sizes</div><div class="r">16 · 32 · 64 · 128 · 256</div></div>
-          <div class="card-body" style="gap:32px;align-items:flex-end">
+        <article class="tk-card" data-span="12" data-name="favicon scale icon sizes 16 32 64 128 256 512">
+          <div data-tk-slot="head"><div class="l"><b>20.01</b> Icon sizes</div><div class="r">16 · 32 · 64 · 128 · 256</div></div>
+          <div data-tk-slot="body" style="gap:32px;align-items:flex-end">
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><img src="assets/favicon.svg" alt="" style="width:16px;height:16px"><span style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.08em">16</span></div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><img src="assets/favicon.svg" alt="" style="width:32px;height:32px"><span style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.08em">32</span></div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><img src="assets/tekrogen-icon-256.svg" alt="" style="width:64px;height:64px;border-radius:14px"><span style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.08em">64</span></div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><img src="assets/tekrogen-icon-256.svg" alt="" style="width:128px;height:128px;border-radius:24px"><span style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.08em">128</span></div>
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px"><img src="assets/tekrogen-icon-512.svg" alt="" style="width:200px;height:200px;border-radius:36px"><span style="font-family:var(--tk-font-mono);font-size:12px;color:var(--tk-fg-4);letter-spacing:0.08em">256</span></div>
           </div>
-          <div class="card-foot">
+          <div data-tk-slot="foot">
             <span class="token">assets/favicon.svg · tekrogen-icon-{256,512}.svg</span>
             <span class="path">rounded-square wrap · dark bg only</span>
           </div>
@@ -1707,22 +1615,22 @@
         <div class="r">1200 × 630 · png<br/><b>default · series · author</b></div>
       </div>
       <div class="grid">
-        <article class="card span-4" data-name="og default homepage card 1200 630">
-          <div class="card-head"><div class="l"><b>21.01</b> Default</div><div class="r">homepage</div></div>
-          <div class="card-body" style="padding:0"><div class="og-stage"><img src="assets/og-default.png" alt="OG default" /></div></div>
-          <div class="card-foot"><span class="token">og-default.png</span><span class="path">1200 × 630</span></div>
+        <article class="tk-card" data-span="4" data-name="og default homepage card 1200 630">
+          <div data-tk-slot="head"><div class="l"><b>21.01</b> Default</div><div class="r">homepage</div></div>
+          <div data-tk-slot="body" style="padding:0"><div class="og-stage"><img src="assets/og-default.png" alt="OG default" /></div></div>
+          <div data-tk-slot="foot"><span class="token">og-default.png</span><span class="path">1200 × 630</span></div>
         </article>
 
-        <article class="card span-4" data-name="og series card collection">
-          <div class="card-head"><div class="l"><b>21.02</b> Series</div><div class="r">collection</div></div>
-          <div class="card-body" style="padding:0"><div class="og-stage"><img src="assets/og-series.png" alt="OG series" /></div></div>
-          <div class="card-foot"><span class="token">og-series.png</span><span class="path">1200 × 630</span></div>
+        <article class="tk-card" data-span="4" data-name="og series card collection">
+          <div data-tk-slot="head"><div class="l"><b>21.02</b> Series</div><div class="r">collection</div></div>
+          <div data-tk-slot="body" style="padding:0"><div class="og-stage"><img src="assets/og-series.png" alt="OG series" /></div></div>
+          <div data-tk-slot="foot"><span class="token">og-series.png</span><span class="path">1200 × 630</span></div>
         </article>
 
-        <article class="card span-4" data-name="og author byline marti template">
-          <div class="card-head"><div class="l"><b>21.03</b> Author</div><div class="r">byline</div></div>
-          <div class="card-body" style="padding:0"><div class="og-stage"><img src="assets/og-author-marti.png" alt="OG author" /></div></div>
-          <div class="card-foot"><span class="token">og-author-*.png</span><span class="path">1200 × 630 · template</span></div>
+        <article class="tk-card" data-span="4" data-name="og author byline marti template">
+          <div data-tk-slot="head"><div class="l"><b>21.03</b> Author</div><div class="r">byline</div></div>
+          <div data-tk-slot="body" style="padding:0"><div class="og-stage"><img src="assets/og-author-marti.png" alt="OG author" /></div></div>
+          <div data-tk-slot="foot"><span class="token">og-author-*.png</span><span class="path">1200 × 630 · template</span></div>
         </article>
       </div>
     </section>
@@ -1816,7 +1724,7 @@
 <script>
   // ─── Filter ──────────────────────────────────────────────────
   const filterInput = document.getElementById('filter');
-  const cards = document.querySelectorAll('.card[data-name], .kit-card[data-name]');
+  const cards = document.querySelectorAll('.tk-card[data-name], .kit-card[data-name]');
   const sections = document.querySelectorAll('section.cat');
   const empty = document.getElementById('empty-state');
 
@@ -1830,7 +1738,7 @@
       if (match) anyShown = true;
     });
     sections.forEach(sec => {
-      const visibleCards = sec.querySelectorAll('.card:not(.hide), .kit-card:not(.hide)');
+      const visibleCards = sec.querySelectorAll('.tk-card:not(.hide), .kit-card:not(.hide)');
       const secHay = (sec.dataset.name || '') + ' ' + (sec.querySelector('h2')?.textContent || '');
       const secMatch = !q || secHay.toLowerCase().includes(q) || visibleCards.length > 0;
       sec.classList.toggle('hide', !secMatch);
