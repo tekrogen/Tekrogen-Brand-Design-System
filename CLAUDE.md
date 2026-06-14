@@ -21,6 +21,10 @@ A **static, no-build design system** for the Tekrogen practice — four sibling 
 
 Everything is hand-authored HTML/JSX/CSS — **no bundler, no npm install**. JSX runs through Babel-standalone in the browser.
 
+## Reference Documentation
+
+[`ref/README.md`](ref/README.md) is a **pointer index** — "what you need → which canonical doc" (ADRs, the sections of this file, the gallery/study surfaces, tokens, the status recap). It deliberately points rather than duplicates (single-source, ADR-0002); the canonical source always wins.
+
 ## Key Components
 
 | Path | Role |
